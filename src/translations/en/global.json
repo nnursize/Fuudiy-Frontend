@@ -1,0 +1,20 @@
+{
+    "login": "Login",
+    "register": "Register",
+    "username": "Username",
+    "password": "Password",
+    "email": "Email",
+    "remember_me": "Remember Me",
+    "forgot_password": "Forgot Password?",
+    "no_account": "Don't have an account?",
+    "have_account": "Already have an account?",
+    "agree_terms": "I agree to the terms",
+    "survey_question": "Survey Question",
+  "of": "of",
+  "loading": "Loading...",
+  "previous": "Previous",
+  "next": "Next",
+  "submit": "Submit",
+  "your_answer": "Your answer"
+  }
+  
