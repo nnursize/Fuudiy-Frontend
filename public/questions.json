@@ -1,0 +1,97 @@
+[
+  {
+    "type": "checkbox",
+    "name": "question2",
+    "title": "Favori mutfak türlerinizi seçiniz:",
+    "choices": [
+      { "value": "Türk", "text": "Türk" },
+      { "value": "İtalyan", "text": "İtalyan" },
+      { "value": "Akdeniz", "text": "Akdeniz" },
+      { "value": "Çin", "text": "Çin" },
+      { "value": "Hint", "text": "Hint" },
+      { "value": "Meksika", "text": "Meksika" },
+      { "value": "Ortadoğu", "text": "Ortadoğu" },
+      { "value": "Amerikan", "text": "Amerikan" },
+      { "value": "Japon", "text": "Japon" },
+      { "value": "Fransız", "text": "Fransız" }
+    ],
+    "showSelectAllItem": true,
+    "selectAllText": "Hepsi"
+  },
+  {
+    "type": "checkbox",
+    "name": "question1",
+    "title": "Belirli bir diyet uyguluyor musunuz? Tüm uygun seçenekleri işaretleyin:",
+    "choices": [
+      { "value": "Vejeteryan", "text": "Vejeteryan" },
+      { "value": "Vegan", "text": "Vegan" },
+      { "value": "Glütensiz", "text": "Glütensiz" },
+      { "value": "Laktozsuz", "text": "Laktozsuz" }
+    ],
+    "showOtherItem": true,
+    "showNoneItem": true,
+    "noneText": "Hiçbiri"
+  },
+  {
+    "type": "checkbox",
+    "name": "question3",
+    "title": "Gıda alerjiniz var mı? Uygun olanları seçiniz:",
+    "choices": [
+      { "value": "Yer fıstığı", "text": "Yer fıstığı" },
+      { "value": "Çerez", "text": "Çerez (ör. badem, ceviz)" },
+      { "value": "Kabuklu deniz ürünleri", "text": "Kabuklu deniz ürünleri" },
+      { "value": "Balık ve balık ürünleri", "text": "Balık ve balık ürünleri" },
+      { "value": "Süt ürünleri", "text": "Süt ürünleri" },
+      { "value": "Yumurta", "text": "Yumurta" },
+      { "value": "Glüten", "text": "Glüten" },
+      { "value": "Soya", "text": "Soya" },
+      { "value": "Buğday", "text": "Buğday" },
+      { "value": "Susam", "text": "Susam" }
+    ],
+    "showOtherItem": true
+  },
+  {
+    "type": "matrix",
+    "name": "question4",
+    "title": "Farklı yemek türleri için tercihinizi belirtiniz:",
+    "columns": [
+      { "value": "Sevmiyorum", "text": "Sevmiyorum" },
+      { "value": "Seviyorum", "text": "Seviyorum" },
+      { "value": "Çok seviyorum", "text": "Çok seviyorum" }
+    ],
+    "rows": [
+      { "value": "Sebze Yemekleri", "text": "Sebze Yemekleri" },
+      { "value": "Et Yemekleri", "text": "Et Yemekleri" },
+      { "value": "Deniz Ürünleri", "text": "Deniz Ürünleri" },
+      { "value": "Hamur İşleri ve Ekmek", "text": "Hamur İşleri ve Ekmek" },
+      { "value": "Tatlılar ve Şekerlemeler", "text": "Tatlılar ve Şekerlemeler" }
+    ]
+  },
+  {
+    "type": "checkbox",
+    "name": "question5",
+    "title": "Favori malzemeleri seçiniz:",
+    "choices": [
+      "Tavuk",
+      "Balık",
+      "Kırmızı et",
+      "Makarna",
+      "Pirinç",
+      "Patates",
+      "Peynir",
+      "Fasulye",
+      "Yeşil Zeytin",
+      "Siyah zeytin",
+      "Soğan",
+      "Sarımsak",
+      "Taze otlar",
+      "Kuruyemiş",
+      "Meyve"
+    ]
+  },
+  {
+    "type": "text",
+    "name": "question6",
+    "title": "Bir önceki sorudaki şıklardan sevmediklerinizi yazınız"
+  }
+]
