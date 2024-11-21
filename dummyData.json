@@ -1,0 +1,73 @@
+[
+    {
+      "_id": "1",
+      "name": "Pizza",
+      "description": "A classic Italian dish made with a flatbread base, tomato sauce, cheese, and various toppings.",
+      "imageUrl": "https://via.placeholder.com/250?text=Pizza",
+      "ingredients": ["Flour", "Tomato Sauce", "Cheese", "Pepperoni"]
+    },
+    {
+      "_id": "2",
+      "name": "Tacos",
+      "description": "A traditional Mexican dish consisting of a small hand-sized corn or wheat tortilla topped with a filling.",
+      "imageUrl": "https://via.placeholder.com/250?text=Tacos",
+      "ingredients": ["Tortilla", "Chicken", "Lettuce", "Salsa"]
+    },
+    {
+      "_id": "3",
+      "name": "Butter Chicken",
+      "description": "An Indian curry made with a spiced tomato, butter, and cream sauce, served with tender chicken.",
+      "imageUrl": "https://via.placeholder.com/250?text=Butter+Chicken",
+      "ingredients": ["Chicken", "Tomatoes", "Butter", "Cream", "Spices"]
+    },
+    {
+      "_id": "4",
+      "name": "Sushi",
+      "description": "A Japanese dish featuring vinegared rice, raw fish, and vegetables rolled in seaweed.",
+      "imageUrl": "https://via.placeholder.com/250?text=Sushi",
+      "ingredients": ["Rice", "Seaweed", "Raw Fish", "Avocado", "Cucumber"]
+    },
+    {
+      "_id": "5",
+      "name": "Burger",
+      "description": "A sandwich consisting of a cooked patty of ground meat placed inside a sliced bread roll or bun.",
+      "imageUrl": "https://via.placeholder.com/250?text=Burger",
+      "ingredients": ["Beef Patty", "Lettuce", "Cheese", "Bun", "Pickles"]
+    },
+    {
+      "_id": "6",
+      "name": "Ramen",
+      "description": "A Japanese noodle soup with a rich, flavorful broth, sliced meat, boiled egg, and vegetables.",
+      "imageUrl": "https://via.placeholder.com/250?text=Ramen",
+      "ingredients": ["Noodles", "Pork", "Broth", "Egg", "Scallions"]
+    },
+    {
+      "_id": "7",
+      "name": "Paella",
+      "description": "A Spanish rice dish that includes seafood, chicken, and vegetables cooked in saffron-flavored broth.",
+      "imageUrl": "https://via.placeholder.com/250?text=Paella",
+      "ingredients": ["Rice", "Shrimp", "Chicken", "Peas", "Saffron"]
+    },
+    {
+      "_id": "8",
+      "name": "Falafel",
+      "description": "A Middle Eastern dish made from ground chickpeas or fava beans, formed into balls and deep-fried.",
+      "imageUrl": "https://via.placeholder.com/250?text=Falafel",
+      "ingredients": ["Chickpeas", "Parsley", "Garlic", "Cumin", "Oil"]
+    },
+    {
+      "_id": "9",
+      "name": "Pasta Carbonara",
+      "description": "An Italian pasta dish made with eggs, cheese, pancetta, and black pepper.",
+      "imageUrl": "https://via.placeholder.com/250?text=Carbonara",
+      "ingredients": ["Pasta", "Eggs", "Pancetta", "Parmesan Cheese", "Black Pepper"]
+    },
+    {
+      "_id": "10",
+      "name": "Pad Thai",
+      "description": "A popular Thai stir-fried noodle dish with shrimp, peanuts, scrambled eggs, and bean sprouts.",
+      "imageUrl": "https://via.placeholder.com/250?text=Pad+Thai",
+      "ingredients": ["Rice Noodles", "Shrimp", "Peanuts", "Eggs", "Bean Sprouts"]
+    }
+  ]
+  
