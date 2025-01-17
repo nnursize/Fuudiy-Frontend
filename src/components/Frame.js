@@ -1,18 +1,8 @@
-// src/components/Frame.js
 import React from 'react';
-import './LoginRegister.css';
+import styles from './Frame.module.css'; // Import the scoped CSS
 
-const Frame = ({ children, title, onSubmit }) => {
-  return (
-    <div className="wrapper">
-      <div className="form-box">
-        <form onSubmit={onSubmit}>
-          <h1>{title}</h1>
-          {children} {/* Render children (e.g., input fields, buttons) here */}
-        </form>
-      </div>
-    </div>
-  );
+const Frame = ({ children }) => {
+  return <div className={styles["frame-container"]}>{children}</div>;
 };
 
 export default Frame;

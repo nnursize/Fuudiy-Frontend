@@ -1,16 +1,18 @@
-body {
-    font-family: "Poppins", sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
 
-    /* Set background to the image */
-    background: url('../assets/login_background.jpg') no-repeat center center;
-    /* Ensure the image covers the entire viewport */
-    background-size: cover;
+/* Frame.module.css */
+.frame-container {
+  font-family: "Poppins", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+
+  /* Set background to the image */
+  background: url('../assets/login_background.jpg') no-repeat center center;
+  /* Ensure the image covers the entire viewport */
+  background-size: cover;
 }
 
   

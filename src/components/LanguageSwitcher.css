@@ -5,13 +5,16 @@
   }
   
   .language-switch button {
-    margin: 0 5px;
-    padding: 8px 12px;
-    background-color: #f0f0f0;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #ffffffdc;
+    border-radius: 50px;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 13px;
+    padding: 5px 10px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    height: 30px;
+    
   }
   
   .language-switch button:hover {
