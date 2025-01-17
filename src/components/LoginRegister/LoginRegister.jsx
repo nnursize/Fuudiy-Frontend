@@ -6,91 +6,79 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
 const LoginRegister = () => {
-    const [action, setAction] = useState(''); // Track active or passive state
+  const [isLogin, setIsLogin] = useState(true); // Toggle login/register form
+  const {t, i18n} = useTranslation("global");
+  //const {t} = useTranslation("global");
+  console.log(t("login")); // Should show the translated string based on the selected language
 
-    const registerLink = () => {
-        setAction(' active');
-    };
 
-    const loginLink = () => {
-        setAction(' passive');
-    };
+  // Change language function
+  const changeLanguage = (lng) => {
+    console.log(`Switching language to: ${lng}`); // Check if this appears in the console
+    i18n.changeLanguage(lng)
+    .then(() => console.log(`Language changed to: ${lng}`))
+    .catch((err) => console.error("Language switch failed:", err));
+  };
 
-    const [t, i18n] = useTranslation("global");
-
-    const changeLanguage = (lng) => {
-        i18n.changeLanguage(lng);
-    };
-
-    return (
-        <div className={`wrapper${action}`}>
-            
-            <div className='form-box login'>
-                <div className="language-switch">
-                    <button onClick={() => changeLanguage('en')}>EN</button>
-                    <button onClick={() => changeLanguage('tr')}>TR</button>
+  return (
+    <div className="wrapper">
+      <div className="language-switch">
+        <button onClick={() => changeLanguage('en')}>EN</button>
+        <button onClick={() => changeLanguage('tr')}>TR</button>
+      </div>
+      
+      {isLogin ? (
+        <div className="form-box login">
+          <form>
+            <h1>{t('login')}</h1>
+            <div className="input-box">
+              <input type="text" placeholder={t('username')} required />
+              <FaUser className="icon" />
             </div>
-                <form action=''>
-                    <h1>{t('login')}</h1>
-                    <div className="input-box">
-                        <input type='text' placeholder={t('username')} required />
-                        <FaUser className='icon' />
-                    </div>
-                    <div className="input-box">
-                        <input type='password' placeholder={t('password')} required />
-                        <FaLock className='icon' />
-                    </div>
-
-                    <div className="remember-forgot">
-                        <label><input type='checkbox' /> {t('remember_me')}</label>
-                        <a href='#'>{t('forgot_password')}</a>
-                    </div>
-
-                    <button type='submit'>{t('login')}</button>
-
-                    <div className="register-link">
-                        <p>{t('no_account')} <a href="#" onClick={registerLink} >{t('register')}</a></p>
-                    </div>
-                </form>
+            <div className="input-box">
+              <input type="password" placeholder={t('password')} required />
+              <FaLock className="icon" />
             </div>
-
-            <div className='form-box register'>
-
-            <div className="language-switch">
-                    <button onClick={() => changeLanguage('en')} >EN</button>
-                    <button onClick={() => changeLanguage('tr')} >TR</button>
-                </div>
-                <form action=''>
-                    <h1>{t('register')}</h1>
-                    <div className="input-box">
-                        <input type='text' placeholder={t('username')} required />
-                        <FaUser className='icon' />
-                    </div>
-                    <div className="input-box">
-                        <input type='email' placeholder={t('email')} required />
-                        <MdEmail className='icon' />
-                    </div>
-                    <div className="input-box">
-                        <input type='password' placeholder={t('password')}required />
-                        <FaLock className='icon' />
-                    </div>
-
-                    <div className="remember-forgot">
-                        <label><input type='checkbox' /> {t('agree_terms')}</label>
-                    </div>
-
-                    <button type='submit'> {t('register')} </button>
- <div className="register-link">
-                        <p><Link to="/Survey">Go to Survey</Link></p>
-                    </div>
-                    <div className="register-link">
-                        <p>{t('have_account')} <a href="#" onClick={loginLink}>{t('login')}</a></p>
-                    </div>
-                   
-                </form>
+            <div className="register-link">
+              <p>
+                {t('no_account')}{" "}
+                <span className="toggle-link" onClick={() => setIsLogin(false)}>{t('register')}</span>
+              </p>
             </div>
+            <button type="submit">{t('login')}</button>
+          </form>
         </div>
-    );
-}
+      ) : (
+        <div className="form-box register">
+          <form>
+            <h1>{t('register')}</h1>
+            <div className="input-box">
+              <input type="text" placeholder={t('username')} required />
+              <FaUser className="icon" />
+            </div>
+            <div className="input-box">
+              <input type="email" placeholder={t('email')} required />
+              <MdEmail className="icon" />
+            </div>
+            <div className="input-box">
+              <input type="password" placeholder={t('password')} required />
+              <FaLock className="icon" />
+            </div>
+            <div className="register-link">
+              <p>
+                {t('have_account')}{" "}
+                <span className="toggle-link" onClick={() => setIsLogin(true)}>{t('login')}</span>
+              </p>
+              <p>
+                <Link to="/Survey">{t('go_to_survey')}</Link>
+              </p>
+            </div>
+            <button type="submit">{t('register')}</button>
+          </form>
+        </div>
+      )}
+    </div>
+  );
+};
 
 export default LoginRegister;
