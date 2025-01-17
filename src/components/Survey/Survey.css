@@ -7,7 +7,7 @@
     margin: 0;
     background-color: #f1acac;
   }
-   */
+   *//*
   .survey-container {
     position: relative;
     background: rgb(247, 217, 198);
@@ -26,9 +26,9 @@
   gap: 5px;
   position: absolute;
   display:grid;
-  background-color: #007bff;
+  /*background-color: #007bff;*/
 
-}
+/*}
 .wrapper .language-switch button{
   display: inline;
   background: transparent;
@@ -50,19 +50,8 @@
     color: #333;
   }
   
-  p {
-    font-size: 20px;
-    color: #666;
-    margin-bottom: 1.5rem;
-  }
   
-  span{
-    font-size: 20px;
-    color: #666;
-    margin-bottom: 1.5rem;
-    display:grid;
-
-  }
+ 
 
   label .matrix-option{
     flex-direction: row;
@@ -82,7 +71,15 @@
     text-align: center;
     width: 300px;
   }
-  
+
+  /*
+   span{
+    font-size: 20px;
+    color: #666;
+    margin-bottom: 1.5rem;
+    display:grid;
+
+  }*//*
   .matrix-row {
     flex-direction: row;
     font-size: 20px;
@@ -90,13 +87,8 @@
     width: 500px;
     
   }
-  
-  span{
-    display: flex;
-    flex-direction: row;
-    font-size: 20px;
-    text-align: center;
-  }
+
+
   .option-label {
     margin: 8px 0;
     font-size: 20px;
@@ -150,4 +142,11 @@
   .submit-button:hover {
     background-color: #0056b3;
   }
+
+  /*
+  p {
+    font-size: 20px;
+    color: #666;
+    margin-bottom: 1.5rem;
+  }*/
   

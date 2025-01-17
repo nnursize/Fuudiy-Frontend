@@ -1,6 +1,3 @@
-
-
-
 body {
     font-family: "Poppins", sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -9,135 +6,106 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-image: url("/login_background.jpg") no-repeat;
-    background-size: cover;
-    background-position: center;
-  }
 
-.wrapper{
+    /* Set background to the image */
+    background: url('../Assets/login_background.jpg') no-repeat center center;
+
+    /* Ensure the image covers the entire viewport */
+    background-size: cover;
+}
+
+  
+  .wrapper {
     position: relative;
-    background: transparent;
-    border: 2px solid rgb(255, 255, 255,.2);
-    color: #ffff;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
     backdrop-filter: blur(20px);
     border-radius: 20px;
-    padding: 20px 0;
+    padding: 20px;
     display: flex;
-    height: 430px;
+    flex-direction: column;
+    align-items: center;
+    max-width: 450px;
+    width: 100%;
     overflow: hidden;
-}
-
-
-.wrapper.pasive{
-    height: 430px;
-}
-
-.wrapper.active{
-    height: 510px;
-}
-
-.wrapper .form-box{
-    width : 100%;
-    padding:  20px 10px 0 10px;
-}
-
-.wrapper .form-box.login .language-switch{
+  }
+  
+  .wrapper .form-box {
+    width: 100%;
+    padding: 20px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .wrapper .language-switch {
+    display: flex;
     justify-content: flex-end;
     gap: 10px;
     position: absolute;
-    display:list-item;
-    width: 30px;
-
-}
-.wrapper .form-box.login .language-switch button{
-    
+    top: 10px;
+    right: 10px;
+  }
+  
+  .wrapper  .language-switch button {
     background: transparent;
     border: 1px solid rgba(255, 255, 255, 0.3);
     color: #ffffffdc;
     border-radius: 50px;
     cursor: pointer;
     font-size: 13px;
+    padding: 5px 10px;
     transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  .wrapper  .language-switch button:hover {
+    background: #ffffff80;
+
+  }
+  
+  .register-link p  {
     position: relative;
-    height: 20px;
-    padding: 0%;
-    margin: 5px;
-}
-
-
-.wrapper .form-box.register .language-switch{
+    display: flex;
     justify-content: flex-end;
-    gap: 10px;
-    position: absolute;
-    display:list-item;
-    width: 30px;
-
-}
-
-.wrapper .language-switch.register button{
-    
-    background: transparent;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    color: #ffffffdc;
-    border-radius: 50px;
-    cursor: pointer;
-    font-size: 13px;
-    transition: background-color 0.3s ease, color 0.3s ease;
-    position: relative;
-    height: 20px;
-    padding: 0%;
-    margin: 5px;
-}
-
-.wrapper .language-switch button:hover{
-    background:#ffffff80;
-    
-}
-
-.wrapper .form-box.login{
-    transition: translate .18s ease;
-    translate: 0;
-    position: absolute;
-
-}
-
-.wrapper.active .form-box.login{
-    position: relative;
-    transition: none;
-    translate: -450px;
-    
-}
-
-.wrapper .form-box.register{
-    position: relative;
-    transition: none;
-    translate: 450px;
-    
-}
-
-.wrapper.active .form-box.register{
-    transition: translate .18s ease;
-    translate: 0;
-    
-    position: absolute;
-}
-
-form h1{
-    font-size:  36px;
+    gap: 40px;
+    padding: 0px 60px 20px 0px;
     text-align: center;
+  }
 
-}
+  .register-link p span {
+    color: #ffff;
+    text-decoration: none;
+    font-weight: 600;
 
+  }
 
-form .input-box{
+  .register-link p span:hover{
+    text-decoration: underline;
+  } 
+  
+  .register-link p a {
+    font-weight: 600;
+    text-align: center;
+    padding: 0px 50px 10px 0px;
+
+  }
+
+  form h1 {
+    font-size: 28px;
+    text-align: center;
+    margin-bottom: 10px;
+    color: #ffffff;
+  }
+  
+  .input-box {
     position: relative;
     width: 100%;
     height: 50px;
     margin: 30px 0;
-
-}
-
-.input-box input{
+  }
+  
+  .input-box input {
     width: 100%;
     height: 100%;
     background: transparent;
@@ -147,74 +115,50 @@ form .input-box{
     font-size: 20px;
     color: #ffff;
     padding: 20px 45px 20px 20px;
-
-} 
-
-.input-box input::placeholder{
-    color: #ffff;
-}
-
-.input-box .icon{
+  }
+  
+  .input-box input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+  }
+  
+  .input-box .icon {
     position: absolute;
-    right: 20px;
+    right: 15px;
     top: 50%;
     transform: translateY(-50%);
     font-size: 20px;
-}
-
-.wrapper .remember-forgot{
-    display: flex;
-    justify-content: space-between;
-    font-size:  18px;
-    margin: -15px 0 15x;
-    padding: 15px;
-}
-
-.remember-forgot label input{
-    accent-color: #ffff;
-    margin-right: 4px ;
-}
-
-.remember-forgot a{
-    color: #ffff;
-    text-decoration: none;
-}
-
-.remember-forgot a:hover{
-    text-decoration: underline;
-}
-
-.form-box button{
+    color: rgba(255, 255, 255, 0.6);
+  }
+  
+  form button {
     width: 100%;
-    height: 50%;
-    background:#ffff;
+    height: 50px;
+    background: #ffffff;
     border: none;
-    outline: none;
-    border-radius: 40px;
-    box-shadow: 0 0 10px rgba(0, 0,0,.1);
-    cursor: pointer;
-    font-size: 19px;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: bold;
     color: #333;
-    font-weight: 700;
-    
-}
-
-form p {
-    color :  #ffffffdc;
-}
-form .register-link{
-    font-size: 14.5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  form button:hover {
+    background: #f0f0f0;
+  }
+  
+  .register-link {
     text-align: center;
-    margin: 20px 0 15px;
-}
-
-.register-link p a{
-    color: #ffff;
+    font-size: 14px;
+  }
+  
+  .register-link a {
+    color: #ffffff;
+    font-weight: bold;
     text-decoration: none;
-    font-weight: 600;
-}
-
-.register-link p a:hover{
+  }
+  
+  .register-link a:hover {
     text-decoration: underline;
-}
-
+  }
+    
