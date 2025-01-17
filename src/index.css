@@ -30,7 +30,7 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background:white/*url("./components/Assets/background.jpg")*/
+  background:white/*url("./assets/background.jpg")*/
   no-repeat;
   background-size: cover;
   background-position: center;

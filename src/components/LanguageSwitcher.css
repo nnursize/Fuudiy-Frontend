@@ -1,0 +1,24 @@
+/* src/components/LanguageSwitcher.css */
+.language-switch {
+    margin-bottom: 15px;
+    text-align: center;
+  }
+  
+  .language-switch button {
+    margin: 0 5px;
+    padding: 8px 12px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .language-switch button:hover {
+    background-color: #ddd;
+  }
+  
+  .language-switch button:active {
+    background-color: #bbb;
+  }
+  
