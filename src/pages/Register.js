@@ -34,6 +34,7 @@ const Register = () => {
       {/* Language Switcher */}
       <LanguageSwitcher changeLanguage={changeLanguage} />
 
+      <h1>{t('register')}</h1>
       {/* Register Form Fields */}
       <div className="input-box">
         <input type="text" placeholder={t('username')} required />

@@ -32,7 +32,8 @@ const Login = () => {
     <Frame title={t('login')} onSubmit={handleLoginSubmit}>
       {/* Language Switcher */}
       <LanguageSwitcher changeLanguage={changeLanguage} />
-
+      
+      <h1>{t('login')}</h1>
       {/* Login Form Fields */}
       <div className="input-box">
         <input type="text" placeholder={t('username')} required />
