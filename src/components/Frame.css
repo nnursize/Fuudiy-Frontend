@@ -68,9 +68,10 @@
     display: flex;
     justify-content: flex-end;
     gap: 40px;
-    padding: 0px 60px 20px 0px;
     text-align: center;
     font-weight: 600;
+    
+    text-align: center; 
 
   }
 
@@ -162,3 +163,9 @@
   .register-link a:hover {
     text-decoration: underline;
   }
+
+   h1{
+    font-size:  36px;
+    text-align: center;
+
+}
