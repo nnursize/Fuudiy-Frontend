@@ -1,5 +1,5 @@
 // src/pages/Register.js
-import React from 'react';
+import React, { useEffect } from 'react';
 import Frame from '../components/Frame';
 import LanguageSwitcher from '../components/LanguageSwitcher';
 import { FaUser, FaLock } from "react-icons/fa";
@@ -9,6 +9,14 @@ import { Link } from 'react-router-dom';
 
 const Register = () => {
   const { t, i18n } = useTranslation("global");
+
+  // Add `frame-body` class to the body when this component is mounted
+  useEffect(() => {
+    document.body.classList.add('frame-body'); // Add the class
+    return () => {
+      document.body.classList.remove('frame-body'); // Cleanup on unmount
+    };
+  }, []);
 
   const changeLanguage = (lng) => {
     i18n.changeLanguage(lng)

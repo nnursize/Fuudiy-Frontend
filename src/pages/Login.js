@@ -1,5 +1,5 @@
 // src/pages/Login.js
-import React from 'react';
+import React, { useEffect } from 'react';
 import Frame from '../components/Frame';
 import LanguageSwitcher from '../components/LanguageSwitcher';
 import { FaUser, FaLock } from "react-icons/fa";
@@ -8,6 +8,14 @@ import { Link } from 'react-router-dom';
 
 const Login = () => {
   const { t, i18n } = useTranslation("global");
+
+  // Dynamically add/remove the `body` class
+  useEffect(() => {
+    document.body.classList.add('frame-body'); // Add class to body
+    return () => {
+      document.body.classList.remove('frame-body'); // Remove class on cleanup
+    };
+  }, []);
 
   const changeLanguage = (lng) => {
     i18n.changeLanguage(lng)
