@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 const HeroContainer = styled.section`
   height: 400px;
+  width: %100;
   background-image: url('/home_background.jpeg');
   background-size: cover;
   background-position: center;
@@ -31,11 +32,13 @@ const HeroText = styled.div`
 const SearchBar = styled.input`
   padding: 0.8rem 2rem; /* Increase padding to make it taller */
   width: 60%;           /* Adjust width for a larger search bar */
-  max-width: 600px;     /* Set max width for larger screens */
+  max-width: 800px;     /* Set max width for larger screens */
   border-radius: 20px;
   border: 1px solid #ddd;
   outline: none;
-  margin-top: 1rem;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10rem;
   font-size: 1rem;      /* Increase font size if needed */
   background: rgb(255, 255, 255,.2);
   `;
