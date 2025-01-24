@@ -5,7 +5,7 @@ import LanguageSwitcher from '../components/LanguageSwitcher';
 import { FaUser, FaLock } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
+import { Link,useNavigate } from 'react-router-dom';
 
 const Register = () => {
   const { t, i18n } = useTranslation("global");
@@ -27,6 +27,12 @@ const Register = () => {
   const handleRegisterSubmit = (e) => {
     e.preventDefault();
     console.log("Register form submitted");
+  };
+
+  const navigate = useNavigate();
+
+  const handleLogin = () => {
+    navigate('/login');
   };
 
   return (
@@ -54,7 +60,7 @@ const Register = () => {
           <Link to="/login" className="toggle-link">{t('login')}</Link>
         </p>
       </div>
-      <button type="submit">{t('register')}</button>
+      <button type="submit" onClick={handleLogin}>{t('register')}</button>
     </Frame>
   );
 };
