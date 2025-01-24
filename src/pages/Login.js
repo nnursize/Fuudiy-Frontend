@@ -4,7 +4,7 @@ import Frame from '../components/Frame';
 import LanguageSwitcher from '../components/LanguageSwitcher';
 import { FaUser, FaLock } from "react-icons/fa";
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const { t, i18n } = useTranslation("global");
@@ -28,6 +28,12 @@ const Login = () => {
     console.log("Login form submitted");
   };
 
+  const navigate = useNavigate();
+
+  const handleLogin = () => {
+    navigate('/profile');
+  };
+
   return (
     <Frame title={t('login')} onSubmit={handleLoginSubmit}>
       {/* Language Switcher */}
@@ -49,7 +55,7 @@ const Login = () => {
           <Link to="/register" className="toggle-link">{t('register')}</Link>
         </p>
       </div>
-      <button type="submit">{t('login')}</button>
+      <button type="submit" onClick={handleLogin}>{t('login')}</button>
     </Frame>
   );
 };

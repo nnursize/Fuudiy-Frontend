@@ -21,6 +21,10 @@ const App = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         {/* Add other routes here */}
+
+
+{/* 'element={<Home />}' part should be updated  */}
+        <Route path="/profile" element={<Home />} />
       </Routes>
     </Router>
   );
