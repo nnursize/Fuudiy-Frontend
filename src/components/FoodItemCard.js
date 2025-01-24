@@ -45,7 +45,7 @@ const FoodItemCard = ({ food }) => {
   return (
     <div onClick={handleClick} style={{ cursor: 'pointer', margin: '1rem' }}>
       <img
-        src={food.imageUrl || 'https://via.placeholder.com/250'}
+        src={food.imageUrl || `${process.env.PUBLIC_URL}/default-food.png`}
         alt={food.name || 'Food Item'}
         style={{ width: '250px', height: '150px', borderRadius: '8px' }}
       />

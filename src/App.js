@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import FoodDetailPage from './pages/FoodDetailPage';
 import LoginRegister from './components/LoginRegister/LoginRegister';
 import Survey from './components/Survey/Survey';
+import UserProfile from './pages/UserProfile';
 
 const App = () => {
   return (
@@ -21,6 +22,8 @@ const App = () => {
         <Route path="/" element={<LoginRegister />} /> {/* LoginRegister route */}
       
         <Route path="/Survey" element={<Survey />} /> {/* Survey route */}
+
+        <Route path="/profile" element={<UserProfile />} />
       </Routes>
     </Router>
   );
