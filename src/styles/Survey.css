@@ -1,0 +1,152 @@
+/* body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f1acac;
+  }
+   *//*
+  .survey-container {
+    position: relative;
+    background: rgb(247, 217, 198);
+    border: 2px solid rgb(255, 255, 255,.2);
+    backdrop-filter: blur(150px);
+    border-radius: 20px;
+    padding: 20px 0;
+    height: flex;
+    width: 500px;
+    overflow: hidden;
+  }
+  
+  
+.wrapper .language-switch{
+  justify-content: flex-end;
+  gap: 5px;
+  position: absolute;
+  display:grid;
+  /*background-color: #007bff;*/
+
+/*}
+.wrapper .language-switch button{
+  display: inline;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #ffffffdc;
+  border-radius: 50px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  position: relative;
+  height: 25px;
+  
+}
+
+  
+  h2 {
+    margin-top: 0;
+    font-size: 1.5rem;
+    color: #333;
+  }
+  
+  
+ 
+
+  label .matrix-option{
+    flex-direction: row;
+  }
+
+  input{
+    background-color: blueviolet;
+    color: red;
+
+  }
+
+  .options-container {
+    display: flex;
+    flex-direction: column;
+    align-items:start;
+    font-size: 16px;
+    text-align: center;
+    width: 300px;
+  }
+
+  /*
+   span{
+    font-size: 20px;
+    color: #666;
+    margin-bottom: 1.5rem;
+    display:grid;
+
+  }*//*
+  .matrix-row {
+    flex-direction: row;
+    font-size: 20px;
+    text-align: center;
+    width: 500px;
+    
+  }
+
+
+  .option-label {
+    margin: 8px 0;
+    font-size: 20px;
+    color: #333;
+  }
+  
+  label .option-label {
+    margin: 8px 0;
+    font-size: 20px;
+    background-color: #992358;
+  }
+  
+  label .option-label input {
+    margin-right: 10px;    
+  }
+
+  label .option-label input {
+    margin-right: 10px;
+    background-color: #992358;
+    
+  }
+  
+  .submit-button {
+    margin-top: 15px;
+    padding: 8px 16px;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  button {
+    margin-top: 15px;
+    padding: 8px 16px;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #2a65a5;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .navigation-buttons button{
+    gap : 20px;
+    float: none;
+  }
+  .submit-button:hover {
+    background-color: #0056b3;
+  }
+
+  /*
+  p {
+    font-size: 20px;
+    color: #666;
+    margin-bottom: 1.5rem;
+  }*/
+  

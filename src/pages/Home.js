@@ -5,6 +5,7 @@ import Hero from '../components/Hero.js';
 import CategoryCard from '../components/CategoryCard';
 import FoodItemCard from '../components/FoodItemCard';
 import styled from 'styled-components';
+import '../index.css';
 
 const CategorySection = styled.section`
   display: flex;
