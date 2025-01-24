@@ -4,8 +4,6 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Home from './pages/Home';
 import FoodDetailPage from './pages/FoodDetailPage';
-import LoginRegister from './components/LoginRegister/LoginRegister';
-import Survey from './components/Survey/Survey';
 import UserProfile from './pages/UserProfile';
 
 const App = () => {
