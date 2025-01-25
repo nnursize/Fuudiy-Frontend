@@ -1,0 +1,186 @@
+[
+    {
+        "id": 1,
+        "name": "Hamburger",
+        "ingredients": [
+            "bread",
+            "beef patty",
+            "lettuce",
+            "tomato",
+            "cheese"
+        ],
+        "country": "USA",
+        "popularity": 4.5,
+        "imageUrl": "",
+        "category_keywords": [
+            "fast food",
+            "burger",
+            "beef"
+        ]
+    },
+    {
+        "id": 2,
+        "name": "Pizza",
+        "ingredients": [
+            "dough",
+            "tomato sauce",
+            "cheese",
+            "pepperoni"
+        ],
+        "country": "Italy",
+        "popularity": 5.0,
+        "imageUrl": "",
+        "category_keywords": [
+            "fast food",
+            "cheese",
+            "italian"
+        ]
+    },
+    {
+        "id": 3,
+        "name": "Çiğ Köfte",
+        "ingredients": [
+            "bulgur",
+            "tomato paste",
+            "spices",
+            "pomegranate molasses"
+        ],
+        "country": "Turkey",
+        "popularity": 4.8,
+        "imageUrl": "",
+        "category_keywords": [
+            "turkish",
+            "spicy",
+            "vegan"
+        ]
+    },
+    {
+        "id": 4,
+        "name": "Sushi",
+        "ingredients": [
+            "rice",
+            "nori",
+            "fish",
+            "soy sauce"
+        ],
+        "country": "Japan",
+        "popularity": 4.7,
+        "imageUrl": "",
+        "category_keywords": [
+            "japanese",
+            "seafood",
+            "healthy"
+        ]
+    },
+    {
+        "id": 5,
+        "name": "Pad Thai",
+        "ingredients": [
+            "rice noodles",
+            "shrimp",
+            "peanuts",
+            "bean sprouts",
+            "eggs"
+        ],
+        "country": "Thailand",
+        "popularity": 4.9,
+        "imageUrl": "",
+        "category_keywords": [
+            "thai",
+            "noodles",
+            "spicy"
+        ]
+    },
+    {
+        "id": 6,
+        "name": "Tacos",
+        "ingredients": [
+            "tortilla",
+            "beef",
+            "cheese",
+            "lettuce",
+            "salsa"
+        ],
+        "country": "Mexico",
+        "popularity": 4.6,
+        "imageUrl": "",
+        "category_keywords": [
+            "mexican",
+            "street food",
+            "spicy"
+        ]
+    },
+    {
+        "id": 7,
+        "name": "Croissant",
+        "ingredients": [
+            "butter",
+            "flour",
+            "yeast",
+            "milk"
+        ],
+        "country": "France",
+        "popularity": 4.4,
+        "imageUrl": "",
+        "category_keywords": [
+            "french",
+            "pastry",
+            "breakfast"
+        ]
+    },
+    {
+        "id": 8,
+        "name": "Kimchi",
+        "ingredients": [
+            "cabbage",
+            "radish",
+            "chili powder",
+            "garlic",
+            "ginger"
+        ],
+        "country": "Korea",
+        "popularity": 4.7,
+        "imageUrl": "",
+        "category_keywords": [
+            "korean",
+            "fermented",
+            "spicy"
+        ]
+    },
+    {
+        "id": 9,
+        "name": "Pierogi",
+        "ingredients": [
+            "dough",
+            "potatoes",
+            "cheese",
+            "onions"
+        ],
+        "country": "Poland",
+        "popularity": 4.3,
+        "imageUrl": "",
+        "category_keywords": [
+            "polish",
+            "dumplings",
+            "comfort food"
+        ]
+    },
+    {
+        "id": 10,
+        "name": "Falafel",
+        "ingredients": [
+            "chickpeas",
+            "herbs",
+            "spices",
+            "garlic"
+        ],
+        "country": "Middle East",
+        "popularity": 4.8,
+        "imageUrl": "",
+        "category_keywords": [
+            "vegan",
+            "middle eastern",
+            "street food"
+        ]
+    }
+]

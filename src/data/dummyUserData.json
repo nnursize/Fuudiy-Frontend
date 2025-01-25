@@ -1,33 +1,41 @@
 {
-    "profilePicture": "",
-    "username": "JohnDoe",
-    "bio": "Food lover. Passionate about trying out new cuisines.",
-    "favoriteDishes": [
+    "_id": 1,
+    "name": "John Doe",
+    "email": "johndoe@gmail.com",
+    "ratedFoods": [
         {
-            "_id": "1",
-            "name": "Pizza Margherita",
-            "description": "A classic Italian pizza with fresh tomatoes, mozzarella, and basil.",
-            "imageUrl": ""
+            "foodId": 1,
+            "rate": 1
         },
         {
-            "_id": "2",
-            "name": "Sushi Platter",
-            "description": "An assortment of fresh sushi rolls and sashimi.",
-            "imageUrl": ""
+            "foodId": 2,
+            "rate": 3
+        },
+        {
+            "foodId": 3,
+            "rate": 5
+        },
+        {
+            "foodId": 4,
+            "rate": 4
+        },
+        {
+            "foodId": 5,
+            "rate": 2
+        },
+        {
+            "foodId": 6,
+            "rate": 3
         }
     ],
-    "recentlyViewed": [
-        {
-            "_id": "3",
-            "name": "Tacos",
-            "description": "Mexican dish with fillings inside a tortilla.",
-            "imageUrl": ""
-        },
-        {
-            "_id": "4",
-            "name": "Butter Chicken",
-            "description": "Indian dish with creamy tomato-based sauce.",
-            "imageUrl": ""
-        }
-    ]
+    "dislikedIngredients": [
+        "butter",
+        "fish",
+        "meat",
+        "onions",
+        "garlic",
+        "olives",
+        "mustard"
+    ],
+    "avatarId": ""
 }
