@@ -16,7 +16,8 @@
       "Fransız"
     ],
     "showSelectAllItem": true,
-    "selectAllText": "Hepsi"
+    "selectAllText": "Hepsi",
+    "twoColumns": true
   },
   {
     "id": "question1",
@@ -30,7 +31,8 @@
     ],
     "showOtherItem": true,
     "showNoneItem": true,
-    "noneText": "Hiçbiri"
+    "noneText": "Hiçbiri",
+    "twoColumns": false
   },
   {
     "id": "question3",
@@ -48,11 +50,12 @@
       "Buğday",
       "Susam"
     ],
-    "showOtherItem": true
+    "showOtherItem": true,
+    "twoColumns": true
   },
   {
     "id": "question4",
-    "type": "matrix",
+    "type": "radio",
     "question": "Farklı yemek türleri için tercihinizi belirtiniz:",
     "columns": ["Sevmiyorum", "Seviyorum", "Çok seviyorum"],
     "rows": [
@@ -83,7 +86,8 @@
       "Taze otlar",
       "Kuruyemiş",
       "Meyve"
-    ]
+    ],
+    "twoColumns": true
   },
   {
     "id": "question6",

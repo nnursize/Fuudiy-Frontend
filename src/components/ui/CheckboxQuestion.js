@@ -1,11 +1,17 @@
 import React from 'react';
 import { FormGroup, FormControlLabel, Checkbox } from '@mui/material';
 
-const CheckboxQuestion = ({ question, options, selected, onChange }) => {
+const CheckboxQuestion = ({ question, options, selected, onChange, twoColumns = false }) => {
   return (
     <div>
       <h3>{question}</h3>
-      <FormGroup>
+      <FormGroup
+        sx={{
+          display: 'grid',
+          gridTemplateColumns: twoColumns ? '1fr 1fr' : '1fr',
+          gap: '10px', // Space between items
+        }}
+      >
         {options.map((option, index) => (
           <FormControlLabel
             key={index}
