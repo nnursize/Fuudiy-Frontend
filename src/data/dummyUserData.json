@@ -1,0 +1,33 @@
+{
+    "profilePicture": "",
+    "username": "JohnDoe",
+    "bio": "Food lover. Passionate about trying out new cuisines.",
+    "favoriteDishes": [
+        {
+            "_id": "1",
+            "name": "Pizza Margherita",
+            "description": "A classic Italian pizza with fresh tomatoes, mozzarella, and basil.",
+            "imageUrl": ""
+        },
+        {
+            "_id": "2",
+            "name": "Sushi Platter",
+            "description": "An assortment of fresh sushi rolls and sashimi.",
+            "imageUrl": ""
+        }
+    ],
+    "recentlyViewed": [
+        {
+            "_id": "3",
+            "name": "Tacos",
+            "description": "Mexican dish with fillings inside a tortilla.",
+            "imageUrl": ""
+        },
+        {
+            "_id": "4",
+            "name": "Butter Chicken",
+            "description": "Indian dish with creamy tomato-based sauce.",
+            "imageUrl": ""
+        }
+    ]
+}

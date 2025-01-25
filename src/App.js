@@ -4,6 +4,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Home from './pages/Home';
 import FoodDetailPage from './pages/FoodDetailPage';
+import UserProfile from './pages/UserProfile';
 
 const App = () => {
   return (
@@ -22,9 +23,7 @@ const App = () => {
         <Route path="/register" element={<Register />} />
         {/* Add other routes here */}
 
-
-{/* 'element={<Home />}' part should be updated  */}
-        <Route path="/profile" element={<Home />} />
+        <Route path="/profile" element={<UserProfile />} />
       </Routes>
     </Router>
   );
