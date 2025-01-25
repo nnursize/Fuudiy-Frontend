@@ -3,16 +3,15 @@ import React from 'react';
 import styled from 'styled-components';
 
 const HeroContainer = styled.section`
-  height: 500px;
-  width: 100%; 
-  background: url('.\background_home.jpg');
-  border-color: black;
-  background-size: cover;
-  background-position: cover;
+  height: 400px; /* Full height of the viewport */
+  width: 100%; /* Full width */
+  background: url('/home_background.jpeg');
+  background-size: cover; /* Ensure the image covers the entire container */
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  color: white;
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
 `;
 
@@ -38,7 +37,7 @@ const SearchBar = styled.input`
   outline: none;
   align-items: center;
   justify-content: center;
-  margin-top: 10rem;
+  margin-top: 2rem;
   font-size: 1rem;      /* Increase font size if needed */
   background: rgb(255, 255, 255,.2);
   `;

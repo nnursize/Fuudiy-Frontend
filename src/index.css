@@ -1,9 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;&display=swap');
 
-*{
+
+html, body, #root {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+  width: 100%; /* Ensures full width */
+  height: 100%; /* Ensures full height */
+  overflow-x: hidden; /* Prevents horizontal scrollbars */
+}
+
+* {
+  box-sizing: border-box; 
 }
 
 body {
@@ -19,11 +26,10 @@ body {
   background-size: cover;
   background-position: center;
   height: 100%;
-  width: 100%; 
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-
+  overflow-x: hidden;
 }
 
 code {
