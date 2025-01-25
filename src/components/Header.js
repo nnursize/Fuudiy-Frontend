@@ -46,6 +46,7 @@ export default Header;
 // Styled-components
 const HeaderContainer = styled.header`
   display: flex;
+  border-color: black;
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;

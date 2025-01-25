@@ -3,22 +3,22 @@ import React from 'react';
 import styled from 'styled-components';
 
 const HeroContainer = styled.section`
-  height: 400px;
-  width: %100;
-  background-image: url('/home_background.jpeg');
+  height: 500px;
+  width: 100%; 
+  background: url('.\background_home.jpg');
+  border-color: black;
   background-size: cover;
-  background-position: center;
-  background: rgb(255,255,255,.2)
+  background-position: cover;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  color: white;
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
 `;
 
 const HeroText = styled.div`
   text-align: center;
+  color: white;
   h1 {
     font-size: 3rem;
     margin-bottom: 0.5rem;
