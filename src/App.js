@@ -4,6 +4,8 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Home from './pages/Home';
 import FoodDetailPage from './pages/FoodDetailPage';
+import Survey from './pages/Survey';
+
 
 const App = () => {
   return (
@@ -25,6 +27,8 @@ const App = () => {
 
 {/* 'element={<Home />}' part should be updated  */}
         <Route path="/profile" element={<Home />} />
+        <Route path="/survey" element={<Survey />} />
+
       </Routes>
     </Router>
   );

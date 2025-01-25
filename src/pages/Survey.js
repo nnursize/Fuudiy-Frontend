@@ -1,151 +1,131 @@
 import React, { useState, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
-import '../styles/Survey.css';
+import CheckboxQuestion from '../components/ui/CheckboxQuestion';
+import RadioQuestion from '../components/ui/RadioQuestion';
+import TextQuestion from '../components/ui/TextQuestion';
+import { Button } from '@mui/material';
 
-function Survey() {
-  const { t, i18n } = useTranslation("global");
-  const [selectedOptions, setSelectedOptions] = useState({});
-  const [questions, setQuestions] = useState([]);
+const Survey = () => {
+  const [questions, setQuestions] = useState([]); // To store questions from JSON
+  const [responses, setResponses] = useState({});
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [loading, setLoading] = useState(true); // To track loading state
 
-  // Fetch questions from the JSON file
+  // Fetch questions from JSON file
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
-        const response = await fetch(`${process.env.PUBLIC_URL}/questions.json`);
+        const response = await fetch('/questions.json'); // Path to the JSON file
         const data = await response.json();
         setQuestions(data);
+        setLoading(false); // Set loading to false after fetching
       } catch (error) {
-        console.error("Failed to load questions:", error);
+        console.error('Error fetching questions:', error);
+        setLoading(false); // Stop loading if there's an error
       }
     };
 
     fetchQuestions();
   }, []);
 
-  // Handle selection change for checkboxes and radio buttons
-  const handleOptionChange = (option, row = null) => {
-    setSelectedOptions((prevSelected) => {
-      if (row) {
-        // Matrix radio selection: one option per row
-        return {
-          ...prevSelected,
-          [row]: option
-        };
-      } else {
-        // Checkbox selection: multiple options
-        const updatedSelections = prevSelected[currentQuestionIndex] || [];
-        return {
-          ...prevSelected,
-          [currentQuestionIndex]: updatedSelections.includes(option)
-            ? updatedSelections.filter((o) => o !== option)
-            : [...updatedSelections, option]
-        };
-      }
-    });
+  // Handle responses for each question type
+  const handleResponseChange = (id, value) => {
+    setResponses((prev) => ({
+      ...prev,
+      [id]: value,
+    }));
   };
 
-  // Handle next and previous button clicks
-  const handleNext = () => {
-    setCurrentQuestionIndex((prevIndex) => Math.min(prevIndex + 1, questions.length - 1));
-    setSelectedOptions({});
+  // Navigation logic
+  const goToNextQuestion = () => {
+    if (currentQuestionIndex < questions.length - 1) {
+      setCurrentQuestionIndex((prev) => prev + 1);
+    }
   };
 
-  const handlePrev = () => {
-    setCurrentQuestionIndex((prevIndex) => Math.max(prevIndex - 1, 0));
+  const goToPreviousQuestion = () => {
+    if (currentQuestionIndex > 0) {
+      setCurrentQuestionIndex((prev) => prev - 1);
+    }
   };
 
-  // Handle submit button click
+  // Handle submission
   const handleSubmit = () => {
-    alert(`${t('submit')}: ${JSON.stringify(selectedOptions)}`);
+    console.log('Survey Responses:', responses);
+    // Handle submission logic here (e.g., send responses to a server)
   };
 
-  // Change language
-  const changeLanguage = (lng) => {
-    i18n.changeLanguage(lng);
-  };
-
-  // Render loading state or question
-  if (questions.length === 0) {
-    return <div>{t('loading')}</div>;
+  // Show loading state
+  if (loading) {
+    return <div>Loading survey questions...</div>;
   }
 
+  // Handle case where no questions are loaded
+  if (questions.length === 0) {
+    return <div>No questions available.</div>;
+  }
+
+  // Get the current question
   const currentQuestion = questions[currentQuestionIndex];
 
   return (
-    <div className="survey-container">
-      {/* Language Switcher */}
-      <div className="language-switch">
-        <button onClick={() => changeLanguage('en')}>EN</button>
-        <button onClick={() => changeLanguage('tr')}>TR</button>
-      </div>
+    <div style={{ padding: '20px', maxWidth: '600px', margin: 'auto' }}>
+      <h1>Survey</h1>
 
-      <h2>{t('survey_question')} {currentQuestionIndex + 1} {t('of')} {questions.length}</h2>
-      <p>{currentQuestion.title}</p>
-      <div className="options-container">
-        {/* Render options based on question type */}
-        {currentQuestion.type === 'checkbox' && currentQuestion.choices && (
-          currentQuestion.choices.map((choice, index) => (
-            <label key={index} className="option-label">
-              <input
-                type="checkbox"
-                value={choice.value || choice}
-                checked={(selectedOptions[currentQuestionIndex] || []).includes(choice.value || choice)}
-                onChange={() => handleOptionChange(choice.value || choice)}
-              />
-              {choice.text || choice}
-            </label>
-          ))
-        )}
+      {/* Render the current question */}
+      {currentQuestion.type === 'checkbox' && (
+        <CheckboxQuestion
+          question={currentQuestion.question}
+          options={currentQuestion.options}
+          selected={responses[currentQuestion.id] || []}
+          onChange={(option, isChecked) => {
+            const currentSelections = responses[currentQuestion.id] || [];
+            const newSelections = isChecked
+              ? [...currentSelections, option]
+              : currentSelections.filter((item) => item !== option);
+            handleResponseChange(currentQuestion.id, newSelections);
+          }}
+        />
+      )}
 
-        {currentQuestion.type === 'text' && (
-          <input
-            type="text"
-            value={selectedOptions[currentQuestionIndex]?.[0] || ""}
-            onChange={(e) => setSelectedOptions({ [currentQuestionIndex]: [e.target.value] })}
-            placeholder={t('your_answer')}
-          />
-        )}
+      {currentQuestion.type === 'radio' && (
+        <RadioQuestion
+          question={currentQuestion.question}
+          options={currentQuestion.options}
+          selected={responses[currentQuestion.id] || ''}
+          onChange={(value) => handleResponseChange(currentQuestion.id, value)}
+        />
+      )}
 
-        {currentQuestion.type === 'matrix' && (
-          <div className="matrix-container">
-            {currentQuestion.rows.map((row, rowIndex) => (
-              <div key={rowIndex} className="matrix-row">
-                <span>{row.text}</span>
-                {currentQuestion.columns.map((col, colIndex) => (
-                  <label key={colIndex} className="matrix-option">
-                    <input
-                      type="radio"
-                      name={`matrix-${row.value}`}
-                      value={col.value}
-                      checked={selectedOptions[row.value] === col.value}
-                      onChange={() => handleOptionChange(col.value, row.value)}
-                    />
-                    {col.text}
-                  </label>
-                ))}
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
+      {currentQuestion.type === 'text' && (
+        <TextQuestion
+          question={currentQuestion.question}
+          value={responses[currentQuestion.id] || ''}
+          onChange={(value) => handleResponseChange(currentQuestion.id, value)}
+        />
+      )}
 
-      <div className="navigation-buttons">
-        <button onClick={handlePrev} disabled={currentQuestionIndex === 0}>
-          {t('previous')}
-        </button>
+      {/* Navigation Buttons */}
+      <div style={{ marginTop: '20px' }}>
+        <Button
+          variant="outlined"
+          onClick={goToPreviousQuestion}
+          disabled={currentQuestionIndex === 0}
+          style={{ marginRight: '10px' }}
+        >
+          Previous
+        </Button>
         {currentQuestionIndex < questions.length - 1 ? (
-          <button onClick={handleNext}>
-            {t('next')}
-          </button>
+          <Button variant="contained" onClick={goToNextQuestion}>
+            Next
+          </Button>
         ) : (
-          <button onClick={handleSubmit}>
-            {t('submit')}
-          </button>
+          <Button variant="contained" color="primary" onClick={handleSubmit}>
+            Submit
+          </Button>
         )}
       </div>
     </div>
   );
-}
+};
 
 export default Survey;
