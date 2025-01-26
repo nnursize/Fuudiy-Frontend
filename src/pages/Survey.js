@@ -77,10 +77,7 @@ const Survey = () => {
           display: '-ms-grid',
           width: 550,
           borderRadius: 15,
-          bgcolor: 'primary.main',
-          '&:hover': {
-            bgcolor: 'primary.dark',
-          },
+          bgcolor: 'background.main',
           textAlign : 'center',
           padding: 5
           }}>
@@ -137,8 +134,7 @@ const Survey = () => {
       gap: '10px', // Add space between buttons
       '@media (max-width: 600px)': {
         flexDirection: 'column', // Stack buttons on smaller screens
-        alignItems: 'center',
-        bgcolor: 'primary.light'
+        alignItems: 'center'
       },
     }}
   >
@@ -147,15 +143,17 @@ const Survey = () => {
       onClick={goToPreviousQuestion}
       disabled={currentQuestionIndex === 0}
       sx={{ flex: 1 }}
+      color="primary"
+      
     >
       Previous
     </Button>
     {currentQuestionIndex < questions.length - 1 ? (
-      <Button variant="contained" onClick={goToNextQuestion} sx={{ flex: 1 , backgroundcolor: 'primary.dark'}}>
+      <Button variant="contained" onClick={goToNextQuestion} sx={{ flex: 1 , bgcolor: 'primary'}}>
         Next
       </Button>
     ) : (
-      <Button variant="contained" color="primary" onClick={handleSubmit} sx={{ flex: 1}}>
+      <Button variant="contained" color='primary' onClick={handleSubmit} sx={{ flex: 1}}>
         Submit
       </Button>
     )}

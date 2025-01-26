@@ -15,7 +15,7 @@ const RadioMatrix = ({ question, rows, columns, onChange }) => {
       <Typography variant="h6" style={{ marginBottom: '20px' }}>
         {question}
       </Typography>
-      <Grid container  alignItems="normal" bgcolor={'secondary.light'} gap={2}>
+      <Grid container  alignItems="normal" bgcolor={'background.main'} gap={2}>
         {/* Render column headers */}
         <Grid item xs={4}></Grid>
         {columns.map((col, colIndex) => (
@@ -38,12 +38,14 @@ const RadioMatrix = ({ question, rows, columns, onChange }) => {
                   name={row}
                   value={selectedValues[row] || ''}
                   onChange={(e) => handleRadioChange(row, e.target.value)}
+                  color = 'secondary'
                 >
                   <FormControlLabel  
                     value={col}
-                    control={<Radio alignItems="center"  />}
+                    control={<Radio color = 'highlight.dark' alignItems="center"  />}
                     label=""
                     style={{ margin: 0 , alignItems:"center"  }}
+                    
                   />
                 </RadioGroup>
               </Grid>

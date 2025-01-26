@@ -7,10 +7,14 @@ const TextQuestion = ({ question, value, onChange }) => {
       <h3>{question}</h3>
       <TextField
         fullWidth
-        variant="outlined"
+        focused
+        variant="filled" 
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder="Type your response here..."
+        color='white'
+        sx={{ background: 'white'}}
+        
       />
     </div>
   );

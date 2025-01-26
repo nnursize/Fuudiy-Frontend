@@ -10,7 +10,7 @@ const CheckboxQuestion = ({ question, options, selected, onChange, twoColumns = 
           display: 'grid',
           gridTemplateColumns: twoColumns ? '1fr 1fr' : '1fr',
           gap: '10px', // Space between items
-          bgcolor: 'secondary.light'
+          bgcolor: 'background.main'
         }}
       >
         {options.map((option, index) => (
@@ -22,6 +22,7 @@ const CheckboxQuestion = ({ question, options, selected, onChange, twoColumns = 
               <Checkbox
                 checked={selected.includes(option)}
                 onChange={(e) => onChange(option, e.target.checked)}
+                color='highlight.dark'
               />
             }
             label={option}
