@@ -32,7 +32,7 @@ const Register = () => {
   const navigate = useNavigate();
 
   const handleLogin = () => {
-    navigate('/login');
+    navigate('/survey');
   };
 
   return (

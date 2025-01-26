@@ -4,7 +4,7 @@ import RadioQuestion from '../components/ui/RadioQuestion';
 import RadioMatrix from '../components/ui/RadioMatrix';
 
 import TextQuestion from '../components/ui/TextQuestion';
-import { Button, ButtonGroup } from '@mui/material';
+import { Box, Button, ButtonGroup } from '@mui/material';
 
 const Survey = () => {
     const [questions, setQuestions] = useState([]); // To store questions from JSON
@@ -70,9 +70,21 @@ const Survey = () => {
     const currentQuestion = questions[currentQuestionIndex];
 
     return (
-        <div style={{ padding: '20px', maxWidth: '600px', margin: 'auto' }}>
-            <h1>Survey</h1>
-
+        <Box component="section" 
+        sx={{
+          alignContent:'center',
+          justifyContent :'center',
+          display: '-ms-grid',
+          width: 550,
+          borderRadius: 15,
+          bgcolor: 'primary.main',
+          '&:hover': {
+            bgcolor: 'primary.dark',
+          },
+          textAlign : 'center',
+          padding: 5
+          }}>
+            <h1 padding >User Preferences</h1>
 
             {/* Render the current question */}
             {currentQuestion.type === 'checkbox' && (
@@ -126,6 +138,7 @@ const Survey = () => {
       '@media (max-width: 600px)': {
         flexDirection: 'column', // Stack buttons on smaller screens
         alignItems: 'center',
+        bgcolor: 'primary.light'
       },
     }}
   >
@@ -138,18 +151,18 @@ const Survey = () => {
       Previous
     </Button>
     {currentQuestionIndex < questions.length - 1 ? (
-      <Button variant="contained" onClick={goToNextQuestion} sx={{ flex: 1 }}>
+      <Button variant="contained" onClick={goToNextQuestion} sx={{ flex: 1 , backgroundcolor: 'primary.dark'}}>
         Next
       </Button>
     ) : (
-      <Button variant="contained" color="primary" onClick={handleSubmit} sx={{ flex: 1 }}>
+      <Button variant="contained" color="primary" onClick={handleSubmit} sx={{ flex: 1}}>
         Submit
       </Button>
     )}
   </ButtonGroup>
 </div>
 
-        </div>
+        </Box>
     );
 };
 

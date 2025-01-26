@@ -15,34 +15,35 @@ const RadioMatrix = ({ question, rows, columns, onChange }) => {
       <Typography variant="h6" style={{ marginBottom: '20px' }}>
         {question}
       </Typography>
-      <Grid container spacing={2} alignItems="center">
+      <Grid container  alignItems="normal" bgcolor={'secondary.light'} gap={2}>
         {/* Render column headers */}
         <Grid item xs={4}></Grid>
         {columns.map((col, colIndex) => (
-          <Grid item xs={2} key={colIndex} style={{ textAlign: 'center' }}>
-            <Typography>{col}</Typography>
+          <Grid item  xs={2} key={colIndex} style={{ textAlign: 'center' }}>
+            <Typography   alignItems="center" textAlign={'center'}>{col}</Typography>
           </Grid>
         ))}
 
         {/* Render rows with radio buttons */}
         {rows.map((row, rowIndex) => (
           <Grid container spacing={2} alignItems="center" key={rowIndex}>
-            <Grid item xs={4}>
+            <Grid  xs={4}>
               <Typography>{row}</Typography>
             </Grid>
             {columns.map((col, colIndex) => (
-              <Grid item xs={2} key={colIndex} style={{ textAlign: 'center' }}>
-                <RadioGroup
+              <Grid  xs={2.5} key={colIndex} style={{ textAlign: 'center' }}>
+                <RadioGroup alignItems="center" sx={{
+              justifyContent: 'center'              }}
                   row
                   name={row}
                   value={selectedValues[row] || ''}
                   onChange={(e) => handleRadioChange(row, e.target.value)}
                 >
-                  <FormControlLabel
+                  <FormControlLabel  
                     value={col}
-                    control={<Radio />}
+                    control={<Radio alignItems="center"  />}
                     label=""
-                    style={{ margin: 0 }}
+                    style={{ margin: 0 , alignItems:"center"  }}
                   />
                 </RadioGroup>
               </Grid>

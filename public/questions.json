@@ -19,21 +19,7 @@
     "selectAllText": "Hepsi",
     "twoColumns": true
   },
-  {
-    "id": "question1",
-    "type": "checkbox",
-    "question": "Belirli bir diyet uyguluyor musunuz? Tüm uygun seçenekleri işaretleyin:",
-    "options": [
-      "Vejeteryan",
-      "Vegan",
-      "Glütensiz",
-      "Laktozsuz"
-    ],
-    "showOtherItem": true,
-    "showNoneItem": true,
-    "noneText": "Hiçbiri",
-    "twoColumns": false
-  },
+  
   {
     "id": "question3",
     "type": "checkbox",
