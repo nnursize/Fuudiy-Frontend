@@ -27,7 +27,8 @@ const App = () => {
 
 {/* 'element={<Home />}' part should be updated  */}
         <Route path="/profile" element={<Home />} />
-        <Route path="/survey" element={<Survey />} />
+        <Route path="/survey" element={<Survey 
+            />} />
 
       </Routes>
     </Router>

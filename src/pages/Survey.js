@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import CheckboxQuestion from '../components/ui/CheckboxQuestion';
 import RadioQuestion from '../components/ui/RadioQuestion';
 import RadioMatrix from '../components/ui/RadioMatrix';
-
 import TextQuestion from '../components/ui/TextQuestion';
+import SortQuestion from '../components/ui/SortQuestion';
 import { Box, Button, ButtonGroup } from '@mui/material';
+import ScoreQuestion from '../components/ui/ScoreQuestion';
 
 const Survey = () => {
     const [questions, setQuestions] = useState([]); // To store questions from JSON
@@ -69,19 +70,33 @@ const Survey = () => {
     // Get the current question
     const currentQuestion = questions[currentQuestionIndex];
 
+    // Helper to dynamically resolve media paths
+    const resolveMediaPath = (path) => {
+        if (!path) return null;
+        try {
+            // Use PUBLIC_URL for files in /public or require for /src
+            return path.startsWith('/') ? `${process.env.PUBLIC_URL}${path}` : require(`../assets/${path}`);
+        } catch (error) {
+            console.error(`Error resolving media path: ${path}`, error);
+            return null;
+        }
+    };
+
     return (
-        <Box component="section" 
-        sx={{
-          alignContent:'center',
-          justifyContent :'center',
-          display: '-ms-grid',
-          width: 550,
-          borderRadius: 15,
-          bgcolor: 'background.main',
-          textAlign : 'center',
-          padding: 5
-          }}>
-            <h1 padding >User Preferences</h1>
+        <Box
+            component="section"
+            sx={{
+                alignContent: 'center',
+                justifyContent: 'center',
+                display: '-ms-grid',
+                width: 550,
+                borderRadius: 15,
+                bgcolor: 'background.main',
+                textAlign: 'center',
+                padding: 5,
+            }}
+        >
+            <h1>User Preferences</h1>
 
             {/* Render the current question */}
             {currentQuestion.type === 'checkbox' && (
@@ -100,17 +115,17 @@ const Survey = () => {
                 />
             )}
 
-{currentQuestion.type === 'radio' && currentQuestion.rows && currentQuestion.columns && (
-        <RadioMatrix
-          question={currentQuestion.question}
-          rows={currentQuestion.rows}
-          columns={currentQuestion.columns}
-          onChange={(row, value) => {
-            const newResponses = { ...responses[currentQuestion.id], [row]: value };
-            handleResponseChange(currentQuestion.id, newResponses);
-          }}
-        />
-      )}
+            {currentQuestion.type === 'radio' && currentQuestion.rows && currentQuestion.columns && (
+                <RadioMatrix
+                    question={currentQuestion.question}
+                    rows={currentQuestion.rows}
+                    columns={currentQuestion.columns}
+                    onChange={(row, value) => {
+                        const newResponses = { ...responses[currentQuestion.id], [row]: value };
+                        handleResponseChange(currentQuestion.id, newResponses);
+                    }}
+                />
+            )}
 
             {currentQuestion.type === 'text' && (
                 <TextQuestion
@@ -120,46 +135,70 @@ const Survey = () => {
                 />
             )}
 
+            {currentQuestion.type === 'score' && (
+                <ScoreQuestion
+                    question={currentQuestion.question}
+                    value={responses[currentQuestion.id] || 0}
+                    onChange={(newValue) => handleResponseChange(currentQuestion.id, newValue)}
+                    media={resolveMediaPath(currentQuestion.media)} // Dynamically resolve media path
+                />
+            )}
+
+            {currentQuestion.type === 'sort' && (
+                <SortQuestion
+                    question={currentQuestion.question}
+                    options={responses[currentQuestion.id] || currentQuestion.options}
+                    onChange={(newOrder) => handleResponseChange(currentQuestion.id, newOrder)}
+                />
+            )}
+
             {/* Navigation Buttons */}
             <div
-  style={{
-    display: 'flex',
-    justifyContent: 'space-between',
-    marginTop: '20px',
-  }}
->
-  <ButtonGroup
-    sx={{
-      width: '100%',
-      gap: '10px', // Add space between buttons
-      '@media (max-width: 600px)': {
-        flexDirection: 'column', // Stack buttons on smaller screens
-        alignItems: 'center'
-      },
-    }}
-  >
-    <Button
-      variant="contained"
-      onClick={goToPreviousQuestion}
-      disabled={currentQuestionIndex === 0}
-      sx={{ flex: 1 }}
-      color="primary"
-      
-    >
-      Previous
-    </Button>
-    {currentQuestionIndex < questions.length - 1 ? (
-      <Button variant="contained" onClick={goToNextQuestion} sx={{ flex: 1 , bgcolor: 'primary'}}>
-        Next
-      </Button>
-    ) : (
-      <Button variant="contained" color='primary' onClick={handleSubmit} sx={{ flex: 1}}>
-        Submit
-      </Button>
-    )}
-  </ButtonGroup>
-</div>
-
+                style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    marginTop: '20px',
+                }}
+            >
+                <ButtonGroup
+                    sx={{
+                        width: '100%',
+                        gap: '10px', // Add space between buttons
+                        '@media (max-width: 600px)': {
+                            flexDirection: 'column', // Stack buttons on smaller screens
+                            alignItems: 'center',
+                        },
+                    }}
+                >
+                    <Button
+                        variant="contained"
+                        onClick={goToPreviousQuestion}
+                        disabled={currentQuestionIndex === 0}
+                        sx={{ flex: 1 }}
+                        color="primary"
+                    >
+                        Previous
+                    </Button>
+                    {currentQuestionIndex < questions.length - 1 ? (
+                        <Button
+                            variant="contained"
+                            onClick={goToNextQuestion}
+                            sx={{ flex: 1, bgcolor: 'primary' }}
+                        >
+                            Next
+                        </Button>
+                    ) : (
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            onClick={handleSubmit}
+                            sx={{ flex: 1 }}
+                        >
+                            Submit
+                        </Button>
+                    )}
+                </ButtonGroup>
+            </div>
         </Box>
     );
 };
