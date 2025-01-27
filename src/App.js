@@ -4,6 +4,8 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Home from './pages/Home';
 import FoodDetailPage from './pages/FoodDetailPage';
+import Survey from './pages/Survey';
+
 import UserProfile from './pages/UserProfile';
 
 const App = () => {
@@ -24,6 +26,9 @@ const App = () => {
         {/* Add other routes here */}
 
         <Route path="/profile" element={<UserProfile />} />
+        <Route path="/survey" element={<Survey 
+            />} />
+
       </Routes>
     </Router>
   );

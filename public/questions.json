@@ -1,77 +1,61 @@
 [
   {
+    "id": "question2",
     "type": "checkbox",
-    "name": "question2",
-    "title": "Favori mutfak türlerinizi seçiniz:",
-    "choices": [
-      { "value": "Türk", "text": "Türk" },
-      { "value": "İtalyan", "text": "İtalyan" },
-      { "value": "Akdeniz", "text": "Akdeniz" },
-      { "value": "Çin", "text": "Çin" },
-      { "value": "Hint", "text": "Hint" },
-      { "value": "Meksika", "text": "Meksika" },
-      { "value": "Ortadoğu", "text": "Ortadoğu" },
-      { "value": "Amerikan", "text": "Amerikan" },
-      { "value": "Japon", "text": "Japon" },
-      { "value": "Fransız", "text": "Fransız" }
+    "question": "Favori mutfak türlerinizi seçiniz:",
+    "options": [
+      "Türk",
+      "İtalyan",
+      "Akdeniz",
+      "Çin",
+      "Hint",
+      "Meksika",
+      "Ortadoğu",
+      "Amerikan",
+      "Japon",
+      "Fransız"
     ],
     "showSelectAllItem": true,
-    "selectAllText": "Hepsi"
+    "selectAllText": "Hepsi",
+    "twoColumns": true
   },
   {
+    "id": "question3",
     "type": "checkbox",
-    "name": "question1",
-    "title": "Belirli bir diyet uyguluyor musunuz? Tüm uygun seçenekleri işaretleyin:",
-    "choices": [
-      { "value": "Vejeteryan", "text": "Vejeteryan" },
-      { "value": "Vegan", "text": "Vegan" },
-      { "value": "Glütensiz", "text": "Glütensiz" },
-      { "value": "Laktozsuz", "text": "Laktozsuz" }
+    "question": "Gıda alerjiniz var mı? Uygun olanları seçiniz:",
+    "options": [
+      "Yer fıstığı",
+      "Çerez (ör. badem, ceviz)",
+      "Kabuklu deniz ürünleri",
+      "Balık ve balık ürünleri",
+      "Süt ürünleri",
+      "Yumurta",
+      "Glüten",
+      "Soya",
+      "Buğday",
+      "Susam"
     ],
     "showOtherItem": true,
-    "showNoneItem": true,
-    "noneText": "Hiçbiri"
+    "twoColumns": true
   },
   {
-    "type": "checkbox",
-    "name": "question3",
-    "title": "Gıda alerjiniz var mı? Uygun olanları seçiniz:",
-    "choices": [
-      { "value": "Yer fıstığı", "text": "Yer fıstığı" },
-      { "value": "Çerez", "text": "Çerez (ör. badem, ceviz)" },
-      { "value": "Kabuklu deniz ürünleri", "text": "Kabuklu deniz ürünleri" },
-      { "value": "Balık ve balık ürünleri", "text": "Balık ve balık ürünleri" },
-      { "value": "Süt ürünleri", "text": "Süt ürünleri" },
-      { "value": "Yumurta", "text": "Yumurta" },
-      { "value": "Glüten", "text": "Glüten" },
-      { "value": "Soya", "text": "Soya" },
-      { "value": "Buğday", "text": "Buğday" },
-      { "value": "Susam", "text": "Susam" }
-    ],
-    "showOtherItem": true
-  },
-  {
-    "type": "matrix",
-    "name": "question4",
-    "title": "Farklı yemek türleri için tercihinizi belirtiniz:",
-    "columns": [
-      { "value": "Sevmiyorum", "text": "Sevmiyorum" },
-      { "value": "Seviyorum", "text": "Seviyorum" },
-      { "value": "Çok seviyorum", "text": "Çok seviyorum" }
-    ],
+    "id": "question4",
+    "type": "radio",
+    "question": "Farklı yemek türleri için tercihinizi belirtiniz:",
+    "columns": ["Sevmiyorum", "Seviyorum", "Çok seviyorum"],
     "rows": [
-      { "value": "Sebze Yemekleri", "text": "Sebze Yemekleri" },
-      { "value": "Et Yemekleri", "text": "Et Yemekleri" },
-      { "value": "Deniz Ürünleri", "text": "Deniz Ürünleri" },
-      { "value": "Hamur İşleri ve Ekmek", "text": "Hamur İşleri ve Ekmek" },
-      { "value": "Tatlılar ve Şekerlemeler", "text": "Tatlılar ve Şekerlemeler" }
+      "Sebze Yemekleri",
+      "Et Yemekleri",
+      "Deniz Ürünleri",
+      "Hamur İşleri ve Ekmek",
+      "Tatlılar ve Şekerlemeler"
     ]
   },
   {
+    "id": "question5",
     "type": "checkbox",
-    "name": "question5",
-    "title": "Favori malzemeleri seçiniz:",
-    "choices": [
+    "question": "Favori malzemeleri seçiniz:",
+    "options": [
       "Tavuk",
       "Balık",
       "Kırmızı et",
@@ -87,11 +71,54 @@
       "Taze otlar",
       "Kuruyemiş",
       "Meyve"
-    ]
+    ],
+    "twoColumns": true
   },
   {
+    "id": "question6",
+    "type": "score",
+    "question": "How much do you like sushi?",
+    "media": "/sushi.png"
+  },
+  {
+    "id": "question7",
+    "type": "score",
+    "question": "How much do you like pizza?",
+    "media": "/pizza.png"
+  },
+  {
+    "id": "question8",
+    "type": "score",
+    "question": "How much do you like dumplings?",
+    "media": "/dumpling.png"
+  },
+  {
+    "id": "question9",
+    "type": "score",
+    "question": "How much do you like hamburgers?",
+    "media": "/hamburger.png"
+  },
+  {
+    "id": "question10",
+    "type": "score",
+    "question": "How much do you like fried chicken?",
+    "media": "/fried_chicken.png"
+  },
+  {
+    "id": "question11",
+    "type": "score",
+    "question": "How much do you like tacos?",
+    "media": "/taco.png"
+  },
+  {
+    "id": "question12",
+    "type": "score",
+    "question": "How much do you like pasta?",
+    "media": "/pasta.png"
+  },
+  {
+    "id": "question13",
     "type": "text",
-    "name": "question6",
-    "title": "Bir önceki sorudaki şıklardan sevmediklerinizi yazınız"
+    "question": "Aşağıdaki şıklardan sevmediklerinizi yazınız."
   }
 ]

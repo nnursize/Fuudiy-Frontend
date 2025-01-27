@@ -1,151 +1,186 @@
 import React, { useState, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
-import '../styles/Survey.css';
+import CheckboxQuestion from '../components/ui/CheckboxQuestion';
+import RadioQuestion from '../components/ui/RadioQuestion';
+import RadioMatrix from '../components/ui/RadioMatrix';
+import TextQuestion from '../components/ui/TextQuestion';
+import SortQuestion from '../components/ui/SortQuestion';
+import { Box, Button, ButtonGroup, Typography } from '@mui/material';
+import ScoreQuestion from '../components/ui/ScoreQuestion';
 
-function Survey() {
-  const { t, i18n } = useTranslation("global");
-  const [selectedOptions, setSelectedOptions] = useState({});
-  const [questions, setQuestions] = useState([]);
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+const Survey = () => {
+    const [questions, setQuestions] = useState([]);
+    const [responses, setResponses] = useState({});
+    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+    const [loading, setLoading] = useState(true);
+    useEffect(() => {
+        const fetchQuestions = async () => {
+            try {
+                const response = await fetch('/questions.json');
+                const data = await response.json();
+                setQuestions(data);
+                setLoading(false);
+            } catch (error) {
+                console.error('Error fetching questions:', error);
+                setLoading(false);
+            }
+        };
 
-  // Fetch questions from the JSON file
-  useEffect(() => {
-    const fetchQuestions = async () => {
-      try {
-        const response = await fetch(`${process.env.PUBLIC_URL}/questions.json`);
-        const data = await response.json();
-        setQuestions(data);
-      } catch (error) {
-        console.error("Failed to load questions:", error);
-      }
+        fetchQuestions();
+    }, []);
+
+    const handleResponseChange = (id, value) => {
+        setResponses((prev) => ({
+            ...prev,
+            [id]: value,
+        }));
     };
 
-    fetchQuestions();
-  }, []);
+    const goToNextQuestion = () => {
+        if (currentQuestionIndex < questions.length - 1) {
+            setCurrentQuestionIndex((prev) => prev + 1);
+        }
+    };
 
-  // Handle selection change for checkboxes and radio buttons
-  const handleOptionChange = (option, row = null) => {
-    setSelectedOptions((prevSelected) => {
-      if (row) {
-        // Matrix radio selection: one option per row
-        return {
-          ...prevSelected,
-          [row]: option
-        };
-      } else {
-        // Checkbox selection: multiple options
-        const updatedSelections = prevSelected[currentQuestionIndex] || [];
-        return {
-          ...prevSelected,
-          [currentQuestionIndex]: updatedSelections.includes(option)
-            ? updatedSelections.filter((o) => o !== option)
-            : [...updatedSelections, option]
-        };
-      }
-    });
-  };
+    const goToPreviousQuestion = () => {
+        if (currentQuestionIndex > 0) {
+            setCurrentQuestionIndex((prev) => prev - 1);
+        }
+    };
 
-  // Handle next and previous button clicks
-  const handleNext = () => {
-    setCurrentQuestionIndex((prevIndex) => Math.min(prevIndex + 1, questions.length - 1));
-    setSelectedOptions({});
-  };
+    const handleSubmit = () => {
+        console.log('Survey Responses:', responses);
+    };
 
-  const handlePrev = () => {
-    setCurrentQuestionIndex((prevIndex) => Math.max(prevIndex - 1, 0));
-  };
 
-  // Handle submit button click
-  const handleSubmit = () => {
-    alert(`${t('submit')}: ${JSON.stringify(selectedOptions)}`);
-  };
+    if (loading) {
+        return <div>Loading survey questions...</div>;
+    }
 
-  // Change language
-  const changeLanguage = (lng) => {
-    i18n.changeLanguage(lng);
-  };
+    if (questions.length === 0) {
+        return <div>No questions available.</div>;
+    }
 
-  // Render loading state or question
-  if (questions.length === 0) {
-    return <div>{t('loading')}</div>;
-  }
+    const currentQuestion = questions[currentQuestionIndex];
 
-  const currentQuestion = questions[currentQuestionIndex];
+    const resolveMediaPath = (path) => {
+        if (!path) return null;
+        try {
+            return path.startsWith('/') ? `${process.env.PUBLIC_URL}${path}` : require(`../assets/${path}`);
+        } catch (error) {
+            console.error(`Error resolving media path: ${path}`, error);
+            return null;
+        }
+    };
 
-  return (
-    <div className="survey-container">
-      {/* Language Switcher */}
-      <div className="language-switch">
-        <button onClick={() => changeLanguage('en')}>EN</button>
-        <button onClick={() => changeLanguage('tr')}>TR</button>
-      </div>
+    return (
+        <Box
+            component="section"
+            sx={{
+                alignContent: 'center',
+                justifyContent: 'center',
+                display: '-ms-grid',
+                width: 600,
+                borderRadius: 15,
+                bgcolor: 'background.main', // Use theme's background color
+                textAlign: 'center',
+                padding: 5,
+            }}
+        >
+            <Typography variant="h4" sx={{ marginBottom: 3 }}>
+                User Preferences
+            </Typography>
 
-      <h2>{t('survey_question')} {currentQuestionIndex + 1} {t('of')} {questions.length}</h2>
-      <p>{currentQuestion.title}</p>
-      <div className="options-container">
-        {/* Render options based on question type */}
-        {currentQuestion.type === 'checkbox' && currentQuestion.choices && (
-          currentQuestion.choices.map((choice, index) => (
-            <label key={index} className="option-label">
-              <input
-                type="checkbox"
-                value={choice.value || choice}
-                checked={(selectedOptions[currentQuestionIndex] || []).includes(choice.value || choice)}
-                onChange={() => handleOptionChange(choice.value || choice)}
-              />
-              {choice.text || choice}
-            </label>
-          ))
-        )}
+            {/* Render the current question */}
+            {currentQuestion.type === 'checkbox' && (
+                <CheckboxQuestion
+                    question={currentQuestion.question}
+                    options={currentQuestion.options}
+                    selected={responses[currentQuestion.id] || []}
+                    onChange={(option, isChecked) => {
+                        const currentSelections = responses[currentQuestion.id] || [];
+                        const newSelections = isChecked
+                            ? [...currentSelections, option]
+                            : currentSelections.filter((item) => item !== option);
+                        handleResponseChange(currentQuestion.id, newSelections);
+                    }}
+                    twoColumns={currentQuestion.twoColumns || false}
+                />
+            )}
 
-        {currentQuestion.type === 'text' && (
-          <input
-            type="text"
-            value={selectedOptions[currentQuestionIndex]?.[0] || ""}
-            onChange={(e) => setSelectedOptions({ [currentQuestionIndex]: [e.target.value] })}
-            placeholder={t('your_answer')}
-          />
-        )}
+            {currentQuestion.type === 'radio' && currentQuestion.rows && currentQuestion.columns && (
+                <RadioMatrix
+                    question={currentQuestion.question}
+                    rows={currentQuestion.rows}
+                    columns={currentQuestion.columns}
+                    onChange={(row, value) => {
+                        const newResponses = { ...responses[currentQuestion.id], [row]: value };
+                        handleResponseChange(currentQuestion.id, newResponses);
+                    }}
+                />
+            )}
 
-        {currentQuestion.type === 'matrix' && (
-          <div className="matrix-container">
-            {currentQuestion.rows.map((row, rowIndex) => (
-              <div key={rowIndex} className="matrix-row">
-                <span>{row.text}</span>
-                {currentQuestion.columns.map((col, colIndex) => (
-                  <label key={colIndex} className="matrix-option">
-                    <input
-                      type="radio"
-                      name={`matrix-${row.value}`}
-                      value={col.value}
-                      checked={selectedOptions[row.value] === col.value}
-                      onChange={() => handleOptionChange(col.value, row.value)}
-                    />
-                    {col.text}
-                  </label>
-                ))}
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
+            {currentQuestion.type === 'text' && (
+                <TextQuestion
+                    question={currentQuestion.question}
+                    value={responses[currentQuestion.id] || ''}
+                    onChange={(value) => handleResponseChange(currentQuestion.id, value)}
+                />
+            )}
 
-      <div className="navigation-buttons">
-        <button onClick={handlePrev} disabled={currentQuestionIndex === 0}>
-          {t('previous')}
-        </button>
-        {currentQuestionIndex < questions.length - 1 ? (
-          <button onClick={handleNext}>
-            {t('next')}
-          </button>
-        ) : (
-          <button onClick={handleSubmit}>
-            {t('submit')}
-          </button>
-        )}
-      </div>
-    </div>
-  );
-}
+            {currentQuestion.type === 'score' && (
+                <ScoreQuestion
+                    question={currentQuestion.question}
+                    value={responses[currentQuestion.id] || 0}
+                    onChange={(newValue) => handleResponseChange(currentQuestion.id, newValue)}
+                    media={resolveMediaPath(currentQuestion.media)}
+                />
+            )}
+
+            {currentQuestion.type === 'sort' && (
+                <SortQuestion
+                    question={currentQuestion.question}
+                    options={responses[currentQuestion.id] || currentQuestion.options}
+                    onChange={(newOrder) => handleResponseChange(currentQuestion.id, newOrder)}
+                />
+            )}
+
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', marginTop: '20px' }}>
+                <ButtonGroup sx={{ width: '100%', gap: '10px' }}>
+                    <Button
+                        variant="contained"
+                        onClick={goToPreviousQuestion}
+                        disabled={currentQuestionIndex === 0}
+                        sx={{ flex: 1 }}
+                        color="primary"
+                    >
+                        Previous
+                    </Button>
+                    {currentQuestionIndex < questions.length - 1 ? (
+                        <Button
+                            variant="contained"
+                            onClick={goToNextQuestion}
+                            sx={{ flex: 1, bgcolor: 'primary' }}
+                        >
+                           <Typography variant="button" >
+                                  Next 
+                            </Typography> 
+                        </Button>
+                    ) : (
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            onClick={handleSubmit}
+                            sx={{ flex: 1 }}
+                        >
+                            <Typography variant="button" >
+                                  Next 
+                            </Typography> 
+                        </Button>
+                    )}
+                </ButtonGroup>
+            </Box>
+        </Box>
+    );
+};
 
 export default Survey;
