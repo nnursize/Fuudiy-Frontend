@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { TextField, Box, List, ListItem, Typography } from '@mui/material';
 
-const TextQuestion = ({ question, value, onChange }) => {
+const TextQuestion = ({ question, value, onChange, language }) => {
   const [ingredients, setIngredients] = useState([]); // Store all ingredients
   const [filteredSuggestions, setFilteredSuggestions] = useState([]); // Suggestions based on user input
   const [showSuggestions, setShowSuggestions] = useState(false); // Control dropdown visibility
@@ -29,7 +29,7 @@ const TextQuestion = ({ question, value, onChange }) => {
     if (inputValue) {
       // Filter ingredients based on user input
       const suggestions = ingredients.filter((ingredient) =>
-        ingredient.toLowerCase().includes(inputValue.toLowerCase())
+        ingredient[language]?.toLowerCase().includes(inputValue.toLowerCase()) // Use ingredient[language] for translation
       );
       setFilteredSuggestions(suggestions);
       setShowSuggestions(true);
@@ -51,7 +51,7 @@ const TextQuestion = ({ question, value, onChange }) => {
     <Box sx={{ position: 'relative', margin: '20px 0' }}>
       {/* Question Header */}
       <Typography variant="h5" gutterBottom>
-        {question}
+        {question[language]} {/* Display the question in the current language */}
       </Typography>
 
       {/* Text Field */}
@@ -61,7 +61,7 @@ const TextQuestion = ({ question, value, onChange }) => {
         value={value}
         onChange={handleInputChange}
         onFocus={() => setShowSuggestions(filteredSuggestions.length > 0)}
-        placeholder="Start typing to see suggestions..."
+        placeholder={language === 'en' ? "Start typing to see suggestions..." : "Yazmaya başlayın, önerileri görün..."} // Example for English and Turkish
         sx={{
           backgroundColor: 'white',
         }}
@@ -86,14 +86,14 @@ const TextQuestion = ({ question, value, onChange }) => {
             <ListItem
               key={index}
               button
-              onClick={() => handleSuggestionClick(suggestion)}
+              onClick={() => handleSuggestionClick(suggestion[language])} // Use the suggestion in the selected language
               sx={{
                 '&:hover': {
                   backgroundColor: '#f0f0f0',
                 },
               }}
             >
-              {suggestion}
+              {suggestion[language]} {/* Display the suggestion in the selected language */}
             </ListItem>
           ))}
         </List>

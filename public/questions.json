@@ -2,18 +2,21 @@
   {
     "id": "question2",
     "type": "checkbox",
-    "question": "Favori mutfak türlerinizi seçiniz:",
+    "question": {
+      "tr": "Favori mutfak türlerinizi seçiniz:",
+      "en": "Select your favorite types of cuisine:"
+    },
     "options": [
-      "Türk",
-      "İtalyan",
-      "Akdeniz",
-      "Çin",
-      "Hint",
-      "Meksika",
-      "Ortadoğu",
-      "Amerikan",
-      "Japon",
-      "Fransız"
+      { "tr": "Türk", "en": "Turkish" },
+      { "tr": "İtalyan", "en": "Italian" },
+      { "tr": "Akdeniz", "en": "Mediterranean" },
+      { "tr": "Çin", "en": "Chinese" },
+      { "tr": "Hint", "en": "Indian" },
+      { "tr": "Meksika", "en": "Mexican" },
+      { "tr": "Ortadoğu", "en": "Middle Eastern" },
+      { "tr": "Amerikan", "en": "American" },
+      { "tr": "Japon", "en": "Japanese" },
+      { "tr": "Fransız", "en": "French" }
     ],
     "showSelectAllItem": true,
     "selectAllText": "Hepsi",
@@ -22,18 +25,21 @@
   {
     "id": "question3",
     "type": "checkbox",
-    "question": "Gıda alerjiniz var mı? Uygun olanları seçiniz:",
+    "question": {
+      "tr": "Gıda alerjiniz var mı? Uygun olanları seçiniz:",
+      "en": "Do you have food allergies? Please select the relevant ones:"
+    },
     "options": [
-      "Yer fıstığı",
-      "Çerez (ör. badem, ceviz)",
-      "Kabuklu deniz ürünleri",
-      "Balık ve balık ürünleri",
-      "Süt ürünleri",
-      "Yumurta",
-      "Glüten",
-      "Soya",
-      "Buğday",
-      "Susam"
+      { "tr": "Yer fıstığı", "en": "Peanuts" },
+      { "tr": "Çerez (ör. badem, ceviz)", "en": "Nuts (e.g., almonds, walnuts)" },
+      { "tr": "Kabuklu deniz ürünleri", "en": "Shellfish" },
+      { "tr": "Balık ve balık ürünleri", "en": "Fish and fish products" },
+      { "tr": "Süt ürünleri", "en": "Dairy products" },
+      { "tr": "Yumurta", "en": "Eggs" },
+      { "tr": "Glüten", "en": "Gluten" },
+      { "tr": "Soya", "en": "Soy" },
+      { "tr": "Buğday", "en": "Wheat" },
+      { "tr": "Susam", "en": "Sesame" }
     ],
     "showOtherItem": true,
     "twoColumns": true
@@ -41,84 +47,118 @@
   {
     "id": "question4",
     "type": "radio",
-    "question": "Farklı yemek türleri için tercihinizi belirtiniz:",
-    "columns": ["Sevmiyorum", "Seviyorum", "Çok seviyorum"],
+    "question": {
+      "tr": "Farklı yemek türleri için tercihinizi belirtiniz:",
+      "en": "Please indicate your preference for different types of food:"
+    },
+    "columns": [
+      { "tr": "Sevmiyorum", "en": "I don't like" },
+      { "tr": "Seviyorum", "en": "I like" },
+      { "tr": "Çok seviyorum", "en": "I love" }
+    ],
     "rows": [
-      "Sebze Yemekleri",
-      "Et Yemekleri",
-      "Deniz Ürünleri",
-      "Hamur İşleri ve Ekmek",
-      "Tatlılar ve Şekerlemeler"
+      { "tr": "Sebze Yemekleri", "en": "Vegetarian Dishes" },
+      { "tr": "Et Yemekleri", "en": "Meat Dishes" },
+      { "tr": "Deniz Ürünleri", "en": "Seafood" },
+      { "tr": "Hamur İşleri ve Ekmek", "en": "Pastries and Bread" },
+      { "tr": "Tatlılar ve Şekerlemeler", "en": "Sweets and Confectionery" }
     ]
   },
   {
     "id": "question5",
     "type": "checkbox",
-    "question": "Favori malzemeleri seçiniz:",
+    "question": {
+      "tr": "Favori malzemeleri seçiniz:",
+      "en": "Select your favorite ingredients:"
+    },
     "options": [
-      "Tavuk",
-      "Balık",
-      "Kırmızı et",
-      "Makarna",
-      "Pirinç",
-      "Patates",
-      "Peynir",
-      "Fasulye",
-      "Yeşil Zeytin",
-      "Siyah zeytin",
-      "Soğan",
-      "Sarımsak",
-      "Taze otlar",
-      "Kuruyemiş",
-      "Meyve"
+      { "tr": "Tavuk", "en": "Chicken" },
+      { "tr": "Balık", "en": "Fish" },
+      { "tr": "Kırmızı et", "en": "Red meat" },
+      { "tr": "Makarna", "en": "Pasta" },
+      { "tr": "Pirinç", "en": "Rice" },
+      { "tr": "Patates", "en": "Potato" },
+      { "tr": "Peynir", "en": "Cheese" },
+      { "tr": "Fasulye", "en": "Beans" },
+      { "tr": "Yeşil Zeytin", "en": "Green olives" },
+      { "tr": "Siyah zeytin", "en": "Black olives" },
+      { "tr": "Soğan", "en": "Onion" },
+      { "tr": "Sarımsak", "en": "Garlic" },
+      { "tr": "Taze otlar", "en": "Fresh herbs" },
+      { "tr": "Kuruyemiş", "en": "Nuts" },
+      { "tr": "Meyve", "en": "Fruit" }
     ],
     "twoColumns": true
   },
   {
     "id": "question6",
     "type": "score",
-    "question": "How much do you like sushi?",
+    "question": {
+      "tr": "How much do you like sushi?",
+      "en": "Sushi ne kadar seviyorsunuz?"
+    },
     "media": "/sushi.png"
   },
   {
     "id": "question7",
     "type": "score",
-    "question": "How much do you like pizza?",
+    "question": {
+      "tr": "How much do you like pizza?",
+      "en": "Pizza ne kadar seviyorsunuz?"
+    },
     "media": "/pizza.png"
   },
   {
     "id": "question8",
     "type": "score",
-    "question": "How much do you like dumplings?",
+    "question": {
+      "tr": "How much do you like dumplings?",
+      "en": "Dumplings ne kadar seviyorsunuz?"
+    },
     "media": "/dumpling.png"
   },
   {
     "id": "question9",
     "type": "score",
-    "question": "How much do you like hamburgers?",
+    "question": {
+      "tr": "How much do you like hamburgers?",
+      "en": "Hamburger ne kadar seviyorsunuz?"
+    },
     "media": "/hamburger.png"
   },
   {
     "id": "question10",
     "type": "score",
-    "question": "How much do you like fried chicken?",
+    "question":  {
+      "tr": "How much do you like fried chicken?",
+      "en": "Fried chicken ne kadar seviyorsunuz?"
+    },
     "media": "/fried_chicken.png"
   },
   {
     "id": "question11",
     "type": "score",
-    "question": "How much do you like tacos?",
+    "question": {
+      "tr": "How much do you like tacos?",
+      "en": "Taco ne kadar seviyorsunuz?"
+    },
     "media": "/taco.png"
   },
   {
     "id": "question12",
     "type": "score",
-    "question": "How much do you like pasta?",
+    "question": {
+      "tr": "How much do you like pasta?",
+      "en": "Pasta ne kadar seviyorsunuz?"
+    },
     "media": "/pasta.png"
   },
   {
     "id": "question13",
     "type": "text",
-    "question": "Aşağıdaki şıklardan sevmediklerinizi yazınız."
+    "question": {
+      "tr": "Aşağıdaki şıklardan sevmediklerinizi yazınız.",
+      "en": "Please write the ones you don't like from the options below."
+    }
   }
 ]

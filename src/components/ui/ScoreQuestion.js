@@ -18,36 +18,37 @@ const StyledRating = styled(Rating)(({ theme }) => ({
 const customIcons = {
   1: {
     icon: <SentimentVeryDissatisfiedIcon color="error" size="large" />,
-    label: 'Very Dissatisfied',
+    label: { en: 'Very Dissatisfied', tr: 'Çok Memnuniyetsiz' }, // Example translation for Turkish
   },
   2: {
     icon: <SentimentDissatisfiedIcon size="large" color="error" />,
-    label: 'Dissatisfied',
+    label: { en: 'Dissatisfied', tr: 'Memnuniyetsiz' },
   },
   3: {
     icon: <SentimentSatisfiedIcon color="warning" />,
-    label: 'Neutral',
+    label: { en: 'Neutral', tr: 'Neutral' },
   },
   4: {
     icon: <SentimentSatisfiedAltIcon color="success" />,
-    label: 'Satisfied',
+    label: { en: 'Satisfied', tr: 'Memnun' },
   },
   5: {
     icon: <SentimentVerySatisfiedIcon color="success" />,
-    label: 'Very Satisfied',
+    label: { en: 'Very Satisfied', tr: 'Çok Memnun' },
   },
 };
 
 function IconContainer(props) {
-  const { value, ...other } = props;
+  const { value, language, ...other } = props;
   return <span {...other}>{customIcons[value].icon}</span>;
 }
 
 IconContainer.propTypes = {
   value: PropTypes.number.isRequired,
+  language: PropTypes.string.isRequired, // Pass language to IconContainer
 };
 
-const ScoreQuestion = ({ question, value, onChange, media }) => {
+const ScoreQuestion = ({ question, value, onChange, media, language }) => {
   return (
     <Box
       sx={{
@@ -56,10 +57,9 @@ const ScoreQuestion = ({ question, value, onChange, media }) => {
         padding: 3,
         textAlign: 'center',
         maxWidth: 400,
-        margin: 'auto'
+        margin: 'auto',
       }}
     >
-
       {/* Media (Image) */}
       {media && (
         <Box sx={{ marginBottom: 2 }}>
@@ -71,22 +71,22 @@ const ScoreQuestion = ({ question, value, onChange, media }) => {
       )}
 
       {/* Question */}
-      <Typography variant="body1" sx={{ marginBottom: 2, fontSize: 25, font: '' }}>
-        {question}
+      <Typography variant="body1" sx={{ marginBottom: 2, fontSize: 25 }}>
+        {question[language]} {/* Display the question in the current language */}
       </Typography>
 
       {/* Rating */}
       <StyledRating
         name="score-rating"
         value={value || 0}
-        IconContainerComponent={IconContainer}
-        getLabelText={(value) => customIcons[value]?.label || ''}
+        IconContainerComponent={(props) => <IconContainer {...props} language={language} />} // Pass language to IconContainer
+        getLabelText={(value) => customIcons[value]?.label[language] || ''}
         highlightSelectedOnly
         onChange={(event, newValue) => onChange(newValue)}
         sx={{
           gap: 5, // Space between icons
           '& .MuiRating-icon': {
-            fontSize: '5', // Adjust the icon size here (e.g., 3rem = 48px)
+            fontSize: '5', // Adjust the icon size here
           },
         }}
       />
@@ -95,10 +95,11 @@ const ScoreQuestion = ({ question, value, onChange, media }) => {
 };
 
 ScoreQuestion.propTypes = {
-  question: PropTypes.string.isRequired,
+  question: PropTypes.object.isRequired, // Question should be an object with language keys
   value: PropTypes.number,
   onChange: PropTypes.func.isRequired,
-  media: PropTypes.string, // Media is now a string (e.g., a URL or path)
+  media: PropTypes.string, // Media is now a string (URL or path)
+  language: PropTypes.string.isRequired, // Pass the current language
 };
 
 export default ScoreQuestion;

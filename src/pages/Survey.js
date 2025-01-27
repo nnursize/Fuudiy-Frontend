@@ -1,17 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import CheckboxQuestion from '../components/ui/CheckboxQuestion';
-import RadioQuestion from '../components/ui/RadioQuestion';
 import RadioMatrix from '../components/ui/RadioMatrix';
 import TextQuestion from '../components/ui/TextQuestion';
-import SortQuestion from '../components/ui/SortQuestion';
-import { Box, Button, ButtonGroup, Typography } from '@mui/material';
 import ScoreQuestion from '../components/ui/ScoreQuestion';
+import { Box, Button, Typography } from '@mui/material';
+import LanguageSwitcher from '../components/LanguageSwitcher';
+
+import { useTranslation } from 'react-i18next';
 
 const Survey = () => {
+    const { t, i18n } = useTranslation("global");
     const [questions, setQuestions] = useState([]);
     const [responses, setResponses] = useState({});
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [loading, setLoading] = useState(true);
+
     useEffect(() => {
         const fetchQuestions = async () => {
             try {
@@ -24,7 +27,6 @@ const Survey = () => {
                 setLoading(false);
             }
         };
-
         fetchQuestions();
     }, []);
 
@@ -49,18 +51,19 @@ const Survey = () => {
 
     const handleSubmit = () => {
         console.log('Survey Responses:', responses);
+        alert('Thank you for completing the survey!');
     };
 
-
     if (loading) {
-        return <div>Loading survey questions...</div>;
+        return <Typography>Loading survey questions...</Typography>;
     }
 
     if (questions.length === 0) {
-        return <div>No questions available.</div>;
+        return <Typography>No questions available.</Typography>;
     }
 
     const currentQuestion = questions[currentQuestionIndex];
+    const language = i18n.language; // Get the current language from i18n
 
     const resolveMediaPath = (path) => {
         if (!path) return null;
@@ -72,114 +75,104 @@ const Survey = () => {
         }
     };
 
+    const changeLanguage = (lng) => {
+        i18n.changeLanguage(lng)
+            .then(() => console.log(`Language changed to: ${lng}`))
+            .catch((err) => console.error("Language switch failed:", err));
+    };
+
     return (
-        <Box
-            component="section"
-            sx={{
-                alignContent: 'center',
-                justifyContent: 'center',
-                display: '-ms-grid',
-                width: 600,
-                borderRadius: 15,
-                bgcolor: 'background.main', // Use theme's background color
-                textAlign: 'center',
-                padding: 5,
-            }}
-        >
-            <Typography variant="h4" sx={{ marginBottom: 3 }}>
-                User Preferences
-            </Typography>
+        <>
+            <Box position='relative'>
+                <LanguageSwitcher color='white' changeLanguage={changeLanguage} />
+            </Box>
+            <Box
+                sx={{
+                    width: 600,
+                    borderRadius: 15,
+                    bgcolor: 'background.main',
+                    textAlign: 'center',
+                    padding: 5,
+                    margin: 'auto',
+                }}
+            >
+                <Typography variant="h6" color='grey' sx={{ marginBottom: 3 }}>
+                    {t('user_pref')}
+                </Typography>
 
-            {/* Render the current question */}
-            {currentQuestion.type === 'checkbox' && (
-                <CheckboxQuestion
-                    question={currentQuestion.question}
-                    options={currentQuestion.options}
-                    selected={responses[currentQuestion.id] || []}
-                    onChange={(option, isChecked) => {
-                        const currentSelections = responses[currentQuestion.id] || [];
-                        const newSelections = isChecked
-                            ? [...currentSelections, option]
-                            : currentSelections.filter((item) => item !== option);
-                        handleResponseChange(currentQuestion.id, newSelections);
-                    }}
-                    twoColumns={currentQuestion.twoColumns || false}
-                />
-            )}
+                {/* Render the current question dynamically */}
+                {currentQuestion.type === 'checkbox' && (
+                    <CheckboxQuestion
+                        question={currentQuestion.question}
+                        options={currentQuestion.options}
+                        selected={responses[currentQuestion.id] || []}
+                        onChange={(option, isChecked) => {
+                            const currentSelections = responses[currentQuestion.id] || [];
+                            const newSelections = isChecked
+                                ? [...currentSelections, option]
+                                : currentSelections.filter((item) => item !== option);
+                            handleResponseChange(currentQuestion.id, newSelections);
+                        }}
+                        twoColumns={currentQuestion.twoColumns || false}
+                        language={language} // Pass the current language to the component
+                    />
+                )}
 
-            {currentQuestion.type === 'radio' && currentQuestion.rows && currentQuestion.columns && (
-                <RadioMatrix
-                    question={currentQuestion.question}
-                    rows={currentQuestion.rows}
-                    columns={currentQuestion.columns}
-                    onChange={(row, value) => {
-                        const newResponses = { ...responses[currentQuestion.id], [row]: value };
-                        handleResponseChange(currentQuestion.id, newResponses);
-                    }}
-                />
-            )}
+{currentQuestion.type === 'radio' && currentQuestion.rows && currentQuestion.columns && (
+  <RadioMatrix
+    question={currentQuestion.question}
+    rows={currentQuestion.rows}
+    columns={currentQuestion.columns}
+    onChange={(row, value) => {
+      const newResponses = { ...responses[currentQuestion.id], [row]: value };
+      handleResponseChange(currentQuestion.id, newResponses);
+    }}
+    language={i18n.language}  // Pass the current language to RadioMatrix
+  />
+)}
 
-            {currentQuestion.type === 'text' && (
-                <TextQuestion
-                    question={currentQuestion.question}
-                    value={responses[currentQuestion.id] || ''}
-                    onChange={(value) => handleResponseChange(currentQuestion.id, value)}
-                />
-            )}
 
-            {currentQuestion.type === 'score' && (
-                <ScoreQuestion
-                    question={currentQuestion.question}
-                    value={responses[currentQuestion.id] || 0}
-                    onChange={(newValue) => handleResponseChange(currentQuestion.id, newValue)}
-                    media={resolveMediaPath(currentQuestion.media)}
-                />
-            )}
+{currentQuestion.type === 'score' && (
+  <ScoreQuestion
+    question={currentQuestion.question}
+    value={responses[currentQuestion.id] || 0}
+    onChange={(value) => handleResponseChange(currentQuestion.id, value)}
+    media={resolveMediaPath(currentQuestion.media)}
+    language={i18n.language}  // Pass the current language to ScoreQuestion
+  />
+)}
 
-            {currentQuestion.type === 'sort' && (
-                <SortQuestion
-                    question={currentQuestion.question}
-                    options={responses[currentQuestion.id] || currentQuestion.options}
-                    onChange={(newOrder) => handleResponseChange(currentQuestion.id, newOrder)}
-                />
-            )}
+{currentQuestion.type === 'text' && (
+  <TextQuestion
+    question={currentQuestion.question}
+    value={responses[currentQuestion.id] || ''}
+    onChange={(value) => handleResponseChange(currentQuestion.id, value)}
+    language={i18n.language}  // Pass the current language to TextQuestion
+  />
+)}
 
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', marginTop: '20px' }}>
-                <ButtonGroup sx={{ width: '100%', gap: '10px' }}>
+                {/* Navigation Buttons */}
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', marginTop: 4, gap: 2 }}>
                     <Button
                         variant="contained"
                         onClick={goToPreviousQuestion}
                         disabled={currentQuestionIndex === 0}
-                        sx={{ flex: 1 }}
-                        color="primary"
                     >
-                        Previous
+                        {t('previous')}
                     </Button>
+
                     {currentQuestionIndex < questions.length - 1 ? (
-                        <Button
-                            variant="contained"
-                            onClick={goToNextQuestion}
-                            sx={{ flex: 1, bgcolor: 'primary' }}
-                        >
-                           <Typography variant="button" >
-                                  Next 
-                            </Typography> 
+                        <Button variant="contained" onClick={goToNextQuestion}>
+                            {t('next')}
                         </Button>
                     ) : (
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            onClick={handleSubmit}
-                            sx={{ flex: 1 }}
-                        >
-                            <Typography variant="button" >
-                                  Next 
-                            </Typography> 
+                        <Button variant="contained" color="primary" onClick={handleSubmit}>
+                            {t('submit')}
                         </Button>
                     )}
-                </ButtonGroup>
+                </Box>
             </Box>
-        </Box>
+        </>
     );
 };
 

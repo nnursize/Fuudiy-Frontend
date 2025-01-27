@@ -5,6 +5,9 @@ import LanguageSwitcher from '../components/LanguageSwitcher';
 import { FaUser, FaLock } from "react-icons/fa";
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
+import { alignProperty } from '@mui/material/styles/cssUtils';
+import { colors } from '@mui/material';
+import { Box} from '@mui/material';
 
 const Login = () => {
   const { t, i18n } = useTranslation("global");
@@ -35,9 +38,21 @@ const Login = () => {
   };
 
   return (
-    <Frame title={t('login')} onSubmit={handleLoginSubmit}>
+    <Frame title={t('login')} onSubmit={handleLoginSubmit} >
       {/* Language Switcher */}
-      <LanguageSwitcher changeLanguage={changeLanguage} />
+      
+      <>
+  <Box 
+    sx={{ 
+      position: 'absolute', // Positions it relative to the page
+      top: '10px',          // Adjusts vertical placement
+      right: '15px',         // Positions it to the left
+    }}
+  >
+    <LanguageSwitcher changeLanguage={changeLanguage} color="white" />
+  </Box>
+</>
+
       
       <h1>{t('login')}</h1>
       {/* Login Form Fields */}

@@ -2,17 +2,17 @@ import React from 'react';
 import { FormGroup, FormControlLabel, Checkbox } from '@mui/material';
 import { Box, Typography } from '@mui/material';
 
-const CheckboxQuestion = ({ question, options, selected, onChange, twoColumns = false }) => {
+const CheckboxQuestion = ({ question, options, selected, onChange, twoColumns = false, language }) => {
   return (
     <div>
       <Typography variant="h6" sx={{ marginBottom: 2, fontSize: 25, font: '' }}>
-        {question}
+        {question[language]}
       </Typography>
       <FormGroup
         sx={{
           display: 'grid',
           gridTemplateColumns: twoColumns ? '1fr 1fr' : '1fr',
-          gap: '10px', // Space between items
+          gap: '10px',
           bgcolor: 'background.main'
         }}
       >
@@ -30,9 +30,7 @@ const CheckboxQuestion = ({ question, options, selected, onChange, twoColumns = 
                 color='highlight.dark'
               />
             }
-            label={ <Typography variant="h6" sx={{ fontWeight: 400 }}>
-            {option}
-          </Typography>}
+            label={<Typography variant="h6" sx={{ fontWeight: 400 }}>{option[language]}</Typography>}
           />
         ))}
       </FormGroup>
