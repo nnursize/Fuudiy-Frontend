@@ -12,14 +12,13 @@ import {
 const LogoutPopup = ({ open, onClose }) => {
   const theme = useTheme();
 
-  // Handle the logout logic here
+  // Centralized logout logic
   const handleLogout = () => {
-    console.log('User logged out'); // Replace with actual logout logic
-    onClose(); // Close the popup after logging out
-    // Optionally, redirect the user or clear session data
-    // Example:
+    console.log('User logged out'); // Replace with your actual logout logic
+    // Example: Clear session data and redirect to login
     // localStorage.removeItem('authToken');
     // window.location.href = '/login';
+    onClose(); // Close the dialog after logout
   };
 
   return (

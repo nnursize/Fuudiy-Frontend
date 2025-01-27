@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Typography, Avatar, Rating, Grid } from '@mui/material';
+import { Box, Typography, Avatar, Rating } from '@mui/material';
 
 const FoodInProfile = ({ food }) => {
   return (
@@ -16,15 +16,31 @@ const FoodInProfile = ({ food }) => {
         src={food.imageUrl || `${process.env.PUBLIC_URL}/default-food.jpg`}
         alt={food.name}
         variant="rounded"
-        sx={{ width: 60, height: 60 }}
+        sx={{ width: 90, height: 90 }}
       />
 
       {/* Food Details */}
       <Box flex={1}>
-        {/* Food Name and Country */}
-        <Typography variant="h6" noWrap>
-          {food.name}
-        </Typography>
+        {/* Food Name, Popularity, and Rating */}
+        <Box display="flex" alignItems="center" justifyContent="space-between">
+          <Typography variant="h6" noWrap>
+            {food.name}
+          </Typography>
+          <Box display="flex" alignItems="center" gap={1}>
+            <Typography variant="body2" color="textSecondary">
+              {food.popularity.toFixed(1)}
+            </Typography>
+            <Rating
+              name="user-rating"
+              value={food.rate}
+              readOnly
+              precision={1}
+              size="small"
+            />
+          </Box>
+        </Box>
+
+        {/* Food Country */}
         <Typography variant="body2" color="textSecondary">
           {food.country}
         </Typography>
@@ -34,23 +50,17 @@ const FoodInProfile = ({ food }) => {
           Ingredients: {food.ingredients.join(', ')}
         </Typography>
 
-        {/* Popularity and Rating */}
-        <Grid container alignItems="center" spacing={1} marginTop={1}>
-          <Grid item>
-            <Rating
-              name="user-rating"
-              value={food.rate}
-              readOnly
-              precision={1}
-              size="small"
-            />
-          </Grid>
-          <Grid item>
-            <Typography variant="body2" color="textSecondary">
-              (Popularity: {food.popularity.toFixed(1)})
+        {/* User Comment */}
+        {food.comment && (
+            <Typography
+                variant="body2"
+                color="textSecondary"
+                marginTop={1}
+                sx={{ fontStyle: 'italic' }} // Italic style applied here
+            >
+                "{food.comment}"
             </Typography>
-          </Grid>
-        </Grid>
+        )}
       </Box>
     </Box>
   );
