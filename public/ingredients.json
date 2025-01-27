@@ -1,14 +1,46 @@
 [
-    "Tomato",
-    "Onion",
-    "Garlic",
-    "Chicken",
-    "Beef",
-    "Fish",
-    "Rice",
-    "Pasta",
-    "Cheese",
-    "Carrot",
-    "Potato"
-  ]
-  
+  {
+    "en": "Tomato",
+    "tr": "Domates"
+  },
+  {
+    "en": "Onion",
+    "tr": "Soğan"
+  },
+  {
+    "en": "Garlic",
+    "tr": "Sarımsak"
+  },
+  {
+    "en": "Chicken",
+    "tr": "Tavuk"
+  },
+  {
+    "en": "Beef",
+    "tr": "Sığır Eti"
+  },
+  {
+    "en": "Fish",
+    "tr": "Balık"
+  },
+  {
+    "en": "Rice",
+    "tr": "Pirinç"
+  },
+  {
+    "en": "Pasta",
+    "tr": "Makarna"
+  },
+  {
+    "en": "Cheese",
+    "tr": "Peynir"
+  },
+  {
+    "en": "Carrot",
+    "tr": "Havuç"
+  },
+  {
+    "en": "Potato",
+    "tr": "Patates"
+  }
+]
