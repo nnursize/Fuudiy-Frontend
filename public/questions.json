@@ -94,8 +94,8 @@
     "id": "question6",
     "type": "score",
     "question": {
-      "tr": "How much do you like sushi?",
-      "en": "Sushi ne kadar seviyorsunuz?"
+      "tr": "Sushi ne kadar seviyorsunuz?",
+      "en":"How much do you like sushi?" 
     },
     "media": "/sushi.png"
   },
@@ -103,8 +103,8 @@
     "id": "question7",
     "type": "score",
     "question": {
-      "tr": "How much do you like pizza?",
-      "en": "Pizza ne kadar seviyorsunuz?"
+      "tr": "Pizza ne kadar seviyorsunuz?",
+      "en": "How much do you like pizza?"
     },
     "media": "/pizza.png"
   },
@@ -112,8 +112,8 @@
     "id": "question8",
     "type": "score",
     "question": {
-      "tr": "How much do you like dumplings?",
-      "en": "Dumplings ne kadar seviyorsunuz?"
+      "tr":"Dumplings ne kadar seviyorsunuz?",
+      "en":  "How much do you like dumplings?"
     },
     "media": "/dumpling.png"
   },
@@ -121,8 +121,8 @@
     "id": "question9",
     "type": "score",
     "question": {
-      "tr": "How much do you like hamburgers?",
-      "en": "Hamburger ne kadar seviyorsunuz?"
+      "tr": "Hamburger ne kadar seviyorsunuz?",
+      "en": "How much do you like hamburgers?"
     },
     "media": "/hamburger.png"
   },
@@ -130,8 +130,8 @@
     "id": "question10",
     "type": "score",
     "question":  {
-      "tr": "How much do you like fried chicken?",
-      "en": "Fried chicken ne kadar seviyorsunuz?"
+      "tr": "Fried chicken ne kadar seviyorsunuz?",
+      "en": "How much do you like fried chicken?"
     },
     "media": "/fried_chicken.png"
   },
@@ -139,8 +139,8 @@
     "id": "question11",
     "type": "score",
     "question": {
-      "tr": "How much do you like tacos?",
-      "en": "Taco ne kadar seviyorsunuz?"
+      "tr": "Taco ne kadar seviyorsunuz?",
+      "en":"How much do you like tacos?" 
     },
     "media": "/taco.png"
   },
@@ -148,8 +148,8 @@
     "id": "question12",
     "type": "score",
     "question": {
-      "tr": "How much do you like pasta?",
-      "en": "Pasta ne kadar seviyorsunuz?"
+      "tr": "Makarna ne kadar seviyorsunuz?",
+      "en": "How much do you like pasta?"
     },
     "media": "/pasta.png"
   },
