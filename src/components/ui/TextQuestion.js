@@ -50,7 +50,7 @@ const TextQuestion = ({ question, value, onChange }) => {
   return (
     <Box sx={{ position: 'relative', margin: '20px 0' }}>
       {/* Question Header */}
-      <Typography variant="h6" gutterBottom>
+      <Typography variant="h5" gutterBottom>
         {question}
       </Typography>
 

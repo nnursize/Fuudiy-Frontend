@@ -12,23 +12,23 @@ const RadioMatrix = ({ question, rows, columns, onChange }) => {
 
   return (
     <div>
-      <Typography variant="h6" style={{ marginBottom: '20px' }}>
+      <Typography variant="h5" style={{ marginBottom: '20px' }}>
         {question}
       </Typography>
       <Grid container  alignItems="normal" bgcolor={'background.main'} gap={2}>
         {/* Render column headers */}
-        <Grid item xs={4}></Grid>
+        <Grid item xs={3}></Grid>
         {columns.map((col, colIndex) => (
-          <Grid item  xs={2} key={colIndex} style={{ textAlign: 'center' }}>
-            <Typography   alignItems="center" textAlign={'center'}>{col}</Typography>
+          <Grid item  xs={2.5} key={colIndex} style={{ textAlign: 'center' }}>
+            <Typography  variant="h6" alignItems="center" textAlign={'center'}>{col}</Typography>
           </Grid>
         ))}
 
         {/* Render rows with radio buttons */}
         {rows.map((row, rowIndex) => (
-          <Grid container spacing={2} alignItems="center" key={rowIndex}>
+          <Grid container spacing={1} alignItems="center" key={rowIndex}>
             <Grid  xs={4}>
-              <Typography>{row}</Typography>
+              <Typography  variant="h6">{row}</Typography>
             </Grid>
             {columns.map((col, colIndex) => (
               <Grid  xs={2.5} key={colIndex} style={{ textAlign: 'center' }}>

@@ -11,7 +11,7 @@ import { Box, Typography } from '@mui/material';
 
 const StyledRating = styled(Rating)(({ theme }) => ({
   '& .MuiRating-iconEmpty .MuiSvgIcon-root': {
-    color: theme.palette.action.disabled, 
+    color: theme.palette.action.disabled,
   },
 }));
 
@@ -49,7 +49,7 @@ IconContainer.propTypes = {
 
 const ScoreQuestion = ({ question, value, onChange, media }) => {
   return (
-    <Box 
+    <Box
       sx={{
         backgroundColor: 'background',
         borderRadius: 2,
@@ -71,7 +71,7 @@ const ScoreQuestion = ({ question, value, onChange, media }) => {
       )}
 
       {/* Question */}
-      <Typography variant="body1" sx={{ marginBottom: 2, fontSize:25 , font: '' }}>
+      <Typography variant="body1" sx={{ marginBottom: 2, fontSize: 25, font: '' }}>
         {question}
       </Typography>
 
@@ -86,10 +86,10 @@ const ScoreQuestion = ({ question, value, onChange, media }) => {
         sx={{
           gap: 5, // Space between icons
           '& .MuiRating-icon': {
-              fontSize: '5', // Adjust the icon size here (e.g., 3rem = 48px)
+            fontSize: '5', // Adjust the icon size here (e.g., 3rem = 48px)
           },
         }}
-         />
+      />
     </Box>
   );
 };

@@ -4,33 +4,31 @@ import RadioQuestion from '../components/ui/RadioQuestion';
 import RadioMatrix from '../components/ui/RadioMatrix';
 import TextQuestion from '../components/ui/TextQuestion';
 import SortQuestion from '../components/ui/SortQuestion';
-import { Box, Button, ButtonGroup } from '@mui/material';
+import { Box, Button, ButtonGroup, Typography } from '@mui/material';
 import ScoreQuestion from '../components/ui/ScoreQuestion';
 
 const Survey = () => {
-    const [questions, setQuestions] = useState([]); // To store questions from JSON
+    const [questions, setQuestions] = useState([]);
     const [responses, setResponses] = useState({});
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-    const [loading, setLoading] = useState(true); // To track loading state
+    const [loading, setLoading] = useState(true);
 
-    // Fetch questions from JSON file
     useEffect(() => {
         const fetchQuestions = async () => {
             try {
-                const response = await fetch('/questions.json'); // Path to the JSON file
+                const response = await fetch('/questions.json');
                 const data = await response.json();
                 setQuestions(data);
-                setLoading(false); // Set loading to false after fetching
+                setLoading(false);
             } catch (error) {
                 console.error('Error fetching questions:', error);
-                setLoading(false); // Stop loading if there's an error
+                setLoading(false);
             }
         };
 
         fetchQuestions();
     }, []);
 
-    // Handle responses for each question type
     const handleResponseChange = (id, value) => {
         setResponses((prev) => ({
             ...prev,
@@ -38,7 +36,6 @@ const Survey = () => {
         }));
     };
 
-    // Navigation logic
     const goToNextQuestion = () => {
         if (currentQuestionIndex < questions.length - 1) {
             setCurrentQuestionIndex((prev) => prev + 1);
@@ -51,30 +48,23 @@ const Survey = () => {
         }
     };
 
-    // Handle submission
     const handleSubmit = () => {
         console.log('Survey Responses:', responses);
-        // Handle submission logic here (e.g., send responses to a server)
     };
 
-    // Show loading state
     if (loading) {
         return <div>Loading survey questions...</div>;
     }
 
-    // Handle case where no questions are loaded
     if (questions.length === 0) {
         return <div>No questions available.</div>;
     }
 
-    // Get the current question
     const currentQuestion = questions[currentQuestionIndex];
 
-    // Helper to dynamically resolve media paths
     const resolveMediaPath = (path) => {
         if (!path) return null;
         try {
-            // Use PUBLIC_URL for files in /public or require for /src
             return path.startsWith('/') ? `${process.env.PUBLIC_URL}${path}` : require(`../assets/${path}`);
         } catch (error) {
             console.error(`Error resolving media path: ${path}`, error);
@@ -89,14 +79,16 @@ const Survey = () => {
                 alignContent: 'center',
                 justifyContent: 'center',
                 display: '-ms-grid',
-                width: 550,
+                width: 600,
                 borderRadius: 15,
-                bgcolor: 'background.main',
+                bgcolor: 'background.main', // Use theme's background color
                 textAlign: 'center',
                 padding: 5,
             }}
         >
-            <h1>User Preferences</h1>
+            <Typography variant="h4" sx={{ marginBottom: 3 }}>
+                User Preferences
+            </Typography>
 
             {/* Render the current question */}
             {currentQuestion.type === 'checkbox' && (
@@ -111,7 +103,7 @@ const Survey = () => {
                             : currentSelections.filter((item) => item !== option);
                         handleResponseChange(currentQuestion.id, newSelections);
                     }}
-                    twoColumns={currentQuestion.twoColumns || false} // Pass the value from JSON
+                    twoColumns={currentQuestion.twoColumns || false}
                 />
             )}
 
@@ -140,7 +132,7 @@ const Survey = () => {
                     question={currentQuestion.question}
                     value={responses[currentQuestion.id] || 0}
                     onChange={(newValue) => handleResponseChange(currentQuestion.id, newValue)}
-                    media={resolveMediaPath(currentQuestion.media)} // Dynamically resolve media path
+                    media={resolveMediaPath(currentQuestion.media)}
                 />
             )}
 
@@ -152,24 +144,8 @@ const Survey = () => {
                 />
             )}
 
-            {/* Navigation Buttons */}
-            <div
-                style={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    marginTop: '20px',
-                }}
-            >
-                <ButtonGroup
-                    sx={{
-                        width: '100%',
-                        gap: '10px', // Add space between buttons
-                        '@media (max-width: 600px)': {
-                            flexDirection: 'column', // Stack buttons on smaller screens
-                            alignItems: 'center',
-                        },
-                    }}
-                >
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', marginTop: '20px' }}>
+                <ButtonGroup sx={{ width: '100%', gap: '10px' }}>
                     <Button
                         variant="contained"
                         onClick={goToPreviousQuestion}
@@ -185,7 +161,9 @@ const Survey = () => {
                             onClick={goToNextQuestion}
                             sx={{ flex: 1, bgcolor: 'primary' }}
                         >
-                            Next
+                           <Typography variant="button" >
+                                  Next 
+                            </Typography> 
                         </Button>
                     ) : (
                         <Button
@@ -194,11 +172,13 @@ const Survey = () => {
                             onClick={handleSubmit}
                             sx={{ flex: 1 }}
                         >
-                            Submit
+                            <Typography variant="button" >
+                                  Next 
+                            </Typography> 
                         </Button>
                     )}
                 </ButtonGroup>
-            </div>
+            </Box>
         </Box>
     );
 };

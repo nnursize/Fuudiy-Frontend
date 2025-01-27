@@ -1,10 +1,13 @@
 import React from 'react';
 import { FormGroup, FormControlLabel, Checkbox } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 
 const CheckboxQuestion = ({ question, options, selected, onChange, twoColumns = false }) => {
   return (
     <div>
-      <h3 style={{padding: 10  }}>{question}</h3>
+      <Typography variant="h6" sx={{ marginBottom: 2, fontSize: 25, font: '' }}>
+        {question}
+      </Typography>
       <FormGroup
         sx={{
           display: 'grid',
@@ -15,8 +18,10 @@ const CheckboxQuestion = ({ question, options, selected, onChange, twoColumns = 
       >
         {options.map((option, index) => (
           <FormControlLabel
-            sx={{ paddingLeft:5,
-              textAlign : 'center'}}
+            sx={{
+              paddingLeft: 5,
+              textAlign: 'center'
+            }}
             key={index}
             control={
               <Checkbox
@@ -25,7 +30,9 @@ const CheckboxQuestion = ({ question, options, selected, onChange, twoColumns = 
                 color='highlight.dark'
               />
             }
-            label={option}
+            label={ <Typography variant="h6" sx={{ fontWeight: 400 }}>
+            {option}
+          </Typography>}
           />
         ))}
       </FormGroup>
