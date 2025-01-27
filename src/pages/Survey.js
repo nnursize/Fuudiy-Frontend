@@ -12,7 +12,6 @@ const Survey = () => {
     const [responses, setResponses] = useState({});
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [loading, setLoading] = useState(true);
-    const [language, setLanguage] = useState('en'); // Default language
     useEffect(() => {
         const fetchQuestions = async () => {
             try {
@@ -52,9 +51,6 @@ const Survey = () => {
         console.log('Survey Responses:', responses);
     };
 
-    const changeLanguage = (lang) => {
-        setLanguage(lang);
-    }; 
 
     if (loading) {
         return <div>Loading survey questions...</div>;
@@ -76,8 +72,6 @@ const Survey = () => {
         }
     };
 
-    const translatedQuestion = currentQuestion.question[language];
-    const translatedOptions = currentQuestion.options[language];
     return (
         <Box
             component="section"
