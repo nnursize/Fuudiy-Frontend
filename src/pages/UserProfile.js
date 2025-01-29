@@ -1,13 +1,12 @@
-import React, { useState } from 'react';
-import { Box, Typography, Avatar, Chip, Paper, Button } from '@mui/material';
-import LogoutPopup from '../components/LogoutPopup';
+import React from 'react';
+import { Box, Typography, Avatar, Chip, Paper } from '@mui/material';
+import LogoutButtonWithPopup from '../components/LogoutButtonWithPopup';
 import FoodInProfile from '../components/FoodInProfile';
 import dummyUserData from '../data/dummyUserData.json';
 import dummyFoodData from '../data/dummyFoodData.json';
 import Header from '../components/Header';
 
 const UserProfile = () => {
-  const [logoutOpen, setLogoutOpen] = useState(false);
   const userData = dummyUserData;
   const foodData = dummyFoodData;
 
@@ -25,7 +24,12 @@ const UserProfile = () => {
       <Header />
       <Box padding={4} bgcolor="white">
         {/* User Information Section */}
-        <Paper elevation={3} sx={{ padding: 3, marginBottom: 4 }}>
+        <Paper elevation={3} sx={{ padding: 3, marginBottom: 4, position: 'relative' }}>
+          {/* Logout Button */}
+          <Box sx={{ position: 'absolute', top: 16, right: 16 }}>
+            <LogoutButtonWithPopup />
+          </Box>
+
           <Box display="flex" alignItems="center" marginBottom={3}>
             <Avatar
               src={
@@ -42,26 +46,6 @@ const UserProfile = () => {
                 {userData.email || 'No email available.'}
               </Typography>
               <Typography variant="body1">{userData.bio || 'No bio available.'}</Typography>
-            </Box>
-            <Box marginTop={3}>
-              <Button
-                variant="contained"
-                color="error"
-                onClick={() => setLogoutOpen(true)}
-                sx={{ marginTop: 2 }}
-              >
-                Log Out
-              </Button>
-            </Box>
-          </Box>
-          <Box>
-            <Typography variant="h6" marginBottom={2}>
-              Disliked Ingredients
-            </Typography>
-            <Box display="flex" flexWrap="wrap" gap={1}>
-              {userData.dislikedIngredients.map((ingredient, index) => (
-                <Chip key={index} label={ingredient} color="secondary" />
-              ))}
             </Box>
           </Box>
         </Paper>
@@ -105,9 +89,6 @@ const UserProfile = () => {
             )}
           </Paper>
         </Box>
-
-        {/* Logout Popup */}
-        <LogoutPopup open={logoutOpen} onClose={() => setLogoutOpen(false)} />
       </Box>
     </>
   );

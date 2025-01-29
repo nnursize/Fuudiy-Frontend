@@ -9,17 +9,8 @@ import {
   useTheme,
 } from '@mui/material';
 
-const LogoutPopup = ({ open, onClose }) => {
+const LogoutPopup = ({ open, onClose, onLogout }) => {
   const theme = useTheme();
-
-  // Centralized logout logic
-  const handleLogout = () => {
-    console.log('User logged out'); // Replace with your actual logout logic
-    // Example: Clear session data and redirect to login
-    // localStorage.removeItem('authToken');
-    // window.location.href = '/login';
-    onClose(); // Close the dialog after logout
-  };
 
   return (
     <Dialog
@@ -54,25 +45,24 @@ const LogoutPopup = ({ open, onClose }) => {
             color: theme.palette.text.primary,
             '&:hover': {
               backgroundColor: theme.palette.action.selected,
-            },
-          }}
-        >
-          Cancel
+            }}}
+          >
+            Cancel
         </Button>
         <Button
-          onClick={handleLogout}
-          sx={{
-            backgroundColor: theme.palette.error.light,
-            color: theme.palette.error.contrastText,
-            '&:hover': {
-              backgroundColor: theme.palette.error.main,
-            },
-          }}
-          variant="contained"
+            onClick={onLogout}
+            sx={{
+              backgroundColor: theme.palette.error.light,
+              color: theme.palette.error.contrastText,
+              '&:hover': {
+                backgroundColor: theme.palette.error.main,
+              },
+            }}
+            variant="contained"
         >
-          Log Out
+            Log Out
         </Button>
-      </DialogActions>
+        </DialogActions>
     </Dialog>
   );
 };
