@@ -1,9 +1,10 @@
 // Hero.js
 import React from 'react';
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 
 const HeroContainer = styled.section`
-  height: 400px; /* Full height of the viewport */
+  height: 500px; /* Full height of the viewport */
   width: 100%; /* Full width */
   background: url('/home_background.jpeg');
   background-size: cover; /* Ensure the image covers the entire container */
@@ -43,13 +44,15 @@ const SearchBar = styled.input`
   `;
 
 const Hero = () => {
-  return (
+  const { t, i18n } = useTranslation("global");
+
+  return (    
     <HeroContainer>
       <HeroText>
-        <h1>Discover Authentic Flavors</h1>
-        <p>Explore dishes and cuisines from around the world</p>
+        <h1>{t('title')}</h1>
+        <p>{t('subtitle')}</p>
       </HeroText>
-      <SearchBar placeholder="Search dishes or cuisines..." />
+      <SearchBar placeholder={t('searchPlaceholder')} />
     </HeroContainer>
   );
 };
