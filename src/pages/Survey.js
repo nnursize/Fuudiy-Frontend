@@ -1,151 +1,179 @@
 import React, { useState, useEffect } from 'react';
+import CheckboxQuestion from '../components/ui/CheckboxQuestion';
+import RadioMatrix from '../components/ui/RadioMatrix';
+import TextQuestion from '../components/ui/TextQuestion';
+import ScoreQuestion from '../components/ui/ScoreQuestion';
+import { Box, Button, Typography } from '@mui/material';
+import LanguageSwitcher from '../components/LanguageSwitcher';
+
 import { useTranslation } from 'react-i18next';
-import '../styles/Survey.css';
 
-function Survey() {
-  const { t, i18n } = useTranslation("global");
-  const [selectedOptions, setSelectedOptions] = useState({});
-  const [questions, setQuestions] = useState([]);
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+const Survey = () => {
+    const { t, i18n } = useTranslation("global");
+    const [questions, setQuestions] = useState([]);
+    const [responses, setResponses] = useState({});
+    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+    const [loading, setLoading] = useState(true);
 
-  // Fetch questions from the JSON file
-  useEffect(() => {
-    const fetchQuestions = async () => {
-      try {
-        const response = await fetch(`${process.env.PUBLIC_URL}/questions.json`);
-        const data = await response.json();
-        setQuestions(data);
-      } catch (error) {
-        console.error("Failed to load questions:", error);
-      }
+    useEffect(() => {
+        const fetchQuestions = async () => {
+            try {
+                const response = await fetch('/questions.json');
+                const data = await response.json();
+                setQuestions(data);
+                setLoading(false);
+            } catch (error) {
+                console.error('Error fetching questions:', error);
+                setLoading(false);
+            }
+        };
+        fetchQuestions();
+    }, []);
+
+    const handleResponseChange = (id, value) => {
+        setResponses((prev) => ({
+            ...prev,
+            [id]: value,
+        }));
     };
 
-    fetchQuestions();
-  }, []);
+    const goToNextQuestion = () => {
+        if (currentQuestionIndex < questions.length - 1) {
+            setCurrentQuestionIndex((prev) => prev + 1);
+        }
+    };
 
-  // Handle selection change for checkboxes and radio buttons
-  const handleOptionChange = (option, row = null) => {
-    setSelectedOptions((prevSelected) => {
-      if (row) {
-        // Matrix radio selection: one option per row
-        return {
-          ...prevSelected,
-          [row]: option
-        };
-      } else {
-        // Checkbox selection: multiple options
-        const updatedSelections = prevSelected[currentQuestionIndex] || [];
-        return {
-          ...prevSelected,
-          [currentQuestionIndex]: updatedSelections.includes(option)
-            ? updatedSelections.filter((o) => o !== option)
-            : [...updatedSelections, option]
-        };
-      }
-    });
-  };
+    const goToPreviousQuestion = () => {
+        if (currentQuestionIndex > 0) {
+            setCurrentQuestionIndex((prev) => prev - 1);
+        }
+    };
 
-  // Handle next and previous button clicks
-  const handleNext = () => {
-    setCurrentQuestionIndex((prevIndex) => Math.min(prevIndex + 1, questions.length - 1));
-    setSelectedOptions({});
-  };
+    const handleSubmit = () => {
+        console.log('Survey Responses:', responses);
+        alert('Thank you for completing the survey!');
+    };
 
-  const handlePrev = () => {
-    setCurrentQuestionIndex((prevIndex) => Math.max(prevIndex - 1, 0));
-  };
+    if (loading) {
+        return <Typography>Loading survey questions...</Typography>;
+    }
 
-  // Handle submit button click
-  const handleSubmit = () => {
-    alert(`${t('submit')}: ${JSON.stringify(selectedOptions)}`);
-  };
+    if (questions.length === 0) {
+        return <Typography>No questions available.</Typography>;
+    }
 
-  // Change language
-  const changeLanguage = (lng) => {
-    i18n.changeLanguage(lng);
-  };
+    const currentQuestion = questions[currentQuestionIndex];
+    const language = i18n.language; // Get the current language from i18n
 
-  // Render loading state or question
-  if (questions.length === 0) {
-    return <div>{t('loading')}</div>;
-  }
+    const resolveMediaPath = (path) => {
+        if (!path) return null;
+        try {
+            return path.startsWith('/') ? `${process.env.PUBLIC_URL}${path}` : require(`../assets/${path}`);
+        } catch (error) {
+            console.error(`Error resolving media path: ${path}`, error);
+            return null;
+        }
+    };
 
-  const currentQuestion = questions[currentQuestionIndex];
+    const changeLanguage = (lng) => {
+        i18n.changeLanguage(lng)
+            .then(() => console.log(`Language changed to: ${lng}`))
+            .catch((err) => console.error("Language switch failed:", err));
+    };
 
-  return (
-    <div className="survey-container">
-      {/* Language Switcher */}
-      <div className="language-switch">
-        <button onClick={() => changeLanguage('en')}>EN</button>
-        <button onClick={() => changeLanguage('tr')}>TR</button>
-      </div>
+    return (
+        <>
+            <Box position='relative'>
+                <LanguageSwitcher color='white' changeLanguage={changeLanguage} />
+            </Box>
+            <Box
+                sx={{
+                    width: 600,
+                    borderRadius: 15,
+                    bgcolor: 'background.main',
+                    textAlign: 'center',
+                    padding: 5,
+                    margin: 'auto',
+                }}
+            >
+                <Typography variant="h6" color='grey' sx={{ marginBottom: 3 }}>
+                    {t('user_pref')}
+                </Typography>
 
-      <h2>{t('survey_question')} {currentQuestionIndex + 1} {t('of')} {questions.length}</h2>
-      <p>{currentQuestion.title}</p>
-      <div className="options-container">
-        {/* Render options based on question type */}
-        {currentQuestion.type === 'checkbox' && currentQuestion.choices && (
-          currentQuestion.choices.map((choice, index) => (
-            <label key={index} className="option-label">
-              <input
-                type="checkbox"
-                value={choice.value || choice}
-                checked={(selectedOptions[currentQuestionIndex] || []).includes(choice.value || choice)}
-                onChange={() => handleOptionChange(choice.value || choice)}
-              />
-              {choice.text || choice}
-            </label>
-          ))
-        )}
-
-        {currentQuestion.type === 'text' && (
-          <input
-            type="text"
-            value={selectedOptions[currentQuestionIndex]?.[0] || ""}
-            onChange={(e) => setSelectedOptions({ [currentQuestionIndex]: [e.target.value] })}
-            placeholder={t('your_answer')}
-          />
-        )}
-
-        {currentQuestion.type === 'matrix' && (
-          <div className="matrix-container">
-            {currentQuestion.rows.map((row, rowIndex) => (
-              <div key={rowIndex} className="matrix-row">
-                <span>{row.text}</span>
-                {currentQuestion.columns.map((col, colIndex) => (
-                  <label key={colIndex} className="matrix-option">
-                    <input
-                      type="radio"
-                      name={`matrix-${row.value}`}
-                      value={col.value}
-                      checked={selectedOptions[row.value] === col.value}
-                      onChange={() => handleOptionChange(col.value, row.value)}
+                {/* Render the current question dynamically */}
+                {currentQuestion.type === 'checkbox' && (
+                    <CheckboxQuestion
+                        question={currentQuestion.question}
+                        options={currentQuestion.options}
+                        selected={responses[currentQuestion.id] || []}
+                        onChange={(option, isChecked) => {
+                            const currentSelections = responses[currentQuestion.id] || [];
+                            const newSelections = isChecked
+                                ? [...currentSelections, option]
+                                : currentSelections.filter((item) => item !== option);
+                            handleResponseChange(currentQuestion.id, newSelections);
+                        }}
+                        twoColumns={currentQuestion.twoColumns || false}
+                        language={language} // Pass the current language to the component
                     />
-                    {col.text}
-                  </label>
-                ))}
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
+                )}
 
-      <div className="navigation-buttons">
-        <button onClick={handlePrev} disabled={currentQuestionIndex === 0}>
-          {t('previous')}
-        </button>
-        {currentQuestionIndex < questions.length - 1 ? (
-          <button onClick={handleNext}>
-            {t('next')}
-          </button>
-        ) : (
-          <button onClick={handleSubmit}>
-            {t('submit')}
-          </button>
-        )}
-      </div>
-    </div>
-  );
-}
+{currentQuestion.type === 'radio' && currentQuestion.rows && currentQuestion.columns && (
+  <RadioMatrix
+    question={currentQuestion.question}
+    rows={currentQuestion.rows}
+    columns={currentQuestion.columns}
+    onChange={(row, value) => {
+      const newResponses = { ...responses[currentQuestion.id], [row]: value };
+      handleResponseChange(currentQuestion.id, newResponses);
+    }}
+    language={i18n.language}  // Pass the current language to RadioMatrix
+  />
+)}
+
+
+{currentQuestion.type === 'score' && (
+  <ScoreQuestion
+    question={currentQuestion.question}
+    value={responses[currentQuestion.id] || 0}
+    onChange={(value) => handleResponseChange(currentQuestion.id, value)}
+    media={resolveMediaPath(currentQuestion.media)}
+    language={i18n.language}  // Pass the current language to ScoreQuestion
+  />
+)}
+
+{currentQuestion.type === 'text' && (
+  <TextQuestion
+    question={currentQuestion.question}
+    value={responses[currentQuestion.id] || ''}
+    onChange={(value) => handleResponseChange(currentQuestion.id, value)}
+    language={i18n.language}  // Pass the current language to TextQuestion
+  />
+)}
+
+                {/* Navigation Buttons */}
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', marginTop: 4, gap: 2 }}>
+                    <Button
+                        variant="contained"
+                        onClick={goToPreviousQuestion}
+                        disabled={currentQuestionIndex === 0}
+                    >
+                        {t('previous')}
+                    </Button>
+
+                    {currentQuestionIndex < questions.length - 1 ? (
+                        <Button variant="contained" onClick={goToNextQuestion}>
+                            {t('next')}
+                        </Button>
+                    ) : (
+                        <Button variant="contained" color="primary" onClick={handleSubmit}>
+                            {t('submit')}
+                        </Button>
+                    )}
+                </Box>
+            </Box>
+        </>
+    );
+};
 
 export default Survey;

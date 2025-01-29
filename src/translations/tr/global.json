@@ -10,11 +10,30 @@
     "have_account": "Hesabım var",
     "agree_terms": "Şartları kabul ediyorum",
     "survey_question": "Anket Sorusu",
-  "of": "toplam",
-  "loading": "Yükleniyor...",
-  "previous": "Önceki",
-  "next": "Sonraki",
-  "submit": "Gönder",
-  "your_answer": "Cevabınız"
+    "of": "toplam",
+    "loading": "Yükleniyor...",
+    "previous": "Önceki",
+    "next": "Sonraki",
+    "submit": "Gönder",
+    "your_answer": "Cevabınız",
+  "user_pref":"Uygun önerilerde bulunmak için sizi tanımak istiyoruz",
+    "home": "Ana Sayfa",
+    "explore": "Keşfet",
+    "logout": "Çıkış Yap",
+    "title": "Eşsiz Lezzetleri Keşfedin",
+    "subtitle": "Dünya mutfağını ve yemeklerini keşfedin",
+    "searchPlaceholder": "Yemekleri veya mutfakları arayın...",
+    "trendingFoods":"Popüler Yemekler",
+    "trendingCuisines":"Popüler Mutfaklar",
+    "traditionalFoods": "Geleneksel Yemek",
+    "differentCountries": "Farklı Ülke",
+    "contactUs": "Bize Ulaşın",
+    "aboutUs": "Hakkımızda",
+    "siteMap": "Site Haritası",
+    "rightsReserved": "Tüm Hakları Saklıdır"
+
   }
+  
+  
+  
   
