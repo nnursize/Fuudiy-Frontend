@@ -1,12 +1,20 @@
-// src/components/LanguageSwitcher.js
-import React from 'react';
-import './LanguageSwitcher.css';
+import React, { useState } from "react";
+import "./LanguageSwitcher.css";
 
 const LanguageSwitcher = ({ changeLanguage }) => {
+  const [currentLanguage, setCurrentLanguage] = useState("en");
+
+  const toggleLanguage = () => {
+    const newLanguage = currentLanguage === "en" ? "tr" : "en";
+    setCurrentLanguage(newLanguage);
+    changeLanguage(newLanguage);
+  };
+
   return (
-    <div className="language-switch">
-      <button onClick={() => changeLanguage('en')}>EN</button>
-      <button onClick={() => changeLanguage('tr')}>TR</button>
+    <div className="language-switcher">
+      <button className="language-toggle" onClick={toggleLanguage}>
+        {currentLanguage.toUpperCase()}
+      </button>
     </div>
   );
 };

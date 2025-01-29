@@ -31,7 +31,7 @@ const Login = () => {
   const navigate = useNavigate();
 
   const handleLogin = () => {
-    navigate('/profile');
+    navigate('/');
   };
 
   return (

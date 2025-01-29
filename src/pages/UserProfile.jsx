@@ -2,6 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import FoodItemCard from '../components/FoodItemCard';
 import dummyUserData from '../data/dummyUserData.json';
+import DefaultHeader from "../components/Header";
+import Footer from "../components/Footer";
+
 
 const ProfileContainer = styled.div`
   padding: 2rem;
@@ -60,6 +63,8 @@ const UserProfile = () => {
     const userData = dummyUserData;
 
     return (
+      <>
+      <DefaultHeader />
         <ProfileContainer>
             <Header>
                 <ProfileImage
@@ -94,6 +99,8 @@ const UserProfile = () => {
                 </div>
             </Section>
         </ProfileContainer>
+        <Footer />
+        </>
     );
 };
 

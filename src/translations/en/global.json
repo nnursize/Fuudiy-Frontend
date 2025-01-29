@@ -15,6 +15,21 @@
     "previous": "Previous",
     "next": "Next",
     "submit": "Submit",
-    "your_answer": "Your answer"
+    "your_answer": "Your answer",
+    "home": "Home",
+    "explore": "Explore",
+    "logout": "Logout",
+    "title": "Discover Authentic Flavors",
+    "subtitle": "Explore dishes and cuisines from around the world",
+    "searchPlaceholder": "Search dishes or cuisines...",
+    "trendingFoods":"Trending Foods",
+    "trendingCuisines":"Trending Cuisines",
+    "traditionalFoods": "Traditional Foods",
+    "differentCountries": "Different Countries",
+    "contactUs": "Contact Us",
+    "aboutUs": "About Us",
+    "siteMap": "Site Map",
+    "rightsReserved": "All Rights Reserved"
+
   }
   
