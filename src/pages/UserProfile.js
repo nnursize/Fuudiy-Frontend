@@ -1,18 +1,34 @@
-import React from 'react';
-import { Box, Typography, Avatar, Chip, Paper } from '@mui/material';
+import React, { useState } from 'react';
+import { Box, Typography, Paper } from '@mui/material';
 import LogoutButtonWithPopup from '../components/LogoutButtonWithPopup';
 import FoodInProfile from '../components/FoodInProfile';
 import dummyUserData from '../data/dummyUserData.json';
 import dummyFoodData from '../data/dummyFoodData.json';
 import Header from '../components/Header';
+import ProfilePictureSelector from '../components/ProfilePictureSelector';
 
 const UserProfile = () => {
-  const userData = dummyUserData;
-  const foodData = dummyFoodData;
+  const [userData, setUserData] = useState(dummyUserData);
+
+  const handleAvatarChange = (newAvatar) => {
+    setUserData((prev) => ({ ...prev, avatarId: newAvatar }));
+  };
+
+  // Update food rating and refresh lists
+  const handleRateChange = (foodId, newRate) => {
+    const updatedRatedFoods = userData.ratedFoods.map((ratedFood) =>
+      ratedFood.foodId === foodId ? { ...ratedFood, rate: newRate } : ratedFood
+    );
+
+    setUserData((prev) => ({
+      ...prev,
+      ratedFoods: updatedRatedFoods,
+    }));
+  };
 
   // Map ratedFoods to their corresponding food items
   const ratedFoodDetails = userData.ratedFoods.map((ratedFood) => {
-    const food = foodData.find((item) => item.id === ratedFood.foodId);
+    const food = dummyFoodData.find((item) => item.id === ratedFood.foodId);
     return { ...food, rate: ratedFood.rate, comment: ratedFood.comment };
   });
 
@@ -31,15 +47,7 @@ const UserProfile = () => {
           </Box>
 
           <Box display="flex" alignItems="center" marginBottom={3}>
-            <Avatar
-              src={
-                userData.avatarId
-                  ? `/avatars/${userData.avatarId}.png`
-                  : `${process.env.PUBLIC_URL}/default-profile.jpeg`
-              }
-              alt={userData.name || 'User Profile'}
-              sx={{ width: 100, height: 100, marginRight: 3 }}
-            />
+            <ProfilePictureSelector currentAvatar={userData.avatarId} onSelect={handleAvatarChange} />
             <Box>
               <Typography variant="h5">{userData.name || 'Anonymous User'}</Typography>
               <Typography variant="body2" color="textSecondary" gutterBottom>
@@ -66,7 +74,7 @@ const UserProfile = () => {
             </Typography>
             <Box display="flex" flexDirection="column" gap={2}>
               {ratedFoodDetails.map((ratedFood, index) => (
-                <FoodInProfile key={index} food={ratedFood} />
+                <FoodInProfile key={index} food={ratedFood} onRateChange={handleRateChange} />
               ))}
             </Box>
           </Paper>
@@ -79,7 +87,7 @@ const UserProfile = () => {
             {favoriteFoodDetails.length > 0 ? (
               <Box display="flex" flexDirection="column" gap={2}>
                 {favoriteFoodDetails.map((food, index) => (
-                  <FoodInProfile key={index} food={food} />
+                  <FoodInProfile key={index} food={food} onRateChange={handleRateChange} />
                 ))}
               </Box>
             ) : (

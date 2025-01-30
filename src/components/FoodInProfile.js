@@ -1,7 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Box, Typography, Avatar, Rating } from '@mui/material';
 
-const FoodInProfile = ({ food }) => {
+const FoodInProfile = ({ food, onRateChange = () => {} }) => {
+  const [rating, setRating] = useState(food.rate);
+
+  const handleRatingChange = (event, newValue) => {
+    setRating(newValue);
+    if (typeof onRateChange === 'function') {
+      onRateChange(food.id, newValue);
+    }
+  };
+
   return (
     <Box
       display="flex"
@@ -32,8 +41,8 @@ const FoodInProfile = ({ food }) => {
             </Typography>
             <Rating
               name="user-rating"
-              value={food.rate}
-              readOnly
+              value={rating}
+              onChange={handleRatingChange}
               precision={1}
               size="small"
             />
@@ -52,14 +61,14 @@ const FoodInProfile = ({ food }) => {
 
         {/* User Comment */}
         {food.comment && (
-            <Typography
-                variant="body2"
-                color="textSecondary"
-                marginTop={1}
-                sx={{ fontStyle: 'italic' }} // Italic style applied here
-            >
-                "{food.comment}"
-            </Typography>
+          <Typography
+            variant="body2"
+            color="textSecondary"
+            marginTop={1}
+            sx={{ fontStyle: 'italic' }}
+          >
+            "{food.comment}"
+          </Typography>
         )}
       </Box>
     </Box>
