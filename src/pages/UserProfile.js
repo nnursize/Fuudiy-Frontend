@@ -18,16 +18,13 @@ const UserProfile = () => {
 
   // Update food rating and refresh lists
   const handleRateChange = (foodId, newRate) => {
-    // console.log(`Updating rating for foodId: ${foodId}, New Rate: ${newRate}`);
   
     // Update userData state
     setUserData((prev) => {
       const updatedRatedFoods = prev.ratedFoods.map((ratedFood) =>
         ratedFood.foodId === foodId ? { ...ratedFood, rate: newRate } : ratedFood
       );
-  
-      // console.log("Updated userData.ratedFoods:", updatedRatedFoods);
-  
+    
       return { ...prev, ratedFoods: updatedRatedFoods };
     });
   

@@ -2,7 +2,6 @@ import React from 'react';
 import { Box, Typography, Avatar, Rating } from '@mui/material';
 
 const FoodInProfile = ({ food, onRateChange }) => {
-  // console.log("Rendering FoodInProfile for:", food);
 
   return (
     <Box

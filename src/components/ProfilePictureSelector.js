@@ -9,15 +9,21 @@ const ProfilePictureSelector = ({ currentAvatar, onSelect }) => {
   
   const [open, setOpen] = useState(false);
 
+  // Ensure correct file path format for the avatar
+  const getAvatarSrc = (avatarId) => {
+    return avatarId.includes('.png') ? `/avatars/${avatarId}` : `/avatars/${avatarId}.png`;
+  };
+
   const handleSelect = (avatarId) => {
-    onSelect(avatarId);
+    onSelect(avatarId.replace('.png', '')); // Store avatarId without .png
     setOpen(false);
   };
 
   return (
     <>
+      {/* Ensure Avatar displays correctly on first render */}
       <Avatar
-        src={`/avatars/${currentAvatar}`}
+        src={getAvatarSrc(currentAvatar)}
         alt="Profile Picture"
         sx={{ width: 100, height: 100, cursor: 'pointer' }}
         onClick={() => setOpen(true)}
