@@ -1,15 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Box, Typography, Avatar, Rating } from '@mui/material';
 
-const FoodInProfile = ({ food, onRateChange = () => {} }) => {
-  const [rating, setRating] = useState(food.rate);
-
-  const handleRatingChange = (event, newValue) => {
-    setRating(newValue);
-    if (typeof onRateChange === 'function') {
-      onRateChange(food.id, newValue);
-    }
-  };
+const FoodInProfile = ({ food, onRateChange }) => {
+  // console.log("Rendering FoodInProfile for:", food);
 
   return (
     <Box
@@ -40,9 +33,12 @@ const FoodInProfile = ({ food, onRateChange = () => {} }) => {
               {food.popularity.toFixed(1)}
             </Typography>
             <Rating
-              name="user-rating"
-              value={rating}
-              onChange={handleRatingChange}
+              name={`user-rating-${food.id}`}
+              value={food.rate}
+              onChange={(event, newValue) => {
+                console.log(`Updating rating for foodId: ${food.id}, New Rate: ${newValue}`);
+                onRateChange(food.id, newValue);
+              }}
               precision={1}
               size="small"
             />

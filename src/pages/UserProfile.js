@@ -9,28 +9,40 @@ import ProfilePictureSelector from '../components/ProfilePictureSelector';
 
 const UserProfile = () => {
   const [userData, setUserData] = useState(dummyUserData);
-
-  const handleAvatarChange = (newAvatar) => {
-    setUserData((prev) => ({ ...prev, avatarId: newAvatar }));
-  };
+  const [ratedFoodDetails, setRatedFoodDetails] = useState(
+    dummyUserData.ratedFoods.map((ratedFood) => {
+      const food = dummyFoodData.find((item) => item.id === ratedFood.foodId);
+      return food ? { ...food, rate: ratedFood.rate, comment: ratedFood.comment } : null;
+    }).filter(Boolean)
+  );
 
   // Update food rating and refresh lists
   const handleRateChange = (foodId, newRate) => {
-    const updatedRatedFoods = userData.ratedFoods.map((ratedFood) =>
-      ratedFood.foodId === foodId ? { ...ratedFood, rate: newRate } : ratedFood
-    );
-
-    setUserData((prev) => ({
-      ...prev,
-      ratedFoods: updatedRatedFoods,
-    }));
+    // console.log(`Updating rating for foodId: ${foodId}, New Rate: ${newRate}`);
+  
+    // Update userData state
+    setUserData((prev) => {
+      const updatedRatedFoods = prev.ratedFoods.map((ratedFood) =>
+        ratedFood.foodId === foodId ? { ...ratedFood, rate: newRate } : ratedFood
+      );
+  
+      // console.log("Updated userData.ratedFoods:", updatedRatedFoods);
+  
+      return { ...prev, ratedFoods: updatedRatedFoods };
+    });
+  
+    // Update ratedFoodDetails correctly
+    setRatedFoodDetails((prev) => {
+      const updatedRatedFoodDetails = prev.map((food) =>
+        food.id === foodId ? { ...food, rate: newRate } : food
+      );
+  
+      console.log("Updated ratedFoodDetails:", updatedRatedFoodDetails);
+  
+      return updatedRatedFoodDetails;
+    });
   };
-
-  // Map ratedFoods to their corresponding food items
-  const ratedFoodDetails = userData.ratedFoods.map((ratedFood) => {
-    const food = dummyFoodData.find((item) => item.id === ratedFood.foodId);
-    return { ...food, rate: ratedFood.rate, comment: ratedFood.comment };
-  });
+  
 
   // Favorite foods (only foods rated 5 stars)
   const favoriteFoodDetails = ratedFoodDetails.filter((food) => food.rate === 5);
@@ -47,7 +59,9 @@ const UserProfile = () => {
           </Box>
 
           <Box display="flex" alignItems="center" marginBottom={3}>
-            <ProfilePictureSelector currentAvatar={userData.avatarId} onSelect={handleAvatarChange} />
+            <ProfilePictureSelector currentAvatar={userData.avatarId} onSelect={(newAvatar) =>
+              setUserData((prev) => ({ ...prev, avatarId: newAvatar }))
+            } />
             <Box>
               <Typography variant="h5">{userData.name || 'Anonymous User'}</Typography>
               <Typography variant="body2" color="textSecondary" gutterBottom>
