@@ -6,11 +6,8 @@ const LogoutButtonWithPopup = () => {
   const [open, setOpen] = useState(false);
 
   const handleLogout = () => {
-    console.log('User logged out'); // Replace with your logout logic
-    // For example, clear session data or redirect:
-    // localStorage.removeItem('authToken');
-    // window.location.href = '/login';
-    setOpen(false); // Close the popup after logout
+    console.log('User logged out'); 
+    setOpen(false); 
   };
 
   return (
@@ -19,7 +16,17 @@ const LogoutButtonWithPopup = () => {
         variant="contained"
         color="error"
         onClick={() => setOpen(true)}
-        sx={{ marginTop: 2 }}
+        sx={{ 
+          padding: '4px 8px',  // Smaller padding
+          fontSize: '0.75rem',  // Smaller text
+          minWidth: 'auto',  // Prevents excessive width
+          height: '40px',  // Adjusted height
+          backgroundColor: '#f44336', // Default red color
+          transition: 'background-color 0.3s ease-in-out', // Smooth transition
+          '&:hover': {
+            backgroundColor: '#e53935', // Slightly darker red when hovered
+          }
+        }}
       >
         Log Out
       </Button>

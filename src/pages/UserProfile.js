@@ -5,6 +5,7 @@ import FoodInProfile from '../components/FoodInProfile';
 import dummyUserData from '../data/dummyUserData.json';
 import dummyFoodData from '../data/dummyFoodData.json';
 import Header from '../components/Header';
+import Footer from "../components/Footer";
 import ProfilePictureSelector from '../components/ProfilePictureSelector';
 
 const UserProfile = () => {
@@ -55,11 +56,15 @@ const UserProfile = () => {
             <LogoutButtonWithPopup />
           </Box>
 
-          <Box display="flex" alignItems="center" marginBottom={3}>
-            <ProfilePictureSelector currentAvatar={userData.avatarId} onSelect={(newAvatar) =>
-              setUserData((prev) => ({ ...prev, avatarId: newAvatar }))
-            } />
-            <Box>
+          <Box display="flex" alignItems="center" marginBottom={3} gap={2}> {/* Added gap */}
+            <ProfilePictureSelector 
+              currentAvatar={userData.avatarId} 
+              onSelect={(newAvatar) =>
+                setUserData((prev) => ({ ...prev, avatarId: newAvatar }))
+              } 
+            />
+            
+            <Box sx={{ paddingLeft: 1 }}> 
               <Typography variant="h5">{userData.name || 'Anonymous User'}</Typography>
               <Typography variant="body2" color="textSecondary" gutterBottom>
                 {userData.email || 'No email available.'}
@@ -109,6 +114,7 @@ const UserProfile = () => {
           </Paper>
         </Box>
       </Box>
+      <Footer />
     </>
   );
 };
