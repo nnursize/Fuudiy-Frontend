@@ -1,4 +1,31 @@
-/* src/components/LanguageSwitcher.css */
+.language-switcher {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.language-toggle {
+  background-color:  #f8f9fa; /* Black background */
+  color: rgb(0, 0, 0); /* White text */
+  padding: 4px 4px; /* Padding for button */
+  font-size: 0.7rem; /* Adjust font size */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor */
+  transition: all 0.3s ease; /* Smooth transition */
+  height: 25px;
+  width: 25px;
+  border-radius: 100%;
+}
+
+.language-toggle:hover {
+  background-color: rgb(204, 201, 201); /* White background on hover */
+  color: black; /* Black text on hover */
+  border:  solid 0.1px black;
+}
+
+
+
+/* src/components/LanguageSwitcher.css
 .language-switch {
     margin-bottom: 15px;
     text-align: center;
@@ -24,4 +51,4 @@
   .language-switch button:active {
     background-color: #bbb;
   }
-  
+   */
