@@ -12,15 +12,15 @@ const RadioMatrix = ({ question, rows, columns, onChange, language }) => {
 
   return (
     <div>
-      <Typography variant="h5" style={{ marginBottom: '20px' }}>
+      <Typography variant="h5" sx={{ marginBottom: '20px' }}>
         {question[language]} {/* Render the question text based on the current language */}
       </Typography>
       <Grid container alignItems="normal" bgcolor={'background.main'} gap={2}>
         {/* Render column headers */}
         <Grid item xs={3}></Grid>
         {columns.map((col, colIndex) => (
-          <Grid item xs={2.5} key={colIndex} style={{ textAlign: 'center' }}>
-            <Typography variant="h6" alignItems="center" textAlign={'center'}>
+          <Grid item xs={2.5} key={colIndex} sx={{ textAlign: 'center' }}>
+            <Typography variant="h6" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
               {col[language]} {/* Render each column header based on the current language */}
             </Typography>
           </Grid>
@@ -35,21 +35,19 @@ const RadioMatrix = ({ question, rows, columns, onChange, language }) => {
               </Typography>
             </Grid>
             {columns.map((col, colIndex) => (
-              <Grid item xs={2.5} key={colIndex} style={{ textAlign: 'center' }}>
+              <Grid item xs={2.5} key={colIndex} sx={{ textAlign: 'center' }}>
                 <RadioGroup
-                  alignItems="center"
-                  sx={{ justifyContent: 'center' }}
+                  sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
                   row
-                  name={row[language]} 
+                  name={row[language]}
                   value={selectedValues[row[language]] || ''}
                   onChange={(e) => handleRadioChange(row[language], e.target.value)}
-                  color="secondary"
                 >
                   <FormControlLabel
-                    value={col[language]} 
-                    control={<Radio color="highlight.dark" alignItems="center" />}
+                    value={col[language]}
+                    control={<Radio />}
                     label=""
-                    style={{ margin: 0, alignItems: "center" }}
+                    sx={{ display: 'flex', alignItems: 'center', margin: 0 }}
                   />
                 </RadioGroup>
               </Grid>
