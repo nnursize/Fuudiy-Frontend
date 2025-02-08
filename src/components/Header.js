@@ -32,8 +32,8 @@ const Header = () => {
         <Link to="/explore">{t("explore")}</Link>
       </NavLinks>
       <RightSection>
-        <LanguageSwitcher changeLanguage={changeLanguage} />
-        {isLoggedIn ? (
+      <LanguageSwitcher changeLanguage={changeLanguage} height="35px" width="35px" fontSize="0.8rem" />
+      {isLoggedIn ? (
           <>
             <UserProfile>
               <img src="https://via.placeholder.com/40" alt="User Avatar" />
@@ -72,7 +72,7 @@ export default Header;
 // Styled-components
 const HeaderContainer = styled.header`
   display: flex;
-  justify-content: space-between;
+  justify-content: space-between; /* Logo on the left, NavLinks centered, RightSection on the right */
   align-items: center;
   padding: 10px 20px;
   background-color: #f8f9fa;
@@ -87,7 +87,9 @@ const Logo = styled.div`
 
 const NavLinks = styled.nav`
   display: flex;
-  gap: 20px;
+  justify-content: center; /* Center the navigation links */
+  flex: 1; 
+  gap: 30px; /* Space between links */
 
   a {
     text-decoration: none;
@@ -96,15 +98,17 @@ const NavLinks = styled.nav`
     transition: color 0.3s;
 
     &:hover {
-      color:rgb(0, 0, 0);
+      color: rgb(0, 0, 0);
     }
   }
 `;
+
 
 const RightSection = styled.div`
   display: flex;
   align-items: center;
   gap: 20px;
+  flex-shrink: 0;
 
   a {
     text-decoration: none;
