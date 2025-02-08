@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Hero from "../components/Hero";
@@ -33,20 +34,44 @@ const FoodSection = styled.section`
 
 const Home = () => {
   const [foods, setFoods] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const { t } = useTranslation("global");
 
   useEffect(() => {
+    let isMounted = true; // Prevent memory leaks
+
     const fetchFoods = async () => {
       try {
-        const response = await fetch("http://localhost:5000/food");
-        const data = await response.json();
-        setFoods(data);
+        setLoading(true);
+        const response = await axios.get("http://localhost:8000/food", {
+          headers: { "Cache-Control": "no-cache" },
+        });
+
+        if (isMounted) {
+          if (response.data.length === 0) {
+            setError("No food items found.");
+          } else {
+            setFoods(response.data);
+          }
+        }
       } catch (error) {
-        console.error("Error fetching foods:", error);
+        if (isMounted) {
+          setError("Error fetching food items.");
+          console.error("API Error:", error);
+        }
+      } finally {
+        if (isMounted) {
+          setLoading(false);
+        }
       }
     };
 
     fetchFoods();
+
+    return () => {
+      isMounted = false; // Cleanup function
+    };
   }, []);
 
   return (
@@ -54,20 +79,26 @@ const Home = () => {
       <Header />
       <Hero />
       <Title>
-      <h2>{t("trendingFoods")}</h2>
+        <h2>{t("trendingFoods")}</h2>
         <FoodSection>
-          {foods.map((food) => (
-            <FoodItemCard key={food._id} food={food} />
-          ))}
+          {loading ? (
+            <p>Loading food items...</p>
+          ) : error ? (
+            <p style={{ color: "red" }}>{error}</p>
+          ) : foods.length > 0 ? (
+            foods.map((food) => <FoodItemCard key={food.id} food={food} />)
+          ) : (
+            <p>No food items available.</p>
+          )}
         </FoodSection>
       </Title>
       <Title>
         <h2>{t("trendingCuisines")}</h2>
-          <CategorySection>
-            <CategoryCard image="https://via.placeholder.com/300" title={t("Italian")} />
-            <CategoryCard image="https://via.placeholder.com/300" title={t("Mexican")} />
-            <CategoryCard image="https://via.placeholder.com/300" title={t("Indian")} />
-          </CategorySection>
+        <CategorySection>
+          <CategoryCard image="https://via.placeholder.com/300" title={t("Italian")} />
+          <CategoryCard image="https://via.placeholder.com/300" title={t("Mexican")} />
+          <CategoryCard image="https://via.placeholder.com/300" title={t("Indian")} />
+        </CategorySection>
       </Title>
       <Footer />
     </>

@@ -49,8 +49,8 @@ const Login = () => {
       right: '15px',         // Positions it to the left
     }}
   >
-    <LanguageSwitcher changeLanguage={changeLanguage} color="white" />
-  </Box>
+      <LanguageSwitcher changeLanguage={changeLanguage} size="large" height="35px" width="35px" fontSize="0.8rem" />
+    </Box>
 </>
 
       
