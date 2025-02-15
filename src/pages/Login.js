@@ -35,10 +35,7 @@ const Login = () => {
     console.log("Login form submitted");
 
     // Build the payload
-    const payload = {
-      email,
-      password,
-    };
+    const payload = { email, password };
 
     try {
       const response = await fetch('http://localhost:8000/auth/login', {
@@ -68,23 +65,8 @@ const Login = () => {
   };
 
   return (
-    <Frame title={t('login')} onSubmit={handleLoginSubmit} >
-      {/* Language Switcher */}
-      
-      <>
-  <Box 
-    sx={{ 
-      position: 'absolute', // Positions it relative to the page
-      top: '10px',          // Adjusts vertical placement
-      right: '15px',         // Positions it to the left
-    }}
-  >
-      <LanguageSwitcher changeLanguage={changeLanguage} size="large" height="35px" width="35px" fontSize="0.8rem" />
-    </Box>
-</>
-
-      
     <Frame title={t('login')} onSubmit={handleLoginSubmit}>
+      {/* Language Switcher positioned at top-right */}
       <Box 
         sx={{ 
           position: 'absolute',
@@ -92,11 +74,19 @@ const Login = () => {
           right: '15px',
         }}
       >
-        <LanguageSwitcher changeLanguage={changeLanguage} color="white" />
+        <LanguageSwitcher 
+          changeLanguage={changeLanguage} 
+          size="large" 
+          height="35px" 
+          width="35px" 
+          fontSize="0.8rem" 
+          color="white" 
+        />
       </Box>
 
       <h1>{t('login')}</h1>
       {errorMsg && <p style={{ color: 'red' }}>{errorMsg}</p>}
+
       {/* Email Input */}
       <div className="input-box">
         <input 
@@ -108,6 +98,7 @@ const Login = () => {
         />
         <FaUser className="icon" />
       </div>
+
       {/* Password Input */}
       <div className="input-box">
         <input 
@@ -119,16 +110,17 @@ const Login = () => {
         />
         <FaLock className="icon" />
       </div>
+
       <div className="register-link">
         <p>
           {t('no_account')}{" "}
           <Link to="/register" className="toggle-link">{t('register')}</Link>
         </p>
       </div>
+
       <button type="submit">{t('login')}</button>
     </Frame>
   );
 };
 
 export default Login;
-  
