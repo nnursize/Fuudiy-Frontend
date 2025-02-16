@@ -30,8 +30,13 @@
     "contactUs": "Bize Ulaşın",
     "aboutUs": "Hakkımızda",
     "siteMap": "Site Haritası",
-    "rightsReserved": "Tüm Hakları Saklıdır"
-
+    "rightsReserved": "Tüm Hakları Saklıdır",
+    "ingredients":"Malzemeler",
+    "comments": "Yorumlar",
+    "addFavorite": "Favorilere Ekle",
+    "removeFavorite":"Favorilerden Çıkar",
+    "keywords": "Anahtar Kelimeler",
+    "errorFetching": "Getirirken Hata Oluştu"
   }
   
   

@@ -1,77 +1,158 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import {
   Box,
+  Typography,
+  List,
+  ListItem,
+  ListItemAvatar,
+  Avatar,
+  ListItemText,
   TextField,
   Button,
-  Typography,
+  CircularProgress,
+  Rating,
+  IconButton,
   Card,
-  CardContent,
-  Divider,
+  CardContent
 } from "@mui/material";
+import { useParams } from "react-router-dom";
+import StarIcon from "@mui/icons-material/Star";
+
+const StarRating = ({ value, onChange, readOnly = false }) => {
+  const [hoverRating, setHoverRating] = useState(0);
+  
+  return (
+    <Box sx={{ display: "flex", alignItems: "center" }}>
+      {[1, 2, 3, 4, 5].map((star) => (
+        <StarIcon
+          key={star}
+          sx={{
+            color: (readOnly ? value : (hoverRating || value)) >= star ? "#FFD700" : "#DDDDDD",
+            cursor: readOnly ? "default" : "pointer",
+            fontSize: readOnly ? 16 : 24,
+          }}
+          onMouseEnter={() => !readOnly && setHoverRating(star)}
+          onMouseLeave={() => !readOnly && setHoverRating(0)}
+          onClick={() => !readOnly && onChange(star)}
+        />
+      ))}
+    </Box>
+  );
+};
 
 const Comments = () => {
-  // Static comments for demonstration
-  const [comments, setComments] = useState([
-    "This dish is absolutely delicious!",
-    "Tried it last night, and it was amazing!",
-  ]);
+  const { id: food_id } = useParams();
+  const [comments, setComments] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [newComment, setNewComment] = useState("");
+  const [rating, setRating] = useState(0);
+  const [error, setError] = useState(null);
 
-  const handleCommentSubmit = (e) => {
-    e.preventDefault();
-    if (!newComment.trim()) return;
+  useEffect(() => {
+    const fetchComments = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8000/comments/${food_id}`);
+        const commentsWithUser = await Promise.all(
+          response.data.map(async (comment) => {
+            try {
+              const userResponse = await axios.get(`http://localhost:8000/users/${comment.userId}`);
+              return {
+                ...comment,
+                name: userResponse.data.data[0].name,
+                avatarId: userResponse.data.data[0].avatarId,
+              };
+            } catch (error) {
+              console.error("Error fetching user data:", error);
+              return { ...comment, name: "Unknown User", avatarId: "default" };
+            }
+          })
+        );
+        setComments(commentsWithUser);
+      } catch (error) {
+        setError("Error fetching comments.");
+        console.error("API Error:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchComments();
+  }, [food_id]);
 
-    // Add new comment to the list
-    setComments([...comments, newComment]);
-    setNewComment(""); // Clear input field
+  const handleCommentSubmit = async () => {
+    if (!newComment.trim() || rating === 0) return;
+
+    try {
+      const response = await axios.post("http://localhost:8000/comments", {
+        foodId: food_id,
+        userId: "currentUserId", // Replace with actual logged-in user ID
+        rate: rating,
+        comment: newComment,
+      });
+      console.log("Submitted comment:", response.data);
+      setComments([response.data, ...comments]);
+      setNewComment("");
+      setRating(0);
+    } catch (error) {
+      console.error("Error adding comment:", error);
+    }
   };
 
   return (
-    <Box>
-      {/* Comments Section Header */}
-      <Typography variant="h5" gutterBottom>
-        Comments
-      </Typography>
-      <Divider sx={{ marginBottom: "20px" }} />
-
-      {/* Display Comments */}
-      <Box sx={{ marginBottom: "20px" }}>
-        {comments.map((comment, index) => (
-          <Card key={index} sx={{ marginBottom: "10px" }}>
-            <CardContent>
-              <Typography variant="body1">{comment}</Typography>
-            </CardContent>
-          </Card>
-        ))}
-      </Box>
-
-      {/* Add Comment Form */}
-      <Box
-        component="form"
-        onSubmit={handleCommentSubmit}
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "10px",
-          marginTop: "20px",
-        }}
-      >
+    <Box sx={{ maxWidth: 800, margin: "0 auto", padding: "10px" }}>
+      <Typography variant="h5" gutterBottom>Comments</Typography>
+      {loading ? (
+        <CircularProgress />
+      ) : error ? (
+        <Typography color="error">{error}</Typography>
+      ) : (
+        <List>
+          {comments.map((comment, index) => (
+            <Card key={index} sx={{ marginBottom: 1, padding: 1, borderRadius: "12px", maxWidth: "100%", display: "block", minHeight: "60px", boxShadow: 1 }}>
+              <CardContent>
+                <ListItem alignItems="flex-start" sx={{ alignItems: "center" }}>
+                  <ListItemAvatar>
+                    <IconButton onClick={() => window.location.href = `/user/${comment.userId}`}>
+                      <Avatar src={`/avatars/${comment.avatarId}.png`} alt={comment.name} />
+                    </IconButton>
+                  </ListItemAvatar>
+                  <ListItemText
+                    primary={
+                      <>
+                        <Typography variant="subtitle2" sx={{ fontWeight: "bold" }}>{comment.name}</Typography>
+                        <StarRating value={comment.rate} readOnly />
+                      </>
+                    }
+                    secondary={
+                      <Typography sx={{ wordWrap: "break-word", marginTop: "4px", fontSize: "14px" }}>{comment.comment}</Typography>
+                    }
+                  />
+                </ListItem>
+              </CardContent>
+            </Card>
+          ))}
+        </List>
+      )}
+      
+      {/* Add Comment Section */}
+      <Box sx={{ marginTop: "10px" }}>
+        <Typography variant="h6">Leave a Comment</Typography>
+        <StarRating value={rating} onChange={setRating} />
         <TextField
-          label="Write your comment here..."
-          variant="outlined"
           fullWidth
-          multiline
-          rows={3}
+          variant="outlined"
+          placeholder="Write your comment..."
           value={newComment}
           onChange={(e) => setNewComment(e.target.value)}
+          sx={{ marginTop: "5px" }}
         />
         <Button
           variant="contained"
-          color="primary"
-          type="submit"
-          sx={{ alignSelf: "flex-end" }}
+          sx={{ marginTop: "5px", backgroundColor: "#aaa", color: "#fff" }}
+          onClick={handleCommentSubmit}
+          disabled={!newComment.trim() || rating === 0}
         >
-          Add Comment
+          Submit
         </Button>
       </Box>
     </Box>
@@ -79,101 +160,3 @@ const Comments = () => {
 };
 
 export default Comments;
-
-// const Comments = ({ foodId }) => {
-//   const [comments, setComments] = useState([]);
-//   const [newComment, setNewComment] = useState("");
-
-//   useEffect(() => {
-//     const fetchComments = async () => {
-//       try {
-//         const response = await axios.get(`http://localhost:5000/api/foods/${foodId}/comments`);
-//         setComments(response.data);
-//       } catch (err) {
-//         console.error("Error fetching comments:", err);
-//       }
-//     };
-
-//     fetchComments();
-//   }, [foodId]);
-
-//   const handleCommentSubmit = async (e) => {
-//     e.preventDefault();
-//     if (!newComment.trim()) return;
-
-//     try {
-//       const response = await axios.post(`http://localhost:5000/api/foods/${foodId}/comments`, {
-//         comment: newComment,
-//       });
-//       setComments([...comments, response.data]);
-//       setNewComment("");
-//     } catch (err) {
-//       console.error("Error submitting comment:", err);
-//     }
-//   };
-
-//   return (
-//     <CommentContainer>
-//       <CommentList>
-//         {comments.map((comment, index) => (
-//           <Comment key={index}>{comment.text}</Comment>
-//         ))}
-//       </CommentList>
-//       <CommentForm onSubmit={handleCommentSubmit}>
-//         <textarea
-//           value={newComment}
-//           onChange={(e) => setNewComment(e.target.value)}
-//           placeholder="Write your comment here..."
-//         />
-//         <button type="submit">Add Comment</button>
-//       </CommentForm>
-//     </CommentContainer>
-//   );
-// };
-
-// export default Comments;
-
-// // Styled-components
-// const CommentContainer = styled.div`
-//   margin-top: 20px;
-// `;
-
-// const CommentList = styled.div`
-//   margin-bottom: 20px;
-// `;
-
-// const Comment = styled.div`
-//   background-color: #f9f9f9;
-//   padding: 10px;
-//   margin-bottom: 10px;
-//   border-radius: 5px;
-//   border: 1px solid #ddd;
-// `;
-
-// const CommentForm = styled.form`
-//   display: flex;
-//   flex-direction: column;
-
-//   textarea {
-//     resize: none;
-//     padding: 10px;
-//     border-radius: 5px;
-//     border: 1px solid #ddd;
-//     margin-bottom: 10px;
-//     font-size: 1rem;
-//   }
-
-//   button {
-//     background-color: #007bff;
-//     color: white;
-//     border: none;
-//     padding: 10px 15px;
-//     border-radius: 5px;
-//     cursor: pointer;
-//     font-size: 1rem;
-
-//     &:hover {
-//       background-color: #0056b3;
-//     }
-//   }
-// `;
