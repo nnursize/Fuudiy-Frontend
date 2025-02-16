@@ -13,6 +13,7 @@ const Survey = () => {
     const [responses, setResponses] = useState({});
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [loading, setLoading] = useState(true);
+    const [errorMessage, setErrorMessage] = useState(""); // Store error message
 
     useEffect(() => {
         const fetchQuestions = async () => {
@@ -34,9 +35,37 @@ const Survey = () => {
             ...prev,
             [id]: value,
         }));
+        setErrorMessage(""); // Clear error when answered
+    };
+
+    const currentQuestion = questions[currentQuestionIndex];
+    const language = i18n.language;
+
+    const resolveMediaPath = (path) => {
+        if (!path) return null;
+        try {
+            return path.startsWith('/') ? `${process.env.PUBLIC_URL}${path}` : require(`../assets/${path}`);
+        } catch (error) {
+            console.error(`Error resolving media path: ${path}`, error);
+            return null;
+        }
+    };
+
+    const isCurrentQuestionAnswered = () => {
+        if (!currentQuestion) return false;
+        
+        if (currentQuestion.type === 'radio' || currentQuestion.type === 'score') {
+            return responses[currentQuestion.id] !== undefined && responses[currentQuestion.id] !== "";
+        }
+        
+        return true; // Other types are optional
     };
 
     const goToNextQuestion = () => {
+        if (!isCurrentQuestionAnswered()) {
+            window.alert(t('please_answer')); 
+            return;
+        }
         if (currentQuestionIndex < questions.length - 1) {
             setCurrentQuestionIndex((prev) => prev + 1);
         }
@@ -45,12 +74,17 @@ const Survey = () => {
     const goToPreviousQuestion = () => {
         if (currentQuestionIndex > 0) {
             setCurrentQuestionIndex((prev) => prev - 1);
+            setErrorMessage(""); // Clear error when going back
         }
     };
 
     const handleSubmit = async () => {
-        console.log('Survey Responses:', responses);
+        if (!isCurrentQuestionAnswered()) {
+            window.alert(t('please_answer')); 
+            return;
+        }
 
+        console.log('Survey Responses:', responses);
         try {
             const token = localStorage.getItem('accessToken');
             const payload = { responses };
@@ -74,7 +108,6 @@ const Survey = () => {
             const data = await response.json();
             console.log('Survey submitted successfully:', data);
             alert('Thank you for completing the survey!');
-            // Optionally, navigate or perform additional actions here.
 
         } catch (error) {
             console.error('Error submitting survey:', error);
@@ -90,29 +123,10 @@ const Survey = () => {
         return <Typography>No questions available.</Typography>;
     }
 
-    const currentQuestion = questions[currentQuestionIndex];
-    const language = i18n.language;
-
-    const resolveMediaPath = (path) => {
-        if (!path) return null;
-        try {
-            return path.startsWith('/') ? `${process.env.PUBLIC_URL}${path}` : require(`../assets/${path}`);
-        } catch (error) {
-            console.error(`Error resolving media path: ${path}`, error);
-            return null;
-        }
-    };
-
-    const changeLanguage = (lng) => {
-        i18n.changeLanguage(lng)
-            .then(() => console.log(`Language changed to: ${lng}`))
-            .catch((err) => console.error("Language switch failed:", err));
-    };
-
     return (
         <>
             <Box position='relative'>
-                <LanguageSwitcher color='white' changeLanguage={changeLanguage} />
+                <LanguageSwitcher color='white' changeLanguage={(lng) => i18n.changeLanguage(lng)} />
             </Box>
             <Box
                 sx={{
@@ -128,6 +142,14 @@ const Survey = () => {
                     {t('user_pref')}
                 </Typography>
 
+                {/* Error Message */}
+                {errorMessage && (
+                    <Typography color="error" sx={{ marginBottom: 2 }}>
+                        {errorMessage}
+                    </Typography>
+                )}
+
+
                 {/* Render the current question dynamically */}
                 {currentQuestion.type === 'checkbox' && (
                     <CheckboxQuestion
@@ -135,7 +157,6 @@ const Survey = () => {
                         options={currentQuestion.options}
                         selected={responses[currentQuestion.id] || []}
                         onChange={(option, isChecked) => {
-                            // Store only the canonical value
                             const canonicalValue = option.value;
                             const currentSelections = responses[currentQuestion.id] || [];
                             const newSelections = isChecked
@@ -191,11 +212,18 @@ const Survey = () => {
                     </Button>
 
                     {currentQuestionIndex < questions.length - 1 ? (
-                        <Button variant="contained" onClick={goToNextQuestion}>
+                        <Button
+                            variant="contained"
+                            onClick={goToNextQuestion}
+                        >
                             {t('next')}
                         </Button>
                     ) : (
-                        <Button variant="contained" color="primary" onClick={handleSubmit}>
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            onClick={handleSubmit}
+                        >
                             {t('submit')}
                         </Button>
                     )}
