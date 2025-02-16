@@ -5,7 +5,6 @@ import TextQuestion from '../components/ui/TextQuestion';
 import ScoreQuestion from '../components/ui/ScoreQuestion';
 import { Box, Button, Typography } from '@mui/material';
 import LanguageSwitcher from '../components/LanguageSwitcher';
-
 import { useTranslation } from 'react-i18next';
 
 const Survey = () => {
@@ -49,9 +48,38 @@ const Survey = () => {
         }
     };
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         console.log('Survey Responses:', responses);
-        alert('Thank you for completing the survey!');
+
+        try {
+            const token = localStorage.getItem('accessToken');
+            const payload = { responses };
+
+            const response = await fetch('http://localhost:8000/survey/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': token ? `Bearer ${token}` : ''
+                },
+                body: JSON.stringify(payload),
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                console.error('Failed to submit survey:', errorData);
+                alert('Failed to submit survey. ' + (errorData.detail || ''));
+                return;
+            }
+
+            const data = await response.json();
+            console.log('Survey submitted successfully:', data);
+            alert('Thank you for completing the survey!');
+            // Optionally, navigate or perform additional actions here.
+
+        } catch (error) {
+            console.error('Error submitting survey:', error);
+            alert('An error occurred while submitting the survey.');
+        }
     };
 
     if (loading) {
@@ -63,7 +91,7 @@ const Survey = () => {
     }
 
     const currentQuestion = questions[currentQuestionIndex];
-    const language = i18n.language; // Get the current language from i18n
+    const language = i18n.language;
 
     const resolveMediaPath = (path) => {
         if (!path) return null;
@@ -107,49 +135,50 @@ const Survey = () => {
                         options={currentQuestion.options}
                         selected={responses[currentQuestion.id] || []}
                         onChange={(option, isChecked) => {
+                            // Store only the canonical value
+                            const canonicalValue = option.value;
                             const currentSelections = responses[currentQuestion.id] || [];
                             const newSelections = isChecked
-                                ? [...currentSelections, option]
-                                : currentSelections.filter((item) => item !== option);
+                                ? [...currentSelections, canonicalValue]
+                                : currentSelections.filter((item) => item !== canonicalValue);
                             handleResponseChange(currentQuestion.id, newSelections);
                         }}
                         twoColumns={currentQuestion.twoColumns || false}
-                        language={language} // Pass the current language to the component
+                        language={language}
                     />
                 )}
 
-{currentQuestion.type === 'radio' && currentQuestion.rows && currentQuestion.columns && (
-  <RadioMatrix
-    question={currentQuestion.question}
-    rows={currentQuestion.rows}
-    columns={currentQuestion.columns}
-    onChange={(row, value) => {
-      const newResponses = { ...responses[currentQuestion.id], [row]: value };
-      handleResponseChange(currentQuestion.id, newResponses);
-    }}
-    language={i18n.language}  // Pass the current language to RadioMatrix
-  />
-)}
+                {currentQuestion.type === 'radio' && currentQuestion.rows && currentQuestion.columns && (
+                    <RadioMatrix
+                        question={currentQuestion.question}
+                        rows={currentQuestion.rows}
+                        columns={currentQuestion.columns}
+                        onChange={(row, value) => {
+                            const newResponses = { ...responses[currentQuestion.id], [row]: value };
+                            handleResponseChange(currentQuestion.id, newResponses);
+                        }}
+                        language={language}
+                    />
+                )}
 
+                {currentQuestion.type === 'score' && (
+                    <ScoreQuestion
+                        question={currentQuestion.question}
+                        value={responses[currentQuestion.id] || 0}
+                        onChange={(value) => handleResponseChange(currentQuestion.id, value)}
+                        media={resolveMediaPath(currentQuestion.media)}
+                        language={language}
+                    />
+                )}
 
-{currentQuestion.type === 'score' && (
-  <ScoreQuestion
-    question={currentQuestion.question}
-    value={responses[currentQuestion.id] || 0}
-    onChange={(value) => handleResponseChange(currentQuestion.id, value)}
-    media={resolveMediaPath(currentQuestion.media)}
-    language={i18n.language}  // Pass the current language to ScoreQuestion
-  />
-)}
-
-{currentQuestion.type === 'text' && (
-  <TextQuestion
-    question={currentQuestion.question}
-    value={responses[currentQuestion.id] || ''}
-    onChange={(value) => handleResponseChange(currentQuestion.id, value)}
-    language={i18n.language}  // Pass the current language to TextQuestion
-  />
-)}
+                {currentQuestion.type === 'text' && (
+                    <TextQuestion
+                        question={currentQuestion.question}
+                        value={responses[currentQuestion.id] || ''}
+                        onChange={(value) => handleResponseChange(currentQuestion.id, value)}
+                        language={language}
+                    />
+                )}
 
                 {/* Navigation Buttons */}
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', marginTop: 4, gap: 2 }}>

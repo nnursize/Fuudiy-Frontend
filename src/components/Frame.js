@@ -7,7 +7,6 @@ const Frame = ({ title, onSubmit, children }) => {
     <div className="wrapper">
       <div className={styles["frame-container"]}>
         <form onSubmit={onSubmit}>
-          {title && <h1>{title}</h1>}
           {children}
         </form>
       </div>
