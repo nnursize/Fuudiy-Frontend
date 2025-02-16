@@ -53,13 +53,23 @@ const Survey = () => {
 
     const isCurrentQuestionAnswered = () => {
         if (!currentQuestion) return false;
-        
-        if (currentQuestion.type === 'radio' || currentQuestion.type === 'score') {
+    
+        if (currentQuestion.type === 'radio' && currentQuestion.rows && currentQuestion.columns) {
+            const userResponses = responses[currentQuestion.id] || {}; // Get stored responses for this question
+            return currentQuestion.rows.every(row => {
+                const rowKey = row.en.toLowerCase().replace(/\s+/g, '_'); // Ensure key matches
+                return userResponses[rowKey] !== undefined && userResponses[rowKey] !== "";
+            });
+            
+        }
+    
+        if (currentQuestion.type === 'score') {
             return responses[currentQuestion.id] !== undefined && responses[currentQuestion.id] !== "";
         }
-        
+    
         return true; // Other types are optional
     };
+    
 
     const goToNextQuestion = () => {
         if (!isCurrentQuestionAnswered()) {
