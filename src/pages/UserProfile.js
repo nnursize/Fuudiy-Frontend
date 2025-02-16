@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Box, Typography, Paper } from '@mui/material';
+import { Box, Stack, Typography, Paper, Chip } from '@mui/material';
 import LogoutButtonWithPopup from '../components/LogoutButtonWithPopup';
 import FoodInProfile from '../components/FoodInProfile';
 import Header from '../components/Header';
@@ -20,15 +20,14 @@ const UserProfile = () => {
       .then(response => {
         const user = response.data.data[0];
         setUserData(user);
-        console.log("User from back: ", user);
+        console.log("User from backend: ", user);
         return axios.get(`${API_BASE_URL}/comments/${USER_ID}/comments`);
       })
       .then(response => {
         console.log("User Comments: ", response.data);
 
         const ratedFoods = response.data.map(comment => ({
-          ...comment,
-          foodId: comment.foodId, 
+          foodId: comment.foodId,
           rate: comment.rate, 
           comment: comment.comment,
         }));
@@ -37,7 +36,7 @@ const UserProfile = () => {
           axios.get(`${API_BASE_URL}/food/${food.foodId}`)
             .then(res => ({
               ...food,
-              ...res.data, // Merge food details with user rating
+              ...res.data, 
             }))
         );
 
@@ -93,6 +92,18 @@ const UserProfile = () => {
               <Typography variant="body1">{userData.bio || 'No bio available.'}</Typography>
             </Box>
           </Box>
+
+          {/* Disliked Ingredients Section */}
+          {userData.dislikedIngredients && userData.dislikedIngredients.length > 0 && (
+            <Stack direction="row" spacing={1} alignItems="center" marginTop={2} flexWrap="wrap">
+              <Typography variant="body2" sx={{ fontWeight: "bold", fontSize: "12px", color: "gray" }}>
+                Disliked Ingredients:
+              </Typography>
+              {userData.dislikedIngredients.map((ingredient, index) => (
+                <Chip key={index} label={ingredient} sx={{ backgroundColor: "#f1f1f1", fontWeight: "bold" }} />
+              ))}
+            </Stack>
+          )}
         </Paper>
 
         {/* Food Sections */}
