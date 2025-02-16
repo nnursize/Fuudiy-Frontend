@@ -1,11 +1,10 @@
 import React from 'react';
-import { FormGroup, FormControlLabel, Checkbox } from '@mui/material';
-import { Box, Typography } from '@mui/material';
+import { FormGroup, FormControlLabel, Checkbox, Typography } from '@mui/material';
 
 const CheckboxQuestion = ({ question, options, selected, onChange, twoColumns = false, language }) => {
   return (
     <div>
-      <Typography variant="h6" sx={{ marginBottom: 2, fontSize: 25, font: '' }}>
+      <Typography variant="h6" sx={{ marginBottom: 2, fontSize: 25 }}>
         {question[language]}
       </Typography>
       <FormGroup
@@ -18,19 +17,23 @@ const CheckboxQuestion = ({ question, options, selected, onChange, twoColumns = 
       >
         {options.map((option, index) => (
           <FormControlLabel
+            key={index}
             sx={{
               paddingLeft: 5,
               textAlign: 'center'
             }}
-            key={index}
             control={
               <Checkbox
-                checked={selected.includes(option)}
+                checked={selected.includes(option.value)}
                 onChange={(e) => onChange(option, e.target.checked)}
-                color='highlight.dark'
+                color="highlight.dark"
               />
             }
-            label={<Typography variant="h6" sx={{ fontWeight: 400 }}>{option[language]}</Typography>}
+            label={
+              <Typography variant="h6" sx={{ fontWeight: 400 }}>
+                {option[language]}
+              </Typography>
+            }
           />
         ))}
       </FormGroup>
