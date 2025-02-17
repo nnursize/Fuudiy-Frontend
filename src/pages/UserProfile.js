@@ -55,15 +55,27 @@ const UserProfile = () => {
   
     axios.put(`${API_BASE_URL}/comments/update-rate/${USER_ID}/${foodId}?rate=${newRate}`)
       .then(response => {
-        setRatedFoodDetails(prev =>
-          prev.map(food => (food.foodId === foodId ? { ...food, rate: newRate } : food))
-        );
-        setFavoriteFoodDetails(prev =>
-          prev.map(food => (food.foodId === foodId ? { ...food, rate: newRate } : food)).filter(food => food.rate === 5)
-        );
+        setRatedFoodDetails(prev => {
+          return prev.map(food => (food.foodId === foodId ? { ...food, rate: newRate } : food));
+        });
+  
+        setFavoriteFoodDetails(prev => {
+          if (newRate === 5) {
+            // If new rate is 5, ensure it's in the favorites list
+            const updatedFood = ratedFoodDetails.find(food => food.foodId === foodId);
+            if (updatedFood) {
+              return [...prev, { ...updatedFood, rate: 5 }];
+            }
+          } else {
+            // If the new rate is less than 5, remove it from favorites
+            return prev.filter(food => food.foodId !== foodId);
+          }
+          return prev;
+        });
       })
       .catch(error => console.error('Error updating rating:', error));
   };
+  
   
 
   if (!userData) return <Typography>Loading...</Typography>;
