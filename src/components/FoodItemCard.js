@@ -17,7 +17,7 @@ const FoodItemCard = ({ food }) => {
     <Card
       sx={{
         width: 250,
-        height: 250,
+        height: 270,
         margin: "1rem",
         borderRadius: 2,
         boxShadow: 3,
