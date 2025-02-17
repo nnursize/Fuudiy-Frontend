@@ -27,6 +27,7 @@ const UserProfile = () => {
         console.log("User Comments: ", response.data);
 
         const ratedFoods = response.data.map(comment => ({
+          userId: USER_ID, 
           foodId: comment.foodId,
           rate: comment.rate, 
           comment: comment.comment,
@@ -49,19 +50,21 @@ const UserProfile = () => {
       .catch(error => console.error('Error fetching user data:', error));
   }, []);
 
-  // Update food rating and refresh lists
   const handleRateChange = (foodId, newRate) => {
-    axios.put(`${API_BASE_URL}/comment/${foodId}`, { rate: newRate })
-      .then(() => {
+    console.log("Updating rating for foodId:", foodId, "userId:", USER_ID);
+  
+    axios.put(`${API_BASE_URL}/comments/update-rate/${USER_ID}/${foodId}?rate=${newRate}`)
+      .then(response => {
         setRatedFoodDetails(prev =>
-          prev.map(food => (food.id === foodId ? { ...food, rate: newRate } : food))
+          prev.map(food => (food.foodId === foodId ? { ...food, rate: newRate } : food))
         );
         setFavoriteFoodDetails(prev =>
-          prev.map(food => (food.id === foodId ? { ...food, rate: newRate } : food)).filter(food => food.rate === 5)
+          prev.map(food => (food.foodId === foodId ? { ...food, rate: newRate } : food)).filter(food => food.rate === 5)
         );
       })
       .catch(error => console.error('Error updating rating:', error));
   };
+  
 
   if (!userData) return <Typography>Loading...</Typography>;
 
