@@ -1,93 +1,131 @@
-import React, { useState } from 'react';
-import { Box, Typography, Paper } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { Box, Stack, Typography, Paper, Chip } from '@mui/material';
 import LogoutButtonWithPopup from '../components/LogoutButtonWithPopup';
 import FoodInProfile from '../components/FoodInProfile';
-import dummyUserData from '../data/dummyUserData.json';
-import dummyFoodData from '../data/dummyFoodData.json';
 import Header from '../components/Header';
-import Footer from "../components/Footer";
+import Footer from '../components/Footer';
 import ProfilePictureSelector from '../components/ProfilePictureSelector';
 
-const UserProfile = () => {
-  const [userData, setUserData] = useState(dummyUserData);
-  const [ratedFoodDetails, setRatedFoodDetails] = useState(
-    dummyUserData.ratedFoods.map((ratedFood) => {
-      const food = dummyFoodData.find((item) => item.id === ratedFood.foodId);
-      return food ? { ...food, rate: ratedFood.rate, comment: ratedFood.comment } : null;
-    }).filter(Boolean)
-  );
+const API_BASE_URL = 'http://localhost:8000'; 
+const USER_ID = '67b09c0cea7db4001fe76154'; 
 
-  // Update food rating and refresh lists
+const UserProfile = () => {
+  const [userData, setUserData] = useState(null);
+  const [ratedFoodDetails, setRatedFoodDetails] = useState([]);
+  const [favoriteFoodDetails, setFavoriteFoodDetails] = useState([]);
+
+  useEffect(() => {
+    axios.get(`${API_BASE_URL}/users/${USER_ID}`)
+      .then(response => {
+        const user = response.data.data[0];
+        setUserData(user);
+        console.log("User from backend: ", user);
+        return axios.get(`${API_BASE_URL}/comments/${USER_ID}/comments`);
+      })
+      .then(response => {
+        console.log("User Comments: ", response.data);
+
+        const ratedFoods = response.data.map(comment => ({
+          userId: USER_ID, 
+          foodId: comment.foodId,
+          rate: comment.rate, 
+          comment: comment.comment,
+        }));
+
+        const foodRequests = ratedFoods.map(food =>
+          axios.get(`${API_BASE_URL}/food/${food.foodId}`)
+            .then(res => ({
+              ...food,
+              ...res.data, 
+            }))
+        );
+
+        return Promise.all(foodRequests);
+      })
+      .then(updatedRatedFoods => {
+        setRatedFoodDetails(updatedRatedFoods);
+        setFavoriteFoodDetails(updatedRatedFoods.filter(food => food.rate === 5));
+      })
+      .catch(error => console.error('Error fetching user data:', error));
+  }, []);
+
   const handleRateChange = (foodId, newRate) => {
+    console.log("Updating rating for foodId:", foodId, "userId:", USER_ID);
   
-    // Update userData state
-    setUserData((prev) => {
-      const updatedRatedFoods = prev.ratedFoods.map((ratedFood) =>
-        ratedFood.foodId === foodId ? { ...ratedFood, rate: newRate } : ratedFood
-      );
-    
-      return { ...prev, ratedFoods: updatedRatedFoods };
-    });
+    axios.put(`${API_BASE_URL}/comments/update-rate/${USER_ID}/${foodId}?rate=${newRate}`)
+      .then(response => {
+        setRatedFoodDetails(prev => {
+          return prev.map(food => (food.foodId === foodId ? { ...food, rate: newRate } : food));
+        });
   
-    // Update ratedFoodDetails correctly
-    setRatedFoodDetails((prev) => {
-      const updatedRatedFoodDetails = prev.map((food) =>
-        food.id === foodId ? { ...food, rate: newRate } : food
-      );
-  
-      console.log("Updated ratedFoodDetails:", updatedRatedFoodDetails);
-  
-      return updatedRatedFoodDetails;
-    });
+        setFavoriteFoodDetails(prev => {
+          if (newRate === 5) {
+            // If new rate is 5, ensure it's in the favorites list
+            const updatedFood = ratedFoodDetails.find(food => food.foodId === foodId);
+            if (updatedFood) {
+              return [...prev, { ...updatedFood, rate: 5 }];
+            }
+          } else {
+            // If the new rate is less than 5, remove it from favorites
+            return prev.filter(food => food.foodId !== foodId);
+          }
+          return prev;
+        });
+      })
+      .catch(error => console.error('Error updating rating:', error));
   };
   
+  
 
-  // Favorite foods (only foods rated 5 stars)
-  const favoriteFoodDetails = ratedFoodDetails.filter((food) => food.rate === 5);
+  if (!userData) return <Typography>Loading...</Typography>;
 
   return (
     <>
       <Header />
       <Box padding={4} bgcolor="white">
-        {/* User Information Section */}
         <Paper elevation={3} sx={{ padding: 3, marginBottom: 4, position: 'relative' }}>
-          {/* Logout Button */}
           <Box sx={{ position: 'absolute', top: 16, right: 16 }}>
             <LogoutButtonWithPopup />
           </Box>
 
-          <Box display="flex" alignItems="center" marginBottom={3} gap={2}> {/* Added gap */}
-            <ProfilePictureSelector 
-              currentAvatar={userData.avatarId} 
+          <Box display="flex" alignItems="center" marginBottom={3} gap={2}>
+            <ProfilePictureSelector
+              currentAvatar={userData.avatarId}
               onSelect={(newAvatar) =>
-                setUserData((prev) => ({ ...prev, avatarId: newAvatar }))
-              } 
+                axios.put(`${API_BASE_URL}/user/${USER_ID}`, { avatarId: newAvatar })
+                  .then(() => setUserData(prev => ({ ...prev, avatarId: newAvatar })))
+                  .catch(error => console.error('Error updating avatar:', error))  
+              }
             />
-            
-            <Box sx={{ paddingLeft: 1 }}> 
-              <Typography variant="h5">{userData.name || 'Anonymous User'}</Typography>
+
+            <Box sx={{ paddingLeft: 1 }}>
+              <Typography variant="h5">{userData.username || 'Anonymous User'}</Typography>
               <Typography variant="body2" color="textSecondary" gutterBottom>
                 {userData.email || 'No email available.'}
               </Typography>
               <Typography variant="body1">{userData.bio || 'No bio available.'}</Typography>
             </Box>
           </Box>
+
+          {/* Disliked Ingredients Section */}
+          {userData.dislikedIngredients && userData.dislikedIngredients.length > 0 && (
+            <Stack direction="row" spacing={1} alignItems="center" marginTop={2} flexWrap="wrap">
+              <Typography variant="body2" sx={{ fontWeight: "bold", fontSize: "12px", color: "gray" }}>
+                Disliked Ingredients:
+              </Typography>
+              {userData.dislikedIngredients.map((ingredient, index) => (
+                <Chip key={index} label={ingredient} sx={{ backgroundColor: "#f1f1f1", fontWeight: "bold" }} />
+              ))}
+            </Stack>
+          )}
         </Paper>
 
         {/* Food Sections */}
-        <Box
-          display="flex"
-          justifyContent="space-between"
-          sx={{
-            gap: 2,
-            width: '100%',
-          }}
-        >
+        <Box display="flex" justifyContent="space-between" sx={{ gap: 2, width: '100%' }}>
           {/* Rated Foods Section */}
           <Paper elevation={3} sx={{ flex: 1, padding: 3 }}>
-            <Typography variant="h6" marginBottom={2}>
-              Rated Foods
-            </Typography>
+            <Typography variant="h6" marginBottom={2}>Rated Foods</Typography>
             <Box display="flex" flexDirection="column" gap={2}>
               {ratedFoodDetails.map((ratedFood, index) => (
                 <FoodInProfile key={index} food={ratedFood} onRateChange={handleRateChange} />
@@ -97,9 +135,7 @@ const UserProfile = () => {
 
           {/* Favorite Foods Section */}
           <Paper elevation={3} sx={{ flex: 1, padding: 3 }}>
-            <Typography variant="h6" marginBottom={2}>
-              Favorite Foods
-            </Typography>
+            <Typography variant="h6" marginBottom={2}>Favorite Foods</Typography>
             {favoriteFoodDetails.length > 0 ? (
               <Box display="flex" flexDirection="column" gap={2}>
                 {favoriteFoodDetails.map((food, index) => (
@@ -107,9 +143,7 @@ const UserProfile = () => {
                 ))}
               </Box>
             ) : (
-              <Typography variant="body2" color="textSecondary">
-                No favorite foods yet.
-              </Typography>
+              <Typography variant="body2" color="textSecondary">No favorite foods yet.</Typography>
             )}
           </Paper>
         </Box>
