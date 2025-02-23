@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Box, Stack, Typography, Paper, Chip } from '@mui/material';
+import { Box, Stack, Typography, Paper, Chip, IconButton } from '@mui/material';
+import EditIcon from '@mui/icons-material/Edit';
+import CancelIcon from '@mui/icons-material/Cancel';
+import CheckIcon from '@mui/icons-material/Check';
 import FoodInProfile from '../components/FoodInProfile';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -13,12 +16,16 @@ const UserProfile = () => {
   const [userData, setUserData] = useState(null);
   const [ratedFoodDetails, setRatedFoodDetails] = useState([]);
   const [favoriteFoodDetails, setFavoriteFoodDetails] = useState([]);
+  const [editingDisliked, setEditingDisliked] = useState(false);
+  const [editedDislikedIngredients, setEditedDislikedIngredients] = useState([]);
 
   useEffect(() => {
     axios.get(`${API_BASE_URL}/users/${USER_ID}`)
       .then(response => {
         const user = response.data.data[0];
         setUserData(user);
+        // Initialize the temporary disliked ingredients list.
+        setEditedDislikedIngredients(user.dislikedIngredients || []);
         console.log("User from backend: ", user);
         return axios.get(`${API_BASE_URL}/comments/${USER_ID}/comments`);
       })
@@ -68,6 +75,27 @@ const UserProfile = () => {
       .catch(error => console.error('Error updating rating:', error));
   };
 
+  // Handler to remove an ingredient from the temporary list.
+  const handleRemoveIngredient = (ingredientToRemove) => {
+    setEditedDislikedIngredients(prev => prev.filter(ing => ing !== ingredientToRemove));
+  };
+
+  // Save the updated disliked ingredients list to the backend.
+  const handleSaveEditedIngredients = () => {
+    axios.put(`${API_BASE_URL}/users/update-disliked/${USER_ID}`, { dislikedIngredients: editedDislikedIngredients })
+      .then(() => {
+        setUserData(prev => ({ ...prev, dislikedIngredients: editedDislikedIngredients }));
+        setEditingDisliked(false);
+      })
+      .catch(error => console.error('Error updating disliked ingredients:', error));
+  };  
+
+  // Cancel the edit and revert changes.
+  const handleCancelEditedIngredients = () => {
+    setEditedDislikedIngredients(userData.dislikedIngredients);
+    setEditingDisliked(false);
+  };
+
   if (!userData) return <Typography>Loading...</Typography>;
 
   return (
@@ -79,11 +107,8 @@ const UserProfile = () => {
             <ProfilePictureSelector
               currentAvatar={userData.avatarId}
               onSelect={(newAvatar) => {
-                // newAvatar already comes without the ".png" extension.
-                // Note the corrected endpoint URL with the /users prefix.
                 axios.put(`${API_BASE_URL}/users/update-avatar/${USER_ID}`, { avatarId: newAvatar })
                   .then(() => {
-                    // Update the state to reflect the new avatar.
                     setUserData(prev => ({ ...prev, avatarId: newAvatar }));
                   })
                   .catch(error => console.error('Error updating avatar:', error));
@@ -99,16 +124,55 @@ const UserProfile = () => {
             </Box>
           </Box>
 
-          {/* Disliked Ingredients Section */}
+          {/* Disliked Ingredients Section with Edit Toggle */}
           {userData.dislikedIngredients && userData.dislikedIngredients.length > 0 && (
-            <Stack direction="row" spacing={1} alignItems="center" marginTop={2} flexWrap="wrap">
-              <Typography variant="body2" sx={{ fontWeight: "bold", fontSize: "12px", color: "gray" }}>
-                Disliked Ingredients:
-              </Typography>
-              {userData.dislikedIngredients.map((ingredient, index) => (
-                <Chip key={index} label={ingredient} sx={{ backgroundColor: "#f1f1f1", fontWeight: "bold" }} />
-              ))}
-            </Stack>
+            <Box sx={{ mt: 2 }}>
+              <Box display="flex" alignItems="center" justifyContent="space-between" sx={{ mb: 1 }}>
+                <Typography variant="body1" sx={{ fontWeight: "bold", color: "gray" }}>
+                  Disliked Ingredients:
+                </Typography>
+                {editingDisliked ? (
+                  <Box>
+                    <IconButton 
+                      onClick={handleSaveEditedIngredients}
+                      size="small"
+                      sx={{ p: 0.25, minWidth: 0, width: "20px", height: "20px" }}
+                    >
+                      <CheckIcon fontSize="small" />
+                    </IconButton>
+                    <IconButton 
+                      onClick={handleCancelEditedIngredients}
+                      size="small"
+                      sx={{ p: 0.25, minWidth: 0, width: "20px", height: "20px" }}
+                    >
+                      <CancelIcon fontSize="small" />
+                    </IconButton>
+                  </Box>
+                ) : (
+                  <IconButton 
+                    onClick={() => { 
+                      setEditingDisliked(true); 
+                      setEditedDislikedIngredients([...userData.dislikedIngredients]);
+                    }}
+                    size="small"
+                    sx={{ p: 0.25, minWidth: 0, width: "20px", height: "20px" }}
+                  >
+                    <EditIcon fontSize="small" />
+                  </IconButton>
+                )}
+              </Box>
+              <Stack direction="row" spacing={1} alignItems="center" flexWrap="wrap">
+                {(editingDisliked ? editedDislikedIngredients : userData.dislikedIngredients)
+                  .map((ingredient, index) => (
+                    <Chip 
+                      key={index} 
+                      label={ingredient} 
+                      {...(editingDisliked ? { onDelete: () => handleRemoveIngredient(ingredient) } : {})}
+                      sx={{ backgroundColor: "#f1f1f1", fontWeight: "bold", fontSize: "14px", py: 0.5, px: 1 }} 
+                    />
+                ))}
+              </Stack>
+            </Box>
           )}
         </Paper>
 
