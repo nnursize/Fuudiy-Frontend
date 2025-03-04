@@ -11,17 +11,17 @@ import {
   TextField,
   Button,
   CircularProgress,
-  Rating,
   IconButton,
   Card,
   CardContent
 } from "@mui/material";
 import { useParams } from "react-router-dom";
 import StarIcon from "@mui/icons-material/Star";
+import TranslateIcon from "@mui/icons-material/Translate";
 
 const StarRating = ({ value, onChange, readOnly = false }) => {
   const [hoverRating, setHoverRating] = useState(0);
-  
+
   return (
     <Box sx={{ display: "flex", alignItems: "center" }}>
       {[1, 2, 3, 4, 5].map((star) => (
@@ -44,10 +44,12 @@ const StarRating = ({ value, onChange, readOnly = false }) => {
 const Comments = () => {
   const { id: food_id } = useParams();
   const [comments, setComments] = useState([]);
+  const [translatedComments, setTranslatedComments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [newComment, setNewComment] = useState("");
   const [rating, setRating] = useState(0);
   const [error, setError] = useState(null);
+  const [language, setLanguage] = useState("en"); // Default language: English
 
   useEffect(() => {
     const fetchComments = async () => {
@@ -69,6 +71,7 @@ const Comments = () => {
           })
         );
         setComments(commentsWithUser);
+        setTranslatedComments(commentsWithUser); // Initially set to the original comments
       } catch (error) {
         setError("Error fetching comments.");
         console.error("API Error:", error);
@@ -78,6 +81,34 @@ const Comments = () => {
     };
     fetchComments();
   }, [food_id]);
+
+  // Function to translate comments
+  const handleTranslate = async () => {
+    if (language === "tr") {
+      // Switch back to original English comments
+      setTranslatedComments(comments);
+      setLanguage("en");
+      return;
+    }
+
+    try {
+      const translated = await Promise.all(
+        comments.map(async (comment) => {
+          try {
+            const response = await axios.post("http://localhost:8000/translate", { text: comment.comment });
+            return { ...comment, comment: response.data.translated_text };
+          } catch (error) {
+            console.error("Translation error:", error);
+            return comment; // Fallback to original comment if translation fails
+          }
+        })
+      );
+      setTranslatedComments(translated);
+      setLanguage("tr");
+    } catch (error) {
+      console.error("Error translating comments:", error);
+    }
+  };
 
   const handleCommentSubmit = async () => {
     if (!newComment.trim() || rating === 0) return;
@@ -90,7 +121,16 @@ const Comments = () => {
         comment: newComment,
       });
       console.log("Submitted comment:", response.data);
+      
+      // After submitting, translate the new comment if necessary
+      let translatedNewComment = newComment;
+      if (language === "tr") {
+        const translateResponse = await axios.post("http://localhost:8000/translate", { text: newComment });
+        translatedNewComment = translateResponse.data.translated_text;
+      }
+
       setComments([response.data, ...comments]);
+      setTranslatedComments([{ ...response.data, comment: translatedNewComment }, ...translatedComments]);
       setNewComment("");
       setRating(0);
     } catch (error) {
@@ -100,14 +140,25 @@ const Comments = () => {
 
   return (
     <Box sx={{ maxWidth: 800, margin: "0 auto", padding: "10px" }}>
-      <Typography variant="h5" gutterBottom>Comments</Typography>
+      <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <Typography variant="h5" gutterBottom>
+          {language === "en" ? "Comments" : "Yorumlar"}
+        </Typography>
+        <IconButton onClick={handleTranslate}>
+          <TranslateIcon />
+          <Typography sx={{ marginLeft: "5px" }}>
+            {language === "en" ? "Translate to Turkish" : "Translate to English"}
+          </Typography>
+        </IconButton>
+      </Box>
+
       {loading ? (
         <CircularProgress />
       ) : error ? (
         <Typography color="error">{error}</Typography>
       ) : (
         <List>
-          {comments.map((comment, index) => (
+          {translatedComments.map((comment, index) => (
             <Card key={index} sx={{ marginBottom: 1, padding: 1, borderRadius: "12px", maxWidth: "100%", display: "block", minHeight: "60px", boxShadow: 1 }}>
               <CardContent>
                 <ListItem alignItems="flex-start" sx={{ alignItems: "center" }}>
@@ -133,15 +184,15 @@ const Comments = () => {
           ))}
         </List>
       )}
-      
+
       {/* Add Comment Section */}
       <Box sx={{ marginTop: "10px" }}>
-        <Typography variant="h6">Leave a Comment</Typography>
+        <Typography variant="h6">{language === "en" ? "Leave a Comment" : "Yorum Yap"}</Typography>
         <StarRating value={rating} onChange={setRating} />
         <TextField
           fullWidth
           variant="outlined"
-          placeholder="Write your comment..."
+          placeholder={language === "en" ? "Write your comment..." : "Yorumunuzu yazın..."}
           value={newComment}
           onChange={(e) => setNewComment(e.target.value)}
           sx={{ marginTop: "5px" }}
@@ -152,7 +203,7 @@ const Comments = () => {
           onClick={handleCommentSubmit}
           disabled={!newComment.trim() || rating === 0}
         >
-          Submit
+          {language === "en" ? "Submit" : "Gönder"}
         </Button>
       </Box>
     </Box>
