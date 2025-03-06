@@ -1,16 +1,33 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Card, CardMedia, CardContent, Typography, Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const FoodItemCard = ({ food }) => {
   const navigate = useNavigate();
+  const [imageUrl, setImageUrl] = useState(food.imageUrl || `${process.env.PUBLIC_URL}/default-food.png`);
+
+  useEffect(() => {
+    const fetchSignedImageUrl = async () => {
+      try {
+        if (food.url_id) {
+          const response = await axios.get(`http://localhost:8000/food/image/${food.url_id}`);
+          setImageUrl(response.data.image_url);
+        }
+      } catch (error) {
+        console.error("Error fetching signed image URL:", error);
+      }
+    };
+
+    fetchSignedImageUrl();
+  }, [food.url_id]);
 
   if (!food) {
     return <Typography color="error">Error: Food data is missing</Typography>;
   }
 
   const handleClick = () => {
-    navigate(`/food/${food.id}`); // Use `id` instead of `_id` for consistency
+    navigate(`/food/${food.id}`); // Ensure `id` is used consistently
   };
 
   return (
@@ -33,7 +50,7 @@ const FoodItemCard = ({ food }) => {
       <CardMedia
         component="img"
         height="150"
-        image={food.imageUrl || `${process.env.PUBLIC_URL}/default-food.png`}
+        image={imageUrl}
         alt={food.name || "Food Item"}
         sx={{ objectFit: "cover" }}
       />

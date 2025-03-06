@@ -33,12 +33,20 @@ const FoodDetailPage = () => {
   const [error, setError] = useState(null);
   const [isFavorite, setIsFavorite] = useState(false);
   const [view, setView] = useState("ingredients");
+  const [imageUrl, setImageUrl] = useState("");
 
   useEffect(() => {
     const fetchFoodDetails = async () => {
       try {
         const response = await axios.get(`http://localhost:8000/food/${id}`);
-        setFoodDetails(response.data);
+        const foodData = response.data;
+        setFoodDetails(foodData);
+  
+        // Fetch signed image URL if 'url_id' exists
+        if (foodData.url_id) {
+          const imageResponse = await axios.get(`http://localhost:8000/food/image/${foodData.url_id}`);
+          setImageUrl(imageResponse.data.image_url);
+        }
       } catch (error) {
         setError(t("errorFetching"));
         console.error("API Error:", error);
@@ -73,7 +81,7 @@ const FoodDetailPage = () => {
     );
   }
 
-  const foodImage = foodDetails.imageUrl || `${process.env.PUBLIC_URL}/default-food.png`;
+  const foodImage = imageUrl || `${process.env.PUBLIC_URL}/default-food.png`;
 
   return (
     <>
