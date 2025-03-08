@@ -36,7 +36,8 @@
     "addFavorite": "Favorilere Ekle",
     "removeFavorite":"Favorilerden Çıkar",
     "keywords": "Anahtar Kelimeler",
-    "errorFetching": "Getirirken Hata Oluştu"
+    "errorFetching": "Getirirken Hata Oluştu",
+    "please_answer":"Lütfen cevabınızı işaretleyin"
   }
   
   

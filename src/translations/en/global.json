@@ -36,6 +36,7 @@
     "addFavorite": "Add to Favorites",
     "removeFavorite":"Remove fromFavorites",
     "keywords": "Keywords",
-    "errorFetching": "Error While Fetching"
+    "errorFetching": "Error While Fetching",
+    "please_answer":"Please answer the question"
 
 }
