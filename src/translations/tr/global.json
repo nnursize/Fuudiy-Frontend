@@ -36,7 +36,12 @@
     "addFavorite": "Favorilere Ekle",
     "removeFavorite":"Favorilerden Çıkar",
     "keywords": "Anahtar Kelimeler",
-    "errorFetching": "Getirirken Hata Oluştu"
+    "errorFetching": "Getirirken Hata Oluştu",
+    "translate": "Metni Çevir",
+    "translated": "Çevrildi!",
+    "translationError": "Çeviri tamamlanamadı. Lütfen tekrar deneyin.",
+    "leaveComment": "Yorum Bırakın!",
+    "writeComment": "Yorum yaz..."
   }
   
   

@@ -36,6 +36,10 @@
     "addFavorite": "Add to Favorites",
     "removeFavorite":"Remove fromFavorites",
     "keywords": "Keywords",
-    "errorFetching": "Error While Fetching"
-
-}
+    "errorFetching": "Error While Fetching",
+    "translate": "Translate",
+    "translated": "Translated",
+    "translationError": "Translation failed. Please try again.",
+    "leaveComment": "Leave a Comment",
+    "writeComment": "Write your comment..."
+  }
