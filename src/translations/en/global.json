@@ -37,6 +37,7 @@
     "removeFavorite":"Remove fromFavorites",
     "keywords": "Keywords",
     "errorFetching": "Error While Fetching",
+    "please_answer":"Please answer the question",
     "translate": "Translate",
     "translated": "Translated",
     "translationError": "Translation failed. Please try again.",

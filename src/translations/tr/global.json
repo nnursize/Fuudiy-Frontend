@@ -37,6 +37,7 @@
     "removeFavorite":"Favorilerden Çıkar",
     "keywords": "Anahtar Kelimeler",
     "errorFetching": "Getirirken Hata Oluştu",
+    "please_answer":"Lütfen cevabınızı işaretleyin",
     "translate": "Metni Çevir",
     "translated": "Çevrildi!",
     "translationError": "Çeviri tamamlanamadı. Lütfen tekrar deneyin.",
