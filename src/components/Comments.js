@@ -44,12 +44,34 @@ const StarRating = ({ value, onChange, readOnly = false }) => {
 const Comments = () => {
   const { id: food_id } = useParams();
   const [comments, setComments] = useState([]);
-  const [translatedComments, setTranslatedComments] = useState([]);
+  const [translatedComments, setTranslatedComments] = useState({});
   const [loading, setLoading] = useState(true);
   const [newComment, setNewComment] = useState("");
   const [rating, setRating] = useState(0);
   const [error, setError] = useState(null);
-  const [language, setLanguage] = useState("en"); // Default language: English
+  const [language, setLanguage] = useState("en");
+  /*
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  const currentUserId = currentUser?.userId;
+  */
+  const handleTranslate = async (comment, targetLang) => {
+    try {
+      const response = await axios.post("http://localhost:8000/translation", {
+        text: comment.comment, // Ensure we're translating the actual comment text
+        target_lang: targetLang,
+      });
+
+      setTranslatedComments(prev => ({
+        ...prev,
+        [comment._id]: {
+          ...comment,
+          comment: response.data.translated_text // Update the text
+        }
+      }));
+    } catch (error) {
+      console.error("Error translating comment:", error);
+    }
+  };
 
   useEffect(() => {
     const fetchComments = async () => {
@@ -71,7 +93,7 @@ const Comments = () => {
           })
         );
         setComments(commentsWithUser);
-        setTranslatedComments(commentsWithUser); // Initially set to the original comments
+        
       } catch (error) {
         setError("Error fetching comments.");
         console.error("API Error:", error);
@@ -82,57 +104,32 @@ const Comments = () => {
     fetchComments();
   }, [food_id]);
 
-  // Function to translate comments
-  const handleTranslate = async () => {
-    if (language === "tr") {
-      // Switch back to original English comments
-      setTranslatedComments(comments);
-      setLanguage("en");
-      return;
-    }
-
-    try {
-      const translated = await Promise.all(
-        comments.map(async (comment) => {
-          try {
-            const response = await axios.post("http://localhost:8000/translate", { text: comment.comment });
-            return { ...comment, comment: response.data.translated_text };
-          } catch (error) {
-            console.error("Translation error:", error);
-            return comment; // Fallback to original comment if translation fails
-          }
-        })
-      );
-      setTranslatedComments(translated);
-      setLanguage("tr");
-    } catch (error) {
-      console.error("Error translating comments:", error);
-    }
-  };
-
   const handleCommentSubmit = async () => {
     if (!newComment.trim() || rating === 0) return;
 
     try {
       const response = await axios.post("http://localhost:8000/comments", {
+        userId: "67b09c0cea7db4001fe76154", // Replace with actual logged-in user ID
         foodId: food_id,
-        userId: "currentUserId", // Replace with actual logged-in user ID
         rate: rating,
         comment: newComment,
       });
-      console.log("Submitted comment:", response.data);
-      
-      // After submitting, translate the new comment if necessary
       let translatedNewComment = newComment;
       if (language === "tr") {
         const translateResponse = await axios.post("http://localhost:8000/translate", { text: newComment });
         translatedNewComment = translateResponse.data.translated_text;
       }
+      /*
+      const currentUser = JSON.parse(localStorage.getItem("currentUser"));
 
-      setComments([response.data, ...comments]);
-      setTranslatedComments([{ ...response.data, comment: translatedNewComment }, ...translatedComments]);
+      setComments([{
+        ...response.data,
+        name: currentUser.name,
+        avatarId: currentUser.avatarId
+      }, ...comments]);
       setNewComment("");
       setRating(0);
+      */
     } catch (error) {
       console.error("Error adding comment:", error);
     }
@@ -144,12 +141,6 @@ const Comments = () => {
         <Typography variant="h5" gutterBottom>
           {language === "en" ? "Comments" : "Yorumlar"}
         </Typography>
-        <IconButton onClick={handleTranslate}>
-          <TranslateIcon />
-          <Typography sx={{ marginLeft: "5px" }}>
-            {language === "en" ? "Translate to Turkish" : "Translate to English"}
-          </Typography>
-        </IconButton>
       </Box>
 
       {loading ? (
@@ -158,24 +149,44 @@ const Comments = () => {
         <Typography color="error">{error}</Typography>
       ) : (
         <List>
-          {translatedComments.map((comment, index) => (
-            <Card key={index} sx={{ marginBottom: 1, padding: 1, borderRadius: "12px", maxWidth: "100%", display: "block", minHeight: "60px", boxShadow: 1 }}>
+          {comments.map((comment, index) => (
+            <Card key={comment._id} sx={{ marginBottom: 2 }}>
               <CardContent>
-                <ListItem alignItems="flex-start" sx={{ alignItems: "center" }}>
+                <ListItem alignItems="flex-start">
                   <ListItemAvatar>
-                    <IconButton onClick={() => window.location.href = `/user/${comment.userId}`}>
-                      <Avatar src={`/avatars/${comment.avatarId}.png`} alt={comment.name} />
-                    </IconButton>
+                    <Avatar src={`/avatars/${comment.avatarId}.png`} />
                   </ListItemAvatar>
                   <ListItemText
                     primary={
                       <>
-                        <Typography variant="subtitle2" sx={{ fontWeight: "bold" }}>{comment.name}</Typography>
+                        <Typography variant="subtitle1" fontWeight="bold">
+                          {comment.name}
+                        </Typography>
                         <StarRating value={comment.rate} readOnly />
                       </>
                     }
                     secondary={
-                      <Typography sx={{ wordWrap: "break-word", marginTop: "4px", fontSize: "14px" }}>{comment.comment}</Typography>
+                      <>
+                        <Typography variant="body2">
+                          {translatedComments[comment._id]?.comment || comment.comment}
+                        </Typography>
+                        <Box sx={{ mt: 1, display: 'flex', gap: 1 }}>
+                          <Button
+                            size="small"
+                            startIcon={<TranslateIcon />}
+                            onClick={() => handleTranslate(comment, 'tr')}
+                          >
+                            Turkish
+                          </Button>
+                          <Button
+                            size="small"
+                            startIcon={<TranslateIcon />}
+                            onClick={() => handleTranslate(comment, 'en')}
+                          >
+                            English
+                          </Button>
+                        </Box>
+                      </>
                     }
                   />
                 </ListItem>
