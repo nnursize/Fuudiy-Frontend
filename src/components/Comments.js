@@ -15,6 +15,7 @@ import {
   Card,
   CardContent,
   Tooltip,
+  Rating,
 } from "@mui/material";
 import { useParams } from "react-router-dom";
 import StarIcon from "@mui/icons-material/Star";
@@ -179,7 +180,17 @@ const Comments = () => {
                               <Typography variant="subtitle2" sx={{ fontWeight: "bold" }}>
                                 {comment.name}
                               </Typography>
-                              <StarRating value={comment.rate} readOnly />
+                              <Rating name="read-only" value={comment.rate || 0} readOnly precision={0.5} 
+                                sx={{ 
+                                    marginBottom: "10px",
+                                    "& .MuiRating-iconFilled": {
+                                      color: "#FFD700", // Gold/yellow color for filled stars
+                                    },
+                                    "& .MuiRating-iconEmpty": {
+                                      color: "#C0C0C0", // Light gray for empty stars
+                                    }
+                                  }} 
+                              /> 
                             </Box>
                             <Tooltip title={t("translate")}>
                               <IconButton

@@ -27,7 +27,7 @@ const Header = () => {
 
   // Check login status
   useEffect(() => {
-    const user = localStorage.getItem("user");
+    const user = localStorage.getItem("accessToken");
     if (user) {
       setIsLoggedIn(true);
     }
@@ -57,7 +57,7 @@ const Header = () => {
 
   // This function is called when the logout is confirmed in the popup
   const handleLogoutConfirmed = () => {
-    localStorage.removeItem("user");
+    localStorage.removeItem("accessToken");
     setIsLoggedIn(false);
     setShowDropdown(false);
     setShowLogoutPopup(false);
@@ -65,9 +65,11 @@ const Header = () => {
   };
 
   const handleProfileClick = () => {
-    navigate("/profile");
-    setShowDropdown(false);
+    if (userData && userData._id) {
+      navigate(`/profile/${userData._id}`);
+    }
   };
+  
 
   const toggleDropdown = () => {
     setShowDropdown((prev) => !prev);
