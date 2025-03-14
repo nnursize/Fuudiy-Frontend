@@ -31,12 +31,5 @@
     "aboutUs": "About Us",
     "siteMap": "Site Map",
     "rightsReserved": "All Rights Reserved",
-    "ingredients":"Ingredients",
-    "comments": "Comments",
-    "addFavorite": "Add to Favorites",
-    "removeFavorite":"Remove fromFavorites",
-    "keywords": "Keywords",
-    "errorFetching": "Error While Fetching",
     "please_answer":"Please answer the question"
-
 }
