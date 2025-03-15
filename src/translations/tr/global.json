@@ -31,7 +31,12 @@
     "aboutUs": "Hakkımızda",
     "siteMap": "Site Haritası",
     "rightsReserved": "Tüm Hakları Saklıdır",
-    "please_answer":"Lütfen cevabınızı işaretleyin"
+    "please_answer":"Lütfen cevabınızı işaretleyin",
+    "translate": "Metni Çevir",
+    "translated": "Çevrildi!",
+    "translationError": "Çeviri tamamlanamadı. Lütfen tekrar deneyin.",
+    "leaveComment": "Yorum Bırakın!",
+    "writeComment": "Yorum yaz..."
 
 
   }

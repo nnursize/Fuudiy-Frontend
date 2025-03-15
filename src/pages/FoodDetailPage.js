@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import {
   Box,
-  Grid2,
   Card,
   CardMedia,
   Chip,
@@ -25,6 +24,8 @@ import Footer from "../components/Footer";
 import Comments from "../components/Comments";
 import { useTranslation } from "react-i18next";
 
+const API_BASE_URL = 'http://localhost:8000'; 
+
 const FoodDetailPage = () => {
   const { id } = useParams();
   const { t } = useTranslation("global");
@@ -38,13 +39,14 @@ const FoodDetailPage = () => {
   useEffect(() => {
     const fetchFoodDetails = async () => {
       try {
-        const response = await axios.get(`http://localhost:8000/food/${id}`);
+        const response = await axios.get(`${API_BASE_URL}/food/${id}`);
         const foodData = response.data;
         setFoodDetails(foodData);
+
   
         // Fetch signed image URL if 'url_id' exists
         if (foodData.url_id) {
-          const imageResponse = await axios.get(`http://localhost:8000/food/image/${foodData.url_id}`);
+          const imageResponse = await axios.get(`${API_BASE_URL}/food/image/${foodData.url_id}`);
           setImageUrl(imageResponse.data.image_url);
         }
       } catch (error) {
@@ -59,7 +61,7 @@ const FoodDetailPage = () => {
 
   const handleFavoriteToggle = async () => {
     setIsFavorite(!isFavorite);
-    await axios.post(`http://localhost:8000/favorites`, {
+    await axios.post(`${API_BASE_URL}/favorites`, {
       foodId: id,
       isFavorite: !isFavorite
     });
@@ -103,8 +105,18 @@ const FoodDetailPage = () => {
               <Typography variant="h3" fontWeight="bold" sx={{ marginBottom: "10px" }}>
                 {foodDetails.name}, {foodDetails.country}
               </Typography>
-              <Rating name="read-only" value={foodDetails.popularity || 0} readOnly precision={0.5} sx={{ marginBottom: "10px" }} />
-              <Box sx={{ display: "flex", flexWrap: "wrap", gap: "12px", alignItems: "center", marginTop: 2, justifyContent: { xs: "center", md: "flex-start" } }}>
+              <Rating name="read-only" value={foodDetails.popularity.rating || 0} readOnly precision={0.5} 
+                sx={{ 
+                    marginBottom: "10px",
+                    "& .MuiRating-iconFilled": {
+                      color: "#FFD700", // Gold/yellow color for filled stars
+                    },
+                    "& .MuiRating-iconEmpty": {
+                      color: "#C0C0C0", // Light gray for empty stars
+                    }
+                  }} 
+              />              
+                <Box sx={{ display: "flex", flexWrap: "wrap", gap: "12px", alignItems: "center", marginTop: 2, justifyContent: { xs: "center", md: "flex-start" } }}>
                 <Typography variant="body1" fontWeight="bold">{t("keywords")}:</Typography>
                 {foodDetails.keywords.map((keyword, index) => (
                   <Chip key={index} label={keyword} sx={{ backgroundColor: "#f1f1f1", fontWeight: "bold", fontSize: "1rem", padding: "8px" }} />
