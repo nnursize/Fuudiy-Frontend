@@ -7,7 +7,6 @@ import LanguageSwitcher from "../components/LanguageSwitcher";
 import { Avatar } from "@mui/material";
 import LogoutPopup from "../components/LogoutPopup";
 
-const USER_ID = "67b09c0cea7db4001fe76154";
 const API_BASE_URL = "http://localhost:8000";
 
 // Helper function to generate the correct avatar image path
@@ -37,7 +36,7 @@ const Header = () => {
   useEffect(() => {
     if (isLoggedIn) {
       axios
-        .get(`${API_BASE_URL}/users/${USER_ID}`)
+        .get(`${API_BASE_URL}/users/${userData}`)
         .then((response) => {
           const user = response.data.data[0];
           setUserData(user);
@@ -65,8 +64,8 @@ const Header = () => {
   };
 
   const handleProfileClick = () => {
-    if (userData && userData._id) {
-      navigate(`/profile/${userData._id}`);
+    if (userData) {
+      navigate(`/profile/${userData}`);
     }
   };
   
