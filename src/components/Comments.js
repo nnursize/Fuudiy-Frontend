@@ -46,13 +46,34 @@ const StarRating = ({ value, onChange, readOnly = false }) => {
 const Comments = () => {
   const { id: food_id } = useParams();
   const [comments, setComments] = useState([]);
+  const [translatedComments, setTranslatedComments] = useState({});
   const [loading, setLoading] = useState(true);
   const [newComment, setNewComment] = useState("");
   const [rating, setRating] = useState(0);
   const [error, setError] = useState(null);
-  const [translatedComments, setTranslatedComments] = useState({});
-  const [translating, setTranslating] = useState({});
-  const { t, i18n } = useTranslation("global");
+  const [language, setLanguage] = useState("en");
+  /*
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  const currentUserId = currentUser?.userId;
+  */
+  const handleTranslate = async (comment, targetLang) => {
+    try {
+      const response = await axios.post("http://localhost:8000/translation", {
+        text: comment.comment, // Ensure we're translating the actual comment text
+        target_lang: targetLang,
+      });
+
+      setTranslatedComments(prev => ({
+        ...prev,
+        [comment._id]: {
+          ...comment,
+          comment: response.data.translated_text // Update the text
+        }
+      }));
+    } catch (error) {
+      console.error("Error translating comment:", error);
+    }
+  };
 
   useEffect(() => {
     const fetchComments = async () => {
@@ -74,6 +95,7 @@ const Comments = () => {
           })
         );
         setComments(commentsWithUser);
+        
       } catch (error) {
         setError("Error fetching comments.");
         console.error("API Error:", error);
@@ -88,8 +110,8 @@ const Comments = () => {
     if (!newComment.trim() || rating === 0) return;
     try {
       const response = await axios.post("http://localhost:8000/comments", {
+        userId: "67b09c0cea7db4001fe76154", // Replace with actual logged-in user ID
         foodId: food_id,
-        userId: "currentUserId", // Replace with actual logged-in user ID
         rate: rating,
         comment: newComment,
       });
@@ -103,6 +125,7 @@ const Comments = () => {
       ]);
       setNewComment("");
       setRating(0);
+      */
     } catch (error) {
       console.error("Error adding comment:", error);
     }
@@ -254,6 +277,7 @@ const Comments = () => {
           })}
         </List>
       )}
+
 
       {/* Add Comment Section */}
       <Box sx={{ marginTop: "10px" }}>
