@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import {
   Box,
-  Grid2,
   Card,
   CardMedia,
   Chip,
