@@ -25,7 +25,7 @@ const App = () => {
         <Route path="/register" element={<Register />} />
         {/* Add other routes here */}
 
-        <Route path="/profile" element={<UserProfile />} />
+        <Route path="/profile/:userId" element={<UserProfile />} />
         <Route path="/survey" element={<Survey 
             />} />
 

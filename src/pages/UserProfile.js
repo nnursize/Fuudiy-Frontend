@@ -10,7 +10,8 @@ import Footer from '../components/Footer';
 import ProfilePictureSelector from '../components/ProfilePictureSelector';
 
 const API_BASE_URL = 'http://localhost:8000'; 
-const USER_ID = '67b09c0cea7db4001fe76154'; 
+const USER_ID = localStorage.getItem("user"); 
+
 
 const UserProfile = () => {
   const [userData, setUserData] = useState(null);

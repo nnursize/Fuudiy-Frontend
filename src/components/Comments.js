@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react"; 
 import axios from "axios";
 import {
   Box,
@@ -13,15 +13,17 @@ import {
   CircularProgress,
   IconButton,
   Card,
-  CardContent
+  CardContent,
+  Tooltip,
+  Rating,
 } from "@mui/material";
 import { useParams } from "react-router-dom";
 import StarIcon from "@mui/icons-material/Star";
 import TranslateIcon from "@mui/icons-material/Translate";
+import { useTranslation } from "react-i18next";
 
 const StarRating = ({ value, onChange, readOnly = false }) => {
   const [hoverRating, setHoverRating] = useState(0);
-
   return (
     <Box sx={{ display: "flex", alignItems: "center" }}>
       {[1, 2, 3, 4, 5].map((star) => (
@@ -106,7 +108,6 @@ const Comments = () => {
 
   const handleCommentSubmit = async () => {
     if (!newComment.trim() || rating === 0) return;
-
     try {
       const response = await axios.post("http://localhost:8000/comments", {
         userId: "67b09c0cea7db4001fe76154", // Replace with actual logged-in user ID
@@ -114,19 +115,14 @@ const Comments = () => {
         rate: rating,
         comment: newComment,
       });
-      let translatedNewComment = newComment;
-      if (language === "tr") {
-        const translateResponse = await axios.post("http://localhost:8000/translate", { text: newComment });
-        translatedNewComment = translateResponse.data.translated_text;
-      }
-      /*
-      const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-
-      setComments([{
-        ...response.data,
-        name: currentUser.name,
-        avatarId: currentUser.avatarId
-      }, ...comments]);
+      setComments([
+        {
+          ...response.data,
+          name: "Your Name", // Replace with actual user name
+          avatarId: "default", // Replace with actual avatar if needed
+        },
+        ...comments,
+      ]);
       setNewComment("");
       setRating(0);
       */
@@ -135,75 +131,162 @@ const Comments = () => {
     }
   };
 
+  const translateComment = async (uniqueKey, text) => {
+    // Mark this comment as translating
+    setTranslating((prev) => ({ ...prev, [uniqueKey]: true }));
+    try {
+      const targetLanguage = i18n.language;
+      const response = await axios.post("http://localhost:8000/translate/", {
+        text,
+        target_language: targetLanguage,
+      });
+      setTranslatedComments((prev) => ({
+        ...prev,
+        [uniqueKey]: response.data.translated_text,
+      }));
+    } catch (error) {
+      console.error("Translation error:", error);
+      setTranslatedComments((prev) => ({
+        ...prev,
+        [uniqueKey]: `${t("translationError")}`,
+      }));
+    } finally {
+      setTranslating((prev) => ({ ...prev, [uniqueKey]: false }));
+    }
+  };
+
   return (
     <Box sx={{ maxWidth: 800, margin: "0 auto", padding: "10px" }}>
-      <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-        <Typography variant="h5" gutterBottom>
-          {language === "en" ? "Comments" : "Yorumlar"}
-        </Typography>
-      </Box>
-
+      <Typography variant="h5" gutterBottom>
+        {t("comments")}
+      </Typography>
       {loading ? (
         <CircularProgress />
       ) : error ? (
         <Typography color="error">{error}</Typography>
       ) : (
         <List>
-          {comments.map((comment, index) => (
-            <Card key={comment._id} sx={{ marginBottom: 2 }}>
-              <CardContent>
-                <ListItem alignItems="flex-start">
-                  <ListItemAvatar>
-                    <Avatar src={`/avatars/${comment.avatarId}.png`} />
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary={
-                      <>
-                        <Typography variant="subtitle1" fontWeight="bold">
-                          {comment.name}
-                        </Typography>
-                        <StarRating value={comment.rate} readOnly />
-                      </>
-                    }
-                    secondary={
-                      <>
-                        <Typography variant="body2">
-                          {translatedComments[comment._id]?.comment || comment.comment}
-                        </Typography>
-                        <Box sx={{ mt: 1, display: 'flex', gap: 1 }}>
-                          <Button
-                            size="small"
-                            startIcon={<TranslateIcon />}
-                            onClick={() => handleTranslate(comment, 'tr')}
+          {comments.map((comment, index) => {
+            // Create a unique key using comment.id and index
+            const uniqueKey = `${comment.id}-${index}`;
+            return (
+              <Card
+                key={uniqueKey}
+                sx={{
+                  marginBottom: 1,
+                  padding: 1,
+                  borderRadius: "12px",
+                  maxWidth: "100%",
+                  display: "block",
+                  minHeight: "60px",
+                  boxShadow: 1,
+                }}
+              >
+                <CardContent>
+                  <ListItem alignItems="flex-start" sx={{ alignItems: "center" }}>
+                    <ListItemAvatar>
+                      <IconButton onClick={() => (window.location.href = `/user/${comment.userId}`)}>
+                        <Avatar src={`/avatars/${comment.avatarId}.png`} alt={comment.name} />
+                      </IconButton>
+                    </ListItemAvatar>
+                    <ListItemText
+                      primary={
+                        <>
+                          <Box
+                            sx={{
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "space-between",
+                            }}
                           >
-                            Turkish
-                          </Button>
-                          <Button
-                            size="small"
-                            startIcon={<TranslateIcon />}
-                            onClick={() => handleTranslate(comment, 'en')}
+                            <Box>
+                              <Typography variant="subtitle2" sx={{ fontWeight: "bold" }}>
+                                {comment.name}
+                              </Typography>
+                              <Rating name="read-only" value={comment.rate || 0} readOnly precision={0.5} 
+                                sx={{ 
+                                    marginBottom: "10px",
+                                    "& .MuiRating-iconFilled": {
+                                      color: "#FFD700", // Gold/yellow color for filled stars
+                                    },
+                                    "& .MuiRating-iconEmpty": {
+                                      color: "#C0C0C0", // Light gray for empty stars
+                                    }
+                                  }} 
+                              /> 
+                            </Box>
+                            <Tooltip title={t("translate")}>
+                              <IconButton
+                                onClick={() => translateComment(uniqueKey, comment.comment)}
+                                sx={{
+                                  width: "30px",
+                                  height: "30px",
+                                  padding: "2px",
+                                  "&:hover": {
+                                    backgroundColor: "rgba(0, 0, 0, 0.04)",
+                                    transform: "none",
+                                  },
+                                }}
+                                disabled={translating[uniqueKey]}
+                              >
+                                {translating[uniqueKey] ? (
+                                  <CircularProgress size={16} />
+                                ) : (
+                                  <TranslateIcon sx={{ fontSize: 16 }} />
+                                )}
+                              </IconButton>
+                            </Tooltip>
+                          </Box>
+                        </>
+                      }
+                      secondary={
+                        <>
+                          <Typography
+                            sx={{
+                              wordWrap: "break-word",
+                              marginTop: "4px",
+                              fontSize: "14px",
+                            }}
                           >
-                            English
-                          </Button>
-                        </Box>
-                      </>
-                    }
-                  />
-                </ListItem>
-              </CardContent>
-            </Card>
-          ))}
+                            {comment.comment}
+                          </Typography>
+                          {translatedComments[uniqueKey] && (
+                            <Box sx={{ mt: 1, p: 1, bgcolor: "#f5f5f5", borderRadius: 1 }}>
+                              <Typography
+                                variant="caption"
+                                sx={{
+                                  color: "text.secondary",
+                                  display: "block",
+                                  mb: 0.5,
+                                }}
+                              >
+                                {t("translated")}:
+                              </Typography>
+                              <Typography sx={{ fontSize: "14px" }}>
+                                {translatedComments[uniqueKey]}
+                              </Typography>
+                            </Box>
+                          )}
+                        </>
+                      }
+                    />
+                  </ListItem>
+                </CardContent>
+              </Card>
+            );
+          })}
         </List>
       )}
 
+
       {/* Add Comment Section */}
       <Box sx={{ marginTop: "10px" }}>
-        <Typography variant="h6">{language === "en" ? "Leave a Comment" : "Yorum Yap"}</Typography>
+        <Typography variant="h6">{t("leaveComment")}</Typography>
         <StarRating value={rating} onChange={setRating} />
         <TextField
           fullWidth
           variant="outlined"
-          placeholder={language === "en" ? "Write your comment..." : "Yorumunuzu yazın..."}
+          placeholder={t("writeComment")}
           value={newComment}
           onChange={(e) => setNewComment(e.target.value)}
           sx={{ marginTop: "5px" }}
@@ -214,7 +297,7 @@ const Comments = () => {
           onClick={handleCommentSubmit}
           disabled={!newComment.trim() || rating === 0}
         >
-          {language === "en" ? "Submit" : "Gönder"}
+          {t("submit")}
         </Button>
       </Box>
     </Box>

@@ -31,5 +31,9 @@
     "aboutUs": "About Us",
     "siteMap": "Site Map",
     "rightsReserved": "All Rights Reserved",
-    "please_answer":"Please answer the question"
-}
+    "please_answer":"Please answer the question",
+    "translate": "Translate",
+    "translated": "Translated",
+    "translationError": "Translation failed. Please try again.",
+    "leaveComment": "Leave a Comment",
+    "writeComment": "Write your comment..."  }
