@@ -7,9 +7,8 @@ import LanguageSwitcher from "../components/LanguageSwitcher";
 import { Avatar } from "@mui/material";
 import LogoutPopup from "../components/LogoutPopup";
 
-const USER_ID = "67b09c0cea7db4001fe76154";
 const API_BASE_URL = "http://localhost:8000";
-
+let user = null; // Global user variable
 // Helper function to generate the correct avatar image path
 const getAvatarSrc = (avatarId) => {
   return avatarId && avatarId.includes(".png")
@@ -18,7 +17,8 @@ const getAvatarSrc = (avatarId) => {
 };
 
 const Header = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [userId, setUserId] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
   const [showLogoutPopup, setShowLogoutPopup] = useState(false);
   const [userData, setUserData] = useState(null);
@@ -27,27 +27,47 @@ const Header = () => {
 
   // Check login status
   useEffect(() => {
-    const user = localStorage.getItem("accessToken");
-    if (user) {
+    const token = localStorage.getItem("accessToken");
+    console.log("access token is:", token);
+    
+    if (token) {
       setIsLoggedIn(true);
+  
+      fetch("http://localhost:8000/auth/me", {
+      
+        method: "POST",
+        headers: {
+          "Authorization": "Bearer " + localStorage.getItem("accessToken"),
+        },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("User ID:", data.user_id);
+          setUserId(data.user_id); // Save user ID in state
+        })
+        .catch((error) => console.error("Error fetching /me:", error));
+      
     }
   }, []);
+  
 
   // Fetch user data (including avatar) if logged in
   useEffect(() => {
-    if (isLoggedIn) {
+    if (userId) {
+      console.log("User ID: in user fetching", userId);
       axios
-        .get(`${API_BASE_URL}/users/${USER_ID}`)
+      //need to change to token after rrequired changes made at the backend
+        .get(`${API_BASE_URL}/users/${userId}`)
         .then((response) => {
-          const user = response.data.data[0];
-          setUserData(user);
+          const userData = response.data.data[0];
+          setUserData(userData);
           console.log("User from backend: ", user);
         })
         .catch((error) =>
           console.error("Error fetching user data:", error)
         );
     }
-  }, [isLoggedIn]);
+  }, [userId]);
 
   const changeLanguage = (lng) => {
     i18n.changeLanguage(lng).catch((err) =>
@@ -64,10 +84,20 @@ const Header = () => {
     navigate("/");
   };
 
+
+  //changed to id but the user fetching model is not compatible with the current users model, after update should work.
   const handleProfileClick = () => {
+    /*
     if (userData && userData._id) {
+      console.log("user id in profile click 222", userId)
       navigate(`/profile/${userData._id}`);
+    }*/
+    
+    if (userId) {
+      console.log("user id in profile click", userId)
+      navigate(`/profile/${userId}`);
     }
+
   };
   
 
