@@ -8,12 +8,13 @@ import FoodInProfile from '../components/FoodInProfile';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import ProfilePictureSelector from '../components/ProfilePictureSelector';
-
+import { useParams } from 'react-router-dom'; 
 const API_BASE_URL = 'http://localhost:8000'; 
-const USER_ID = localStorage.getItem("user"); 
+//const USER_ID = localStorage.getItem("user"); 
 
 
 const UserProfile = () => {
+  const { USER_ID } = useParams();
   const [userData, setUserData] = useState(null);
   const [ratedFoodDetails, setRatedFoodDetails] = useState([]);
   const [favoriteFoodDetails, setFavoriteFoodDetails] = useState([]);
@@ -21,6 +22,10 @@ const UserProfile = () => {
   const [editedDislikedIngredients, setEditedDislikedIngredients] = useState([]);
 
   useEffect(() => {
+    if (!USER_ID) {
+      console.error('No user ID in URL');
+      return;
+    }
     axios.get(`${API_BASE_URL}/users/${USER_ID}`)
       .then(response => {
         const user = response.data.data[0];
