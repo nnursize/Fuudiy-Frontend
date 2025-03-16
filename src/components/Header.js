@@ -8,7 +8,6 @@ import { Avatar } from "@mui/material";
 import LogoutPopup from "../components/LogoutPopup";
 
 const API_BASE_URL = "http://localhost:8000";
-let user = null; // Global user variable
 // Helper function to generate the correct avatar image path
 const getAvatarSrc = (avatarId) => {
   return avatarId && avatarId.includes(".png")
@@ -17,7 +16,6 @@ const getAvatarSrc = (avatarId) => {
 };
 
 const Header = () => {
-  const [userId, setUserId] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
   const [showLogoutPopup, setShowLogoutPopup] = useState(false);
@@ -33,7 +31,7 @@ const Header = () => {
     if (token) {
       setIsLoggedIn(true);
   
-      fetch("http://localhost:8000/auth/me", {
+      fetch(`${API_BASE_URL}/users/me`,{
       
         method: "POST",
         headers: {
@@ -42,8 +40,8 @@ const Header = () => {
       })
         .then((response) => response.json())
         .then((data) => {
-          console.log("User ID:", data.user_id);
-          setUserId(data.user_id); // Save user ID in state
+          console.log("User:", data.data[0]);
+          setUserData(data.data[0]); // Save user
         })
         .catch((error) => console.error("Error fetching /me:", error));
       
@@ -52,22 +50,7 @@ const Header = () => {
   
 
   // Fetch user data (including avatar) if logged in
-  useEffect(() => {
-    if (userId) {
-      console.log("User ID: in user fetching", userId);
-      axios
-      //need to change to token after rrequired changes made at the backend
-        .get(`${API_BASE_URL}/users/${userId}`)
-        .then((response) => {
-          const userData = response.data.data[0];
-          setUserData(userData);
-          console.log("User from backend: ", user);
-        })
-        .catch((error) =>
-          console.error("Error fetching user data:", error)
-        );
-    }
-  }, [userId]);
+ 
 
   const changeLanguage = (lng) => {
     i18n.changeLanguage(lng).catch((err) =>
@@ -85,18 +68,14 @@ const Header = () => {
   };
 
 
-  //changed to id but the user fetching model is not compatible with the current users model, after update should work.
+  //changed to id but the user fetching model is not compatible with the current users model,
+  // needs to change  to token after model updates
   const handleProfileClick = () => {
-    /*
-    if (userData && userData._id) {
-      console.log("user id in profile click 222", userId)
-      navigate(`/profile/${userData._id}`);
-    }*/
-    
-    if (userId) {
-      console.log("user id in profile click", userId)
-      navigate(`/profile/${userId}`);
+    if (userData && userData.id) {
+      console.log("user id in profile click 222", userData.id)
+      navigate(`/profile/${userData.id}`);
     }
+    
 
   };
   
