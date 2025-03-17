@@ -51,9 +51,11 @@ const FoodInProfile = ({ food, onRateChange }) => {
             {food.name}
           </Typography>
           <Box display="flex" alignItems="center" gap={1}>
-            <Typography variant="body2" color="textSecondary">
-              {food.popularity ? food.popularity.rating : "N/A"}
-            </Typography>
+          <Typography variant="body2" color="textSecondary">
+            {food.popularity && food.popularity.rating 
+              ? food.popularity.rating.toFixed(1) 
+              : "N/A"}
+          </Typography>
             <Rating
               name={`user-rating-${food.foodId}`}
               value={food.rate || 0}

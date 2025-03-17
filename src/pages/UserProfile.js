@@ -8,12 +8,13 @@ import FoodInProfile from '../components/FoodInProfile';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import ProfilePictureSelector from '../components/ProfilePictureSelector';
-
+import { useParams } from 'react-router-dom'; 
 const API_BASE_URL = 'http://localhost:8000'; 
-const USER_ID = localStorage.getItem("user"); 
+//const USER_ID = localStorage.getItem("user"); 
 
 
 const UserProfile = () => {
+  const { USER_ID } = useParams();
   const [userData, setUserData] = useState(null);
   const [ratedFoodDetails, setRatedFoodDetails] = useState([]);
   const [favoriteFoodDetails, setFavoriteFoodDetails] = useState([]);
@@ -21,6 +22,10 @@ const UserProfile = () => {
   const [editedDislikedIngredients, setEditedDislikedIngredients] = useState([]);
 
   useEffect(() => {
+    if (!USER_ID) {
+      console.error('No user ID in URL');
+      return;
+    }
     axios.get(`${API_BASE_URL}/users/${USER_ID}`)
       .then(response => {
         const user = response.data.data[0];
@@ -54,28 +59,78 @@ const UserProfile = () => {
       .catch(error => console.error('Error fetching user data:', error));
   }, []);
 
-  const handleRateChange = (foodId, newRate) => {
-    console.log("Updating rating for foodId:", foodId, "userId:", USER_ID);
-    axios.put(`${API_BASE_URL}/comments/update-rate/${USER_ID}/${foodId}?rate=${newRate}`)
-      .then(response => {
-        setRatedFoodDetails(prev => prev.map(food => 
-          (food.foodId === foodId ? { ...food, rate: newRate } : food)
-        ));
-        setFavoriteFoodDetails(prev => {
-          if (newRate === 5) {
-            const updatedFood = ratedFoodDetails.find(food => food.foodId === foodId);
-            if (updatedFood) {
-              return [...prev, { ...updatedFood, rate: 5 }];
-            }
-          } else {
-            return prev.filter(food => food.foodId !== foodId);
-          }
-          return prev;
+  const handleRateChange = async (foodId, newRate) => {
+    console.log("🔄 Updating rating for foodId:", foodId, "userId:", USER_ID);
+
+    // Find the food object in the state
+    const food = ratedFoodDetails.find(f => f.foodId === foodId);
+    if (!food) return;
+
+    const oldRate = food.rate; // User's previous rating
+    const votes = food.popularity?.votes || 0;
+    const oldRating = food.popularity?.rating || 0;
+
+    // Optimistically calculate the new popularity rating
+    const newCalculatedRating = ((oldRating * votes - oldRate + newRate) / votes).toFixed(1);
+
+    // **Instant UI update** (Optimistic UI for rating update)
+    setRatedFoodDetails(prev => prev.map(food => 
+        food.foodId === foodId 
+            ? { ...food, rate: newRate, popularity: { ...food.popularity, rating: parseFloat(newCalculatedRating) } }
+            : food
+    ));
+
+    try {
+        // **Update rating in backend**
+        await axios.put(`${API_BASE_URL}/comments/update-rate/${USER_ID}/${foodId}?rate=${newRate}`);
+        console.log("✅ Rating updated successfully");
+
+        // **Update popularity in backend**
+        const popularityResponse = await axios.put(`${API_BASE_URL}/food/update-popularity/${foodId}`, {
+            rating: parseFloat(newCalculatedRating),
+            existing_vote: true
         });
-      })
-      .catch(error => console.error('Error updating rating:', error));
+
+        console.log("✅ Food popularity updated successfully:", popularityResponse.data);
+
+        // ✅ **Only now update favorite foods with the correct popularity value**
+        setFavoriteFoodDetails(prev => {
+            if (newRate === 5) {
+                const updatedFood = ratedFoodDetails.find(food => food.foodId === foodId);
+                if (updatedFood) {
+                    return [...prev, { 
+                        ...updatedFood, 
+                        rate: 5, 
+                        popularity: { ...updatedFood.popularity, rating: parseFloat(newCalculatedRating) } 
+                    }];
+                }
+            } else {
+                return prev.filter(food => food.foodId !== foodId);
+            }
+            return prev;
+        });
+
+    } catch (error) {
+        console.error('❌ Error updating rating or popularity:', error);
+
+        // ❌ **Revert UI if backend fails**
+        setRatedFoodDetails(prev => prev.map(food => 
+            food.foodId === foodId 
+                ? { ...food, rate: oldRate, popularity: { ...food.popularity, rating: oldRating } }
+                : food
+        ));
+
+        // **Remove from favorites if the rating update failed**
+        setFavoriteFoodDetails(prev => prev.filter(favFood => favFood.foodId !== foodId));
+    }
+
+    // **If the updated rating is below 5, remove the food from favorites**
+    if (newRate < 5) {
+        setFavoriteFoodDetails(prev => prev.filter(favFood => favFood.foodId !== foodId));
+    }
   };
 
+  
   // Handler to remove an ingredient from the temporary list.
   const handleRemoveIngredient = (ingredientToRemove) => {
     setEditedDislikedIngredients(prev => prev.filter(ing => ing !== ingredientToRemove));
