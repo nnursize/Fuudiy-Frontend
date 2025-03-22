@@ -43,11 +43,11 @@ const UserProfile = () => {
       .then(response => {
         console.log("User Comments: ", response.data);
         const ratedFoods = response.data.map(comment => ({
-          userId: USER_ID, 
           foodId: comment.foodId,
           rate: comment.rate, 
           comment: comment.comment,
         }));
+        console.log("Rated Foods: ", ratedFoods);
         const foodRequests = ratedFoods.map(food =>
           axios.get(`${API_BASE_URL}/food/${food.foodId}`)
             .then(res => ({
@@ -65,7 +65,7 @@ const UserProfile = () => {
   }, []);
 
   const handleRateChange = async (foodId, newRate) => {
-    console.log("🔄 Updating rating for foodId:", foodId, "userId:", USER_ID);
+    console.log("🔄 Updating rating for foodId:", foodId);
 
     // Find the food object in the state
     const food = ratedFoodDetails.find(f => f.foodId === foodId);
@@ -87,7 +87,11 @@ const UserProfile = () => {
 
     try {
         // **Update rating in backend**
-        await axios.put(`${API_BASE_URL}/comments/update-rate/${USER_ID}/${foodId}?rate=${newRate}`);
+        await axios.put(`${API_BASE_URL}/comments/update-rate/${foodId}?rate=${newRate}`, {}, {
+          headers: {
+            Authorization: `Bearer ${accessToken}`
+          }
+        });
         console.log("✅ Rating updated successfully");
 
         // **Update popularity in backend**
