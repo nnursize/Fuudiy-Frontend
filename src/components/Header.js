@@ -35,12 +35,11 @@ const Header = () => {
       
         method: "POST",
         headers: {
-          "Authorization": "Bearer " + localStorage.getItem("accessToken"),
+          "Authorization": "Bearer " + token,
         },
       })
         .then((response) => response.json())
         .then((data) => {
-          console.log("User:", data.data[0]);
           setUserData(data.data[0]); // Save user
         })
         .catch((error) => console.error("Error fetching /me:", error));
@@ -73,7 +72,7 @@ const Header = () => {
   const handleProfileClick = () => {
     if (userData && userData.id) {
       console.log("user id in profile click 222", userData.id)
-      navigate(`/profile/${userData.id}`);
+      navigate(`/profile/${userData.username}`);
     }
     
 
