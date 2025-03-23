@@ -36,4 +36,9 @@
     "translated": "Translated",
     "translationError": "Translation failed. Please try again.",
     "leaveComment": "Leave a Comment",
-    "writeComment": "Write your comment..."  }
+    "writeComment": "Write your comment...",
+    "ingredients": "Ingredients",
+    "comments": "Comments",
+    "keywords": "keywords",
+    "addToList": "Add To List",
+  "removeFromList": "Remove From List"}

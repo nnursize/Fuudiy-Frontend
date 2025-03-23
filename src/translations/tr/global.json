@@ -36,8 +36,12 @@
     "translated": "Çevrildi!",
     "translationError": "Çeviri tamamlanamadı. Lütfen tekrar deneyin.",
     "leaveComment": "Yorum Bırakın!",
-    "writeComment": "Yorum yaz..."
-
+    "writeComment": "Yorum yaz...",
+    "ingredients": "Malzemeler",
+    "comments": "Yorumlar",
+    "keywords": "anahtar kelimeler",
+    "addToList": "Listene Ekle",
+    "removeFromList": "Listenden Çıkar"
 
   }
   
