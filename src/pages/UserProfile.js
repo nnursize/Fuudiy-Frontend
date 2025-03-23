@@ -172,14 +172,13 @@ const UserProfile = () => {
             <ProfilePictureSelector
               currentAvatar={userData.avatarId}
               onSelect={(newAvatar) => {
-                axios.put(`${API_BASE_URL}/users/update-avatar/${USER_ID}`, { avatarId: newAvatar })
+                axios.put(`${API_BASE_URL}/users/update-avatar-by-username/${userData.username}`, { avatarId: newAvatar })
                   .then(() => {
                     setUserData(prev => ({ ...prev, avatarId: newAvatar }));
                   })
-                  .catch(error => console.error('Error updating avatar:', error));
+                  .catch(error => console.error('Error updating avatar by username:', error));
               }}
             />
-
             <Box sx={{ paddingLeft: 1 }}>
               <Typography variant="h5">{userData.username || 'Anonymous User'}</Typography>
               <Typography variant="body2" color="textSecondary" gutterBottom>
