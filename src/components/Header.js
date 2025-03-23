@@ -129,21 +129,6 @@ const Header = () => {
           ) : (
             <LoginContainer>
               <Link to="/login">{t("login")}</Link>
-              <ProfileIcon>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  strokeWidth={2}
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M12 12c2.28 0 4-1.72 4-4s-1.72-4-4-4-4 1.72-4 4 1.72 4 4 4zm0 2c-3.3137 0-6 1.6863-6 3.7619V19h12v-1.2381c0-2.0756-2.6863-3.7619-6-3.7619z"
-                  />
-                </svg>
-              </ProfileIcon>
             </LoginContainer>
           )}
         </RightSection>
