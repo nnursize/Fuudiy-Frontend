@@ -10,7 +10,10 @@ import Footer from '../components/Footer';
 import ProfilePictureSelector from '../components/ProfilePictureSelector';
 import { useParams } from 'react-router-dom'; 
 const API_BASE_URL = 'http://localhost:8000'; 
+
 //const USER_ID = localStorage.getItem("user"); 
+const accessToken = localStorage.getItem("accessToken"); 
+console.log("access token: ", accessToken);
 
 
 const UserProfile = () => {
@@ -33,7 +36,9 @@ const UserProfile = () => {
         // Initialize the temporary disliked ingredients list.
         setEditedDislikedIngredients(user.dislikedIngredients || []);
         console.log("User from backend: ", user);
-        return axios.get(`${API_BASE_URL}/comments/${USER_ID}/comments`);
+        return axios.get(`${API_BASE_URL}/comments/me`, {
+          headers: { Authorization: `Bearer ${accessToken}` }
+        });
       })
       .then(response => {
         console.log("User Comments: ", response.data);
