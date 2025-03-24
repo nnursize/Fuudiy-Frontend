@@ -23,31 +23,44 @@ const UserProfile = () => {
   const [favoriteFoodDetails, setFavoriteFoodDetails] = useState([]);
   const [editingDisliked, setEditingDisliked] = useState(false);
   const [editedDislikedIngredients, setEditedDislikedIngredients] = useState([]);
+  const [dislikedIngredients, setDislikedIngredients] = useState([]);
 
   useEffect(() => {
     if (!USER_ID) {
       console.error('No user ID in URL');
       return;
     }
+  
     axios.get(`${API_BASE_URL}/users/${USER_ID}`)
-      .then(response => {
+      .then(async response => {
         const user = response.data.data[0];
         setUserData(user);
-        // Initialize the temporary disliked ingredients list.
-        setEditedDislikedIngredients(user.dislikedIngredients || []);
-        console.log("User from backend: ", user);
+  
+        // Fetch preferences from survey
+        const prefRes = await axios.get(`${API_BASE_URL}/users/preferences/${USER_ID}`);
+        const preferences = prefRes.data.data[0];
+  
+        const rawDisliked = preferences?.disliked_ingredients || "";
+        const parsedDisliked = rawDisliked
+          .split(',')
+          .map(item => item.trim())
+          .filter(item => item.length > 0);
+  
+        setEditedDislikedIngredients(parsedDisliked);
+        setDislikedIngredients(parsedDisliked);
+        console.log("edited disliked ingredients: ", editedDislikedIngredients);
+  
         return axios.get(`${API_BASE_URL}/comments/me`, {
           headers: { Authorization: `Bearer ${accessToken}` }
         });
       })
       .then(response => {
-        console.log("User Comments: ", response.data);
         const ratedFoods = response.data.map(comment => ({
           foodId: comment.foodId,
           rate: comment.rate, 
           comment: comment.comment,
         }));
-        console.log("Rated Foods: ", ratedFoods);
+  
         const foodRequests = ratedFoods.map(food =>
           axios.get(`${API_BASE_URL}/food/${food.foodId}`)
             .then(res => ({
@@ -157,9 +170,23 @@ const UserProfile = () => {
 
   // Cancel the edit and revert changes.
   const handleCancelEditedIngredients = () => {
-    setEditedDislikedIngredients(userData.dislikedIngredients);
+    setEditedDislikedIngredients(dislikedIngredients);
     setEditingDisliked(false);
   };
+
+  // Compute what to show (parsed string or edited list)
+  const displayedDislikedIngredients = editingDisliked
+    ? editedDislikedIngredients
+    : dislikedIngredients;
+
+  console.log("displayedDislikedIngredients: ", displayedDislikedIngredients)
+  console.log("editingDisliked: ", editingDisliked)
+  console.log("editedDislikedIngredients: ", editedDislikedIngredients)
+  console.log("long one: ", (userData?.dislikedIngredients || "")
+    .split(',')
+    .map(item => item.trim())
+    .filter(item => item.length > 0))
+
 
   if (!userData) return <Typography>Loading...</Typography>;
 
@@ -189,7 +216,7 @@ const UserProfile = () => {
           </Box>
 
           {/* Disliked Ingredients Section with Edit Toggle */}
-          {userData.dislikedIngredients && userData.dislikedIngredients.length > 0 && (
+          {displayedDislikedIngredients.length > 0 && (
             <Box sx={{ mt: 2 }}>
               <Box display="flex" alignItems="center" justifyContent="space-between" sx={{ mb: 1 }}>
                 <Typography variant="body1" sx={{ fontWeight: "bold", color: "gray" }}>
@@ -214,10 +241,10 @@ const UserProfile = () => {
                   </Box>
                 ) : (
                   <IconButton 
-                    onClick={() => { 
-                      setEditingDisliked(true); 
-                      setEditedDislikedIngredients([...userData.dislikedIngredients]);
-                    }}
+                  onClick={() => {                  
+                    setEditedDislikedIngredients(dislikedIngredients);
+                    setTimeout(() => setEditingDisliked(true), 0); // 👈 Force it into next render cycle
+                  }}                  
                     size="small"
                     sx={{ p: 0.25, minWidth: 0, width: "20px", height: "20px" }}
                   >
@@ -226,14 +253,13 @@ const UserProfile = () => {
                 )}
               </Box>
               <Stack direction="row" spacing={1} alignItems="center" flexWrap="wrap">
-                {(editingDisliked ? editedDislikedIngredients : userData.dislikedIngredients)
-                  .map((ingredient, index) => (
-                    <Chip 
-                      key={index} 
-                      label={ingredient} 
-                      {...(editingDisliked ? { onDelete: () => handleRemoveIngredient(ingredient) } : {})}
-                      sx={{ backgroundColor: "#f1f1f1", fontWeight: "bold", fontSize: "14px", py: 0.5, px: 1 }} 
-                    />
+                {displayedDislikedIngredients.map((ingredient, index) => (
+                  <Chip 
+                    key={index} 
+                    label={ingredient} 
+                    {...(editingDisliked ? { onDelete: () => handleRemoveIngredient(ingredient) } : {})}
+                    sx={{ backgroundColor: "#f1f1f1", fontWeight: "bold", fontSize: "14px", py: 0.5, px: 1 }} 
+                  />
                 ))}
               </Stack>
             </Box>
