@@ -37,10 +37,16 @@ const UserProfile = () => {
         setUserData(user);
   
         // Fetch preferences from survey
-        const prefRes = await axios.get(`${API_BASE_URL}/users/preferences/${USER_ID}`);
+        const prefRes = await axios.post(`${API_BASE_URL}/users/me`, {}, {
+          headers: {
+            Authorization: `Bearer ${accessToken}`
+          }
+        });
         const preferences = prefRes.data.data[0];
-  
+        console.log("preferences from back: ", preferences);
+        
         const rawDisliked = preferences?.disliked_ingredients || "";
+        console.log("raw disliked: ", rawDisliked);
         const parsedDisliked = rawDisliked
           .split(',')
           .map(item => item.trim())
