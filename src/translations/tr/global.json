@@ -42,5 +42,9 @@
   "favoriteFoods": "Favori Yemekler",
   "noFavoriteFoods": "Henüz favori yemek yok.",
   "ingredients": "İçindekiler",
-  "unknown": "Bilinmiyor"
+  "unknown": "Bilinmiyor",
+  "confirmLogout": "Çıkış Yapmayı Onayla",
+  "confirmLogoutMessage": "Siteden çıkış yapmak istediğinizden emin misiniz?",
+  "cancel": "İptal",
+  "profile": "Profil"
 }

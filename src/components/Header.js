@@ -75,11 +75,8 @@ const Header = () => {
       console.log("user id in profile click 222", userData.id)
       navigate(`/profile/${userData.id}`);
     }
-    
-
   };
   
-
   const toggleDropdown = () => {
     setShowDropdown((prev) => !prev);
   };
@@ -118,10 +115,10 @@ const Header = () => {
               {showDropdown && (
                 <DropdownMenu>
                   <DropdownItem onClick={handleProfileClick}>
-                    Profile
+                    {t("profile")}
                   </DropdownItem>
                   <DropdownItem onClick={() => setShowLogoutPopup(true)}>
-                    Log-out
+                    {t("logout")}
                   </DropdownItem>
                 </DropdownMenu>
               )}

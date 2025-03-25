@@ -42,5 +42,9 @@
   "favoriteFoods": "Favorite Foods",
   "noFavoriteFoods": "No favorite foods yet.",
   "ingredients": "Ingredients",
-  "unknown": "Unknown"
+  "unknown": "Unknown",
+  "confirmLogout": "Confirm Logout",
+  "confirmLogoutMessage": "Are you sure you want to log out of the website?",
+  "cancel": "Cancel",
+  "profile": "Profile"
 }
