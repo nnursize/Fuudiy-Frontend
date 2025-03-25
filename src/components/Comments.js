@@ -22,6 +22,8 @@ import React, { useState, useEffect } from "react";
  import TranslateIcon from "@mui/icons-material/Translate";
  import { useTranslation } from "react-i18next";
  
+ const API_BASE_URL = "http://localhost:8000";
+
  const StarRating = ({ value, onChange, readOnly = false }) => {
    const [hoverRating, setHoverRating] = useState(0);
    return (
@@ -45,6 +47,7 @@ import React, { useState, useEffect } from "react";
  
  const Comments = () => {
    const { id: food_id } = useParams();
+   const [userData, setUserData] = useState(null);
    const [comments, setComments] = useState([]);
    const [loading, setLoading] = useState(true);
    const [newComment, setNewComment] = useState("");
@@ -57,7 +60,7 @@ import React, { useState, useEffect } from "react";
    useEffect(() => {
      const fetchComments = async () => {
        try {
-         const response = await axios.get(`http://localhost:8000/comments/${food_id}`);
+         const response = await axios.get(`${API_BASE_URL}/comments/${food_id}`);
          setComments(response.data);
        } catch (error) {
          setError("Error fetching comments.");
@@ -71,6 +74,7 @@ import React, { useState, useEffect } from "react";
 
    const handleCommentSubmit = async () => {
     const token = localStorage.getItem("accessToken");
+    console.log("Token", token)
     if (!token) {
       alert("You have to login before submit a comment.");
       return;
@@ -78,29 +82,56 @@ import React, { useState, useEffect } from "react";
         
     if (!newComment.trim() || rating === 0) return;
     try {
-      const user = await axios.post("http://localhost:8000/users/me");
-      console.log(user)
-      const response = await axios.post("http://localhost:8000/comments", {
-        foodId: food_id,
-        userId: user.data.userName,
-        rate: rating,
-        comment: newComment,
-      });
-      setComments([
+      if (!userData) {
+        try {
+          const userResponse = await axios.get(`${API_BASE_URL}/auth/users/me`, {
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': token ? `Bearer ${token}` : ''
+            }
+          });
+          console.log(userResponse)
+          setUserData(userResponse.data.data[0]);
+        } catch (userError) {
+          console.error("Error fetching user data:", userError);
+        }
+      }
+      console.log(userData)
+      const response = await axios.post(
+        `${API_BASE_URL}/comments`, 
         {
-          ...response.data,
-          name: "Your Name", // Replace with actual user name from your state if available
-          avatarId: "default", // Replace with actual avatar if available
+          food_id: food_id,
+          rate: rating,
+          comment: newComment
         },
-        ...comments,
-      ]);
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+          }
+        }
+      );
+  
+      if (response.data && userData) {
+        setComments([
+          {
+            ...response.data.data,
+            userName: userData.username,
+            userAvatar: userData.avatarId,
+            rate: rating
+          },
+          ...comments
+        ]);
+      }
+      
+      // Reset form
       setNewComment("");
       setRating(0);
     } catch (error) {
       console.error("Error adding comment:", error);
+      setError("Failed to submit comment. Please try again.");
     }
   };
-  
  
    const translateComment = async (uniqueKey, text) => {
      // Mark this comment as translating
@@ -108,7 +139,7 @@ import React, { useState, useEffect } from "react";
      try {
        const targetLanguage = i18n.language;
        console.log(targetLanguage)
-       const response = await axios.post("http://localhost:8000/translation/", {
+       const response = await axios.post(`${API_BASE_URL}/translation/`, {
          text: text,
          target_lang: targetLanguage,
        });

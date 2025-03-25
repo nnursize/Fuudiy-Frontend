@@ -70,7 +70,7 @@ const Header = () => {
   //changed to id but the user fetching model is not compatible with the current users model,
   // needs to change  to token after model updates
   const handleProfileClick = () => {
-    if (userData && userData.id) {
+    if (userData) {
       console.log("user id in profile click 222", userData.id)
       navigate(`/profile/${userData.username}`);
     }
