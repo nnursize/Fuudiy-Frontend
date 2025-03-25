@@ -166,13 +166,24 @@ const UserProfile = () => {
 
   // Save the updated disliked ingredients list to the backend.
   const handleSaveEditedIngredients = () => {
-    axios.put(`${API_BASE_URL}/users/update-disliked/${USER_ID}`, { dislikedIngredients: editedDislikedIngredients })
-      .then(() => {
+    const dislikedString = editedDislikedIngredients.join(', ');
+  
+    axios.put(`${API_BASE_URL}/users/update-disliked-by-username/${userData.username}`, 
+      { dislikedIngredients: editedDislikedIngredients }, // 👈 still array, backend will convert
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        }
+      }
+    )
+    .then(() => {
         setUserData(prev => ({ ...prev, dislikedIngredients: editedDislikedIngredients }));
         setEditingDisliked(false);
+        setDislikedIngredients(editedDislikedIngredients);
+
       })
       .catch(error => console.error('Error updating disliked ingredients:', error));
-  };  
+  };
 
   // Cancel the edit and revert changes.
   const handleCancelEditedIngredients = () => {
@@ -188,11 +199,6 @@ const UserProfile = () => {
   console.log("displayedDislikedIngredients: ", displayedDislikedIngredients)
   console.log("editingDisliked: ", editingDisliked)
   console.log("editedDislikedIngredients: ", editedDislikedIngredients)
-  console.log("long one: ", (userData?.dislikedIngredients || "")
-    .split(',')
-    .map(item => item.trim())
-    .filter(item => item.length > 0))
-
 
   if (!userData) return <Typography>Loading...</Typography>;
 
