@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Box, Stack, Typography, Paper, Chip, IconButton } from '@mui/material';
+import { useTranslation } from "react-i18next";
 import EditIcon from '@mui/icons-material/Edit';
 import CancelIcon from '@mui/icons-material/Cancel';
 import CheckIcon from '@mui/icons-material/Check';
@@ -8,7 +9,8 @@ import FoodInProfile from '../components/FoodInProfile';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import ProfilePictureSelector from '../components/ProfilePictureSelector';
-import { useParams } from 'react-router-dom'; 
+import { useParams } from 'react-router-dom';
+
 const API_BASE_URL = 'http://localhost:8000'; 
 
 //const USER_ID = localStorage.getItem("user"); 
@@ -23,31 +25,47 @@ const UserProfile = () => {
   const [favoriteFoodDetails, setFavoriteFoodDetails] = useState([]);
   const [editingDisliked, setEditingDisliked] = useState(false);
   const [editedDislikedIngredients, setEditedDislikedIngredients] = useState([]);
+  const [dislikedIngredients, setDislikedIngredients] = useState([]);
+  const [editingBio, setEditingBio] = useState(false);
+  const [editedBio, setEditedBio] = useState("");
+  const { t } = useTranslation("global");
 
   useEffect(() => {
     if (!USER_ID) {
       console.error('No user ID in URL');
       return;
     }
-    axios.get(`${API_BASE_URL}/users/${USER_ID}`)
-      .then(response => {
+  
+    axios.get(`${API_BASE_URL}/auth/users/me`, {
+      headers: { Authorization: `Bearer ${accessToken}` }
+    })
+      .then(async response => {
         const user = response.data.data[0];
         setUserData(user);
-        // Initialize the temporary disliked ingredients list.
-        setEditedDislikedIngredients(user.dislikedIngredients || []);
-        console.log("User from backend: ", user);
+        setEditedBio(user.bio || "");
+        console.log("user: ", user);
+        
+        const rawDisliked = user?.disliked_ingredients || "";
+        console.log("raw disliked: ", rawDisliked);
+        const parsedDisliked = Array.isArray(user?.disliked_ingredients)
+          ? user.disliked_ingredients
+          : [];
+  
+        setEditedDislikedIngredients(parsedDisliked);
+        setDislikedIngredients(parsedDisliked);
+        console.log("edited disliked ingredients: ", editedDislikedIngredients);
+  
         return axios.get(`${API_BASE_URL}/comments/me`, {
           headers: { Authorization: `Bearer ${accessToken}` }
         });
       })
       .then(response => {
-        console.log("User Comments: ", response.data);
         const ratedFoods = response.data.map(comment => ({
-          userId: USER_ID, 
           foodId: comment.foodId,
           rate: comment.rate, 
           comment: comment.comment,
         }));
+  
         const foodRequests = ratedFoods.map(food =>
           axios.get(`${API_BASE_URL}/food/${food.foodId}`)
             .then(res => ({
@@ -65,7 +83,7 @@ const UserProfile = () => {
   }, []);
 
   const handleRateChange = async (foodId, newRate) => {
-    console.log("🔄 Updating rating for foodId:", foodId, "userId:", USER_ID);
+    console.log("🔄 Updating rating for foodId:", foodId);
 
     // Find the food object in the state
     const food = ratedFoodDetails.find(f => f.foodId === foodId);
@@ -87,7 +105,11 @@ const UserProfile = () => {
 
     try {
         // **Update rating in backend**
-        await axios.put(`${API_BASE_URL}/comments/update-rate/${USER_ID}/${foodId}?rate=${newRate}`);
+        await axios.put(`${API_BASE_URL}/comments/update-rate/${foodId}?rate=${newRate}`, {}, {
+          headers: {
+            Authorization: `Bearer ${accessToken}`
+          }
+        });
         console.log("✅ Rating updated successfully");
 
         // **Update popularity in backend**
@@ -143,21 +165,63 @@ const UserProfile = () => {
 
   // Save the updated disliked ingredients list to the backend.
   const handleSaveEditedIngredients = () => {
-    axios.put(`${API_BASE_URL}/users/update-disliked/${USER_ID}`, { dislikedIngredients: editedDislikedIngredients })
-      .then(() => {
+    const dislikedString = editedDislikedIngredients.join(', ');
+  
+    axios.put(`${API_BASE_URL}/users/update-disliked-by-username/${userData.username}`, 
+      { dislikedIngredients: editedDislikedIngredients }, // 👈 still array, backend will convert
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        }
+      }
+    )
+    .then(() => {
         setUserData(prev => ({ ...prev, dislikedIngredients: editedDislikedIngredients }));
         setEditingDisliked(false);
+        setDislikedIngredients(editedDislikedIngredients);
+
       })
       .catch(error => console.error('Error updating disliked ingredients:', error));
-  };  
+  };
 
   // Cancel the edit and revert changes.
   const handleCancelEditedIngredients = () => {
-    setEditedDislikedIngredients(userData.dislikedIngredients);
+    setEditedDislikedIngredients(dislikedIngredients);
     setEditingDisliked(false);
   };
 
-  if (!userData) return <Typography>Loading...</Typography>;
+  // Compute what to show (parsed string or edited list)
+  const displayedDislikedIngredients = editingDisliked
+    ? editedDislikedIngredients
+    : dislikedIngredients;
+
+  const handleSaveEditedBio = () => {
+    axios.put(`${API_BASE_URL}/users/update-bio-by-username/${userData.username}`, 
+      { bio: editedBio },
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        }
+      }
+    )
+    .then(() => {
+      setUserData(prev => ({ ...prev, bio: editedBio }));
+      setEditingBio(false);
+    })
+    .catch(error => console.error("Error updating bio:", error));
+  };
+    
+  const handleCancelEditedBio = () => {
+    setEditedBio(userData.bio || "");
+    setEditingBio(false);
+  };
+    
+
+  console.log("displayedDislikedIngredients: ", displayedDislikedIngredients)
+  console.log("editingDisliked: ", editingDisliked)
+  console.log("editedDislikedIngredients: ", editedDislikedIngredients)
+
+  if (!userData) return <Typography>{t("loading")}</Typography>;
 
   return (
     <>
@@ -168,30 +232,75 @@ const UserProfile = () => {
             <ProfilePictureSelector
               currentAvatar={userData.avatarId}
               onSelect={(newAvatar) => {
-                axios.put(`${API_BASE_URL}/users/update-avatar/${USER_ID}`, { avatarId: newAvatar })
+                axios.put(`${API_BASE_URL}/users/update-avatar-by-username/${userData.username}`, { avatarId: newAvatar })
                   .then(() => {
                     setUserData(prev => ({ ...prev, avatarId: newAvatar }));
                   })
-                  .catch(error => console.error('Error updating avatar:', error));
+                  .catch(error => console.error('Error updating avatar by username:', error));
               }}
             />
-
             <Box sx={{ paddingLeft: 1 }}>
               <Typography variant="h5">{userData.username || 'Anonymous User'}</Typography>
               <Typography variant="body2" color="textSecondary" gutterBottom>
                 {userData.email || 'No email available.'}
               </Typography>
-              <Typography variant="body1">{userData.bio || 'No bio available.'}</Typography>
+              <Box display="flex" alignItems="right" justifyContent="space-between" gap={1}>
+                {editingBio ? (
+                  <>
+                    <input
+                      type="text"
+                      value={editedBio}
+                      onChange={(e) => setEditedBio(e.target.value)}
+                      style={{
+                        flex: 1,
+                        padding: "4px 8px",
+                        fontSize: "1rem",
+                        border: "1px solid #ccc",
+                        borderRadius: "4px"
+                      }}
+                    />
+                    <Box display="flex" gap={0.5}>
+                      <IconButton
+                        onClick={handleSaveEditedBio}
+                        size="small"
+                        sx={{ p: 0.25, minWidth: 0, width: "20px", height: "20px" }}
+                      >
+                        <CheckIcon fontSize="small" />
+                      </IconButton>
+                      <IconButton
+                        onClick={handleCancelEditedBio}
+                        size="small"
+                        sx={{ p: 0.25, minWidth: 0, width: "20px", height: "20px" }}
+                      >
+                        <CancelIcon fontSize="small" />
+                      </IconButton>
+                    </Box>
+                  </>
+                ) : (
+                  <>
+                    <Typography variant="body1" sx={{ flex: 1 }}>
+                      {userData.bio || t("noBio")}
+                    </Typography>
+                    <IconButton
+                      onClick={() => setEditingBio(true)}
+                      size="small"
+                      sx={{ p: 0.25, minWidth: 0, width: "20px", height: "20px" }}
+                    >
+                      <EditIcon fontSize="small" />
+                    </IconButton>
+                  </>
+                )}
+              </Box>
             </Box>
           </Box>
 
           {/* Disliked Ingredients Section with Edit Toggle */}
-          {userData.dislikedIngredients && userData.dislikedIngredients.length > 0 && (
+          {displayedDislikedIngredients.length > 0 && (
             <Box sx={{ mt: 2 }}>
               <Box display="flex" alignItems="center" justifyContent="space-between" sx={{ mb: 1 }}>
-                <Typography variant="body1" sx={{ fontWeight: "bold", color: "gray" }}>
-                  Disliked Ingredients:
-                </Typography>
+              <Typography variant="body1" sx={{ fontWeight: "bold", color: "gray" }}>
+                {t("dislikedIngredients") /* Add to translation file */}
+              </Typography>
                 {editingDisliked ? (
                   <Box>
                     <IconButton 
@@ -211,10 +320,10 @@ const UserProfile = () => {
                   </Box>
                 ) : (
                   <IconButton 
-                    onClick={() => { 
-                      setEditingDisliked(true); 
-                      setEditedDislikedIngredients([...userData.dislikedIngredients]);
-                    }}
+                  onClick={() => {                  
+                    setEditedDislikedIngredients(dislikedIngredients);
+                    setTimeout(() => setEditingDisliked(true), 0); // 👈 Force it into next render cycle
+                  }}                  
                     size="small"
                     sx={{ p: 0.25, minWidth: 0, width: "20px", height: "20px" }}
                   >
@@ -223,14 +332,13 @@ const UserProfile = () => {
                 )}
               </Box>
               <Stack direction="row" spacing={1} alignItems="center" flexWrap="wrap">
-                {(editingDisliked ? editedDislikedIngredients : userData.dislikedIngredients)
-                  .map((ingredient, index) => (
-                    <Chip 
-                      key={index} 
-                      label={ingredient} 
-                      {...(editingDisliked ? { onDelete: () => handleRemoveIngredient(ingredient) } : {})}
-                      sx={{ backgroundColor: "#f1f1f1", fontWeight: "bold", fontSize: "14px", py: 0.5, px: 1 }} 
-                    />
+                {displayedDislikedIngredients.map((ingredient, index) => (
+                  <Chip 
+                    key={index} 
+                    label={ingredient} 
+                    {...(editingDisliked ? { onDelete: () => handleRemoveIngredient(ingredient) } : {})}
+                    sx={{ backgroundColor: "#f1f1f1", fontWeight: "bold", fontSize: "14px", py: 0.5, px: 1 }} 
+                  />
                 ))}
               </Stack>
             </Box>
@@ -241,7 +349,9 @@ const UserProfile = () => {
         <Box display="flex" justifyContent="space-between" sx={{ gap: 2, width: '100%' }}>
           {/* Rated Foods Section */}
           <Paper elevation={3} sx={{ flex: 1, padding: 3 }}>
-            <Typography variant="h6" marginBottom={2}>Rated Foods</Typography>
+            <Typography variant="h6" marginBottom={2}>
+              {t("ratedFoods")} {/* Add to translation file */}
+            </Typography>            
             <Box display="flex" flexDirection="column" gap={2}>
               {ratedFoodDetails.map((ratedFood, index) => (
                 <FoodInProfile key={index} food={ratedFood} onRateChange={handleRateChange} />
@@ -250,8 +360,10 @@ const UserProfile = () => {
           </Paper>
 
           {/* Favorite Foods Section */}
-          <Paper elevation={3} sx={{ flex: 1, padding: 3 }}>
-            <Typography variant="h6" marginBottom={2}>Favorite Foods</Typography>
+          <Paper elevation={3} sx={{ flex: 1, padding: 3 }}>                        
+            <Typography variant="h6" marginBottom={2}>
+              {t("favoriteFoods")} {/* Add to translation file */}
+            </Typography>
             {favoriteFoodDetails.length > 0 ? (
               <Box display="flex" flexDirection="column" gap={2}>
                 {favoriteFoodDetails.map((food, index) => (
@@ -259,7 +371,9 @@ const UserProfile = () => {
                 ))}
               </Box>
             ) : (
-              <Typography variant="body2" color="textSecondary">No favorite foods yet.</Typography>
+              <Typography variant="body2" color="textSecondary">
+                {t("noFavoriteFoods")}
+              </Typography>            
             )}
           </Paper>
         </Box>
