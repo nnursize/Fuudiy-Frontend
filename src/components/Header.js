@@ -31,9 +31,8 @@ const Header = () => {
     if (token) {
       setIsLoggedIn(true);
   
-      fetch(`${API_BASE_URL}/users/me`,{
-      
-        method: "POST",
+      fetch(`${API_BASE_URL}/auth/users/me`, {
+        method: "GET", // <-- change this line
         headers: {
           "Authorization": "Bearer " + token,
         },
@@ -42,8 +41,7 @@ const Header = () => {
         .then((data) => {
           setUserData(data.data[0]); // Save user
         })
-        .catch((error) => console.error("Error fetching /me:", error));
-      
+        .catch((error) => console.error("Error fetching /me:", error));      
     }
   }, []);
   
