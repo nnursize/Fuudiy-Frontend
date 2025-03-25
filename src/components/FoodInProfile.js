@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Box, Typography, Avatar, Rating } from "@mui/material";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const FoodInProfile = ({ food, onRateChange }) => {
-  const [imageUrl, setImageUrl] = useState(food.imageUrl || `${process.env.PUBLIC_URL}/default-food.png`);
+  const [imageUrl, setImageUrl] = useState(
+    food.imageUrl || `${process.env.PUBLIC_URL}/default-food.png`
+  );
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchSignedImageUrl = async () => {
@@ -21,7 +25,14 @@ const FoodInProfile = ({ food, onRateChange }) => {
   }, [food.url_id]);
 
   return (
-    <Box display="flex" flexDirection="row" alignItems="center" padding={2} gap={2} sx={{ border: "1px solid #ddd", borderRadius: 2 }}>
+    <Box
+      display="flex"
+      flexDirection="row"
+      alignItems="center"
+      padding={2}
+      gap={2}
+      sx={{ border: "1px solid #ddd", borderRadius: 2 }}
+    >
       <Avatar
         src={imageUrl}
         alt={food.name}
@@ -31,14 +42,23 @@ const FoodInProfile = ({ food, onRateChange }) => {
 
       <Box flex={1}>
         <Box display="flex" alignItems="center" justifyContent="space-between">
-          <Typography variant="h6" noWrap>{food.name}</Typography>
+          <Typography
+            variant="h6"
+            noWrap
+            sx={{ cursor: "pointer" }}
+            onClick={() => navigate(`/food/${food.foodId}`)}
+          >
+            {food.name}
+          </Typography>
           <Box display="flex" alignItems="center" gap={1}>
-            <Typography variant="body2" color="textSecondary">
-              {food.popularity ? food.popularity.toFixed(1) : "N/A"}
-            </Typography>
+          <Typography variant="body2" color="textSecondary">
+            {food.popularity && food.popularity.rating 
+              ? food.popularity.rating.toFixed(1) 
+              : "N/A"}
+          </Typography>
             <Rating
-              name={`user-rating-${food.foodId}`} 
-              value={food.rate || 0} 
+              name={`user-rating-${food.foodId}`}
+              value={food.rate || 0}
               onChange={(event, newValue) => onRateChange(food.foodId, newValue)}
               precision={1}
               size="small"
@@ -46,13 +66,20 @@ const FoodInProfile = ({ food, onRateChange }) => {
           </Box>
         </Box>
 
-        <Typography variant="body2" color="textSecondary">{food.country}</Typography>
+        <Typography variant="body2" color="textSecondary">
+          {food.country}
+        </Typography>
         <Typography variant="body2" color="textSecondary" marginTop={1}>
           Ingredients: {food.ingredients?.join(", ") || "Unknown"}
         </Typography>
 
         {food.comment && (
-          <Typography variant="body2" color="textSecondary" marginTop={1} sx={{ fontStyle: "italic" }}>
+          <Typography
+            variant="body2"
+            color="textSecondary"
+            marginTop={1}
+            sx={{ fontStyle: "italic" }}
+          >
             "{food.comment}"
           </Typography>
         )}

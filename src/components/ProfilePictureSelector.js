@@ -3,8 +3,8 @@ import { Dialog, DialogTitle, Box, Avatar } from '@mui/material';
 
 const ProfilePictureSelector = ({ currentAvatar, onSelect }) => {
   const avatarOptions = [
-    'food1.png', 'food2.png', 'food3.png', 'food4.png',
-    'food5.png', 'food6.png', 'food7.png', 'food8.png'
+    'avatar1.png', 'avatar2.png', 'avatar3.png', 'avatar4.png',
+    'avatar5.png', 'avatar6.png', 'avatar7.png', 'avatar8.png'
   ];
   
   const [open, setOpen] = useState(false);

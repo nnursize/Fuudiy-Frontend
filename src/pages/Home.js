@@ -3,7 +3,6 @@ import axios from "axios";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Hero from "../components/Hero";
-import CategoryCard from "../components/CategoryCard";
 import FoodItemCard from "../components/FoodItemCard";
 import styled from "styled-components";
 import "../index.css";
@@ -91,14 +90,6 @@ const Home = () => {
             <p>No food items available.</p>
           )}
         </FoodSection>
-      </Title>
-      <Title>
-        <h2>{t("trendingCuisines")}</h2>
-        <CategorySection>
-          <CategoryCard image="https://via.placeholder.com/300" title={t("Italian")} />
-          <CategoryCard image="https://via.placeholder.com/300" title={t("Mexican")} />
-          <CategoryCard image="https://via.placeholder.com/300" title={t("Indian")} />
-        </CategorySection>
       </Title>
       <Footer />
     </>
