@@ -36,27 +36,20 @@ const UserProfile = () => {
       return;
     }
   
-    axios.get(`${API_BASE_URL}/users/${USER_ID}`)
+    axios.get(`${API_BASE_URL}/auth/users/me`, {
+      headers: { Authorization: `Bearer ${accessToken}` }
+    })
       .then(async response => {
         const user = response.data.data[0];
         setUserData(user);
         setEditedBio(user.bio || "");
-  
-        // Fetch preferences from survey
-        const prefRes = await axios.post(`${API_BASE_URL}/users/me`, {}, {
-          headers: {
-            Authorization: `Bearer ${accessToken}`
-          }
-        });
-        const preferences = prefRes.data.data[0];
-        console.log("preferences from back: ", preferences);
+        console.log("user: ", user);
         
-        const rawDisliked = preferences?.disliked_ingredients || "";
+        const rawDisliked = user?.disliked_ingredients || "";
         console.log("raw disliked: ", rawDisliked);
-        const parsedDisliked = rawDisliked
-          .split(',')
-          .map(item => item.trim())
-          .filter(item => item.length > 0);
+        const parsedDisliked = Array.isArray(user?.disliked_ingredients)
+          ? user.disliked_ingredients
+          : [];
   
         setEditedDislikedIngredients(parsedDisliked);
         setDislikedIngredients(parsedDisliked);
