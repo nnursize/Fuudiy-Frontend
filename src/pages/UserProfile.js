@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Box, Stack, Typography, Paper, Chip, IconButton } from '@mui/material';
+import { useTranslation } from "react-i18next";
 import EditIcon from '@mui/icons-material/Edit';
 import CancelIcon from '@mui/icons-material/Cancel';
 import CheckIcon from '@mui/icons-material/Check';
@@ -8,7 +9,8 @@ import FoodInProfile from '../components/FoodInProfile';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import ProfilePictureSelector from '../components/ProfilePictureSelector';
-import { useParams } from 'react-router-dom'; 
+import { useParams } from 'react-router-dom';
+
 const API_BASE_URL = 'http://localhost:8000'; 
 
 //const USER_ID = localStorage.getItem("user"); 
@@ -24,6 +26,7 @@ const UserProfile = () => {
   const [editingDisliked, setEditingDisliked] = useState(false);
   const [editedDislikedIngredients, setEditedDislikedIngredients] = useState([]);
   const [dislikedIngredients, setDislikedIngredients] = useState([]);
+  const { t } = useTranslation("global");
 
   useEffect(() => {
     if (!USER_ID) {
@@ -200,7 +203,7 @@ const UserProfile = () => {
   console.log("editingDisliked: ", editingDisliked)
   console.log("editedDislikedIngredients: ", editedDislikedIngredients)
 
-  if (!userData) return <Typography>Loading...</Typography>;
+  if (!userData) return <Typography>{t("loading")}</Typography>;
 
   return (
     <>
@@ -231,9 +234,9 @@ const UserProfile = () => {
           {displayedDislikedIngredients.length > 0 && (
             <Box sx={{ mt: 2 }}>
               <Box display="flex" alignItems="center" justifyContent="space-between" sx={{ mb: 1 }}>
-                <Typography variant="body1" sx={{ fontWeight: "bold", color: "gray" }}>
-                  Disliked Ingredients:
-                </Typography>
+              <Typography variant="body1" sx={{ fontWeight: "bold", color: "gray" }}>
+                {t("dislikedIngredients") /* Add to translation file */}
+              </Typography>
                 {editingDisliked ? (
                   <Box>
                     <IconButton 
@@ -282,7 +285,9 @@ const UserProfile = () => {
         <Box display="flex" justifyContent="space-between" sx={{ gap: 2, width: '100%' }}>
           {/* Rated Foods Section */}
           <Paper elevation={3} sx={{ flex: 1, padding: 3 }}>
-            <Typography variant="h6" marginBottom={2}>Rated Foods</Typography>
+            <Typography variant="h6" marginBottom={2}>
+              {t("ratedFoods")} {/* Add to translation file */}
+            </Typography>            
             <Box display="flex" flexDirection="column" gap={2}>
               {ratedFoodDetails.map((ratedFood, index) => (
                 <FoodInProfile key={index} food={ratedFood} onRateChange={handleRateChange} />
@@ -291,8 +296,10 @@ const UserProfile = () => {
           </Paper>
 
           {/* Favorite Foods Section */}
-          <Paper elevation={3} sx={{ flex: 1, padding: 3 }}>
-            <Typography variant="h6" marginBottom={2}>Favorite Foods</Typography>
+          <Paper elevation={3} sx={{ flex: 1, padding: 3 }}>                        
+            <Typography variant="h6" marginBottom={2}>
+              {t("favoriteFoods")} {/* Add to translation file */}
+            </Typography>
             {favoriteFoodDetails.length > 0 ? (
               <Box display="flex" flexDirection="column" gap={2}>
                 {favoriteFoodDetails.map((food, index) => (
@@ -300,7 +307,9 @@ const UserProfile = () => {
                 ))}
               </Box>
             ) : (
-              <Typography variant="body2" color="textSecondary">No favorite foods yet.</Typography>
+              <Typography variant="body2" color="textSecondary">
+                {t("noFavoriteFoods")}
+              </Typography>            
             )}
           </Paper>
         </Box>
