@@ -46,5 +46,6 @@
   "confirmLogout": "Confirm Logout",
   "confirmLogoutMessage": "Are you sure you want to log out of the website?",
   "cancel": "Cancel",
-  "profile": "Profile"
+  "profile": "Profile",
+  "noBio": "No bio available."
 }

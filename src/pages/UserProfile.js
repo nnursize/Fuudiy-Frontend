@@ -26,6 +26,8 @@ const UserProfile = () => {
   const [editingDisliked, setEditingDisliked] = useState(false);
   const [editedDislikedIngredients, setEditedDislikedIngredients] = useState([]);
   const [dislikedIngredients, setDislikedIngredients] = useState([]);
+  const [editingBio, setEditingBio] = useState(false);
+  const [editedBio, setEditedBio] = useState("");
   const { t } = useTranslation("global");
 
   useEffect(() => {
@@ -38,6 +40,7 @@ const UserProfile = () => {
       .then(async response => {
         const user = response.data.data[0];
         setUserData(user);
+        setEditedBio(user.bio || "");
   
         // Fetch preferences from survey
         const prefRes = await axios.post(`${API_BASE_URL}/users/me`, {}, {
@@ -199,6 +202,28 @@ const UserProfile = () => {
     ? editedDislikedIngredients
     : dislikedIngredients;
 
+  const handleSaveEditedBio = () => {
+    axios.put(`${API_BASE_URL}/users/update-bio-by-username/${userData.username}`, 
+      { bio: editedBio },
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        }
+      }
+    )
+    .then(() => {
+      setUserData(prev => ({ ...prev, bio: editedBio }));
+      setEditingBio(false);
+    })
+    .catch(error => console.error("Error updating bio:", error));
+  };
+    
+  const handleCancelEditedBio = () => {
+    setEditedBio(userData.bio || "");
+    setEditingBio(false);
+  };
+    
+
   console.log("displayedDislikedIngredients: ", displayedDislikedIngredients)
   console.log("editingDisliked: ", editingDisliked)
   console.log("editedDislikedIngredients: ", editedDislikedIngredients)
@@ -226,7 +251,53 @@ const UserProfile = () => {
               <Typography variant="body2" color="textSecondary" gutterBottom>
                 {userData.email || 'No email available.'}
               </Typography>
-              <Typography variant="body1">{userData.bio || 'No bio available.'}</Typography>
+              <Box display="flex" alignItems="right" justifyContent="space-between" gap={1}>
+                {editingBio ? (
+                  <>
+                    <input
+                      type="text"
+                      value={editedBio}
+                      onChange={(e) => setEditedBio(e.target.value)}
+                      style={{
+                        flex: 1,
+                        padding: "4px 8px",
+                        fontSize: "1rem",
+                        border: "1px solid #ccc",
+                        borderRadius: "4px"
+                      }}
+                    />
+                    <Box display="flex" gap={0.5}>
+                      <IconButton
+                        onClick={handleSaveEditedBio}
+                        size="small"
+                        sx={{ p: 0.25, minWidth: 0, width: "20px", height: "20px" }}
+                      >
+                        <CheckIcon fontSize="small" />
+                      </IconButton>
+                      <IconButton
+                        onClick={handleCancelEditedBio}
+                        size="small"
+                        sx={{ p: 0.25, minWidth: 0, width: "20px", height: "20px" }}
+                      >
+                        <CancelIcon fontSize="small" />
+                      </IconButton>
+                    </Box>
+                  </>
+                ) : (
+                  <>
+                    <Typography variant="body1" sx={{ flex: 1 }}>
+                      {userData.bio || t("noBio")}
+                    </Typography>
+                    <IconButton
+                      onClick={() => setEditingBio(true)}
+                      size="small"
+                      sx={{ p: 0.25, minWidth: 0, width: "20px", height: "20px" }}
+                    >
+                      <EditIcon fontSize="small" />
+                    </IconButton>
+                  </>
+                )}
+              </Box>
             </Box>
           </Box>
 
