@@ -24,28 +24,34 @@ const TextQuestion = ({ question, value, onChange, language }) => {
   // Handle input change
   const handleInputChange = (e) => {
     const inputValue = e.target.value;
-    onChange(inputValue); // Update parent state with the text area value
-
-    if (inputValue) {
-      // Filter ingredients based on user input
+    onChange(inputValue); // Keep full text in parent
+  
+    const parts = inputValue.split(',');
+    const lastWord = parts[parts.length - 1].trim(); // Only use last part
+  
+    if (lastWord) {
       const suggestions = ingredients.filter((ingredient) =>
-        ingredient[language]?.toLowerCase().includes(inputValue.toLowerCase()) // Use ingredient[language] for translation
+        ingredient[language]?.toLowerCase().includes(lastWord.toLowerCase())
       );
       setFilteredSuggestions(suggestions);
       setShowSuggestions(true);
     } else {
-      // Clear suggestions if input is empty
       setFilteredSuggestions([]);
       setShowSuggestions(false);
     }
   };
+  
 
   // Handle suggestion click
   const handleSuggestionClick = (suggestion) => {
-    const updatedValue = value ? `${value}, ${suggestion}` : suggestion; // Append to current text
-    onChange(updatedValue); // Update parent state with the new value
-    setShowSuggestions(false); // Hide suggestions after selection
+    const parts = value.split(',');
+    parts[parts.length - 1] = ` ${suggestion}`; // Replace last word with suggestion
+    const updatedValue = parts.join(',').replace(/^,/, '').trim(); // Clean up leading comma
+  
+    onChange(updatedValue);
+    setShowSuggestions(false);
   };
+  
 
   return (
     <Box sx={{ position: 'relative', margin: '20px 0' }}>

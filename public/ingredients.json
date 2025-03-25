@@ -1,46 +1,10866 @@
 [
   {
-    "en": "Tomato",
-    "tr": "Domates"
+    "en": "absolut vodka",
+    "tr": "Absolut Votka"
   },
   {
-    "en": "Onion",
-    "tr": "Soğan"
+    "en": "achar",
+    "tr": "akar"
   },
   {
-    "en": "Garlic",
-    "tr": "Sarımsak"
+    "en": "achiote oil",
+    "tr": "ACHIOTE YAĞ"
   },
   {
-    "en": "Chicken",
-    "tr": "Tavuk"
+    "en": "acini di pepe pasta",
+    "tr": "Acini di pepe makarna"
   },
   {
-    "en": "Beef",
-    "tr": "Sığır Eti"
+    "en": "acorn squash",
+    "tr": "meşe palamudu squash"
   },
   {
-    "en": "Fish",
-    "tr": "Balık"
+    "en": "active yeast",
+    "tr": "aktif maya"
   },
   {
-    "en": "Rice",
-    "tr": "Pirinç"
+    "en": "adobo sauce",
+    "tr": "adobo sosu"
   },
   {
-    "en": "Pasta",
-    "tr": "Makarna"
+    "en": "adobo seasoning",
+    "tr": "Adobo Baharat"
   },
   {
-    "en": "Cheese",
-    "tr": "Peynir"
+    "en": "advocaat",
+    "tr": "avukat"
   },
   {
-    "en": "Carrot",
-    "tr": "Havuç"
+    "en": "adzuki beans",
+    "tr": "adzuki fasulyesi"
   },
   {
-    "en": "Potato",
-    "tr": "Patates"
+    "en": "agar",
+    "tr": "agar"
+  },
+  {
+    "en": "aged cheddar cheese",
+    "tr": "yaşlı çedar peyniri"
+  },
+  {
+    "en": "ahi",
+    "tr": "Ahi"
+  },
+  {
+    "en": "ahi tuna",
+    "tr": "ahi ton balığı"
+  },
+  {
+    "en": "ahi tuna steaks",
+    "tr": "ahi ton balığı biftek"
+  },
+  {
+    "en": "aioli",
+    "tr": "Aioli"
+  },
+  {
+    "en": "aji",
+    "tr": "Aji"
+  },
+  {
+    "en": "ajinomoto",
+    "tr": "Ajinomoto"
+  },
+  {
+    "en": "ajmoh seeds",
+    "tr": "Ajmoh tohumları"
+  },
+  {
+    "en": "ajwain",
+    "tr": "Ajwain"
+  },
+  {
+    "en": "ajwain seed",
+    "tr": "Ajwain tohumu"
+  },
+  {
+    "en": "albacore tuna",
+    "tr": "albacore orkinos"
+  },
+  {
+    "en": "ale",
+    "tr": "ale"
+  },
+  {
+    "en": "aleppo pepper",
+    "tr": "Halep biberi"
+  },
+  {
+    "en": "alfalfa",
+    "tr": "yonca"
+  },
+  {
+    "en": "alfredo sauce",
+    "tr": "Alfredo Sos"
+  },
+  {
+    "en": "alize red passion liqueur",
+    "tr": "Alize kırmızı tutku likörü"
+  },
+  {
+    "en": "all beef wieners",
+    "tr": "tüm sığır eti wieners"
+  },
+  {
+    "en": "allspice",
+    "tr": "yenibahar"
+  },
+  {
+    "en": "allspice berries",
+    "tr": "Allpspice Meyveleri"
+  },
+  {
+    "en": "allspice berry",
+    "tr": "Allpspice Berry"
+  },
+  {
+    "en": "almond",
+    "tr": "badem"
+  },
+  {
+    "en": "almond butter",
+    "tr": "badem yağı"
+  },
+  {
+    "en": "almond flavored liqueur",
+    "tr": "badem aromalı likör"
+  },
+  {
+    "en": "almond paste",
+    "tr": "badem macunu"
+  },
+  {
+    "en": "alphonso mangoes",
+    "tr": "Alphonso Mangolar"
+  },
+  {
+    "en": "alum",
+    "tr": "şapka"
+  },
+  {
+    "en": "amaranth",
+    "tr": "amaranth"
+  },
+  {
+    "en": "amaranth flour",
+    "tr": "Amaranth unu"
+  },
+  {
+    "en": "amarena cherries",
+    "tr": "Amarena Kirazları"
+  },
+  {
+    "en": "amaretti",
+    "tr": "amaretti"
+  },
+  {
+    "en": "amaretti cookies",
+    "tr": "Amaretti kurabiyeleri"
+  },
+  {
+    "en": "amaretto",
+    "tr": "amaretto"
+  },
+  {
+    "en": "amaretto di saronno liqueur",
+    "tr": "Amaretto di Saronno likör"
+  },
+  {
+    "en": "amaretto liqueur",
+    "tr": "amaretto likörü"
+  },
+  {
+    "en": "amarula cream liqueur",
+    "tr": "Amarula krem ​​likörü"
+  },
+  {
+    "en": "amchoor powder",
+    "tr": "amchoor tozu"
+  },
+  {
+    "en": "amchur",
+    "tr": "ambar"
+  },
+  {
+    "en": "american cheese",
+    "tr": "Amerikan peyniri"
+  },
+  {
+    "en": "an extract",
+    "tr": "bir ekstrakt"
+  },
+  {
+    "en": "an leaf",
+    "tr": "bir yaprak"
+  },
+  {
+    "en": "an leaves",
+    "tr": "Yapraklar"
+  },
+  {
+    "en": "anaheim chili",
+    "tr": "Anaheim Chili"
+  },
+  {
+    "en": "ancho chile",
+    "tr": "Ancho Şili"
+  },
+  {
+    "en": "ancho chili",
+    "tr": "ancho biber"
+  },
+  {
+    "en": "ancho chili pepper",
+    "tr": "ancho biber"
+  },
+  {
+    "en": "ancho chilies",
+    "tr": "Ancho biberleri"
+  },
+  {
+    "en": "ancho pepper",
+    "tr": "ancho biber"
+  },
+  {
+    "en": "anchovy",
+    "tr": "hamsi"
+  },
+  {
+    "en": "anchovy paste",
+    "tr": "hamsi"
+  },
+  {
+    "en": "anejo cheese",
+    "tr": "Anejo peyniri"
+  },
+  {
+    "en": "angel flake coconut",
+    "tr": "melek pul hindistancevizi"
+  },
+  {
+    "en": "angelica",
+    "tr": "Angelica"
+  },
+  {
+    "en": "angostura worcestershire sauce",
+    "tr": "Angostura Worcestershire Sos"
+  },
+  {
+    "en": "anise seeds",
+    "tr": "Anason tohumları"
+  },
+  {
+    "en": "anisette",
+    "tr": "aniset"
+  },
+  {
+    "en": "anjou pears",
+    "tr": "Anjou armut"
+  },
+  {
+    "en": "annatto oil",
+    "tr": "annatto yağı"
+  },
+  {
+    "en": "annatto seed",
+    "tr": "annatto tohumu"
+  },
+  {
+    "en": "annatto seeds",
+    "tr": "Annatto Tohumları"
+  },
+  {
+    "en": "ao nori",
+    "tr": "Ao nori"
+  },
+  {
+    "en": "appenzeller cheese",
+    "tr": "appenzeller peyniri"
+  },
+  {
+    "en": "apple",
+    "tr": "elma"
+  },
+  {
+    "en": "apple br",
+    "tr": "elma br"
+  },
+  {
+    "en": "apple butter",
+    "tr": "elma tereyağı"
+  },
+  {
+    "en": "apple cider",
+    "tr": "elma şarabı"
+  },
+  {
+    "en": "apple cider vinegar",
+    "tr": "elma sirkesi"
+  },
+  {
+    "en": "apple pie spice",
+    "tr": "elmalı turta baharat"
+  },
+  {
+    "en": "apple sauce",
+    "tr": "elma sosu"
+  },
+  {
+    "en": "applesauce",
+    "tr": "elma püresi"
+  },
+  {
+    "en": "apricot",
+    "tr": "kayısı"
+  },
+  {
+    "en": "apricot br",
+    "tr": "kayısı br"
+  },
+  {
+    "en": "apricot gelatin",
+    "tr": "kayısı jelatin"
+  },
+  {
+    "en": "apricot marmalade",
+    "tr": "kayısı marmelat"
+  },
+  {
+    "en": "apricots",
+    "tr": "kayısı"
+  },
+  {
+    "en": "arabian pita bread",
+    "tr": "Arap pide ekmeği"
+  },
+  {
+    "en": "arbol chile",
+    "tr": "Arbol Şili"
+  },
+  {
+    "en": "arborio rice",
+    "tr": "Arborio pirinç"
+  },
+  {
+    "en": "arin",
+    "tr": "Arin"
+  },
+  {
+    "en": "arin orange",
+    "tr": "Arin Portakal"
+  },
+  {
+    "en": "arin oranges in juice",
+    "tr": "Meyve suyu içinde arin portakalları"
+  },
+  {
+    "en": "arin oranges in light syrup",
+    "tr": "Işık şurubunda arin portakalları"
+  },
+  {
+    "en": "arin pancakes",
+    "tr": "Arin Krepleri"
+  },
+  {
+    "en": "arin segments",
+    "tr": "Arin segmentleri"
+  },
+  {
+    "en": "arin vodka",
+    "tr": "Arin Votka"
+  },
+  {
+    "en": "armagnac",
+    "tr": "armagnac"
+  },
+  {
+    "en": "arrachera beef marinade",
+    "tr": "Arrachera sığır eti turşusu"
+  },
+  {
+    "en": "arrowroot",
+    "tr": "ararot"
+  },
+  {
+    "en": "artichoke",
+    "tr": "enginar"
+  },
+  {
+    "en": "artificial sweetener",
+    "tr": "yapay tatlandırıcı"
+  },
+  {
+    "en": "arugula",
+    "tr": "roka"
+  },
+  {
+    "en": "asadero cheese",
+    "tr": "asadero peyniri"
+  },
+  {
+    "en": "asafoetida powder",
+    "tr": "asafoetida tozu"
+  },
+  {
+    "en": "asiago cheese",
+    "tr": "Asiago peyniri"
+  },
+  {
+    "en": "asian pear",
+    "tr": "Asya armutu"
+  },
+  {
+    "en": "asian plum sauce",
+    "tr": "Asya erik sosu"
+  },
+  {
+    "en": "asparagus",
+    "tr": "kuşkonmaz"
+  },
+  {
+    "en": "assorted herbs",
+    "tr": "Çeşitli otlar"
+  },
+  {
+    "en": "aubergine",
+    "tr": "patlıcan"
+  },
+  {
+    "en": "authentic cuban rolls",
+    "tr": "Otantik Küba Ruloları"
+  },
+  {
+    "en": "avocado",
+    "tr": "avokado"
+  },
+  {
+    "en": "avocado dip",
+    "tr": "avokado"
+  },
+  {
+    "en": "avocado oil",
+    "tr": "avokado yağı"
+  },
+  {
+    "en": "azuki beans",
+    "tr": "Azuki fasulyesi"
+  },
+  {
+    "en": "baby arugula",
+    "tr": "Bebek Roka"
+  },
+  {
+    "en": "baby beans",
+    "tr": "bebek fasulyesi"
+  },
+  {
+    "en": "baby bok choy",
+    "tr": "bebek bok choy"
+  },
+  {
+    "en": "baby carrots",
+    "tr": "bebek havuç"
+  },
+  {
+    "en": "baby clams",
+    "tr": "bebek istiridye"
+  },
+  {
+    "en": "baby dill pickles",
+    "tr": "bebek dereotu turşusu"
+  },
+  {
+    "en": "baby eggplant",
+    "tr": "bebek patlıcan"
+  },
+  {
+    "en": "baby eggplants",
+    "tr": "bebek patlıcanları"
+  },
+  {
+    "en": "baby green pea",
+    "tr": "bebek yeşili bezelye"
+  },
+  {
+    "en": "baby green peas",
+    "tr": "bebek yeşil bezelye"
+  },
+  {
+    "en": "baby lima bean",
+    "tr": "Bebek Lima Bean"
+  },
+  {
+    "en": "baby lima beans",
+    "tr": "Bebek Lima Fasulyesi"
+  },
+  {
+    "en": "baby peas",
+    "tr": "bebek bezelye"
+  },
+  {
+    "en": "baby portabella mushrooms",
+    "tr": "bebek portabella mantarları"
+  },
+  {
+    "en": "baby potatoes",
+    "tr": "bebek patatesleri"
+  },
+  {
+    "en": "baby red potatoes",
+    "tr": "bebek kırmızı patates"
+  },
+  {
+    "en": "baby rocket",
+    "tr": "bebek roket"
+  },
+  {
+    "en": "baby shrimp",
+    "tr": "bebek karides"
+  },
+  {
+    "en": "baby tomatoes",
+    "tr": "bebek domatesleri"
+  },
+  {
+    "en": "baby turnip",
+    "tr": "bebek şalgam"
+  },
+  {
+    "en": "bacardi dark rum",
+    "tr": "Bacardi Dark Rum"
+  },
+  {
+    "en": "bacardi light rum",
+    "tr": "Bacardi Işık Rum"
+  },
+  {
+    "en": "back bacon",
+    "tr": "sırt pastırması"
+  },
+  {
+    "en": "bacon",
+    "tr": "Bacon"
+  },
+  {
+    "en": "bacon drippings",
+    "tr": "pastırma damlamaları"
+  },
+  {
+    "en": "bacon fat",
+    "tr": "domuz pastırması"
+  },
+  {
+    "en": "bacon grease",
+    "tr": "pastırma gresi"
+  },
+  {
+    "en": "bagel",
+    "tr": "simit"
+  },
+  {
+    "en": "bagels",
+    "tr": "simit"
+  },
+  {
+    "en": "baguette",
+    "tr": "baget"
+  },
+  {
+    "en": "baharat",
+    "tr": "Baharat"
+  },
+  {
+    "en": "baharat spice blend",
+    "tr": "Baharat Baharat Karışımı"
+  },
+  {
+    "en": "baileys irish cream",
+    "tr": "Baileys İrlanda Kremi"
+  },
+  {
+    "en": "bakers germans chocolate",
+    "tr": "fırıncılar Alman çikolatası"
+  },
+  {
+    "en": "bakers yeast",
+    "tr": "fırın mayası"
+  },
+  {
+    "en": "baking mix",
+    "tr": "pişirme karışımı"
+  },
+  {
+    "en": "baking powder",
+    "tr": "kabartma tozu"
+  },
+  {
+    "en": "baking soda",
+    "tr": "karbonat"
+  },
+  {
+    "en": "balsamic vinaigrette",
+    "tr": "balsamik salata sosu"
+  },
+  {
+    "en": "bamboo shoots",
+    "tr": "Bambu Çekimler"
+  },
+  {
+    "en": "banana",
+    "tr": "muz"
+  },
+  {
+    "en": "banana creampudding",
+    "tr": "muz kreması"
+  },
+  {
+    "en": "banana ice cream",
+    "tr": "muz dondurma"
+  },
+  {
+    "en": "banana pepper",
+    "tr": "muz biberi"
+  },
+  {
+    "en": "banana peppers",
+    "tr": "muz biber"
+  },
+  {
+    "en": "banana pudding mix",
+    "tr": "muz puding karışımı"
+  },
+  {
+    "en": "bangers",
+    "tr": "küstahlık"
+  },
+  {
+    "en": "barbecue pork",
+    "tr": "barbekü domuz eti"
+  },
+  {
+    "en": "barbecue sauce",
+    "tr": "barbekü sosu"
+  },
+  {
+    "en": "barbecued chicken",
+    "tr": "mangalda tavuk"
+  },
+  {
+    "en": "barbecued duck",
+    "tr": "mangalda"
+  },
+  {
+    "en": "barbecued pork",
+    "tr": "mangalda domuz eti"
+  },
+  {
+    "en": "barberries",
+    "tr": "berber"
+  },
+  {
+    "en": "barilla sweet peppers & garlic sauce",
+    "tr": "Barilla tatlı biber ve sarımsak sosu"
+  },
+  {
+    "en": "barley",
+    "tr": "arpa"
+  },
+  {
+    "en": "barley malt",
+    "tr": "arpa malt"
+  },
+  {
+    "en": "barley malt syrup",
+    "tr": "Arpa malt şurubu"
+  },
+  {
+    "en": "barley miso",
+    "tr": "Arpa Miso"
+  },
+  {
+    "en": "barley pearls",
+    "tr": "Arpa İnci"
+  },
+  {
+    "en": "bartlett pears",
+    "tr": "Bartlett Armut"
+  },
+  {
+    "en": "basil",
+    "tr": "reyhan"
+  },
+  {
+    "en": "basil garlic & oregano",
+    "tr": "fesleğen sarımsak ve kekik"
+  },
+  {
+    "en": "basil pesto",
+    "tr": "fesleğen pesto"
+  },
+  {
+    "en": "basil sprigs",
+    "tr": "fesleğen dalları"
+  },
+  {
+    "en": "basil tomato sauce",
+    "tr": "fesleğen domates sosu"
+  },
+  {
+    "en": "basmati rice",
+    "tr": "Basmati pirinç"
+  },
+  {
+    "en": "basmati rice pilaf",
+    "tr": "Basmati Pirinç Pilafı"
+  },
+  {
+    "en": "bavarian beer vinegar",
+    "tr": "Bavyera bira sirkesi"
+  },
+  {
+    "en": "bay leaves",
+    "tr": "defne yaprakları"
+  },
+  {
+    "en": "bay scallops",
+    "tr": "bay tarak"
+  },
+  {
+    "en": "bay shrimp",
+    "tr": "bay karides"
+  },
+  {
+    "en": "bbq pork",
+    "tr": "Barbekü domuz eti"
+  },
+  {
+    "en": "bean sprouts",
+    "tr": "fasulye filizi"
+  },
+  {
+    "en": "bean thread noodles",
+    "tr": "fasulye iplik erişteleri"
+  },
+  {
+    "en": "bean thread vermicelli",
+    "tr": "Bean Thread Vermicelli"
+  },
+  {
+    "en": "bean threads",
+    "tr": "fasulye iplikleri"
+  },
+  {
+    "en": "beans",
+    "tr": "fasulye"
+  },
+  {
+    "en": "beaten rice",
+    "tr": "dövülmüş pirinç"
+  },
+  {
+    "en": "bechamel sauce",
+    "tr": "Bechamel Sos"
+  },
+  {
+    "en": "beef",
+    "tr": "biftek"
+  },
+  {
+    "en": "beef bones",
+    "tr": "sığır eti kemikleri"
+  },
+  {
+    "en": "beef bouillon",
+    "tr": "sığır eti"
+  },
+  {
+    "en": "beef brisket",
+    "tr": "sığır eti"
+  },
+  {
+    "en": "beef broth",
+    "tr": "sığır eti suyu"
+  },
+  {
+    "en": "beef chuck",
+    "tr": "sığır eti"
+  },
+  {
+    "en": "beef chuck roast",
+    "tr": "Sığır et Chuck Rosto"
+  },
+  {
+    "en": "beef chuck with bone",
+    "tr": "Kemik ile sığır eti Chuck"
+  },
+  {
+    "en": "beef eye round",
+    "tr": "sığır eti gözü"
+  },
+  {
+    "en": "beef fat",
+    "tr": "sığır eti"
+  },
+  {
+    "en": "beef flank steak",
+    "tr": "sığır eti biftek"
+  },
+  {
+    "en": "beef liver",
+    "tr": "Sığır Karaciğer"
+  },
+  {
+    "en": "beef machaca",
+    "tr": "sığır macerası"
+  },
+  {
+    "en": "beef mince",
+    "tr": "sığır kıyısı"
+  },
+  {
+    "en": "beef rib",
+    "tr": "sığır kaburga"
+  },
+  {
+    "en": "beef ribs",
+    "tr": "Sığır Kaburgaları"
+  },
+  {
+    "en": "beef roast",
+    "tr": "sığır eti kızartması"
+  },
+  {
+    "en": "beef round",
+    "tr": "sığır eti"
+  },
+  {
+    "en": "beef round rump roast",
+    "tr": "sığır eti yuvarlak rump rosto"
+  },
+  {
+    "en": "beef round steak",
+    "tr": "Sığır eti biftek"
+  },
+  {
+    "en": "beef round tip steak",
+    "tr": "sığır eti yuvarlak ucu biftek"
+  },
+  {
+    "en": "beef round tip steaks",
+    "tr": "Sığır eti yuvarlak uç biftek"
+  },
+  {
+    "en": "beef rump roast",
+    "tr": "sığır eti kızartma kızartması"
+  },
+  {
+    "en": "beef shank",
+    "tr": "Sığır Şafak"
+  },
+  {
+    "en": "beef short ribs",
+    "tr": "Sığır eti kısa kaburgalar"
+  },
+  {
+    "en": "beef sirloin",
+    "tr": "Sığır sığır filetosu"
+  },
+  {
+    "en": "beef sirloin steak",
+    "tr": "sığır bifteği biftek"
+  },
+  {
+    "en": "beef sirloin steaks",
+    "tr": "Sığır sığır filetosu biftek"
+  },
+  {
+    "en": "beef steak",
+    "tr": "biftek"
+  },
+  {
+    "en": "beef steaks",
+    "tr": "Sığır eti biftek"
+  },
+  {
+    "en": "beef stew meat",
+    "tr": "Sığır eti eti eti"
+  },
+  {
+    "en": "beef suet",
+    "tr": "sığır eti"
+  },
+  {
+    "en": "beef tenderloin",
+    "tr": "sığır eti bonfile"
+  },
+  {
+    "en": "beef tenderloin steak",
+    "tr": "Sığır bonfile biftek"
+  },
+  {
+    "en": "beef tenderloin steaks",
+    "tr": "Sığır bonfile biftek"
+  },
+  {
+    "en": "beef tip roast",
+    "tr": "sığır eti ucu kızartma"
+  },
+  {
+    "en": "beef top loin steak",
+    "tr": "sığır eti üst bel biftek"
+  },
+  {
+    "en": "beef top loin steaks",
+    "tr": "Sığır eti üst bel biftekleri"
+  },
+  {
+    "en": "beef top round steak",
+    "tr": "Sığır eti üst yuvarlak biftek"
+  },
+  {
+    "en": "beef top round steaks",
+    "tr": "Sığır eti üst yuvarlak biftek"
+  },
+  {
+    "en": "beef top sirloin steak",
+    "tr": "Sığır eti en iyi sığır filetosu biftek"
+  },
+  {
+    "en": "beef top sirloin steaks",
+    "tr": "Sığır eti en iyi sığır filetosu biftek"
+  },
+  {
+    "en": "beer",
+    "tr": "bira"
+  },
+  {
+    "en": "beet",
+    "tr": "pancar"
+  },
+  {
+    "en": "beetroot",
+    "tr": "pancar"
+  },
+  {
+    "en": "beetroots",
+    "tr": "pancar"
+  },
+  {
+    "en": "beets",
+    "tr": "pancar"
+  },
+  {
+    "en": "belgian endive",
+    "tr": "Belçika Hindive"
+  },
+  {
+    "en": "bell pepper",
+    "tr": "biber"
+  },
+  {
+    "en": "bell peppers",
+    "tr": "biber"
+  },
+  {
+    "en": "bengali five-spice",
+    "tr": "Bengalce beş baharat"
+  },
+  {
+    "en": "berbere",
+    "tr": "börek"
+  },
+  {
+    "en": "berries",
+    "tr": "çilek"
+  },
+  {
+    "en": "berry blue gelatin mix",
+    "tr": "Berry mavi jelatin karışımı"
+  },
+  {
+    "en": "berry cranberry sauce",
+    "tr": "Berry kızılcık sosu"
+  },
+  {
+    "en": "besan",
+    "tr": "Besan"
+  },
+  {
+    "en": "besan flour",
+    "tr": "Besan unu"
+  },
+  {
+    "en": "best foods mayonnaise",
+    "tr": "En iyi yiyecekler mayonez"
+  },
+  {
+    "en": "bibb lettuce",
+    "tr": "bibb marul"
+  },
+  {
+    "en": "bicarbonate of soda",
+    "tr": "soda bikarbonat"
+  },
+  {
+    "en": "bing cherries",
+    "tr": "bing kiraz"
+  },
+  {
+    "en": "bing cherry",
+    "tr": "bing kiraz"
+  },
+  {
+    "en": "biscuit mix",
+    "tr": "bisküvi karışımı"
+  },
+  {
+    "en": "bisquick",
+    "tr": "bisquick"
+  },
+  {
+    "en": "bisquickmix",
+    "tr": "BisquickMix"
+  },
+  {
+    "en": "bitter gourd",
+    "tr": "Acı kabak"
+  },
+  {
+    "en": "bitter melon",
+    "tr": "acı kavun"
+  },
+  {
+    "en": "bitter melons",
+    "tr": "acı kavunlar"
+  },
+  {
+    "en": "bittersweet chocolate",
+    "tr": "acı tatlı çikolata"
+  },
+  {
+    "en": "bittersweet chocolate chips",
+    "tr": "acı tatlı çikolata parçaları"
+  },
+  {
+    "en": "blachan",
+    "tr": "Blachan"
+  },
+  {
+    "en": "black",
+    "tr": "siyah"
+  },
+  {
+    "en": "black bean",
+    "tr": "siyah fasulye"
+  },
+  {
+    "en": "black bean salsa",
+    "tr": "siyah fasulye salsa"
+  },
+  {
+    "en": "black beans",
+    "tr": "siyah fasulye"
+  },
+  {
+    "en": "black cardamom pod",
+    "tr": "siyah kakule"
+  },
+  {
+    "en": "black cardamom pods",
+    "tr": "Siyah kakule kapsülleri"
+  },
+  {
+    "en": "black caviar",
+    "tr": "kara havyar"
+  },
+  {
+    "en": "black coffee",
+    "tr": "siyah kahve"
+  },
+  {
+    "en": "black cumin",
+    "tr": "Black Cumin"
+  },
+  {
+    "en": "black currant jelly",
+    "tr": "Siyah Frenk üzümü jölesi"
+  },
+  {
+    "en": "black currants",
+    "tr": "Kara Kuşt"
+  },
+  {
+    "en": "black figs",
+    "tr": "siyah incir"
+  },
+  {
+    "en": "black gram",
+    "tr": "siyah gram"
+  },
+  {
+    "en": "black grapes",
+    "tr": "siyah üzüm"
+  },
+  {
+    "en": "black lentils",
+    "tr": "siyah mercimek"
+  },
+  {
+    "en": "black mission fig",
+    "tr": "Siyah Görev İncir"
+  },
+  {
+    "en": "black mustard seeds",
+    "tr": "siyah hardal tohumu"
+  },
+  {
+    "en": "black olive",
+    "tr": "siyah zeytin"
+  },
+  {
+    "en": "black olive pesto",
+    "tr": "siyah zeytin pesto"
+  },
+  {
+    "en": "black olives",
+    "tr": "siyah zeytin"
+  },
+  {
+    "en": "black pepper",
+    "tr": "karabiber"
+  },
+  {
+    "en": "black peppercorn",
+    "tr": "karabiber"
+  },
+  {
+    "en": "black plums",
+    "tr": "Siyah erik"
+  },
+  {
+    "en": "black rice",
+    "tr": "siyah pirinç"
+  },
+  {
+    "en": "black salt",
+    "tr": "siyah tuz"
+  },
+  {
+    "en": "black sesame",
+    "tr": "siyah susam"
+  },
+  {
+    "en": "black soy sauce",
+    "tr": "siyah soya sosu"
+  },
+  {
+    "en": "black soybeans",
+    "tr": "Siyah soya fasulyesi"
+  },
+  {
+    "en": "black tea",
+    "tr": "siyah çay"
+  },
+  {
+    "en": "black treacle",
+    "tr": "kara treacle"
+  },
+  {
+    "en": "black vinegar",
+    "tr": "siyah sirke"
+  },
+  {
+    "en": "black walnuts",
+    "tr": "Siyah Cevizler"
+  },
+  {
+    "en": "black-eyed pea salsa",
+    "tr": "kara gözlü bezelye salsa"
+  },
+  {
+    "en": "black-eyed peas",
+    "tr": "börülce"
+  },
+  {
+    "en": "blackberries",
+    "tr": "Böğürtlen"
+  },
+  {
+    "en": "blackstrap molasses",
+    "tr": "Blackstrap pekmezi"
+  },
+  {
+    "en": "blazin bbq sauce",
+    "tr": "Blazin barbekü sosu"
+  },
+  {
+    "en": "blood orange",
+    "tr": "kan portakalı"
+  },
+  {
+    "en": "blood oranges",
+    "tr": "kan"
+  },
+  {
+    "en": "blue cheese",
+    "tr": "mavi peynir"
+  },
+  {
+    "en": "blue corn tortillas",
+    "tr": "mavi mısır ekmeği"
+  },
+  {
+    "en": "blue curacao",
+    "tr": "mavi curacao"
+  },
+  {
+    "en": "blue grapes",
+    "tr": "mavi üzüm"
+  },
+  {
+    "en": "blue potatoes",
+    "tr": "mavi patates"
+  },
+  {
+    "en": "blueberries",
+    "tr": "yaban mersini"
+  },
+  {
+    "en": "blueberry gelatin",
+    "tr": "yaban mersini jelatin"
+  },
+  {
+    "en": "bocconcini",
+    "tr": "bocconcini"
+  },
+  {
+    "en": "bock beer",
+    "tr": "bock birası"
+  },
+  {
+    "en": "boiled egg",
+    "tr": "haşlanmış yumurta"
+  },
+  {
+    "en": "bok choy",
+    "tr": "bok choy"
+  },
+  {
+    "en": "bolillos",
+    "tr": "bolillos"
+  },
+  {
+    "en": "bombay duck",
+    "tr": "Bombay Ördek"
+  },
+  {
+    "en": "boned lamb",
+    "tr": "kemikli kuzu"
+  },
+  {
+    "en": "bones",
+    "tr": "kemikler"
+  },
+  {
+    "en": "bonito flakes",
+    "tr": "bonito pulları"
+  },
+  {
+    "en": "bonito stock",
+    "tr": "Bonito Stok"
+  },
+  {
+    "en": "bonito tuna",
+    "tr": "bonito ton balığı"
+  },
+  {
+    "en": "borage",
+    "tr": "hodan"
+  },
+  {
+    "en": "borlotti beans",
+    "tr": "Borlotti fasulyesi"
+  },
+  {
+    "en": "bosc pear",
+    "tr": "Bosc Armut"
+  },
+  {
+    "en": "bosc pears",
+    "tr": "Bosc armut"
+  },
+  {
+    "en": "boston lettuce",
+    "tr": "Boston Marul"
+  },
+  {
+    "en": "boston lettuce leaves",
+    "tr": "Boston marul yaprakları"
+  },
+  {
+    "en": "boston pork roast",
+    "tr": "Boston domuz kızartması"
+  },
+  {
+    "en": "bottled chili sauce",
+    "tr": "Şişelenmiş biber sosu"
+  },
+  {
+    "en": "bottled clam juice",
+    "tr": "şişelenmiş istiridye suyu"
+  },
+  {
+    "en": "bottled garlic",
+    "tr": "şişelenmiş sarımsak"
+  },
+  {
+    "en": "bottled lemon juice",
+    "tr": "şişelenmiş limon suyu"
+  },
+  {
+    "en": "bottled water",
+    "tr": "şişelenmiş su"
+  },
+  {
+    "en": "bottlegourd",
+    "tr": "şişe"
+  },
+  {
+    "en": "bottom round beef roast",
+    "tr": "Alt Yuvarlak sığır eti kızartması"
+  },
+  {
+    "en": "bottom round roast",
+    "tr": "Alt Yuvarlak Kızartma"
+  },
+  {
+    "en": "bottom round steak",
+    "tr": "Alt Yuvarlak Biftek"
+  },
+  {
+    "en": "bottom round steaks",
+    "tr": "Alt Yuvarlak Biftek"
+  },
+  {
+    "en": "bouillon",
+    "tr": "bouillon"
+  },
+  {
+    "en": "bouquet garni",
+    "tr": "Buket Garni"
+  },
+  {
+    "en": "bourbon",
+    "tr": "bourbon"
+  },
+  {
+    "en": "boursin cheese",
+    "tr": "börek peyniri"
+  },
+  {
+    "en": "bow tie pasta",
+    "tr": "papyon makarna"
+  },
+  {
+    "en": "braeburn apples",
+    "tr": "Braeburn elmaları"
+  },
+  {
+    "en": "braunschweiger sausage",
+    "tr": "Braunschweiger sosis"
+  },
+  {
+    "en": "brazil nut",
+    "tr": "Brezilya"
+  },
+  {
+    "en": "brazil nuts",
+    "tr": "Brezilya fıstığı"
+  },
+  {
+    "en": "bread",
+    "tr": "ekmek"
+  },
+  {
+    "en": "breadcrumbs",
+    "tr": "ekmek kırıntıları"
+  },
+  {
+    "en": "breadfruit",
+    "tr": "ekmek kuşu"
+  },
+  {
+    "en": "breakfast sausage",
+    "tr": "kahvaltı sosis"
+  },
+  {
+    "en": "brewed coffee",
+    "tr": "demlenmiş kahve"
+  },
+  {
+    "en": "brewers yeast",
+    "tr": "bira mayası"
+  },
+  {
+    "en": "brick cheese",
+    "tr": "tuğla peyniri"
+  },
+  {
+    "en": "broad bean",
+    "tr": "bakla"
+  },
+  {
+    "en": "broad beans",
+    "tr": "geniş fasulye"
+  },
+  {
+    "en": "broccoli",
+    "tr": "brokoli"
+  },
+  {
+    "en": "broccoli coleslaw mix",
+    "tr": "brokoli lahana salatası karışımı"
+  },
+  {
+    "en": "broccoli floret",
+    "tr": "brokoli floret"
+  },
+  {
+    "en": "broccoli florets",
+    "tr": "Brokoli Florets"
+  },
+  {
+    "en": "broccoli rabe",
+    "tr": "brokoli rabe"
+  },
+  {
+    "en": "broccoli slaw mix",
+    "tr": "brokoli lahana karışımı"
+  },
+  {
+    "en": "broccoli sprouts",
+    "tr": "brokoli lahanası"
+  },
+  {
+    "en": "broccoli stem",
+    "tr": "brokoli gövdesi"
+  },
+  {
+    "en": "broccoli stems",
+    "tr": "brokoli sapları"
+  },
+  {
+    "en": "broiler chicken",
+    "tr": "broyler tavuk"
+  },
+  {
+    "en": "broiler chickens",
+    "tr": "broyler tavuk"
+  },
+  {
+    "en": "broiler-fryer chickens",
+    "tr": "Boylar kızartma tavukları"
+  },
+  {
+    "en": "broth",
+    "tr": "et suyu"
+  },
+  {
+    "en": "brown",
+    "tr": "kahverengi"
+  },
+  {
+    "en": "brown basmati rice",
+    "tr": "Kahverengi Basmati Pirinç"
+  },
+  {
+    "en": "brown button mushroom",
+    "tr": "Kahverengi Düğme Mantar"
+  },
+  {
+    "en": "brown button mushrooms",
+    "tr": "Kahverengi Düğme Mantarları"
+  },
+  {
+    "en": "brown cardamom pod",
+    "tr": "kahverengi kakule"
+  },
+  {
+    "en": "brown cardamom pods",
+    "tr": "kahverengi kakule kapsülleri"
+  },
+  {
+    "en": "brown lentils",
+    "tr": "kahverengi mercimek"
+  },
+  {
+    "en": "brown mustard",
+    "tr": "kahverengi hardal"
+  },
+  {
+    "en": "brown mustard seeds",
+    "tr": "kahverengi hardal tohumu"
+  },
+  {
+    "en": "brown potatoes",
+    "tr": "kahverengi patates"
+  },
+  {
+    "en": "brown rice",
+    "tr": "kahverengi pirinç"
+  },
+  {
+    "en": "brown stock",
+    "tr": "kahverengi stok"
+  },
+  {
+    "en": "brown sugar",
+    "tr": "kahverengi şeker"
+  },
+  {
+    "en": "brown sugar substitute",
+    "tr": "kahverengi şeker ikamesi"
+  },
+  {
+    "en": "bruschetta",
+    "tr": "Bruschetta"
+  },
+  {
+    "en": "brussels sprout",
+    "tr": "Brüksel Sprout"
+  },
+  {
+    "en": "brussels sprouts",
+    "tr": "Brüksel lahanası"
+  },
+  {
+    "en": "bucatini pasta",
+    "tr": "bucatini makarna"
+  },
+  {
+    "en": "buckwheat flour",
+    "tr": "karabuğday unu"
+  },
+  {
+    "en": "buckwheat groats",
+    "tr": "Karabuğday kabuğu"
+  },
+  {
+    "en": "buckwheat honey",
+    "tr": "Karabaş bal"
+  },
+  {
+    "en": "buckwheat noodle",
+    "tr": "karabuğday şehriye"
+  },
+  {
+    "en": "buckwheat noodles",
+    "tr": "karabuğday erişteleri"
+  },
+  {
+    "en": "budweiser beer",
+    "tr": "Budweiser birası"
+  },
+  {
+    "en": "buffalo mozzarella",
+    "tr": "Buffalo mozzarella"
+  },
+  {
+    "en": "bulb of garlic",
+    "tr": "Sarımsak ampulü"
+  },
+  {
+    "en": "bulgar wheat",
+    "tr": "Bulgar Buğday"
+  },
+  {
+    "en": "bulgur",
+    "tr": "bulgur"
+  },
+  {
+    "en": "bulgur wheat",
+    "tr": "bulgur buğday"
+  },
+  {
+    "en": "bulk pork sausage",
+    "tr": "Dökme domuz sosisi"
+  },
+  {
+    "en": "bulk sausage",
+    "tr": "toplu sosis"
+  },
+  {
+    "en": "bulk taco seasoning mix",
+    "tr": "Toplu taco baharat karışımı"
+  },
+  {
+    "en": "burgers",
+    "tr": "burger"
+  },
+  {
+    "en": "burgundy wine",
+    "tr": "bordo şarap"
+  },
+  {
+    "en": "butter",
+    "tr": "tereyağı"
+  },
+  {
+    "en": "butter beans",
+    "tr": "tereyağı fasulyesi"
+  },
+  {
+    "en": "butter flavor shortening",
+    "tr": "tereyağı aroması kısaltması"
+  },
+  {
+    "en": "butter lettuce",
+    "tr": "tereyağı marul"
+  },
+  {
+    "en": "butter lettuce leaves",
+    "tr": "tereyağı marul yaprakları"
+  },
+  {
+    "en": "butter naan",
+    "tr": "tereyağı naan"
+  },
+  {
+    "en": "butter pickles",
+    "tr": "tereyağı turşusu"
+  },
+  {
+    "en": "buttermilk",
+    "tr": "ayran"
+  },
+  {
+    "en": "buttermilkmix",
+    "tr": "Buttermilkmix"
+  },
+  {
+    "en": "butterscotch pudding mix",
+    "tr": "butterscotch puding karışımı"
+  },
+  {
+    "en": "button mushroom",
+    "tr": "Düğme Mantar"
+  },
+  {
+    "en": "button mushrooms",
+    "tr": "Düğme Mantarları"
+  },
+  {
+    "en": "cabbage",
+    "tr": "lahana"
+  },
+  {
+    "en": "cabbage coleslaw blend",
+    "tr": "lahana lahana salatası karışımı"
+  },
+  {
+    "en": "cabbage leaf",
+    "tr": "lahana yaprağı"
+  },
+  {
+    "en": "cabbage leaves",
+    "tr": "lahana yaprakları"
+  },
+  {
+    "en": "cabrales cheese",
+    "tr": "Cabrales peyniri"
+  },
+  {
+    "en": "cachaca",
+    "tr": "Cachace"
+  },
+  {
+    "en": "cactus leaves",
+    "tr": "Kaktüs Yaprakları"
+  },
+  {
+    "en": "cactus pieces",
+    "tr": "kaktüs parçaları"
+  },
+  {
+    "en": "cajun seasoning",
+    "tr": "Cajun Baharat"
+  },
+  {
+    "en": "cake",
+    "tr": "kek"
+  },
+  {
+    "en": "cake tofu",
+    "tr": "kek tofu"
+  },
+  {
+    "en": "calabaza squash",
+    "tr": "Calabaza Squash"
+  },
+  {
+    "en": "calf liver",
+    "tr": "buzağı karaciğer"
+  },
+  {
+    "en": "california fig",
+    "tr": "California incir"
+  },
+  {
+    "en": "california walnut",
+    "tr": "Kaliforniya Ceviz"
+  },
+  {
+    "en": "calimyrna fig",
+    "tr": "Calimyrna incir"
+  },
+  {
+    "en": "calimyrna figs",
+    "tr": "Calimyrna incirleri"
+  },
+  {
+    "en": "calrose rice",
+    "tr": "Calrose Pirinç"
+  },
+  {
+    "en": "calvados",
+    "tr": "Calvados"
+  },
+  {
+    "en": "camembert cheese",
+    "tr": "Camembert peyniri"
+  },
+  {
+    "en": "cameo apples",
+    "tr": "Cameo Elma"
+  },
+  {
+    "en": "canadian bacon",
+    "tr": "Kanadalı Pastırma"
+  },
+  {
+    "en": "cannellini",
+    "tr": "Cannellini"
+  },
+  {
+    "en": "cannellini beans",
+    "tr": "Cannellini Fasulyesi"
+  },
+  {
+    "en": "canning salt",
+    "tr": "konserve tuzu"
+  },
+  {
+    "en": "cannonball cabbage",
+    "tr": "Cannonball Lahanası"
+  },
+  {
+    "en": "canola oil",
+    "tr": "kanola yağı"
+  },
+  {
+    "en": "canola oil cooking spray",
+    "tr": "Kanola Yağı Pişirme Spreyi"
+  },
+  {
+    "en": "cantaloupe",
+    "tr": "kavun"
+  },
+  {
+    "en": "cantaloupe ball",
+    "tr": "kavun topu"
+  },
+  {
+    "en": "cantaloupes",
+    "tr": "kavun"
+  },
+  {
+    "en": "cantonese roast pork",
+    "tr": "Kanton kızartma domuz eti"
+  },
+  {
+    "en": "caper",
+    "tr": "muziplik"
+  },
+  {
+    "en": "caper berries",
+    "tr": "Caper Meyveleri"
+  },
+  {
+    "en": "caperberries",
+    "tr": "caperberries"
+  },
+  {
+    "en": "capers",
+    "tr": "kapari"
+  },
+  {
+    "en": "capers packed in salt",
+    "tr": "Tuzla dolu kapari"
+  },
+  {
+    "en": "capicola",
+    "tr": "Capicola"
+  },
+  {
+    "en": "cappelletti pasta",
+    "tr": "Cappelletti Makarna"
+  },
+  {
+    "en": "capsicum",
+    "tr": "vapçe"
+  },
+  {
+    "en": "capsicums",
+    "tr": "biber"
+  },
+  {
+    "en": "captain morgans spiced rum",
+    "tr": "Kaptan Morgans Baharatlı Rom"
+  },
+  {
+    "en": "carambolas",
+    "tr": "carambolas"
+  },
+  {
+    "en": "caramel-swirl ice cream",
+    "tr": "Karamel-Swirl dondurma"
+  },
+  {
+    "en": "caraway",
+    "tr": "kimyon"
+  },
+  {
+    "en": "caraway seeds",
+    "tr": "kara tohumları"
+  },
+  {
+    "en": "carbonated soda water",
+    "tr": "karbonatlı soda suyu"
+  },
+  {
+    "en": "carbonated water",
+    "tr": "karbonatlı su"
+  },
+  {
+    "en": "cardamom",
+    "tr": "kakule"
+  },
+  {
+    "en": "cardamom pod",
+    "tr": "kakule"
+  },
+  {
+    "en": "cardamom pods",
+    "tr": "kakule kapsülleri"
+  },
+  {
+    "en": "cardamom powder",
+    "tr": "kakule tozu"
+  },
+  {
+    "en": "cardamom seeds",
+    "tr": "kakule tohumları"
+  },
+  {
+    "en": "cardamoms",
+    "tr": "kakudu"
+  },
+  {
+    "en": "carnaroli rice",
+    "tr": "karnarol pirinci"
+  },
+  {
+    "en": "carnation evaporated milk",
+    "tr": "Karanfil buharlaştırılmış süt"
+  },
+  {
+    "en": "carnationmilk",
+    "tr": "karanfil"
+  },
+  {
+    "en": "carnitas",
+    "tr": "karanfil"
+  },
+  {
+    "en": "carob chips",
+    "tr": "keçe çipleri"
+  },
+  {
+    "en": "carob powder",
+    "tr": "keçe tozu"
+  },
+  {
+    "en": "carrot",
+    "tr": "havuç"
+  },
+  {
+    "en": "carrot coleslaw mix",
+    "tr": "havuç lahana salatası karışımı"
+  },
+  {
+    "en": "carrot curls",
+    "tr": "havuç bukleleri"
+  },
+  {
+    "en": "carrot juice",
+    "tr": "havuç suyu"
+  },
+  {
+    "en": "carrots",
+    "tr": "havuç"
+  },
+  {
+    "en": "casaba melon",
+    "tr": "Casaba kavun"
+  },
+  {
+    "en": "cashew butter",
+    "tr": "kaju tereyağı"
+  },
+  {
+    "en": "cashew cream",
+    "tr": "kaju kreması"
+  },
+  {
+    "en": "cashew halves",
+    "tr": "kaju yarısı"
+  },
+  {
+    "en": "cashew nuts",
+    "tr": "kaju fıstığı"
+  },
+  {
+    "en": "cashew nuts paste",
+    "tr": "kaju fıstığı macunu"
+  },
+  {
+    "en": "cashew pieces",
+    "tr": "kaju fıstığı parçaları"
+  },
+  {
+    "en": "cashews",
+    "tr": "kaju fıstığı"
+  },
+  {
+    "en": "cassava",
+    "tr": "manyok"
+  },
+  {
+    "en": "cassava meal",
+    "tr": "manyok yemeği"
+  },
+  {
+    "en": "caster sugar",
+    "tr": "pudra şekeri"
+  },
+  {
+    "en": "catfish fillet",
+    "tr": "Yayın balığı filetosu"
+  },
+  {
+    "en": "catfish fillets",
+    "tr": "Yayın balığı filetoları"
+  },
+  {
+    "en": "catfish meat",
+    "tr": "yayın balığı eti"
+  },
+  {
+    "en": "catsup",
+    "tr": "catsup"
+  },
+  {
+    "en": "caul",
+    "tr": "kargaşa"
+  },
+  {
+    "en": "cauliflower",
+    "tr": "karnabahar"
+  },
+  {
+    "en": "cauliflower florets",
+    "tr": "Karnabahar Florets"
+  },
+  {
+    "en": "cauliflower head",
+    "tr": "karnabahar"
+  },
+  {
+    "en": "cavatappi pasta",
+    "tr": "Cavatappi makarna"
+  },
+  {
+    "en": "cayenne",
+    "tr": "acı biber"
+  },
+  {
+    "en": "cayenne pepper",
+    "tr": "acı biber"
+  },
+  {
+    "en": "cayenne pepper sauce",
+    "tr": "Cayenne biber sosu"
+  },
+  {
+    "en": "cayenne peppers",
+    "tr": "biber biber"
+  },
+  {
+    "en": "cayenne powder",
+    "tr": "bayan pudrası"
+  },
+  {
+    "en": "celeriac",
+    "tr": "kereviz"
+  },
+  {
+    "en": "celery",
+    "tr": "kereviz"
+  },
+  {
+    "en": "celery flakes",
+    "tr": "kereviz pulları"
+  },
+  {
+    "en": "celery heart",
+    "tr": "kereviz kalbi"
+  },
+  {
+    "en": "celery hearts",
+    "tr": "Kereviz Kalpleri"
+  },
+  {
+    "en": "celery leaves",
+    "tr": "Kereviz Yaprakları"
+  },
+  {
+    "en": "celery powder",
+    "tr": "kereviz tozu"
+  },
+  {
+    "en": "celery rib",
+    "tr": "kereviz kaburga"
+  },
+  {
+    "en": "celery ribs",
+    "tr": "kereviz kaburgaları"
+  },
+  {
+    "en": "celery root",
+    "tr": "kereviz kökü"
+  },
+  {
+    "en": "celery seed",
+    "tr": "kereviz tohumu"
+  },
+  {
+    "en": "celery seeds",
+    "tr": "kereviz tohumları"
+  },
+  {
+    "en": "celery top",
+    "tr": "kereviz üstü"
+  },
+  {
+    "en": "celery tops",
+    "tr": "Kereviz üstleri"
+  },
+  {
+    "en": "cellophane noodle",
+    "tr": "selofan erişte"
+  },
+  {
+    "en": "cellophane noodles",
+    "tr": "selofan erişteleri"
+  },
+  {
+    "en": "center-cut pork chops",
+    "tr": "merkez kesilmiş domuz pirzolası"
+  },
+  {
+    "en": "cento tomatoes",
+    "tr": "Cento Domates"
+  },
+  {
+    "en": "cfish",
+    "tr": "cisim"
+  },
+  {
+    "en": "cfish meat",
+    "tr": "fişek eti"
+  },
+  {
+    "en": "cfish tail",
+    "tr": "mantar kuyruğu"
+  },
+  {
+    "en": "cfish tails",
+    "tr": "Cish Tails"
+  },
+  {
+    "en": "chai tea mix",
+    "tr": "chai çay karışımı"
+  },
+  {
+    "en": "chai tea teabags",
+    "tr": "Chai Çay Çay Poşetleri"
+  },
+  {
+    "en": "chambord raspberry liquor",
+    "tr": "Chambord Ahududu likörü"
+  },
+  {
+    "en": "chamoy",
+    "tr": "şaka"
+  },
+  {
+    "en": "champagne vinegar",
+    "tr": "şampanya sirkesi"
+  },
+  {
+    "en": "champignon mushrooms",
+    "tr": "Champignon mantarları"
+  },
+  {
+    "en": "channa dal",
+    "tr": "Channa Dal"
+  },
+  {
+    "en": "chard leaves",
+    "tr": "Chard yaprakları"
+  },
+  {
+    "en": "chat masala",
+    "tr": "Sohbet Masala"
+  },
+  {
+    "en": "chayote",
+    "tr": "chayote"
+  },
+  {
+    "en": "chayotes",
+    "tr": "chayotes"
+  },
+  {
+    "en": "cheddar",
+    "tr": "çedar"
+  },
+  {
+    "en": "cheddar cheese",
+    "tr": "Çedar peyniri"
+  },
+  {
+    "en": "cheddar cheese blend",
+    "tr": "Çedar peynir karışımı"
+  },
+  {
+    "en": "cheddar cheese cube",
+    "tr": "Çedar peynir küpü"
+  },
+  {
+    "en": "cheese",
+    "tr": "peynir"
+  },
+  {
+    "en": "cheese slice",
+    "tr": "peynir dilimi"
+  },
+  {
+    "en": "cheese slices",
+    "tr": "peynir dilimleri"
+  },
+  {
+    "en": "cheese spread",
+    "tr": "peynir yayılması"
+  },
+  {
+    "en": "cheese whiz",
+    "tr": "peynir vızıltı"
+  },
+  {
+    "en": "cheesecake flavorpudding",
+    "tr": "Cheesecake Flavorpudding"
+  },
+  {
+    "en": "cherimoya",
+    "tr": "Cherimoya"
+  },
+  {
+    "en": "cherries",
+    "tr": "kiraz"
+  },
+  {
+    "en": "cherries in syrup",
+    "tr": "Şuruptaki kirazlar"
+  },
+  {
+    "en": "cherry br",
+    "tr": "Kiraz BR"
+  },
+  {
+    "en": "cherry gelatin",
+    "tr": "kiraz jelatin"
+  },
+  {
+    "en": "cherry juice",
+    "tr": "kiraz suyu"
+  },
+  {
+    "en": "cherry pie filling",
+    "tr": "Kiraz Pasta Dolgusu"
+  },
+  {
+    "en": "cherrystone clams",
+    "tr": "kiraz taşı istiridye"
+  },
+  {
+    "en": "chervil",
+    "tr": "chervil"
+  },
+  {
+    "en": "chestnut puree",
+    "tr": "kestane püresi"
+  },
+  {
+    "en": "chestnuts",
+    "tr": "kestane"
+  },
+  {
+    "en": "chicken",
+    "tr": "tavuk"
+  },
+  {
+    "en": "chicken backs",
+    "tr": "Tavuk Sırtları"
+  },
+  {
+    "en": "chicken bouillon",
+    "tr": "Tavuk Bouillon"
+  },
+  {
+    "en": "chicken broth",
+    "tr": "tavuk suyu"
+  },
+  {
+    "en": "chicken curry",
+    "tr": "tavuk köri"
+  },
+  {
+    "en": "chicken cutlet",
+    "tr": "tavuk pirzolası"
+  },
+  {
+    "en": "chicken drumsticks",
+    "tr": "tavuk çubukları"
+  },
+  {
+    "en": "chicken fat",
+    "tr": "tavuk yağı"
+  },
+  {
+    "en": "chicken feet",
+    "tr": "tavuk ayakları"
+  },
+  {
+    "en": "chicken fillet",
+    "tr": "tavuk fileto"
+  },
+  {
+    "en": "chicken giblets",
+    "tr": "tavuk tuzakları"
+  },
+  {
+    "en": "chicken gizzard",
+    "tr": "Tavuk Çemeri"
+  },
+  {
+    "en": "chicken gumbo soup",
+    "tr": "Tavuk bamya çorbası"
+  },
+  {
+    "en": "chicken liver",
+    "tr": "tavuk karaciğer"
+  },
+  {
+    "en": "chicken nuggets",
+    "tr": "Tavuk Nuggets"
+  },
+  {
+    "en": "chicken souvlaki wrap",
+    "tr": "tavuk souvlaki sargısı"
+  },
+  {
+    "en": "chicken tenderloins",
+    "tr": "tavuk bonfile"
+  },
+  {
+    "en": "chicken-flavored vegetarian seasoning",
+    "tr": "Tavuk aromalı vejetaryen baharat"
+  },
+  {
+    "en": "chickpea",
+    "tr": "nohut"
+  },
+  {
+    "en": "chickpea flour",
+    "tr": "nohut unu"
+  },
+  {
+    "en": "chicory lettuce",
+    "tr": "hindiba marul"
+  },
+  {
+    "en": "chihuahua cheese",
+    "tr": "chihuahua peyniri"
+  },
+  {
+    "en": "chile",
+    "tr": "şili"
+  },
+  {
+    "en": "chile pequins",
+    "tr": "Şili Pequins"
+  },
+  {
+    "en": "chile salsa",
+    "tr": "Şili Salsa"
+  },
+  {
+    "en": "chile verde con cerdo",
+    "tr": "Şili Verde Con Cerdo"
+  },
+  {
+    "en": "chile vinaigrette",
+    "tr": "Şili Vinaigrette"
+  },
+  {
+    "en": "chiles",
+    "tr": "şilin"
+  },
+  {
+    "en": "chili aioli",
+    "tr": "biber"
+  },
+  {
+    "en": "chili bean",
+    "tr": "biber fasulyesi"
+  },
+  {
+    "en": "chili bean paste",
+    "tr": "biber fasulyesi"
+  },
+  {
+    "en": "chili bean sauce",
+    "tr": "biber fasulyesi sosu"
+  },
+  {
+    "en": "chili beans",
+    "tr": "biber"
+  },
+  {
+    "en": "chili oil",
+    "tr": "biber yağı"
+  },
+  {
+    "en": "chili paste",
+    "tr": "biber macunu"
+  },
+  {
+    "en": "chili pepper",
+    "tr": "acı biber"
+  },
+  {
+    "en": "chili powder",
+    "tr": "biber tozu"
+  },
+  {
+    "en": "chili sauce",
+    "tr": "biber sosu"
+  },
+  {
+    "en": "chili seasoning mix",
+    "tr": "biber baharat karışımı"
+  },
+  {
+    "en": "chili-flavored olive oil",
+    "tr": "biber aromalı zeytinyağı"
+  },
+  {
+    "en": "chili-infused vodka",
+    "tr": "biber infüzyonlu votka"
+  },
+  {
+    "en": "chilies",
+    "tr": "biber"
+  },
+  {
+    "en": "chimayo chili powder",
+    "tr": "Chimayo biber tozu"
+  },
+  {
+    "en": "chimichurri mix",
+    "tr": "chimichurri karışımı"
+  },
+  {
+    "en": "chinkiang vinegar",
+    "tr": "Chinkiang sirkesi"
+  },
+  {
+    "en": "chipotle chile",
+    "tr": "Chipotle Şili"
+  },
+  {
+    "en": "chipotle hot sauce",
+    "tr": "Chipotle Sıcak Sos"
+  },
+  {
+    "en": "chipotle mayonnaise",
+    "tr": "Chipotle Mayonez"
+  },
+  {
+    "en": "chipotle paste",
+    "tr": "chipotle macun"
+  },
+  {
+    "en": "chipotle pepper",
+    "tr": "kurutulmuş acı biber"
+  },
+  {
+    "en": "chipotle pepper puree",
+    "tr": "Chipotle Biber Püresi"
+  },
+  {
+    "en": "chipotle pepper sauce",
+    "tr": "Chipotle biber sosu"
+  },
+  {
+    "en": "chipotle peppers",
+    "tr": "Chipotle Biber"
+  },
+  {
+    "en": "chipotle puree",
+    "tr": "Chipotle püresi"
+  },
+  {
+    "en": "chipotle salsa",
+    "tr": "Chipotle Salsa"
+  },
+  {
+    "en": "chipotle seasoning",
+    "tr": "Chipotle Baharat"
+  },
+  {
+    "en": "chipotles en adobo",
+    "tr": "Chipotles tr adobo"
+  },
+  {
+    "en": "chive & onion cream cheese",
+    "tr": "Chive & Soğan Krem Peyniri"
+  },
+  {
+    "en": "chives",
+    "tr": "chives"
+  },
+  {
+    "en": "chocolate",
+    "tr": "çikolata"
+  },
+  {
+    "en": "chocolate bar",
+    "tr": "çikolata"
+  },
+  {
+    "en": "chocolate chip ice cream",
+    "tr": "Çikolatalı dondurma"
+  },
+  {
+    "en": "chocolate chips",
+    "tr": "çikolata parçaları"
+  },
+  {
+    "en": "chocolate curls",
+    "tr": "çikolata bukleleri"
+  },
+  {
+    "en": "chocolate flavorpudding",
+    "tr": "çikolata lezzet"
+  },
+  {
+    "en": "chocolate fudgepudding mix",
+    "tr": "Çikolata Fudepuding Mix"
+  },
+  {
+    "en": "chocolate graham cracker",
+    "tr": "Çikolata Graham Kraker"
+  },
+  {
+    "en": "chocolate graham cracker crumbs",
+    "tr": "Çikolata Graham Kraker Kırıntıları"
+  },
+  {
+    "en": "chocolate ice cream",
+    "tr": "çikolatalı dondurma"
+  },
+  {
+    "en": "chocolate milk",
+    "tr": "çikolatalı süt"
+  },
+  {
+    "en": "chocolate pieces",
+    "tr": "çikolata parçaları"
+  },
+  {
+    "en": "chocolate pudding mix",
+    "tr": "Çikolatalı Puding Karışımı"
+  },
+  {
+    "en": "chocolate soymilk",
+    "tr": "çikolata soya"
+  },
+  {
+    "en": "chocolate-covered coffee beans",
+    "tr": "Çikolata kaplı kahve çekirdekleri"
+  },
+  {
+    "en": "chopped coconut",
+    "tr": "kıyılmış hindistancevizi"
+  },
+  {
+    "en": "chopped pimiento",
+    "tr": "doğranmış pimiento"
+  },
+  {
+    "en": "chopped tomatoes",
+    "tr": "doğranmış domates"
+  },
+  {
+    "en": "chorizo",
+    "tr": "chorizo"
+  },
+  {
+    "en": "chorizo sausage",
+    "tr": "chorizo ​​sosis"
+  },
+  {
+    "en": "choy sum",
+    "tr": "choy toplamı"
+  },
+  {
+    "en": "christophene",
+    "tr": "Christophene"
+  },
+  {
+    "en": "chunk light tuna",
+    "tr": "yığın hafif ton balığı"
+  },
+  {
+    "en": "chunk pineapple",
+    "tr": "yığın ananası"
+  },
+  {
+    "en": "chunk tuna",
+    "tr": "yastık ton balığı"
+  },
+  {
+    "en": "chunk tuna in water",
+    "tr": "Suda yığın ton balığı"
+  },
+  {
+    "en": "chunky peanut butter",
+    "tr": "tıknaz fıstık ezmesi"
+  },
+  {
+    "en": "chunky salsa",
+    "tr": "tıknaz salsa"
+  },
+  {
+    "en": "chutney",
+    "tr": "chutney"
+  },
+  {
+    "en": "chutney sauce",
+    "tr": "chutney sosu"
+  },
+  {
+    "en": "cider",
+    "tr": "elma şarabı"
+  },
+  {
+    "en": "cider vinegar",
+    "tr": "sirke"
+  },
+  {
+    "en": "cilantro",
+    "tr": "silantro"
+  },
+  {
+    "en": "cilantro chutney from indian-ish",
+    "tr": "Indian-ish'den Cilantro Chutney"
+  },
+  {
+    "en": "cilantro cream",
+    "tr": "kira kremi"
+  },
+  {
+    "en": "cilantro salsa",
+    "tr": "Kişniş Salsa"
+  },
+  {
+    "en": "cilantro stems",
+    "tr": "Kişniş sapları"
+  },
+  {
+    "en": "cinnamon",
+    "tr": "tarçın"
+  },
+  {
+    "en": "cinnamon graham crackers",
+    "tr": "tarçın graham kraker"
+  },
+  {
+    "en": "cinnamon sticks",
+    "tr": "tarçın çubukları"
+  },
+  {
+    "en": "cinnamon sugar",
+    "tr": "tarçın şekeri"
+  },
+  {
+    "en": "citron",
+    "tr": "sitron"
+  },
+  {
+    "en": "citrus-infused vodka",
+    "tr": "Narenciye infüzyonlu votka"
+  },
+  {
+    "en": "clam",
+    "tr": "istiridye"
+  },
+  {
+    "en": "clam broth",
+    "tr": "istiridye suyu"
+  },
+  {
+    "en": "clams in shell",
+    "tr": "Kabuktaki istiridye"
+  },
+  {
+    "en": "classic brine for poultry",
+    "tr": "Kümes hayvanları için klasik tuzlu su"
+  },
+  {
+    "en": "clear broth",
+    "tr": "sıyrık"
+  },
+  {
+    "en": "clear honey",
+    "tr": "temiz bal"
+  },
+  {
+    "en": "clementine",
+    "tr": "Clementine"
+  },
+  {
+    "en": "clove",
+    "tr": "karanfil"
+  },
+  {
+    "en": "coarse black pepper",
+    "tr": "kaba karabiber"
+  },
+  {
+    "en": "coarse grain mustard",
+    "tr": "kaba tahıl hardal"
+  },
+  {
+    "en": "coarse onion",
+    "tr": "kaba soğan"
+  },
+  {
+    "en": "coarse salt",
+    "tr": "kaba tuz"
+  },
+  {
+    "en": "coarse sea salt",
+    "tr": "kaba deniz tuzu"
+  },
+  {
+    "en": "cocoa powder",
+    "tr": "kakao tozu"
+  },
+  {
+    "en": "coconut",
+    "tr": "hindistancevizi"
+  },
+  {
+    "en": "coconut cream",
+    "tr": "hindistancevizi kremi"
+  },
+  {
+    "en": "coconut flakes",
+    "tr": "hindistancevizi pulları"
+  },
+  {
+    "en": "coconut ice cream",
+    "tr": "hindistancevizi dondurma"
+  },
+  {
+    "en": "coconut meat",
+    "tr": "hindistancevizi eti"
+  },
+  {
+    "en": "coconut milk",
+    "tr": "hindistancevizi sütü"
+  },
+  {
+    "en": "coconut milk powder",
+    "tr": "hindistancevizi sütü tozu"
+  },
+  {
+    "en": "coconut oil",
+    "tr": "hindistancevizi yağı"
+  },
+  {
+    "en": "coconut pecan frosting",
+    "tr": "Hindistan cevizi cevizli buzlanma"
+  },
+  {
+    "en": "coconut powder",
+    "tr": "hindistancevizi tozu"
+  },
+  {
+    "en": "coconut pudding mix",
+    "tr": "Hindistan cevizi puding karışımı"
+  },
+  {
+    "en": "cod",
+    "tr": "morina"
+  },
+  {
+    "en": "cod fish",
+    "tr": "morina balığı"
+  },
+  {
+    "en": "coffee",
+    "tr": "Kahve"
+  },
+  {
+    "en": "coffee beans",
+    "tr": "kahve çekirdeği"
+  },
+  {
+    "en": "coffee ice cream",
+    "tr": "kahve dondurma"
+  },
+  {
+    "en": "cognac",
+    "tr": "konyak"
+  },
+  {
+    "en": "cointreau liqueur",
+    "tr": "Cointreau likörü"
+  },
+  {
+    "en": "colby",
+    "tr": "Colby"
+  },
+  {
+    "en": "colby cheese",
+    "tr": "peynir"
+  },
+  {
+    "en": "colby-monterey jack cheese",
+    "tr": "Colby-Monterey Jack Peyniri"
+  },
+  {
+    "en": "colemans mustard",
+    "tr": "Colemans hardal"
+  },
+  {
+    "en": "colombian tomato",
+    "tr": "Kolombiyalı domates"
+  },
+  {
+    "en": "comino",
+    "tr": "comino"
+  },
+  {
+    "en": "compressed yeast",
+    "tr": "sıkıştırılmış maya"
+  },
+  {
+    "en": "compressed yeast cake",
+    "tr": "sıkıştırılmış maya pastası"
+  },
+  {
+    "en": "compressed yeast cakes",
+    "tr": "sıkıştırılmış maya kekleri"
+  },
+  {
+    "en": "comte cheese",
+    "tr": "comte peyniri"
+  },
+  {
+    "en": "condensed beef broth",
+    "tr": "yoğun sığır eti suyu"
+  },
+  {
+    "en": "condensed chicken broth",
+    "tr": "yoğun tavuk suyu"
+  },
+  {
+    "en": "condensed milk",
+    "tr": "Yoğunlaştırılmış Süt"
+  },
+  {
+    "en": "confectioners sugar",
+    "tr": "Şekerler Şeker"
+  },
+  {
+    "en": "contadina tomatoes",
+    "tr": "Contadina domatesleri"
+  },
+  {
+    "en": "cookies",
+    "tr": "kurabiye"
+  },
+  {
+    "en": "cooking spray",
+    "tr": "pişirme spreyi"
+  },
+  {
+    "en": "cool whip",
+    "tr": "havalı kırbaç"
+  },
+  {
+    "en": "cori",
+    "tr": "Cori"
+  },
+  {
+    "en": "coriender",
+    "tr": "çok sayıda"
+  },
+  {
+    "en": "coriender chutney",
+    "tr": "coriender chutney"
+  },
+  {
+    "en": "coriender leaves",
+    "tr": "Coriender yaprakları"
+  },
+  {
+    "en": "coriender powder",
+    "tr": "tiraj tozu"
+  },
+  {
+    "en": "coriender seed",
+    "tr": "tohum tohumu"
+  },
+  {
+    "en": "coriender sprig",
+    "tr": "fışkırtma"
+  },
+  {
+    "en": "corkscrew macaroni",
+    "tr": "tirbuşon macarnoni"
+  },
+  {
+    "en": "corn",
+    "tr": "Mısır"
+  },
+  {
+    "en": "corn chowder",
+    "tr": "mısır çorbası"
+  },
+  {
+    "en": "corn flour",
+    "tr": "mısır unu"
+  },
+  {
+    "en": "corn kernel",
+    "tr": "mısır çekirdeği"
+  },
+  {
+    "en": "corn syrup",
+    "tr": "mısır şurubu"
+  },
+  {
+    "en": "corn tortilla",
+    "tr": "mısır tortilla"
+  },
+  {
+    "en": "corn tortillas",
+    "tr": "mısır ekmeği"
+  },
+  {
+    "en": "cornbread stuffing mix",
+    "tr": "mısır ekmeği doldurma karışımı"
+  },
+  {
+    "en": "corned beef",
+    "tr": "konserve sığır eti"
+  },
+  {
+    "en": "cornmeal",
+    "tr": "mısır unu"
+  },
+  {
+    "en": "cornstarch",
+    "tr": "mısır nişastası"
+  },
+  {
+    "en": "corona beer",
+    "tr": "corona birası"
+  },
+  {
+    "en": "cos lettuce",
+    "tr": "cos marul"
+  },
+  {
+    "en": "cotija cheese",
+    "tr": "cotija peyniri"
+  },
+  {
+    "en": "cottage cheese",
+    "tr": "süzme peynir"
+  },
+  {
+    "en": "cottage garden rose water",
+    "tr": "Yazlık bahçe gül suyu"
+  },
+  {
+    "en": "country ham",
+    "tr": "Ülke jambonu"
+  },
+  {
+    "en": "country sausage",
+    "tr": "Ülke Sosis"
+  },
+  {
+    "en": "courgette",
+    "tr": "kabak"
+  },
+  {
+    "en": "courgettes",
+    "tr": "kabak"
+  },
+  {
+    "en": "couscous",
+    "tr": "küniş"
+  },
+  {
+    "en": "crab",
+    "tr": "yengeç"
+  },
+  {
+    "en": "crab meat",
+    "tr": "yengeç eti"
+  },
+  {
+    "en": "crabmeat",
+    "tr": "crabmeat"
+  },
+  {
+    "en": "cracked pepper",
+    "tr": "çatlak biber"
+  },
+  {
+    "en": "cracker crust",
+    "tr": "kraker kabuğu"
+  },
+  {
+    "en": "craisin",
+    "tr": "craisin"
+  },
+  {
+    "en": "craisins",
+    "tr": "craisins"
+  },
+  {
+    "en": "cranberries",
+    "tr": "kızılcık"
+  },
+  {
+    "en": "cranberry beans",
+    "tr": "kızılcık fasulyesi"
+  },
+  {
+    "en": "cranberry jelly",
+    "tr": "kızılcık jölesi"
+  },
+  {
+    "en": "cranberry juice",
+    "tr": "kızılcık suyu"
+  },
+  {
+    "en": "cranberry juice cocktail",
+    "tr": "kızılcık suyu kokteyl"
+  },
+  {
+    "en": "cranberry sauce",
+    "tr": "kızılcık sosu"
+  },
+  {
+    "en": "crayfish tails",
+    "tr": "kerevit kuyrukları"
+  },
+  {
+    "en": "cream",
+    "tr": "krema"
+  },
+  {
+    "en": "cream cheese",
+    "tr": "krem peynir"
+  },
+  {
+    "en": "cream cream",
+    "tr": "krema kreması"
+  },
+  {
+    "en": "cream of coconut",
+    "tr": "Cream of Coconut"
+  },
+  {
+    "en": "cream of tartar",
+    "tr": "Tartar kreması"
+  },
+  {
+    "en": "cream sherry",
+    "tr": "krem şeri"
+  },
+  {
+    "en": "creamy butter",
+    "tr": "kremalı tereyağı"
+  },
+  {
+    "en": "creamy peanut butter",
+    "tr": "Kremalı fıstık ezmesi"
+  },
+  {
+    "en": "creamy ranch dressing",
+    "tr": "Kremalı Çiftlik Pansuman"
+  },
+  {
+    "en": "crema mexicana",
+    "tr": "Crema Mexicana"
+  },
+  {
+    "en": "creme de cacao",
+    "tr": "Creme de Cacao"
+  },
+  {
+    "en": "creme de cassis",
+    "tr": "Creme de Cassis"
+  },
+  {
+    "en": "creme de menthe",
+    "tr": "Creme de menthe"
+  },
+  {
+    "en": "creme fraiche",
+    "tr": "Creme Fraiche"
+  },
+  {
+    "en": "cremini mushrooms",
+    "tr": "Cremini mantarları"
+  },
+  {
+    "en": "crenshaw melon",
+    "tr": "Crenshaw kavun"
+  },
+  {
+    "en": "creole mustard",
+    "tr": "Creole hardal"
+  },
+  {
+    "en": "creole rice mix",
+    "tr": "Creole pirinç karışımı"
+  },
+  {
+    "en": "crisco shortening",
+    "tr": "Crisco Kısaltma"
+  },
+  {
+    "en": "crock pot creamy mexican chicken",
+    "tr": "Güveç Pot Kremalı Meksika Tavuk"
+  },
+  {
+    "en": "crock pot machaca burrito meat",
+    "tr": "Güveç Pot Machaca Burrito Et"
+  },
+  {
+    "en": "crock pot shredded chicken",
+    "tr": "Güveç Pot Rendelenmiş Tavuk"
+  },
+  {
+    "en": "crouton",
+    "tr": "crouton"
+  },
+  {
+    "en": "croutons",
+    "tr": "krutonlar"
+  },
+  {
+    "en": "crunchy peanut butter",
+    "tr": "Çıtır fıstık ezmesi"
+  },
+  {
+    "en": "crushed red pepper",
+    "tr": "ezilmiş kırmızı biber"
+  },
+  {
+    "en": "crusty oval rolls",
+    "tr": "huysuz oval rulolar"
+  },
+  {
+    "en": "crystallized ginger",
+    "tr": "kristalize zencefil"
+  },
+  {
+    "en": "cubanelle pepper",
+    "tr": "cubanelle biber"
+  },
+  {
+    "en": "cubanelle peppers",
+    "tr": "Cubanelle Biber"
+  },
+  {
+    "en": "cucumber",
+    "tr": "salatalık"
+  },
+  {
+    "en": "cucumber dip",
+    "tr": "salatalık"
+  },
+  {
+    "en": "cucumber salad with yogurt",
+    "tr": "Yoğurt ile salatalık salatası"
+  },
+  {
+    "en": "cucumber tzatziki",
+    "tr": "Salatalık Tzatziki"
+  },
+  {
+    "en": "cucuzza",
+    "tr": "çukur"
+  },
+  {
+    "en": "cultured buttermilk",
+    "tr": "Kültürlü Ayran"
+  },
+  {
+    "en": "cumin",
+    "tr": "kimyon"
+  },
+  {
+    "en": "curacao",
+    "tr": "Curacao"
+  },
+  {
+    "en": "curd cottage cheese",
+    "tr": "Lor Süzme Peynir"
+  },
+  {
+    "en": "curly endive lettuce",
+    "tr": "Kıvırcık Hindi"
+  },
+  {
+    "en": "curly-leaf parsley",
+    "tr": "kıvırcık yapraklı maydanoz"
+  },
+  {
+    "en": "currant",
+    "tr": "frenk üzümü"
+  },
+  {
+    "en": "currant jelly",
+    "tr": "frenk üzümü jölesi"
+  },
+  {
+    "en": "currant juice",
+    "tr": "frenk üzümü suyu"
+  },
+  {
+    "en": "currants",
+    "tr": "kuşatan"
+  },
+  {
+    "en": "curry",
+    "tr": "köri"
+  },
+  {
+    "en": "curry paste",
+    "tr": "köri macunu"
+  },
+  {
+    "en": "custard",
+    "tr": "muhallebi"
+  },
+  {
+    "en": "cut okra",
+    "tr": "Bamya'yı kes"
+  },
+  {
+    "en": "cuttlefish",
+    "tr": "mürekkepbalığı"
+  },
+  {
+    "en": "daikon radishes",
+    "tr": "Daikon turpları"
+  },
+  {
+    "en": "danish - almond filling",
+    "tr": "Danimarka - badem dolgusu"
+  },
+  {
+    "en": "danish blue cheese",
+    "tr": "Danimarkalı mavi peynir"
+  },
+  {
+    "en": "dark beer",
+    "tr": "koyu bira"
+  },
+  {
+    "en": "dark brown sugar",
+    "tr": "koyu şeker"
+  },
+  {
+    "en": "dark chicken meat",
+    "tr": "koyu tavuk eti"
+  },
+  {
+    "en": "dark chili powder",
+    "tr": "koyu biber tozu"
+  },
+  {
+    "en": "dark chocolate",
+    "tr": "çikolata"
+  },
+  {
+    "en": "dark chocolate ganache",
+    "tr": "Bitter Çikolata Ganache"
+  },
+  {
+    "en": "dark corn syrup",
+    "tr": "koyu mısır şurubu"
+  },
+  {
+    "en": "dark creme de cacao",
+    "tr": "Dark Creme de Cacao"
+  },
+  {
+    "en": "dark molasses",
+    "tr": "koyu pekmez"
+  },
+  {
+    "en": "dark muscovado sugar",
+    "tr": "Karanlık Muscovado şekeri"
+  },
+  {
+    "en": "dark raisin",
+    "tr": "Karanlık kuru üzüm"
+  },
+  {
+    "en": "dark raisins",
+    "tr": "koyu kuru üzüm"
+  },
+  {
+    "en": "dark red kidney beans",
+    "tr": "Koyu Kırmızı Barbunlu Fasulye"
+  },
+  {
+    "en": "dark rum",
+    "tr": "koyu rom"
+  },
+  {
+    "en": "dark semi-sweet chocolate",
+    "tr": "Koyu yarı tatlı çikolata"
+  },
+  {
+    "en": "dark soy sauce",
+    "tr": "koyu soya sosu"
+  },
+  {
+    "en": "dark soya sauce",
+    "tr": "Karanlık soya sosu"
+  },
+  {
+    "en": "dark sweet cherries",
+    "tr": "koyu tatlı kiraz"
+  },
+  {
+    "en": "date sugar",
+    "tr": "TARİH Şeker"
+  },
+  {
+    "en": "dates",
+    "tr": "tarihler"
+  },
+  {
+    "en": "del monte crushed tomatoes",
+    "tr": "Del Monte ezilmiş domates"
+  },
+  {
+    "en": "deli corned beef",
+    "tr": "Şarküteri Corned Sığır eti"
+  },
+  {
+    "en": "deli roast beef",
+    "tr": "Deli kızartma sığır eti"
+  },
+  {
+    "en": "delmonte stewed tomatoes",
+    "tr": "Delmonte Yahudi domates"
+  },
+  {
+    "en": "demerara sugar",
+    "tr": "demerara şekeri"
+  },
+  {
+    "en": "demi-glace",
+    "tr": "demi-glace"
+  },
+  {
+    "en": "demon relish",
+    "tr": "iblis zevk"
+  },
+  {
+    "en": "dessert apples",
+    "tr": "tatlı elma"
+  },
+  {
+    "en": "dessert wine",
+    "tr": "tatlı şarabı"
+  },
+  {
+    "en": "dijon mustard",
+    "tr": "Dijon hardal"
+  },
+  {
+    "en": "dijon-lemon vinaigrette",
+    "tr": "Dijon-Lemon Vinaigrette"
+  },
+  {
+    "en": "dijon-style mustard",
+    "tr": "Dijon tarzı hardal"
+  },
+  {
+    "en": "dill",
+    "tr": "dereotu"
+  },
+  {
+    "en": "dill leaves",
+    "tr": "Dereotu Yaprakları"
+  },
+  {
+    "en": "dill pickle",
+    "tr": "dereotu turşusu"
+  },
+  {
+    "en": "dill pickles",
+    "tr": "dereotu turşusu"
+  },
+  {
+    "en": "dill sprig",
+    "tr": "dereotu"
+  },
+  {
+    "en": "dill sprigs",
+    "tr": "dereotu dalları"
+  },
+  {
+    "en": "dill weed",
+    "tr": "Dereotu Ot"
+  },
+  {
+    "en": "distilled vinegar",
+    "tr": "damıtılmış sirke"
+  },
+  {
+    "en": "distilled water",
+    "tr": "damıtılmış su"
+  },
+  {
+    "en": "distilled white vinegar",
+    "tr": "damıtılmış beyaz sirke"
+  },
+  {
+    "en": "ditali pasta",
+    "tr": "Ditali Makarna"
+  },
+  {
+    "en": "doritos",
+    "tr": "doritos"
+  },
+  {
+    "en": "double gloucester cheese",
+    "tr": "çift ​​gloucester peyniri"
+  },
+  {
+    "en": "double-actingpowder",
+    "tr": "çift ​​etkili"
+  },
+  {
+    "en": "dough",
+    "tr": "hamur"
+  },
+  {
+    "en": "dragees",
+    "tr": "drajlar"
+  },
+  {
+    "en": "dressing",
+    "tr": "giydirme"
+  },
+  {
+    "en": "duck",
+    "tr": "ördek"
+  },
+  {
+    "en": "duck confit",
+    "tr": "ördek confit"
+  },
+  {
+    "en": "duck fat",
+    "tr": "ördek yağ"
+  },
+  {
+    "en": "duck hindquarters",
+    "tr": "ördek arka taraf"
+  },
+  {
+    "en": "duck legs",
+    "tr": "ördek bacakları"
+  },
+  {
+    "en": "duck liver",
+    "tr": "ördek karacağı"
+  },
+  {
+    "en": "ducklings",
+    "tr": "ördek yavrusu"
+  },
+  {
+    "en": "ducks",
+    "tr": "ördekler"
+  },
+  {
+    "en": "dulce de leche",
+    "tr": "Dulce de Leche"
+  },
+  {
+    "en": "dulce de leche ice cream",
+    "tr": "Dulce de Leche Dondurma"
+  },
+  {
+    "en": "durian",
+    "tr": "Durian"
+  },
+  {
+    "en": "easywheat s",
+    "tr": "Easywheat S"
+  },
+  {
+    "en": "eau de vie",
+    "tr": "kanyak"
+  },
+  {
+    "en": "edam cheese",
+    "tr": "edam peyniri"
+  },
+  {
+    "en": "edamame",
+    "tr": "edamame"
+  },
+  {
+    "en": "eel",
+    "tr": "yılanbalığı"
+  },
+  {
+    "en": "egg",
+    "tr": "yumurta"
+  },
+  {
+    "en": "egg roll wrap",
+    "tr": "yumurta rulo sargısı"
+  },
+  {
+    "en": "egg substitute",
+    "tr": "yumurta ikamesi"
+  },
+  {
+    "en": "egg tomatoes",
+    "tr": "yumurta domates"
+  },
+  {
+    "en": "egg yolk",
+    "tr": "yumurta sarısı"
+  },
+  {
+    "en": "egg yolks",
+    "tr": "yumurta sarısı"
+  },
+  {
+    "en": "eggplant",
+    "tr": "patlıcan"
+  },
+  {
+    "en": "eggplants",
+    "tr": "patlıcan"
+  },
+  {
+    "en": "el",
+    "tr": "el"
+  },
+  {
+    "en": "el patio jalapeno chili sauce",
+    "tr": "El Patio Jalapeno Chili Sos"
+  },
+  {
+    "en": "el ranch-o dressing",
+    "tr": "El Ranch-O Pansuman"
+  },
+  {
+    "en": "el torito adobo al pastor sauce",
+    "tr": "El Torito Adobo al papaz sosu"
+  },
+  {
+    "en": "el wine",
+    "tr": "el şarabı"
+  },
+  {
+    "en": "elbow macaroni",
+    "tr": "Dirsek Makarna"
+  },
+  {
+    "en": "elderberries",
+    "tr": "elderberries"
+  },
+  {
+    "en": "emerils essence",
+    "tr": "Emerils özü"
+  },
+  {
+    "en": "emerils southwest seasoning",
+    "tr": "Emerils Southwest baharat"
+  },
+  {
+    "en": "enchilada sauce",
+    "tr": "enchilada sosu"
+  },
+  {
+    "en": "endive",
+    "tr": "Hindiba"
+  },
+  {
+    "en": "ener-g egg substitute",
+    "tr": "Ener-G yumurta ikamesi"
+  },
+  {
+    "en": "english-style mustard",
+    "tr": "İngilizce tarzı hardal"
+  },
+  {
+    "en": "enriched flour",
+    "tr": "zenginleştirilmiş un"
+  },
+  {
+    "en": "epazote",
+    "tr": "epazot"
+  },
+  {
+    "en": "epazote leaves",
+    "tr": "Epazote Yapraklar"
+  },
+  {
+    "en": "equal sugar substitute",
+    "tr": "Eşit şeker ikamesi"
+  },
+  {
+    "en": "era",
+    "tr": "dönem"
+  },
+  {
+    "en": "erythritol",
+    "tr": "eritritol"
+  },
+  {
+    "en": "escarole",
+    "tr": "eskarole"
+  },
+  {
+    "en": "espresso",
+    "tr": "espresso"
+  },
+  {
+    "en": "evaporated milk",
+    "tr": "buharlaştırılmış süt"
+  },
+  {
+    "en": "eye of round roast",
+    "tr": "yuvarlak kızartma gözü"
+  },
+  {
+    "en": "farfalle pasta",
+    "tr": "farfalle makarna"
+  },
+  {
+    "en": "farina",
+    "tr": "Farina"
+  },
+  {
+    "en": "farmer cheese",
+    "tr": "çiftçi peyniri"
+  },
+  {
+    "en": "farmers sausage",
+    "tr": "Çiftçi Sosis"
+  },
+  {
+    "en": "fat pork",
+    "tr": "şişman domuz eti"
+  },
+  {
+    "en": "fatty bacon",
+    "tr": "yağlı pastırma"
+  },
+  {
+    "en": "fatty pork",
+    "tr": "yağlı domuz eti"
+  },
+  {
+    "en": "fava beans",
+    "tr": "fava fasulyesi"
+  },
+  {
+    "en": "fennel",
+    "tr": "rezene"
+  },
+  {
+    "en": "fennel bulb",
+    "tr": "rezene ampulü"
+  },
+  {
+    "en": "fennel bulbs",
+    "tr": "Rezene Ampulleri"
+  },
+  {
+    "en": "fennel heads",
+    "tr": "rezene kafaları"
+  },
+  {
+    "en": "fennel leaves",
+    "tr": "Rezene Yaprakları"
+  },
+  {
+    "en": "fennel powder",
+    "tr": "rezene tozu"
+  },
+  {
+    "en": "fennel seed",
+    "tr": "rezene tohumu"
+  },
+  {
+    "en": "fennel seeds",
+    "tr": "rezene tohumları"
+  },
+  {
+    "en": "fenugreek",
+    "tr": "çemen"
+  },
+  {
+    "en": "fenuleaves",
+    "tr": "Fenuleaves"
+  },
+  {
+    "en": "fenuseeds",
+    "tr": "fenuseeds"
+  },
+  {
+    "en": "fermented black beans",
+    "tr": "fermente siyah fasulye"
+  },
+  {
+    "en": "feta",
+    "tr": "beyaz beyaz"
+  },
+  {
+    "en": "feta cheese",
+    "tr": "beyaz peynir"
+  },
+  {
+    "en": "fettuccine",
+    "tr": "fettuccine"
+  },
+  {
+    "en": "fettuccine pasta",
+    "tr": "fettuccine makarna"
+  },
+  {
+    "en": "fiber crust",
+    "tr": "fiber kabuk"
+  },
+  {
+    "en": "fiesta lengua",
+    "tr": "Fiesta Lengua"
+  },
+  {
+    "en": "figs",
+    "tr": "incir"
+  },
+  {
+    "en": "file powder",
+    "tr": "dosya tozu"
+  },
+  {
+    "en": "filo pastry",
+    "tr": "filo"
+  },
+  {
+    "en": "filter coffee",
+    "tr": "filtre kahve"
+  },
+  {
+    "en": "fine herb",
+    "tr": "ince bitki"
+  },
+  {
+    "en": "finely sugar",
+    "tr": "ince şeker"
+  },
+  {
+    "en": "fingerling potato",
+    "tr": "Fingerling Patates"
+  },
+  {
+    "en": "fish",
+    "tr": "balık"
+  },
+  {
+    "en": "fish bouillon",
+    "tr": "Balık Bouillon"
+  },
+  {
+    "en": "fish fillet",
+    "tr": "balık filetosu"
+  },
+  {
+    "en": "fish sauce",
+    "tr": "balık sosu"
+  },
+  {
+    "en": "five spice seasoning",
+    "tr": "Beş baharat baharat"
+  },
+  {
+    "en": "flageolet beans",
+    "tr": "flageolet fasulyesi"
+  },
+  {
+    "en": "flaked coconut",
+    "tr": "Pullanmış Hindistan Cevizi"
+  },
+  {
+    "en": "flaked sea salt",
+    "tr": "Kırplı deniz tuzu"
+  },
+  {
+    "en": "flax seed",
+    "tr": "keten tohumu"
+  },
+  {
+    "en": "flax seed meal",
+    "tr": "keten tohumu yemeği"
+  },
+  {
+    "en": "flax seed oil",
+    "tr": "keten tohumu yağı"
+  },
+  {
+    "en": "flax seeds",
+    "tr": "keten tohumu"
+  },
+  {
+    "en": "fleischmanns margarine",
+    "tr": "Fleischmanns Margarine"
+  },
+  {
+    "en": "fleur de sel",
+    "tr": "Fleur de Sel"
+  },
+  {
+    "en": "flounder fillets",
+    "tr": "pisi balığı filetoları"
+  },
+  {
+    "en": "flour",
+    "tr": "un"
+  },
+  {
+    "en": "flour substitute",
+    "tr": "un yerine"
+  },
+  {
+    "en": "flour tortilla",
+    "tr": "un tortilla"
+  },
+  {
+    "en": "floury potatoes",
+    "tr": "unlu patates"
+  },
+  {
+    "en": "focaccia bread",
+    "tr": "focaccia ekmeği"
+  },
+  {
+    "en": "foie gras",
+    "tr": "kaz ciğeri"
+  },
+  {
+    "en": "fontina cheese",
+    "tr": "fontina peyniri"
+  },
+  {
+    "en": "fragrant basmati rice",
+    "tr": "kokulu basmati pirinç"
+  },
+  {
+    "en": "french fries",
+    "tr": "patates kızartması"
+  },
+  {
+    "en": "freshshrimp",
+    "tr": "freshshrisp"
+  },
+  {
+    "en": "fried rice seasoning",
+    "tr": "kızarmış pirinç baharat"
+  },
+  {
+    "en": "fried tofu",
+    "tr": "kızarmış tofu"
+  },
+  {
+    "en": "frisee",
+    "tr": "frisee"
+  },
+  {
+    "en": "fructose",
+    "tr": "fruktoz"
+  },
+  {
+    "en": "fruit chutney",
+    "tr": "Meyveli Çukney"
+  },
+  {
+    "en": "fruit salsa",
+    "tr": "meyve salsa"
+  },
+  {
+    "en": "fuego spice mix",
+    "tr": "Fuego Spice Mix"
+  },
+  {
+    "en": "fuji apple",
+    "tr": "Fuji Elma"
+  },
+  {
+    "en": "funghi porcini",
+    "tr": "Funghi Porcini"
+  },
+  {
+    "en": "gala apples",
+    "tr": "gala elmaları"
+  },
+  {
+    "en": "galanga powder",
+    "tr": "galanga tozu"
+  },
+  {
+    "en": "galanga root",
+    "tr": "galanga kökü"
+  },
+  {
+    "en": "galangal",
+    "tr": "galangal"
+  },
+  {
+    "en": "galangal root",
+    "tr": "galangal kökü"
+  },
+  {
+    "en": "garam masala",
+    "tr": "Garam Masala"
+  },
+  {
+    "en": "garam masala powder",
+    "tr": "Garam masala tozu"
+  },
+  {
+    "en": "garbanzo beans",
+    "tr": "Garbanzo fasulyesi"
+  },
+  {
+    "en": "garbanzo flour",
+    "tr": "garbanz unu"
+  },
+  {
+    "en": "garlic",
+    "tr": "sarımsak"
+  },
+  {
+    "en": "garlic  pearl onion with herbs",
+    "tr": "otlarla sarımsak incisi soğan"
+  },
+  {
+    "en": "garlic alfredo sauce",
+    "tr": "sarımsak alfredo sosu"
+  },
+  {
+    "en": "garlic bagel chips",
+    "tr": "sarımsak simit cipsleri"
+  },
+  {
+    "en": "garlic croutons",
+    "tr": "sarımsak krutonları"
+  },
+  {
+    "en": "garlic feta toasts with a warm olive spread",
+    "tr": "Sıcak zeytin yayılımı ile sarımsaklı tostlar"
+  },
+  {
+    "en": "garlic flakes",
+    "tr": "sarımsak pulları"
+  },
+  {
+    "en": "garlic flavored vinegar",
+    "tr": "sarımsak aromalı sirke"
+  },
+  {
+    "en": "garlic juice",
+    "tr": "sarımsak suyu"
+  },
+  {
+    "en": "garlic mayo",
+    "tr": "sarımsak mayo"
+  },
+  {
+    "en": "garlic oil",
+    "tr": "sarımsak yağı"
+  },
+  {
+    "en": "garlic pickles",
+    "tr": "sarımsak turşusu"
+  },
+  {
+    "en": "garlic potatoes",
+    "tr": "sarımsak patates"
+  },
+  {
+    "en": "garlic powder",
+    "tr": "sarımsak tozu"
+  },
+  {
+    "en": "garlic sausage",
+    "tr": "sarımsak sosis"
+  },
+  {
+    "en": "garlic scapes",
+    "tr": "sarımsak scapes"
+  },
+  {
+    "en": "garlic sprouts",
+    "tr": "sarımsak filizi"
+  },
+  {
+    "en": "garlic-flavored croutons",
+    "tr": "Sarımsak aromalı krutonlar"
+  },
+  {
+    "en": "garlic-flavored olive oil",
+    "tr": "sarımsak aromalı zeytinyağı"
+  },
+  {
+    "en": "garlic-flavored red wine vinegar",
+    "tr": "Sarımsak aromalı kırmızı şarap sirkesi"
+  },
+  {
+    "en": "garlic-infused olive oil",
+    "tr": "sarımsak infüzyonlu zeytinyağı"
+  },
+  {
+    "en": "gebhardt&reg; chili powder",
+    "tr": "Gebhardt & Reg; biber tozu"
+  },
+  {
+    "en": "gelatin",
+    "tr": "jelatin"
+  },
+  {
+    "en": "gem lettuce",
+    "tr": "mücevher marul"
+  },
+  {
+    "en": "gemelli pasta",
+    "tr": "Gemelli makarna"
+  },
+  {
+    "en": "german chocolate",
+    "tr": "Alman çikolatası"
+  },
+  {
+    "en": "german chocolate cake mix",
+    "tr": "Alman çikolatalı kek karışımı"
+  },
+  {
+    "en": "german cooking chocolate",
+    "tr": "Alman pişirme çikolatası"
+  },
+  {
+    "en": "german mustard",
+    "tr": "Alman hardal"
+  },
+  {
+    "en": "german quark",
+    "tr": "Alman kuarkı"
+  },
+  {
+    "en": "german-style sweet sauerkraut",
+    "tr": "Alman tarzı tatlı lahana turşusu"
+  },
+  {
+    "en": "ghee",
+    "tr": "gee"
+  },
+  {
+    "en": "ginger",
+    "tr": "zencefil"
+  },
+  {
+    "en": "ginger ale",
+    "tr": "zencefilli gazoz"
+  },
+  {
+    "en": "ginger ale concentrate",
+    "tr": "zencefil ale konsantresi"
+  },
+  {
+    "en": "ginger beer",
+    "tr": "zencefil birası"
+  },
+  {
+    "en": "ginger garlic",
+    "tr": "zencefil sarımsak"
+  },
+  {
+    "en": "ginger juice",
+    "tr": "zencefil suyu"
+  },
+  {
+    "en": "ginger marmalade",
+    "tr": "zencefil marmelat"
+  },
+  {
+    "en": "ginger powder",
+    "tr": "zencefil tozu"
+  },
+  {
+    "en": "ginger scallion pesto",
+    "tr": "Zencefil Yeşfi Pesto"
+  },
+  {
+    "en": "ginger wine",
+    "tr": "zencefil şarabı"
+  },
+  {
+    "en": "ginkgo nuts",
+    "tr": "ginkgo fındık"
+  },
+  {
+    "en": "glace de vi",
+    "tr": "Glace de VI"
+  },
+  {
+    "en": "glace ginger",
+    "tr": "glace zencefil"
+  },
+  {
+    "en": "gluten",
+    "tr": "glüten"
+  },
+  {
+    "en": "gluten flour",
+    "tr": "gluten unu"
+  },
+  {
+    "en": "goda masala",
+    "tr": "Goda Masala"
+  },
+  {
+    "en": "gold medal flour",
+    "tr": "altın madalya unu"
+  },
+  {
+    "en": "gold medal wondra flour",
+    "tr": "altın madalya wondra unu"
+  },
+  {
+    "en": "golden brown sugar",
+    "tr": "Altın Kahverengi Şeker"
+  },
+  {
+    "en": "golden rum",
+    "tr": "Altın rom"
+  },
+  {
+    "en": "golden syrup",
+    "tr": "altın şurup"
+  },
+  {
+    "en": "gomashio",
+    "tr": "Gomashio"
+  },
+  {
+    "en": "goose",
+    "tr": "Kaz"
+  },
+  {
+    "en": "gooseberries",
+    "tr": "bektaş"
+  },
+  {
+    "en": "gorgonzola",
+    "tr": "Gorgonzola"
+  },
+  {
+    "en": "gorgonzola dolce blue cheese",
+    "tr": "Gorgonzola Dolce Mavi Peynir"
+  },
+  {
+    "en": "gouda cheese",
+    "tr": "gouda peyniri"
+  },
+  {
+    "en": "gourmet wine vinegar",
+    "tr": "gurme şarap sirkesi"
+  },
+  {
+    "en": "graham cracker",
+    "tr": "Graham krakeri"
+  },
+  {
+    "en": "graham cracker crumbs",
+    "tr": "Graham kraker kırıntıları"
+  },
+  {
+    "en": "graham cracker crust",
+    "tr": "Graham kraker kabuğu"
+  },
+  {
+    "en": "graham cracker pie crust",
+    "tr": "Graham kraker pasta kabuğu"
+  },
+  {
+    "en": "graham cracker tart crusts",
+    "tr": "Graham kraker tart kabukları"
+  },
+  {
+    "en": "graham crackers",
+    "tr": "Graham krakerleri"
+  },
+  {
+    "en": "grain bagel",
+    "tr": "tahıl simit"
+  },
+  {
+    "en": "grain rice",
+    "tr": "tahıl pirinç"
+  },
+  {
+    "en": "grain wheat flour",
+    "tr": "tahıl buğday unu"
+  },
+  {
+    "en": "grainy mustard",
+    "tr": "grenli hardal"
+  },
+  {
+    "en": "gram flour",
+    "tr": "gram unu"
+  },
+  {
+    "en": "granola",
+    "tr": "granola"
+  },
+  {
+    "en": "grape leaves",
+    "tr": "üzüm yaprakları"
+  },
+  {
+    "en": "grapefruit",
+    "tr": "greyfurt"
+  },
+  {
+    "en": "grapefruit juice",
+    "tr": "greyfurt suyu"
+  },
+  {
+    "en": "grapes",
+    "tr": "üzüm"
+  },
+  {
+    "en": "great northern bean",
+    "tr": "Büyük Kuzey Fasulyesi"
+  },
+  {
+    "en": "great northern beans",
+    "tr": "Büyük Kuzey Fasulyesi"
+  },
+  {
+    "en": "greekpowder pie crust",
+    "tr": "Greekpowder Pasta Kabuğu"
+  },
+  {
+    "en": "green apple",
+    "tr": "Yeşil Elma"
+  },
+  {
+    "en": "green apples",
+    "tr": "yeşil elma"
+  },
+  {
+    "en": "green asparagus",
+    "tr": "yeşil kuşkonmaz"
+  },
+  {
+    "en": "green bananas",
+    "tr": "yeşil muz"
+  },
+  {
+    "en": "green bean",
+    "tr": "taze fasulye"
+  },
+  {
+    "en": "green beans",
+    "tr": "taze fasulye"
+  },
+  {
+    "en": "green bell pepper",
+    "tr": "yeşil biber"
+  },
+  {
+    "en": "green bell peppers",
+    "tr": "yeşil biber"
+  },
+  {
+    "en": "green black pepper",
+    "tr": "yeşil karabiber"
+  },
+  {
+    "en": "green cabbage",
+    "tr": "yeşil lahana"
+  },
+  {
+    "en": "green cabbage head",
+    "tr": "yeşil lahana kafası"
+  },
+  {
+    "en": "green capsicum",
+    "tr": "yeşil alamısal"
+  },
+  {
+    "en": "green cardamom pods",
+    "tr": "yeşil kakule kapsülleri"
+  },
+  {
+    "en": "green cardamom powder",
+    "tr": "yeşil kakule tozu"
+  },
+  {
+    "en": "green cardamoms",
+    "tr": "Yeşil Kakule"
+  },
+  {
+    "en": "green chard leaves",
+    "tr": "Yeşil pazı yaprakları"
+  },
+  {
+    "en": "green cherries",
+    "tr": "yeşil kiraz"
+  },
+  {
+    "en": "green chile",
+    "tr": "Yeşil Şili"
+  },
+  {
+    "en": "green chile sauce",
+    "tr": "Yeşil Şili sosu"
+  },
+  {
+    "en": "green chili",
+    "tr": "Yeşil biber"
+  },
+  {
+    "en": "green chili pepper",
+    "tr": "yeşil biber"
+  },
+  {
+    "en": "green chili peppers",
+    "tr": "yeşil biber"
+  },
+  {
+    "en": "green chili powder",
+    "tr": "yeşil biber tozu"
+  },
+  {
+    "en": "green chili salsa",
+    "tr": "Yeşil biber salsa"
+  },
+  {
+    "en": "green chili sauce",
+    "tr": "yeşil biber sosu"
+  },
+  {
+    "en": "green chilies",
+    "tr": "yeşil biberler"
+  },
+  {
+    "en": "green chilis",
+    "tr": "Yeşil Chilis"
+  },
+  {
+    "en": "green cori",
+    "tr": "Yeşil Cori"
+  },
+  {
+    "en": "green curry paste",
+    "tr": "yeşil köri macunu"
+  },
+  {
+    "en": "green enchilada sauce",
+    "tr": "yeşil enchilada sosu"
+  },
+  {
+    "en": "green garlic butter",
+    "tr": "yeşil sarımsak tereyağı"
+  },
+  {
+    "en": "green giantbroccoli cuts",
+    "tr": "Yeşil Giantbroccoli Kesimler"
+  },
+  {
+    "en": "green ginger",
+    "tr": "Yeşil zencefil"
+  },
+  {
+    "en": "green grape",
+    "tr": "yeşil üzüm"
+  },
+  {
+    "en": "green grapes",
+    "tr": "yeşil üzüm"
+  },
+  {
+    "en": "green leaf lettuce",
+    "tr": "yeşil yaprak marul"
+  },
+  {
+    "en": "green lentil",
+    "tr": "mercimek"
+  },
+  {
+    "en": "green lentils",
+    "tr": "yeşil mercimek"
+  },
+  {
+    "en": "green mango",
+    "tr": "yeşil mango"
+  },
+  {
+    "en": "green mangoes",
+    "tr": "yeşil mangolar"
+  },
+  {
+    "en": "green methi leaves",
+    "tr": "Yeşil Methi Yaprakları"
+  },
+  {
+    "en": "green olives",
+    "tr": "Yeşil Zeytin"
+  },
+  {
+    "en": "green onion",
+    "tr": "yeşil soğan"
+  },
+  {
+    "en": "green onion stems",
+    "tr": "Yeşil soğan sapları"
+  },
+  {
+    "en": "green onion top",
+    "tr": "Yeşil soğan üstü"
+  },
+  {
+    "en": "green onion tops",
+    "tr": "Yeşil soğan üstleri"
+  },
+  {
+    "en": "green pea",
+    "tr": "bezelye"
+  },
+  {
+    "en": "green peas",
+    "tr": "bezelye"
+  },
+  {
+    "en": "green pepper",
+    "tr": "yeşil biber"
+  },
+  {
+    "en": "green peppercorn",
+    "tr": "yeşil biber"
+  },
+  {
+    "en": "green peppers",
+    "tr": "yeşil biber"
+  },
+  {
+    "en": "green plantain",
+    "tr": "yeşil muz"
+  },
+  {
+    "en": "green plantains",
+    "tr": "Yeşil Plantains"
+  },
+  {
+    "en": "green sauce with tomatillos",
+    "tr": "Tomatillo ile yeşil sos"
+  },
+  {
+    "en": "green serrano chilies",
+    "tr": "Yeşil Serrano Chilies"
+  },
+  {
+    "en": "green sweet pepper",
+    "tr": "yeşil tatlı biber"
+  },
+  {
+    "en": "green sweet peppers",
+    "tr": "yeşil tatlı biber"
+  },
+  {
+    "en": "green tomato",
+    "tr": "yeşil domates"
+  },
+  {
+    "en": "green tomatoes",
+    "tr": "yeşil domates"
+  },
+  {
+    "en": "green zucchini",
+    "tr": "yeşil kabak"
+  },
+  {
+    "en": "greengrape",
+    "tr": "greengrape"
+  },
+  {
+    "en": "greengrapes",
+    "tr": "yeşiller"
+  },
+  {
+    "en": "greens",
+    "tr": "yeşillik"
+  },
+  {
+    "en": "grey poupon dijon mustard",
+    "tr": "gri poupon dijon hardal"
+  },
+  {
+    "en": "grey poupon mustard",
+    "tr": "gri poupon hardal"
+  },
+  {
+    "en": "grill seasoning",
+    "tr": "ızgara baharat"
+  },
+  {
+    "en": "grits",
+    "tr": "pantolon"
+  },
+  {
+    "en": "groundnuts",
+    "tr": "yer fıstığı"
+  },
+  {
+    "en": "grouper",
+    "tr": "orfoz"
+  },
+  {
+    "en": "gruyere cheese",
+    "tr": "Gruyere peyniri"
+  },
+  {
+    "en": "guacamole",
+    "tr": "guacamol"
+  },
+  {
+    "en": "guajillo chili sauce",
+    "tr": "Guajillo biber sosu"
+  },
+  {
+    "en": "guar gum",
+    "tr": "guar sakızı"
+  },
+  {
+    "en": "guava",
+    "tr": "guava"
+  },
+  {
+    "en": "guava jelly",
+    "tr": "guava jölesi"
+  },
+  {
+    "en": "guava juice",
+    "tr": "guava suyu"
+  },
+  {
+    "en": "guava nectar",
+    "tr": "guava nektar"
+  },
+  {
+    "en": "guava paste",
+    "tr": "guava macunu"
+  },
+  {
+    "en": "gum tragacanth",
+    "tr": "sakız tragacanth"
+  },
+  {
+    "en": "gur",
+    "tr": "taş"
+  },
+  {
+    "en": "habanero",
+    "tr": "habanero"
+  },
+  {
+    "en": "habanero chile pepper",
+    "tr": "habanero şili biberi"
+  },
+  {
+    "en": "habanero jelly",
+    "tr": "habanero jöle"
+  },
+  {
+    "en": "habanero pepper",
+    "tr": "habanero biberi"
+  },
+  {
+    "en": "habanero sauce",
+    "tr": "habanero sosu"
+  },
+  {
+    "en": "habaneros",
+    "tr": "habaneros"
+  },
+  {
+    "en": "haddock fillets",
+    "tr": "Haddock filetoları"
+  },
+  {
+    "en": "haldi powder",
+    "tr": "haldi tozu"
+  },
+  {
+    "en": "halibut fillet",
+    "tr": "halibut filetosu"
+  },
+  {
+    "en": "halibut fillets",
+    "tr": "halibut filetoları"
+  },
+  {
+    "en": "halibut steaks",
+    "tr": "halibut biftekleri"
+  },
+  {
+    "en": "halloumi cheese",
+    "tr": "Halloumi peyniri"
+  },
+  {
+    "en": "ham",
+    "tr": "jambon"
+  },
+  {
+    "en": "ham bone",
+    "tr": "jambon kemiği"
+  },
+  {
+    "en": "ham hock",
+    "tr": "jambon"
+  },
+  {
+    "en": "ham hocks",
+    "tr": "Jambon Hocks"
+  },
+  {
+    "en": "ham slices",
+    "tr": "jambon dilimleri"
+  },
+  {
+    "en": "ham steak",
+    "tr": "jambonlu biftek"
+  },
+  {
+    "en": "ham steaks",
+    "tr": "jambon biftek"
+  },
+  {
+    "en": "hamburger",
+    "tr": "hamburger"
+  },
+  {
+    "en": "hamburger meat",
+    "tr": "hamburger eti"
+  },
+  {
+    "en": "hamburger or hot dog buns",
+    "tr": "hamburger veya sosisli sandviç çörekler"
+  },
+  {
+    "en": "haracter",
+    "tr": "haricter"
+  },
+  {
+    "en": "hard alcoholic cider",
+    "tr": "Sert alkolik elma şarabı"
+  },
+  {
+    "en": "hard cheese",
+    "tr": "sert peynir"
+  },
+  {
+    "en": "haricot beans",
+    "tr": "haricot fasulyesi"
+  },
+  {
+    "en": "harissa",
+    "tr": "harissa"
+  },
+  {
+    "en": "harusame noodles",
+    "tr": "Harusame Erişte"
+  },
+  {
+    "en": "hash browns",
+    "tr": "Hash Browns"
+  },
+  {
+    "en": "hass avocado",
+    "tr": "Hass Avokado"
+  },
+  {
+    "en": "hass avocadoes",
+    "tr": "Hass Avokadolar"
+  },
+  {
+    "en": "hatch red chili sauce",
+    "tr": "Hatch kırmızı biber sosu"
+  },
+  {
+    "en": "havarti cheese",
+    "tr": "Havarti peyniri"
+  },
+  {
+    "en": "havarti with dill",
+    "tr": "Dereotu ile Havarti"
+  },
+  {
+    "en": "hawaiian sea salt",
+    "tr": "Hawaii deniz tuzu"
+  },
+  {
+    "en": "hazelnut extract",
+    "tr": "fındık özü"
+  },
+  {
+    "en": "hazelnut kernels",
+    "tr": "fındık çekirdekleri"
+  },
+  {
+    "en": "hazelnut oil",
+    "tr": "fındık yağı"
+  },
+  {
+    "en": "hazelnut syrup",
+    "tr": "fındık şurubu"
+  },
+  {
+    "en": "hazelnut-flavored liqueur",
+    "tr": "fındık aromalı likör"
+  },
+  {
+    "en": "hazelnuts",
+    "tr": "fındık"
+  },
+  {
+    "en": "healthy poached salmon",
+    "tr": "Sağlıklı haşlanmış somon"
+  },
+  {
+    "en": "hearts of palm",
+    "tr": "Palm'ın Kalpleri"
+  },
+  {
+    "en": "hearts of palm in brine",
+    "tr": "Salamura Halk Kalpleri"
+  },
+  {
+    "en": "heavy cream",
+    "tr": "ağır krema"
+  },
+  {
+    "en": "heavy sweet cream",
+    "tr": "ağır tatlı krema"
+  },
+  {
+    "en": "heavy whipping cream",
+    "tr": "ağır çırpma kremi"
+  },
+  {
+    "en": "heinz chili sauce",
+    "tr": "Heinz Chili Sos"
+  },
+  {
+    "en": "heinz ketchup",
+    "tr": "Heinz Ketçap"
+  },
+  {
+    "en": "helens mint chutney",
+    "tr": "Helens Nane Chutney"
+  },
+  {
+    "en": "hellmanns mayonnaise",
+    "tr": "Hellmanns Mayonez"
+  },
+  {
+    "en": "herb",
+    "tr": "bitki"
+  },
+  {
+    "en": "herb broth",
+    "tr": "bitki suyu"
+  },
+  {
+    "en": "herb seasoning",
+    "tr": "Bitki Baharat"
+  },
+  {
+    "en": "herb-flavored vinegar",
+    "tr": "bitki aromalı sirke"
+  },
+  {
+    "en": "herb-seasoned salt",
+    "tr": "bitki ürpertici tuz"
+  },
+  {
+    "en": "herbal salt substitute",
+    "tr": "bitkisel tuz ikamesi"
+  },
+  {
+    "en": "herbal syrup",
+    "tr": "bitkisel şurup"
+  },
+  {
+    "en": "herbed croutons",
+    "tr": "otlak krutonlar"
+  },
+  {
+    "en": "herbs",
+    "tr": "otlar"
+  },
+  {
+    "en": "herbs of choice",
+    "tr": "Seçim bitkileri"
+  },
+  {
+    "en": "herdez red salsa",
+    "tr": "Herdez kırmızı salsa"
+  },
+  {
+    "en": "herring fillets",
+    "tr": "ringa balığı filetoları"
+  },
+  {
+    "en": "herring in wine sauce",
+    "tr": "Şarap Sosunda Ringa"
+  },
+  {
+    "en": "hickory flavored barbecue sauce",
+    "tr": "Hickory aromalı barbekü sosu"
+  },
+  {
+    "en": "hickory smoke salt",
+    "tr": "hickory duman tuzu"
+  },
+  {
+    "en": "hing",
+    "tr": "menteşe"
+  },
+  {
+    "en": "hing water",
+    "tr": "menteşe suyu"
+  },
+  {
+    "en": "hoagie roll",
+    "tr": "Hoagie Rulo"
+  },
+  {
+    "en": "hoisin sauce",
+    "tr": "hoisin sosu"
+  },
+  {
+    "en": "hominy",
+    "tr": "hominy"
+  },
+  {
+    "en": "honey",
+    "tr": "Bal"
+  },
+  {
+    "en": "honey muffins",
+    "tr": "Bal Muffins"
+  },
+  {
+    "en": "honey mustard mayonnaise",
+    "tr": "Ballı Hardal Mayonez"
+  },
+  {
+    "en": "honey syrup",
+    "tr": "bal şurubu"
+  },
+  {
+    "en": "honeydew",
+    "tr": "tatlı özsu"
+  },
+  {
+    "en": "honeydew melon",
+    "tr": "tatlı ve sulu kavun"
+  },
+  {
+    "en": "horseradish",
+    "tr": "yaban turpu"
+  },
+  {
+    "en": "hot chicken broth",
+    "tr": "Sıcak tavuk suyu"
+  },
+  {
+    "en": "hot chili beans",
+    "tr": "Sıcak biber"
+  },
+  {
+    "en": "hot chili pepper",
+    "tr": "Sıcak biber"
+  },
+  {
+    "en": "hot chili powder",
+    "tr": "Sıcak biber tozu"
+  },
+  {
+    "en": "hot chili sauce",
+    "tr": "Sıcak biber sosu"
+  },
+  {
+    "en": "hot green chili pepper",
+    "tr": "Sıcak yeşil biber"
+  },
+  {
+    "en": "hot green wasabi peas",
+    "tr": "Sıcak yeşil wasabi bezelye"
+  },
+  {
+    "en": "hot ketchup",
+    "tr": "sıcak ketçap"
+  },
+  {
+    "en": "hot mustard",
+    "tr": "sıcak hardal"
+  },
+  {
+    "en": "hot paprika",
+    "tr": "Sıcak kırmızı biber"
+  },
+  {
+    "en": "hot pork sausage",
+    "tr": "Sıcak domuz sosis"
+  },
+  {
+    "en": "hot red chili pepper",
+    "tr": "Sıcak kırmızı biber"
+  },
+  {
+    "en": "hot salsa",
+    "tr": "Sıcak Salsa"
+  },
+  {
+    "en": "hot sauce",
+    "tr": "sıcak sos"
+  },
+  {
+    "en": "hot sausage",
+    "tr": "Sıcak sosis"
+  },
+  {
+    "en": "hot sausage patties",
+    "tr": "Sıcak sosis köftesi"
+  },
+  {
+    "en": "hungarian paprika",
+    "tr": "Macariçek"
+  },
+  {
+    "en": "hungarian wax chile",
+    "tr": "Macar balmumu şili"
+  },
+  {
+    "en": "hyssop",
+    "tr": "çördük"
+  },
+  {
+    "en": "ice cream",
+    "tr": "dondurma"
+  },
+  {
+    "en": "iceberg lettuce",
+    "tr": "buzdağı marul"
+  },
+  {
+    "en": "icing sugar",
+    "tr": "pudra şekeri"
+  },
+  {
+    "en": "ied citron peel",
+    "tr": "IED Citron Peel"
+  },
+  {
+    "en": "ied dates",
+    "tr": "IED Tarihleri"
+  },
+  {
+    "en": "ied figs",
+    "tr": "IED incir"
+  },
+  {
+    "en": "ied ginger",
+    "tr": "IED zencefil"
+  },
+  {
+    "en": "ied lemon peel",
+    "tr": "IED limon kabuğu"
+  },
+  {
+    "en": "ied papaya",
+    "tr": "IED Papaya"
+  },
+  {
+    "en": "ime juice",
+    "tr": "IME suyu"
+  },
+  {
+    "en": "imitation bacon bits",
+    "tr": "İmitasyon Pastırma Bitleri"
+  },
+  {
+    "en": "imitation vanilla",
+    "tr": "taklit vanilya"
+  },
+  {
+    "en": "indian spice blend",
+    "tr": "Hint Baharat Karışımı"
+  },
+  {
+    "en": "irish cream",
+    "tr": "İrlanda kreması"
+  },
+  {
+    "en": "israeli couscous",
+    "tr": "İsrail"
+  },
+  {
+    "en": "jaggery",
+    "tr": "şakacı"
+  },
+  {
+    "en": "jalapeno",
+    "tr": "Jalapeno"
+  },
+  {
+    "en": "jalapeno chile",
+    "tr": "Jalapeno Şili"
+  },
+  {
+    "en": "jalapeno chiles",
+    "tr": "Jalapeno Chiles"
+  },
+  {
+    "en": "jalapeno chilie",
+    "tr": "Jalapeno Chilie"
+  },
+  {
+    "en": "jalapeno chilies",
+    "tr": "Jalapeno Chilies"
+  },
+  {
+    "en": "jalapeno havarti cheese",
+    "tr": "Jalapeno Havarti peyniri"
+  },
+  {
+    "en": "jalapeno jack cheese",
+    "tr": "Jalapeno Jack Peyniri"
+  },
+  {
+    "en": "jalapeno peppers",
+    "tr": "Jalapeno Peppers"
+  },
+  {
+    "en": "jalapenos",
+    "tr": "Jalapenos"
+  },
+  {
+    "en": "jalepon",
+    "tr": "jalepon"
+  },
+  {
+    "en": "jamon serrano",
+    "tr": "Jamon Serrano"
+  },
+  {
+    "en": "jasmine rice",
+    "tr": "Yasemin pirinç"
+  },
+  {
+    "en": "jeera",
+    "tr": "jeera"
+  },
+  {
+    "en": "jeera powder",
+    "tr": "jeera tozu"
+  },
+  {
+    "en": "jeera seeds",
+    "tr": "Jeera Tohumları"
+  },
+  {
+    "en": "jeffs salsa",
+    "tr": "Jeffs Salsa"
+  },
+  {
+    "en": "jellied cranberry sauce",
+    "tr": "Jelli kızılcık sosu"
+  },
+  {
+    "en": "jello gelatin",
+    "tr": "jello jelatin"
+  },
+  {
+    "en": "jellovanilla pudding mix",
+    "tr": "Jellovanilla puding karışımı"
+  },
+  {
+    "en": "jicama",
+    "tr": "jicama"
+  },
+  {
+    "en": "jonathan apples",
+    "tr": "Jonathan elmaları"
+  },
+  {
+    "en": "juice",
+    "tr": "meyve suyu"
+  },
+  {
+    "en": "juice of",
+    "tr": "meyve suyu"
+  },
+  {
+    "en": "jujubes",
+    "tr": "Jujubes"
+  },
+  {
+    "en": "kaffir lime leaf",
+    "tr": "Kaffir kireç yaprağı"
+  },
+  {
+    "en": "kaffir lime leaves",
+    "tr": "Kaffir kireç yaprakları"
+  },
+  {
+    "en": "kaffir lime zest",
+    "tr": "Kaffir kireç kabuğu"
+  },
+  {
+    "en": "kahlua",
+    "tr": "Kahlu"
+  },
+  {
+    "en": "kala namak",
+    "tr": "Kala Namak"
+  },
+  {
+    "en": "kale",
+    "tr": "lahana"
+  },
+  {
+    "en": "kale leaves",
+    "tr": "Kale Yaprakları"
+  },
+  {
+    "en": "kamaboko",
+    "tr": "Kamaboko"
+  },
+  {
+    "en": "kanimiso",
+    "tr": "kanimiso"
+  },
+  {
+    "en": "karela",
+    "tr": "karela"
+  },
+  {
+    "en": "kasha",
+    "tr": "Kasha"
+  },
+  {
+    "en": "kashmiri chili powder",
+    "tr": "Keşmir biber tozu"
+  },
+  {
+    "en": "kasseri cheese",
+    "tr": "Kasseri peyniri"
+  },
+  {
+    "en": "kasuri methi",
+    "tr": "Kasuri Methi"
+  },
+  {
+    "en": "kernel corn",
+    "tr": "çekirdek mısır"
+  },
+  {
+    "en": "ketchup",
+    "tr": "ketçap"
+  },
+  {
+    "en": "ketjap manis",
+    "tr": "Ketjap Manis"
+  },
+  {
+    "en": "kewra essence",
+    "tr": "Kewra özü"
+  },
+  {
+    "en": "key lime",
+    "tr": "anahtar kireç"
+  },
+  {
+    "en": "key lime juice",
+    "tr": "Anahtar limon suyu"
+  },
+  {
+    "en": "kidney bean",
+    "tr": "barbunya"
+  },
+  {
+    "en": "kidney beans",
+    "tr": "barbunya"
+  },
+  {
+    "en": "kielbasa",
+    "tr": "Kielbasa"
+  },
+  {
+    "en": "kikkoman soy sauce",
+    "tr": "Kikkoman soya sosu"
+  },
+  {
+    "en": "kingfish",
+    "tr": "Kingfish"
+  },
+  {
+    "en": "kipfler potatoes",
+    "tr": "Kipfler patates"
+  },
+  {
+    "en": "kirby cucumber",
+    "tr": "Kirby Salatalık"
+  },
+  {
+    "en": "kirsch",
+    "tr": "Kirsch"
+  },
+  {
+    "en": "kirsch liqueur",
+    "tr": "Kirsch likörü"
+  },
+  {
+    "en": "kitchen bouquet",
+    "tr": "mutfak buketi"
+  },
+  {
+    "en": "kiwi",
+    "tr": "kivi"
+  },
+  {
+    "en": "kiwi fruit",
+    "tr": "kivi meyvesi"
+  },
+  {
+    "en": "kiwi fruits",
+    "tr": "kivi meyveleri"
+  },
+  {
+    "en": "knorr chicken bouillon",
+    "tr": "Knorr Chicken Bouillon"
+  },
+  {
+    "en": "kohlrabi",
+    "tr": "Kohlrabi"
+  },
+  {
+    "en": "kraft healthy cheddar",
+    "tr": "Kraft Sağlıklı Çedar"
+  },
+  {
+    "en": "kulfi",
+    "tr": "kulek"
+  },
+  {
+    "en": "kumara",
+    "tr": "Kumara"
+  },
+  {
+    "en": "kumquat",
+    "tr": "Kumquat"
+  },
+  {
+    "en": "la chinata bittersweet paprika",
+    "tr": "La Chinata Bittersweet Paprika"
+  },
+  {
+    "en": "lady finger cookie",
+    "tr": "Lady Finger Kurabiye"
+  },
+  {
+    "en": "ladyfinger cookies",
+    "tr": "Ladyfinger Kurabiyeleri"
+  },
+  {
+    "en": "lager beer",
+    "tr": "lager birası"
+  },
+  {
+    "en": "lamb",
+    "tr": "kuzu"
+  },
+  {
+    "en": "lamb backstraps",
+    "tr": "kuzu backstraps"
+  },
+  {
+    "en": "lamb blade chops",
+    "tr": "Kuzu bıçak pirzolası"
+  },
+  {
+    "en": "lamb bones",
+    "tr": "kuzu kemikleri"
+  },
+  {
+    "en": "lamb breast",
+    "tr": "kuzu göğsü"
+  },
+  {
+    "en": "lamb chop",
+    "tr": "kuzu pirzolası"
+  },
+  {
+    "en": "lamb chops",
+    "tr": "kuzu pirzolası"
+  },
+  {
+    "en": "lamb cutlets",
+    "tr": "kuzu pirzola"
+  },
+  {
+    "en": "lamb fillet",
+    "tr": "kuzu filetosu"
+  },
+  {
+    "en": "lamb fillets",
+    "tr": "kuzu filetoları"
+  },
+  {
+    "en": "lamb leg chops",
+    "tr": "Kuzu bacak pirzolaları"
+  },
+  {
+    "en": "lamb leg steaks",
+    "tr": "Kuzu bacak biftekleri"
+  },
+  {
+    "en": "lamb liver",
+    "tr": "kuzu karaciğeri"
+  },
+  {
+    "en": "lamb loin chops",
+    "tr": "kuzu fileto pirzolaları"
+  },
+  {
+    "en": "lamb necks",
+    "tr": "kuzu etleri"
+  },
+  {
+    "en": "lamb pluck",
+    "tr": "kuzu koparma"
+  },
+  {
+    "en": "lamb racks",
+    "tr": "kuzu rafları"
+  },
+  {
+    "en": "lamb rib chops",
+    "tr": "Kuzu kaburga pirzolası"
+  },
+  {
+    "en": "lamb ribs",
+    "tr": "kuzu kaburga"
+  },
+  {
+    "en": "lamb rotisserie/grill methods",
+    "tr": "Lamb rotisserie/ızgara yöntemleri"
+  },
+  {
+    "en": "lamb shank",
+    "tr": "kuzu sapı"
+  },
+  {
+    "en": "lamb shanks",
+    "tr": "Kuzu Shanks"
+  },
+  {
+    "en": "lamb shoulder",
+    "tr": "kuzu omuz"
+  },
+  {
+    "en": "lamb sirloin",
+    "tr": "kuzu sığır filetosu"
+  },
+  {
+    "en": "lamb steaks",
+    "tr": "kuzu biftek"
+  },
+  {
+    "en": "lamb stew meat",
+    "tr": "kuzu et et eti"
+  },
+  {
+    "en": "lamb stock",
+    "tr": "kuzu stoğu"
+  },
+  {
+    "en": "lamb tenderloin",
+    "tr": "kuzu bonfile"
+  },
+  {
+    "en": "lamb tenderloins",
+    "tr": "kuzu bonfile"
+  },
+  {
+    "en": "lardons",
+    "tr": "lardon"
+  },
+  {
+    "en": "large curd cottage cheese",
+    "tr": "büyük lor süzme peynir"
+  },
+  {
+    "en": "large lima beans",
+    "tr": "büyük lima fasulyesi"
+  },
+  {
+    "en": "large mushrooms",
+    "tr": "büyük mantarlar"
+  },
+  {
+    "en": "large shrimp",
+    "tr": "büyük karides"
+  },
+  {
+    "en": "large-curd cottage cheese",
+    "tr": "Büyük Kürt Süzme Peynir"
+  },
+  {
+    "en": "las palmas green chili sauce",
+    "tr": "Las Palmas Green Chili Sos"
+  },
+  {
+    "en": "lasagna noodles",
+    "tr": "lazanya erişte"
+  },
+  {
+    "en": "lavash",
+    "tr": "lavash"
+  },
+  {
+    "en": "lavender honey",
+    "tr": "lavanta bal"
+  },
+  {
+    "en": "lavender sugar with vanilla",
+    "tr": "Vanilya ile lavanta şekeri"
+  },
+  {
+    "en": "lea & perrins worcestershire sauce",
+    "tr": "Lea & Perrins Worcestershire Sos"
+  },
+  {
+    "en": "leaf lettuce",
+    "tr": "yaprak marul"
+  },
+  {
+    "en": "leaf oregano",
+    "tr": "yaprak kekik"
+  },
+  {
+    "en": "leaf thyme",
+    "tr": "yaprak kekik"
+  },
+  {
+    "en": "lean bacon",
+    "tr": "Yalın pastırma"
+  },
+  {
+    "en": "lean baked ham",
+    "tr": "Yalın fırında jambon"
+  },
+  {
+    "en": "lean beef",
+    "tr": "yalın sığır eti"
+  },
+  {
+    "en": "lean beef chuck roast",
+    "tr": "Yalın sığır eti Chuck Rosto"
+  },
+  {
+    "en": "lean beef round",
+    "tr": "Yalın sığır eti"
+  },
+  {
+    "en": "lean cured ham",
+    "tr": "Yalın kürlenmiş jambon"
+  },
+  {
+    "en": "lean ham",
+    "tr": "yağsız jambon"
+  },
+  {
+    "en": "lean hamburger",
+    "tr": "Yalın hamburger"
+  },
+  {
+    "en": "lean lamb",
+    "tr": "yağsız kuzu"
+  },
+  {
+    "en": "lean lamb fillets",
+    "tr": "Yalın kuzu filetoları"
+  },
+  {
+    "en": "lean lamb steaks",
+    "tr": "Yalın kuzu biftek"
+  },
+  {
+    "en": "lean pork",
+    "tr": "yağsız domuz eti"
+  },
+  {
+    "en": "lean rump steak",
+    "tr": "yalın biftek"
+  },
+  {
+    "en": "lean turkey",
+    "tr": "Yalın Türkiye"
+  },
+  {
+    "en": "leanlamb",
+    "tr": "yalın"
+  },
+  {
+    "en": "leanleg of lamb",
+    "tr": "Kuzu Leanleg"
+  },
+  {
+    "en": "lebanese cucumber",
+    "tr": "Lübnan salatalık"
+  },
+  {
+    "en": "lebanese cucumbers",
+    "tr": "Lübnanlı salatalık"
+  },
+  {
+    "en": "leek",
+    "tr": "pırasa"
+  },
+  {
+    "en": "leeks",
+    "tr": "pırasa"
+  },
+  {
+    "en": "leg of lamb",
+    "tr": "Kuzu bacağı"
+  },
+  {
+    "en": "lemon",
+    "tr": "limon"
+  },
+  {
+    "en": "lemon balm",
+    "tr": "limon balsamı"
+  },
+  {
+    "en": "lemon balm leaves",
+    "tr": "Limon Balsamı Yaprakları"
+  },
+  {
+    "en": "lemon basil",
+    "tr": "limon fesleği"
+  },
+  {
+    "en": "lemon gelatin",
+    "tr": "limon jelatin"
+  },
+  {
+    "en": "lemon grass",
+    "tr": "limon otu"
+  },
+  {
+    "en": "lemon grass root",
+    "tr": "limon otu kökü"
+  },
+  {
+    "en": "lemon juice",
+    "tr": "limon suyu"
+  },
+  {
+    "en": "lemon leaves",
+    "tr": "limon yaprakları"
+  },
+  {
+    "en": "lemon marmalade",
+    "tr": "limon marmelat"
+  },
+  {
+    "en": "lemon parmesan vinaigrette",
+    "tr": "Limon Parmesan Vinaigrette"
+  },
+  {
+    "en": "lemon peel",
+    "tr": "limon kabuğu"
+  },
+  {
+    "en": "lemon pepper",
+    "tr": "limon biberi"
+  },
+  {
+    "en": "lemon pudding",
+    "tr": "limon puding"
+  },
+  {
+    "en": "lemon rind",
+    "tr": "limon kabuğu"
+  },
+  {
+    "en": "lemon slices",
+    "tr": "limon dilimleri"
+  },
+  {
+    "en": "lemon twist",
+    "tr": "limon bükümü"
+  },
+  {
+    "en": "lemon verbena",
+    "tr": "Limon Verbena"
+  },
+  {
+    "en": "lemon wedges",
+    "tr": "limon takozları"
+  },
+  {
+    "en": "lemon yogurt",
+    "tr": "limon yoğurt"
+  },
+  {
+    "en": "lemon zest",
+    "tr": "limon kabuğu rendesi"
+  },
+  {
+    "en": "lemongrass",
+    "tr": "limon otu"
+  },
+  {
+    "en": "lentil sprouts",
+    "tr": "mercimek lahanası"
+  },
+  {
+    "en": "lentils",
+    "tr": "mercimek"
+  },
+  {
+    "en": "lettuce",
+    "tr": "marul"
+  },
+  {
+    "en": "lettuce cups",
+    "tr": "marul bardağı"
+  },
+  {
+    "en": "lettuce greens",
+    "tr": "marul yeşillikleri"
+  },
+  {
+    "en": "lettuce head",
+    "tr": "marul başı"
+  },
+  {
+    "en": "lettuce leaves",
+    "tr": "marul yaprakları"
+  },
+  {
+    "en": "libbyspumpkin",
+    "tr": "Libbyspumpkin"
+  },
+  {
+    "en": "lima beans",
+    "tr": "lima fasulyesi"
+  },
+  {
+    "en": "limburger cheese",
+    "tr": "limburger peyniri"
+  },
+  {
+    "en": "lime",
+    "tr": "kireç"
+  },
+  {
+    "en": "lime concentrate",
+    "tr": "kireç konsantresi"
+  },
+  {
+    "en": "lime jell-o gelatin",
+    "tr": "kireç jell-o jelatin"
+  },
+  {
+    "en": "lime juice",
+    "tr": "limon suyu"
+  },
+  {
+    "en": "lime leaves",
+    "tr": "kireç yaprakları"
+  },
+  {
+    "en": "lime mahi-mahi",
+    "tr": "Kireç Mahi-Mahi"
+  },
+  {
+    "en": "lime peel",
+    "tr": "kireç kabuğu"
+  },
+  {
+    "en": "lime pickled red onion",
+    "tr": "Kireç turşusu kırmızı soğan"
+  },
+  {
+    "en": "lime powder",
+    "tr": "kireç tozu"
+  },
+  {
+    "en": "lime rind",
+    "tr": "kireç kabuğu"
+  },
+  {
+    "en": "lime slices",
+    "tr": "kireç dilimleri"
+  },
+  {
+    "en": "lime twist",
+    "tr": "kireç bükümü"
+  },
+  {
+    "en": "lime wedge",
+    "tr": "kireç"
+  },
+  {
+    "en": "lime wedges",
+    "tr": "kireç takozları"
+  },
+  {
+    "en": "lime zest",
+    "tr": "kireç rendesi"
+  },
+  {
+    "en": "limes",
+    "tr": "kireç"
+  },
+  {
+    "en": "limoneade concentrate",
+    "tr": "Limoneade konsantresi"
+  },
+  {
+    "en": "lingcod",
+    "tr": "lingcod"
+  },
+  {
+    "en": "linguine",
+    "tr": "linguine"
+  },
+  {
+    "en": "link sausage",
+    "tr": "link sosis"
+  },
+  {
+    "en": "liqueur",
+    "tr": "likör"
+  },
+  {
+    "en": "liquid garlic",
+    "tr": "sıvı sarımsak"
+  },
+  {
+    "en": "liquid honey",
+    "tr": "sıvı bal"
+  },
+  {
+    "en": "liquid shortening",
+    "tr": "sıvı kısaltma"
+  },
+  {
+    "en": "liquid smoke",
+    "tr": "sıvı dumanı"
+  },
+  {
+    "en": "liquid smoke flavoring",
+    "tr": "sıvı duman aroması"
+  },
+  {
+    "en": "liquid stevia",
+    "tr": "Sıvı Stevia"
+  },
+  {
+    "en": "liquid sweetener",
+    "tr": "sıvı tatlandırıcı"
+  },
+  {
+    "en": "litchis",
+    "tr": "Litchis"
+  },
+  {
+    "en": "lite evaporated milk",
+    "tr": "Lite buharlaştırılmış süt"
+  },
+  {
+    "en": "lite olive oil",
+    "tr": "lite zeytinyağı"
+  },
+  {
+    "en": "lite silken tofu",
+    "tr": "lite ipeksi tofu"
+  },
+  {
+    "en": "lite tofu",
+    "tr": "lite tofu"
+  },
+  {
+    "en": "littleneck clams",
+    "tr": "Littleneck istiridye"
+  },
+  {
+    "en": "live lobsters",
+    "tr": "Canlı ıstakoz"
+  },
+  {
+    "en": "liver",
+    "tr": "karaciğer"
+  },
+  {
+    "en": "lobster",
+    "tr": "Istakoz"
+  },
+  {
+    "en": "lobster bisque",
+    "tr": "ıstakoz bisque"
+  },
+  {
+    "en": "lobster head",
+    "tr": "ıstakoz kafası"
+  },
+  {
+    "en": "lobster meat",
+    "tr": "ıstakoz eti"
+  },
+  {
+    "en": "lobster tail",
+    "tr": "ıstakoz kuyruğu"
+  },
+  {
+    "en": "lobster tails",
+    "tr": "ıstakoz kuyrukları"
+  },
+  {
+    "en": "lobsters",
+    "tr": "ıstakoz"
+  },
+  {
+    "en": "loin lamb",
+    "tr": "Loin Lamb"
+  },
+  {
+    "en": "london broil beef",
+    "tr": "Londra Broil Sığır"
+  },
+  {
+    "en": "long grain brown rice",
+    "tr": "Uzun Tahıl Kahverengi Pirinç"
+  },
+  {
+    "en": "long grain white rice",
+    "tr": "uzun tahıl beyaz pirinç"
+  },
+  {
+    "en": "long-grain white rice",
+    "tr": "uzun tahıllı beyaz pirinç"
+  },
+  {
+    "en": "longans",
+    "tr": "Longans"
+  },
+  {
+    "en": "lotus leaves",
+    "tr": "Lotus yaprakları"
+  },
+  {
+    "en": "lotus root",
+    "tr": "lotus kökü"
+  },
+  {
+    "en": "lotus seeds",
+    "tr": "lotus tohumları"
+  },
+  {
+    "en": "lovage",
+    "tr": "sevme"
+  },
+  {
+    "en": "low fat  sweetened condensed milk",
+    "tr": "Düşük yağlı tatlandırılmış yoğun süt"
+  },
+  {
+    "en": "lump crab meat",
+    "tr": "toplu yengeç eti"
+  },
+  {
+    "en": "lump crabmeat",
+    "tr": "toplu crabmeat"
+  },
+  {
+    "en": "lumpia skins",
+    "tr": "lumpia derileri"
+  },
+  {
+    "en": "lychee",
+    "tr": "lychee"
+  },
+  {
+    "en": "lychee juice",
+    "tr": "lychee suyu"
+  },
+  {
+    "en": "lychees",
+    "tr": "lychees"
+  },
+  {
+    "en": "lychees in heavy syrup",
+    "tr": "ağır şurupta lychees"
+  },
+  {
+    "en": "macaroni",
+    "tr": "makarna"
+  },
+  {
+    "en": "macaroni noodles",
+    "tr": "Makarna Erişte"
+  },
+  {
+    "en": "mace",
+    "tr": "topuz"
+  },
+  {
+    "en": "mace blade",
+    "tr": "Topçu Bıçağı"
+  },
+  {
+    "en": "mace blades",
+    "tr": "Topçu Bıçakları"
+  },
+  {
+    "en": "mackerel fillet",
+    "tr": "uskumru fileto"
+  },
+  {
+    "en": "mackerel fillets",
+    "tr": "uskumru filetoları"
+  },
+  {
+    "en": "madeira wine",
+    "tr": "Madeira Şarabı"
+  },
+  {
+    "en": "madras curry",
+    "tr": "Madras Curry"
+  },
+  {
+    "en": "mafalda pasta",
+    "tr": "mafalda makarna"
+  },
+  {
+    "en": "mahi mahi",
+    "tr": "Mahi Mahi"
+  },
+  {
+    "en": "mahi mahi fillet",
+    "tr": "Mahi Mahi fileto"
+  },
+  {
+    "en": "mahi mahi fillets",
+    "tr": "Mahi Mahi filetoları"
+  },
+  {
+    "en": "major grey chutney",
+    "tr": "büyük gri chutney"
+  },
+  {
+    "en": "malibu rum",
+    "tr": "Malibu Rum"
+  },
+  {
+    "en": "malt vinegar",
+    "tr": "malt sirke"
+  },
+  {
+    "en": "mama clericis fruit syrup",
+    "tr": "Mama Clericis Meyve Şurubu"
+  },
+  {
+    "en": "manchego cheese",
+    "tr": "Manchego peyniri"
+  },
+  {
+    "en": "mange-tout peas",
+    "tr": "mange tout bezelye"
+  },
+  {
+    "en": "mange-touts peas",
+    "tr": "mange touts bezelye"
+  },
+  {
+    "en": "mango",
+    "tr": "Mango"
+  },
+  {
+    "en": "mango chutney",
+    "tr": "mango turşusu"
+  },
+  {
+    "en": "mango ice cream",
+    "tr": "mango dondurma"
+  },
+  {
+    "en": "mango pickle",
+    "tr": "mango turşusu"
+  },
+  {
+    "en": "mango powder",
+    "tr": "mango tozu"
+  },
+  {
+    "en": "mango pulp",
+    "tr": "mango hamuru"
+  },
+  {
+    "en": "mango puree",
+    "tr": "mango püresi"
+  },
+  {
+    "en": "mango salsa",
+    "tr": "mango salsa"
+  },
+  {
+    "en": "mangoes",
+    "tr": "mango"
+  },
+  {
+    "en": "manila clams",
+    "tr": "Manila istiridye"
+  },
+  {
+    "en": "manioc flour",
+    "tr": "maniok unu"
+  },
+  {
+    "en": "manioc starch",
+    "tr": "Manioc nişastası"
+  },
+  {
+    "en": "maple syrup",
+    "tr": "akçaağaç şurubu"
+  },
+  {
+    "en": "maraschino cherries",
+    "tr": "Maraschino Kirazları"
+  },
+  {
+    "en": "maraschino cherry",
+    "tr": "Maraschino kiraz"
+  },
+  {
+    "en": "maraschino cherry juice",
+    "tr": "Maraschino Kiraz Suyu"
+  },
+  {
+    "en": "margarine",
+    "tr": "margarin"
+  },
+  {
+    "en": "marinara sauce",
+    "tr": "marinara sosu"
+  },
+  {
+    "en": "marinated artichoke",
+    "tr": "marine edilmiş enginar"
+  },
+  {
+    "en": "marinated artichokes",
+    "tr": "marine edilmiş enginar"
+  },
+  {
+    "en": "marinated tofu",
+    "tr": "marine tofu"
+  },
+  {
+    "en": "marjoram",
+    "tr": "mercanköşk"
+  },
+  {
+    "en": "marjoram leaves",
+    "tr": "Marjoram yaprakları"
+  },
+  {
+    "en": "marmalade",
+    "tr": "marmelat"
+  },
+  {
+    "en": "marnier",
+    "tr": "marnier"
+  },
+  {
+    "en": "marrow",
+    "tr": "kemik iliği"
+  },
+  {
+    "en": "marsala",
+    "tr": "Marsala"
+  },
+  {
+    "en": "marsala wine",
+    "tr": "Marsala Şarabı"
+  },
+  {
+    "en": "marshmallow",
+    "tr": "hatmi"
+  },
+  {
+    "en": "marshmallow cream",
+    "tr": "Marshmallow Kremi"
+  },
+  {
+    "en": "marshmallow creme",
+    "tr": "Marshmallow Creme"
+  },
+  {
+    "en": "marshmallows",
+    "tr": "marshmallow"
+  },
+  {
+    "en": "marzipan",
+    "tr": "badem ezmesi"
+  },
+  {
+    "en": "marzipan paste",
+    "tr": "marzipan macun"
+  },
+  {
+    "en": "masa corn flour",
+    "tr": "masa mısır unu"
+  },
+  {
+    "en": "masa dough",
+    "tr": "masa hamuru"
+  },
+  {
+    "en": "masa harina",
+    "tr": "Masa Harina"
+  },
+  {
+    "en": "masa harina flour",
+    "tr": "masa harina unu"
+  },
+  {
+    "en": "masa harina mix",
+    "tr": "masa harina karışımı"
+  },
+  {
+    "en": "masago smelt roe",
+    "tr": "masago kokusu"
+  },
+  {
+    "en": "masala",
+    "tr": "masala"
+  },
+  {
+    "en": "mascarpone cheese",
+    "tr": "maskarpon peyniri"
+  },
+  {
+    "en": "massamun curry paste",
+    "tr": "Massamun Curry Macunu"
+  },
+  {
+    "en": "matzo meal",
+    "tr": "Matzo Yemeği"
+  },
+  {
+    "en": "mayonnaise",
+    "tr": "mayonez"
+  },
+  {
+    "en": "mccormick black pepper",
+    "tr": "McCormick Karabiber"
+  },
+  {
+    "en": "mcintosh apple",
+    "tr": "McIntosh Apple"
+  },
+  {
+    "en": "mcintosh apples",
+    "tr": "McIntosh Elma"
+  },
+  {
+    "en": "meat",
+    "tr": "et"
+  },
+  {
+    "en": "meat sauce",
+    "tr": "et sosu"
+  },
+  {
+    "en": "meatballs",
+    "tr": "köfteler"
+  },
+  {
+    "en": "mediterranean oregano",
+    "tr": "Akdeniz kekik"
+  },
+  {
+    "en": "melon",
+    "tr": "kavun"
+  },
+  {
+    "en": "melon balls",
+    "tr": "kavun topları"
+  },
+  {
+    "en": "meringue cookies",
+    "tr": "Meringue kurabiyeleri"
+  },
+  {
+    "en": "mesclun",
+    "tr": "mescl"
+  },
+  {
+    "en": "metaxa br",
+    "tr": "Metaxa BR"
+  },
+  {
+    "en": "methi dana",
+    "tr": "Methi Dana"
+  },
+  {
+    "en": "methi leaves",
+    "tr": "Methi yaprakları"
+  },
+  {
+    "en": "methi seeds",
+    "tr": "methi tohumları"
+  },
+  {
+    "en": "mexican oregano",
+    "tr": "Meksika Kekik"
+  },
+  {
+    "en": "mexican salsa",
+    "tr": "Meksika Salsa"
+  },
+  {
+    "en": "mexican spice seasoning mix",
+    "tr": "Meksika baharat baharat karışımı"
+  },
+  {
+    "en": "meyers dark rum",
+    "tr": "Meyers Dark Rum"
+  },
+  {
+    "en": "mild taco sauce",
+    "tr": "hafif taco sosu"
+  },
+  {
+    "en": "milk",
+    "tr": "süt"
+  },
+  {
+    "en": "milk powder",
+    "tr": "süt tozu"
+  },
+  {
+    "en": "milk solids",
+    "tr": "süt katı maddeleri"
+  },
+  {
+    "en": "milk substitute",
+    "tr": "süt yerine"
+  },
+  {
+    "en": "mince meat",
+    "tr": "kıyamet eti"
+  },
+  {
+    "en": "minced  fresh garlic",
+    "tr": "kıyılmış taze sarımsak"
+  },
+  {
+    "en": "minced  garlic",
+    "tr": "kıyılmış sarımsak"
+  },
+  {
+    "en": "minced beef",
+    "tr": "kıyılmış sığır eti"
+  },
+  {
+    "en": "minced clams",
+    "tr": "kıyılmış istiridye"
+  },
+  {
+    "en": "mineral water",
+    "tr": "maden suyu"
+  },
+  {
+    "en": "mint",
+    "tr": "nane"
+  },
+  {
+    "en": "mint paste",
+    "tr": "nane macunu"
+  },
+  {
+    "en": "mint powder",
+    "tr": "nane tozu"
+  },
+  {
+    "en": "mint sauce",
+    "tr": "nane sosu"
+  },
+  {
+    "en": "mint sprig",
+    "tr": "nane salgısı"
+  },
+  {
+    "en": "mint sprigs",
+    "tr": "nane dalları"
+  },
+  {
+    "en": "mint-cori",
+    "tr": "nane"
+  },
+  {
+    "en": "miracle whip",
+    "tr": "mucize kırbaç"
+  },
+  {
+    "en": "miracle whip light",
+    "tr": "mucize kırbaç ışığı"
+  },
+  {
+    "en": "mirepoix",
+    "tr": "Mirepoix"
+  },
+  {
+    "en": "mirin",
+    "tr": "Mirin"
+  },
+  {
+    "en": "mirliton",
+    "tr": "Mirliton"
+  },
+  {
+    "en": "miso",
+    "tr": "miso"
+  },
+  {
+    "en": "miso soup mix",
+    "tr": "miso çorba karışımı"
+  },
+  {
+    "en": "mixed  herbs",
+    "tr": "karışık otlar"
+  },
+  {
+    "en": "mixed berries",
+    "tr": "karışık meyveler"
+  },
+  {
+    "en": "mixed berry",
+    "tr": "karışık meyve"
+  },
+  {
+    "en": "mixed cheese",
+    "tr": "karışık peynir"
+  },
+  {
+    "en": "mixed cheeses",
+    "tr": "karışık peynirler"
+  },
+  {
+    "en": "mixed herbs",
+    "tr": "karışık otlar"
+  },
+  {
+    "en": "mixed red",
+    "tr": "Kırmızı Kırmızı"
+  },
+  {
+    "en": "mixed spice",
+    "tr": "karışık baharat"
+  },
+  {
+    "en": "molasses",
+    "tr": "pekmez"
+  },
+  {
+    "en": "monosodium glutamate",
+    "tr": "monosodyum glutamat"
+  },
+  {
+    "en": "monterey jack",
+    "tr": "Monterey Jack"
+  },
+  {
+    "en": "monterey jack cheese",
+    "tr": "Monterey Jack Peyniri"
+  },
+  {
+    "en": "monterey jack pepper cheese",
+    "tr": "Monterey Jack Biber Peyniri"
+  },
+  {
+    "en": "monterey jack-style soy cheese",
+    "tr": "Monterey Jack tarzı soya peyniri"
+  },
+  {
+    "en": "moose meat",
+    "tr": "geyik eti"
+  },
+  {
+    "en": "morel",
+    "tr": "moral"
+  },
+  {
+    "en": "morels",
+    "tr": "Moreller"
+  },
+  {
+    "en": "morningstar farms grillers",
+    "tr": "Morningstar Farms Grillers"
+  },
+  {
+    "en": "mortadella",
+    "tr": "mortadella"
+  },
+  {
+    "en": "morton lite salt",
+    "tr": "Morton Lite Tuz"
+  },
+  {
+    "en": "mortons coarse salt",
+    "tr": "Mortons Kaba Tuz"
+  },
+  {
+    "en": "mostaccioli pasta",
+    "tr": "Mostaccioli makarna"
+  },
+  {
+    "en": "mozzarella",
+    "tr": "mozzarella"
+  },
+  {
+    "en": "mozzarella balls",
+    "tr": "Mozzarella topları"
+  },
+  {
+    "en": "mozzarella cheddar blend cheese",
+    "tr": "Mozzarella Cheddar Karışım Peyniri"
+  },
+  {
+    "en": "mozzarella cheese",
+    "tr": "mozzarella peyniri"
+  },
+  {
+    "en": "mozzarella-cheddar blend cheese",
+    "tr": "mozzarella-cheddar karışım peyniri"
+  },
+  {
+    "en": "msg",
+    "tr": "msg"
+  },
+  {
+    "en": "mucho gusto taco seasoning mix",
+    "tr": "Mucho Gusto Taco Baharat Karışımı"
+  },
+  {
+    "en": "muenster cheese",
+    "tr": "Muenster peyniri"
+  },
+  {
+    "en": "muffin",
+    "tr": "kek"
+  },
+  {
+    "en": "muffins",
+    "tr": "çörek"
+  },
+  {
+    "en": "mugwort",
+    "tr": "pelin"
+  },
+  {
+    "en": "multi colored shell macaroni",
+    "tr": "Çok renkli kabuk makarna"
+  },
+  {
+    "en": "mung bean sprouts",
+    "tr": "mung fasulye filizi"
+  },
+  {
+    "en": "muscovado sugar",
+    "tr": "Muskovado şekeri"
+  },
+  {
+    "en": "mushroom",
+    "tr": "mantar"
+  },
+  {
+    "en": "mushroom liquid",
+    "tr": "mantar sıvısı"
+  },
+  {
+    "en": "muskmelon",
+    "tr": "kavun"
+  },
+  {
+    "en": "mussels",
+    "tr": "Midye"
+  },
+  {
+    "en": "mustard",
+    "tr": "hardal"
+  },
+  {
+    "en": "mustard powder",
+    "tr": "hardal tozu"
+  },
+  {
+    "en": "mustard seeds",
+    "tr": "hardal tohumu"
+  },
+  {
+    "en": "my big fat seasoning",
+    "tr": "benim büyük şişman baharatım"
+  },
+  {
+    "en": "my take on sneaky orange puree",
+    "tr": "Sneaky Portakal Püresi Üzerine Aldığım"
+  },
+  {
+    "en": "nacho cheese flavored tortilla chips",
+    "tr": "Nacho peyniri aromalı tortilla cipsleri"
+  },
+  {
+    "en": "naked guacamole",
+    "tr": "çıplak guacamole"
+  },
+  {
+    "en": "nam pla",
+    "tr": "Nam Pla"
+  },
+  {
+    "en": "nanami togarashi",
+    "tr": "Nanami Togarashi"
+  },
+  {
+    "en": "napa cabbage",
+    "tr": "napa lahanası"
+  },
+  {
+    "en": "napa cabbage leaf",
+    "tr": "Napa Lahana Yaprağı"
+  },
+  {
+    "en": "napa cabbage leaves",
+    "tr": "Napa Lahana Yaprakları"
+  },
+  {
+    "en": "nasturtium petals",
+    "tr": "Nasturtium yaprakları"
+  },
+  {
+    "en": "nats teriyaki sauce",
+    "tr": "Nats teriyaki sosu"
+  },
+  {
+    "en": "nature valley pecan crunch granola bars",
+    "tr": "Nature Valley Cevizli Crunch Granola Çubukları"
+  },
+  {
+    "en": "navel orange",
+    "tr": "göbekli portakal"
+  },
+  {
+    "en": "navel oranges",
+    "tr": "göbek portakalları"
+  },
+  {
+    "en": "navy beans",
+    "tr": "lacivert fasulye"
+  },
+  {
+    "en": "nectarine",
+    "tr": "nektarin"
+  },
+  {
+    "en": "ngo om",
+    "tr": "Ngo OM"
+  },
+  {
+    "en": "nicoise olive",
+    "tr": "Nicoise Olive"
+  },
+  {
+    "en": "nido full cream milk powder",
+    "tr": "nido tam krem ​​süt tozu"
+  },
+  {
+    "en": "nigella seeds",
+    "tr": "Nigella tohumları"
+  },
+  {
+    "en": "noilly prat",
+    "tr": "Noilly Prat"
+  },
+  {
+    "en": "nopal leaves",
+    "tr": "Nopal Yapraklar"
+  },
+  {
+    "en": "nopales",
+    "tr": "nopales"
+  },
+  {
+    "en": "nopalitos",
+    "tr": "nopalitos"
+  },
+  {
+    "en": "nori",
+    "tr": "nori"
+  },
+  {
+    "en": "northern white beans",
+    "tr": "kuzey beyaz fasulye"
+  },
+  {
+    "en": "nottingham yeast",
+    "tr": "Nottingham Mayası"
+  },
+  {
+    "en": "nouc mam cham (vietnamese dipping sauce]",
+    "tr": "Nouc Mam Cham (Vietnam daldırma sosu]"
+  },
+  {
+    "en": "nuoc cham (vietnamesefish sauce]",
+    "tr": "Nuoc Cham (Vietnamisim Beşili Sos]"
+  },
+  {
+    "en": "nuoc cham sauce - dipping fish sauce",
+    "tr": "Nuoc Cham Sos - Balık sosu daldırma"
+  },
+  {
+    "en": "nuoc nam",
+    "tr": "Nuoc Nam"
+  },
+  {
+    "en": "nutmeg",
+    "tr": "küçük hindistan cevizi"
+  },
+  {
+    "en": "nutritional yeast",
+    "tr": "beslenme maya"
+  },
+  {
+    "en": "nutritious flour blend",
+    "tr": "Besleyici un karışımı"
+  },
+  {
+    "en": "nutty rice",
+    "tr": "fındık pirinç"
+  },
+  {
+    "en": "o lakes butter",
+    "tr": "o Göller Tereyağı"
+  },
+  {
+    "en": "oatmeal",
+    "tr": "yulaf ezmesi"
+  },
+  {
+    "en": "obrien potatoes",
+    "tr": "Obrien patates"
+  },
+  {
+    "en": "of  mint",
+    "tr": "nane"
+  },
+  {
+    "en": "okra",
+    "tr": "bamya"
+  },
+  {
+    "en": "old el paso tomatoes & chilies",
+    "tr": "Eski El Paso Domates ve Biber"
+  },
+  {
+    "en": "oleo",
+    "tr": "margarin"
+  },
+  {
+    "en": "olive",
+    "tr": "zeytin"
+  },
+  {
+    "en": "olive oil",
+    "tr": "zeytinyağı"
+  },
+  {
+    "en": "olives",
+    "tr": "zeytin"
+  },
+  {
+    "en": "olives with pimento",
+    "tr": "Pimento ile Zeytin"
+  },
+  {
+    "en": "onion",
+    "tr": "soğan"
+  },
+  {
+    "en": "onion powder",
+    "tr": "soğan tozu"
+  },
+  {
+    "en": "onion rings",
+    "tr": "soğan halkaları"
+  },
+  {
+    "en": "onion sauce",
+    "tr": "soğan sosu"
+  },
+  {
+    "en": "onion seasoning mix",
+    "tr": "Soğan baharat karışımı"
+  },
+  {
+    "en": "onion white",
+    "tr": "Soğan Beyaz"
+  },
+  {
+    "en": "onion-flavored croutons",
+    "tr": "Soğan aromalı krutonlar"
+  },
+  {
+    "en": "oops",
+    "tr": "oops"
+  },
+  {
+    "en": "oori color powder",
+    "tr": "Oori renk tozu"
+  },
+  {
+    "en": "oori masala",
+    "tr": "Oori Masala"
+  },
+  {
+    "en": "oori paste",
+    "tr": "oori macunu"
+  },
+  {
+    "en": "oori spice mix",
+    "tr": "Oori baharat karışımı"
+  },
+  {
+    "en": "orange",
+    "tr": "turuncu"
+  },
+  {
+    "en": "orange bell pepper",
+    "tr": "turuncu biber"
+  },
+  {
+    "en": "orange blossom honey",
+    "tr": "turuncu çiçeği bal"
+  },
+  {
+    "en": "orange curacao",
+    "tr": "turuncu curacao"
+  },
+  {
+    "en": "orange flower water",
+    "tr": "turuncu çiçek suyu"
+  },
+  {
+    "en": "orange gelatin",
+    "tr": "turuncu jelatin"
+  },
+  {
+    "en": "orange juice",
+    "tr": "Portakal suyu"
+  },
+  {
+    "en": "orange marmalade",
+    "tr": "turuncu marmelat"
+  },
+  {
+    "en": "orange sweet bell pepper",
+    "tr": "turuncu tatlı biber"
+  },
+  {
+    "en": "orange sweet potatoes",
+    "tr": "turuncu tatlı patates"
+  },
+  {
+    "en": "orange zest",
+    "tr": "portakal kabuğu"
+  },
+  {
+    "en": "orange-infused vodka",
+    "tr": "turuncu infüzyonlu votka"
+  },
+  {
+    "en": "oranges",
+    "tr": "portakal"
+  },
+  {
+    "en": "oregano",
+    "tr": "kekik"
+  },
+  {
+    "en": "orgeat syrup",
+    "tr": "Orgeat Şurubu"
+  },
+  {
+    "en": "oriental radish",
+    "tr": "oryantal turp"
+  },
+  {
+    "en": "ortega green chili salsa",
+    "tr": "Ortega Yeşil Chili Salsa"
+  },
+  {
+    "en": "orzo pasta",
+    "tr": "Orzo makarna"
+  },
+  {
+    "en": "other br",
+    "tr": "Diğer BR"
+  },
+  {
+    "en": "other pastas",
+    "tr": "Diğer makarnalar"
+  },
+  {
+    "en": "other sweet onion",
+    "tr": "Diğer tatlı soğan"
+  },
+  {
+    "en": "other white wine",
+    "tr": "Diğer Beyaz Şarap"
+  },
+  {
+    "en": "ouille sausage",
+    "tr": "ouille sosis"
+  },
+  {
+    "en": "ouille sausages",
+    "tr": "ouille sosis"
+  },
+  {
+    "en": "oyster sauce",
+    "tr": "istiridye sosu"
+  },
+  {
+    "en": "pak choi",
+    "tr": "Pak Choi"
+  },
+  {
+    "en": "palestine",
+    "tr": "Filistin"
+  },
+  {
+    "en": "palm oil",
+    "tr": "hurma yağı"
+  },
+  {
+    "en": "palm sugar",
+    "tr": "hurma şekeri"
+  },
+  {
+    "en": "palm vinegar",
+    "tr": "palmiye sirkesi"
+  },
+  {
+    "en": "pam",
+    "tr": "pam"
+  },
+  {
+    "en": "panang curry paste",
+    "tr": "Panag Curry Macunu"
+  },
+  {
+    "en": "pancake noodles",
+    "tr": "gözleme erişteleri"
+  },
+  {
+    "en": "pancetta",
+    "tr": "pancetta"
+  },
+  {
+    "en": "panch phoran",
+    "tr": "Panch Phoran"
+  },
+  {
+    "en": "panch phoron",
+    "tr": "Panch Phoron"
+  },
+  {
+    "en": "paneer cheese",
+    "tr": "paneer peyniri"
+  },
+  {
+    "en": "panini oil",
+    "tr": "Panini Yağı"
+  },
+  {
+    "en": "panir",
+    "tr": "panir"
+  },
+  {
+    "en": "panko breadcrumbs",
+    "tr": "panko ekmek kırıntıları"
+  },
+  {
+    "en": "papaya",
+    "tr": "papaya"
+  },
+  {
+    "en": "papaya nectar",
+    "tr": "papaya nektar"
+  },
+  {
+    "en": "papaya paste",
+    "tr": "papaya macunu"
+  },
+  {
+    "en": "pappardelle pasta",
+    "tr": "pappardelle makarna"
+  },
+  {
+    "en": "paprika",
+    "tr": "paprika"
+  },
+  {
+    "en": "parboiled rice",
+    "tr": "parbeli pirinç"
+  },
+  {
+    "en": "parchment paper",
+    "tr": "parşömen kağıdı"
+  },
+  {
+    "en": "parma ham",
+    "tr": "parma jambonu"
+  },
+  {
+    "en": "parmesan cheese",
+    "tr": "Parmesan peyniri"
+  },
+  {
+    "en": "parmigiano",
+    "tr": "parmiano"
+  },
+  {
+    "en": "parmigiano-reggiano cheese",
+    "tr": "Parmigiano-Reggiano peyniri"
+  },
+  {
+    "en": "parrot bay coconut rum",
+    "tr": "Parrot Bay Coconut Rum"
+  },
+  {
+    "en": "parsley",
+    "tr": "maydanoz"
+  },
+  {
+    "en": "parsley chutney",
+    "tr": "Maydanoz Chutney"
+  },
+  {
+    "en": "parsley flakes",
+    "tr": "maydanoz pulları"
+  },
+  {
+    "en": "parsnip",
+    "tr": "yaban havucu"
+  },
+  {
+    "en": "partridges",
+    "tr": "keklikler"
+  },
+  {
+    "en": "passion fruit",
+    "tr": "Tutku meyvesi"
+  },
+  {
+    "en": "passion fruit juice",
+    "tr": "Tutku meyve suyu"
+  },
+  {
+    "en": "passion fruit nectar",
+    "tr": "Tutku meyve nektar"
+  },
+  {
+    "en": "passion fruit pulp",
+    "tr": "Tutku meyve hamuru"
+  },
+  {
+    "en": "passion fruit puree",
+    "tr": "Tutku meyve püresi"
+  },
+  {
+    "en": "pasta",
+    "tr": "makarna"
+  },
+  {
+    "en": "pasta dough",
+    "tr": "makarna hamuru"
+  },
+  {
+    "en": "pasta noodles",
+    "tr": "makarna erişte"
+  },
+  {
+    "en": "pasta roni",
+    "tr": "Makarna Roni"
+  },
+  {
+    "en": "pasta sauce",
+    "tr": "makarna sosu"
+  },
+  {
+    "en": "pasta shell",
+    "tr": "makarna kabuğu"
+  },
+  {
+    "en": "pasta shell macaroni",
+    "tr": "makarna kabuğu makarna"
+  },
+  {
+    "en": "pasta shells",
+    "tr": "makarna kabukları"
+  },
+  {
+    "en": "pastis",
+    "tr": "pastis"
+  },
+  {
+    "en": "pastry flour",
+    "tr": "pasta unu"
+  },
+  {
+    "en": "patna rice",
+    "tr": "patna pirinç"
+  },
+  {
+    "en": "pawpaw",
+    "tr": "pençe"
+  },
+  {
+    "en": "pea tendrils",
+    "tr": "bezelye"
+  },
+  {
+    "en": "peach br",
+    "tr": "Şeftali BR"
+  },
+  {
+    "en": "peach chutney",
+    "tr": "şeftali turşusu"
+  },
+  {
+    "en": "peaches",
+    "tr": "şeftali"
+  },
+  {
+    "en": "peanut butter",
+    "tr": "fıstık ezmesi"
+  },
+  {
+    "en": "peanut sauce",
+    "tr": "fıstık sosu"
+  },
+  {
+    "en": "peanuts",
+    "tr": "fıstık"
+  },
+  {
+    "en": "pear",
+    "tr": "armut"
+  },
+  {
+    "en": "pear bread",
+    "tr": "armut ekmeği"
+  },
+  {
+    "en": "pear halves",
+    "tr": "armut yarısı"
+  },
+  {
+    "en": "pearl barley",
+    "tr": "inci arpa"
+  },
+  {
+    "en": "pearl tapioca",
+    "tr": "inci tapyoka"
+  },
+  {
+    "en": "peas",
+    "tr": "bezelye"
+  },
+  {
+    "en": "pecan",
+    "tr": "ceviz"
+  },
+  {
+    "en": "pecan nuts",
+    "tr": "cevizli fındık"
+  },
+  {
+    "en": "pecorino romano cheese",
+    "tr": "Pecorino Romano Peyniri"
+  },
+  {
+    "en": "peking duck",
+    "tr": "Pekin Ördek"
+  },
+  {
+    "en": "peppadew peppers",
+    "tr": "Peppadew Peppers"
+  },
+  {
+    "en": "pepper",
+    "tr": "biber"
+  },
+  {
+    "en": "peppercorn",
+    "tr": "biber"
+  },
+  {
+    "en": "peppermint",
+    "tr": "nane"
+  },
+  {
+    "en": "perch",
+    "tr": "levrek"
+  },
+  {
+    "en": "peri-peri",
+    "tr": "peri-peri"
+  },
+  {
+    "en": "pernod",
+    "tr": "Pernod"
+  },
+  {
+    "en": "pesto",
+    "tr": "pesto"
+  },
+  {
+    "en": "pesto sauce",
+    "tr": "pesto sosu"
+  },
+  {
+    "en": "pheasant",
+    "tr": "Sülün"
+  },
+  {
+    "en": "phyllo cups",
+    "tr": "phyllo bardak"
+  },
+  {
+    "en": "phyllo dough",
+    "tr": "fyllo hamuru"
+  },
+  {
+    "en": "phyllo pastry",
+    "tr": "fyllo pasta"
+  },
+  {
+    "en": "phyllo pastry sheet",
+    "tr": "Phyllo Pasta Sayfası"
+  },
+  {
+    "en": "phyllo tart shells",
+    "tr": "Phyllo tart kabukları"
+  },
+  {
+    "en": "picante salsa",
+    "tr": "Picante Salsa"
+  },
+  {
+    "en": "pickle",
+    "tr": "turşu"
+  },
+  {
+    "en": "pickle juice",
+    "tr": "turşu suyu"
+  },
+  {
+    "en": "pickle masala",
+    "tr": "turşu masala"
+  },
+  {
+    "en": "pickle powder",
+    "tr": "turşu tozu"
+  },
+  {
+    "en": "pickled capers",
+    "tr": "turşu kapari"
+  },
+  {
+    "en": "pickled garlic",
+    "tr": "salamura sarımsak"
+  },
+  {
+    "en": "pickled ginger",
+    "tr": "salamura"
+  },
+  {
+    "en": "pickled herring",
+    "tr": "salamura ringa balığı"
+  },
+  {
+    "en": "pickled sweet peppers",
+    "tr": "Turşu tatlı biber"
+  },
+  {
+    "en": "pickles",
+    "tr": "turşu"
+  },
+  {
+    "en": "pickling cucumber",
+    "tr": "salatalık"
+  },
+  {
+    "en": "pickling cucumbers",
+    "tr": "salatalık"
+  },
+  {
+    "en": "pickling vinegar",
+    "tr": "salamura sirkesi"
+  },
+  {
+    "en": "pico de gallo",
+    "tr": "Pico de Gallo"
+  },
+  {
+    "en": "pie crust",
+    "tr": "turta kabuğu"
+  },
+  {
+    "en": "pie filling",
+    "tr": "Pasta Dolgusu"
+  },
+  {
+    "en": "pie pastry/crust",
+    "tr": "Pasta Pasta/Kabuk"
+  },
+  {
+    "en": "pieces",
+    "tr": "parçalar"
+  },
+  {
+    "en": "pigeon pea paste",
+    "tr": "güvercin bezi macunu"
+  },
+  {
+    "en": "pignoli nuts",
+    "tr": "Pignoli fındık"
+  },
+  {
+    "en": "pignolis",
+    "tr": "pignol"
+  },
+  {
+    "en": "piloncillo cone",
+    "tr": "Pilonsillo Konisi"
+  },
+  {
+    "en": "piloncillo cones",
+    "tr": "Pilonsillo Konileri"
+  },
+  {
+    "en": "pimento",
+    "tr": "pimento"
+  },
+  {
+    "en": "pine nuts",
+    "tr": "çam fıstığı"
+  },
+  {
+    "en": "pineapple",
+    "tr": "ananas"
+  },
+  {
+    "en": "pineapple rum",
+    "tr": "ananas romu"
+  },
+  {
+    "en": "pineapple sage",
+    "tr": "ananas bileti"
+  },
+  {
+    "en": "pineapple salsa",
+    "tr": "ananas salsa"
+  },
+  {
+    "en": "pineapple tidbits",
+    "tr": "Ananas Tidbits"
+  },
+  {
+    "en": "pineapple vodka",
+    "tr": "ananas votkası"
+  },
+  {
+    "en": "pink beans",
+    "tr": "pembe fasulye"
+  },
+  {
+    "en": "pink grapefruit",
+    "tr": "pembe greyfurt"
+  },
+  {
+    "en": "pink grapefruit juice",
+    "tr": "pembe greyfurt suyu"
+  },
+  {
+    "en": "pink grapefruit slices",
+    "tr": "pembe greyfurt dilimleri"
+  },
+  {
+    "en": "pink grapefruits",
+    "tr": "pembe greyfurtlar"
+  },
+  {
+    "en": "pink kidney beans",
+    "tr": "Pembe Böbrek Fasulyesi"
+  },
+  {
+    "en": "pink rajma beans",
+    "tr": "pembe rajma fasulyesi"
+  },
+  {
+    "en": "pink salmon",
+    "tr": "pembe somon"
+  },
+  {
+    "en": "pinto beans",
+    "tr": "pinto fasulyesi"
+  },
+  {
+    "en": "pinto beans with jalapeno peppers",
+    "tr": "Jalapeno biber ile pinto fasulye"
+  },
+  {
+    "en": "pippin apple",
+    "tr": "pippin elma"
+  },
+  {
+    "en": "piri-piri",
+    "tr": "piri"
+  },
+  {
+    "en": "pisco",
+    "tr": "pisco"
+  },
+  {
+    "en": "pista",
+    "tr": "pista"
+  },
+  {
+    "en": "pista powder",
+    "tr": "pista tozu"
+  },
+  {
+    "en": "pistachio",
+    "tr": "fıstık"
+  },
+  {
+    "en": "pistachio ice cream",
+    "tr": "Antep fıstığı dondurma"
+  },
+  {
+    "en": "pistachio pudding mix",
+    "tr": "Antep fıstığı puding karışımı"
+  },
+  {
+    "en": "pita bread",
+    "tr": "pide ekmeği"
+  },
+  {
+    "en": "pitted black olives",
+    "tr": "Çukurlu siyah zeytin"
+  },
+  {
+    "en": "pitted dates",
+    "tr": "Çukurlu Tarihler"
+  },
+  {
+    "en": "pitted prunes",
+    "tr": "çukurlu kuru erik"
+  },
+  {
+    "en": "pitted ripe olives",
+    "tr": "Çukurlu Olgun Zeytin"
+  },
+  {
+    "en": "pizza crust",
+    "tr": "pizza kabuğu"
+  },
+  {
+    "en": "pizza dough",
+    "tr": "pizza hamuru"
+  },
+  {
+    "en": "pizza sauce",
+    "tr": "pizza sosu"
+  },
+  {
+    "en": "plantain",
+    "tr": "muz"
+  },
+  {
+    "en": "plantain leaves",
+    "tr": "muz yaprakları"
+  },
+  {
+    "en": "plantains",
+    "tr": "planlar"
+  },
+  {
+    "en": "planters fancy cashews",
+    "tr": "Ekiciler süslü kaju fıstığı"
+  },
+  {
+    "en": "plum",
+    "tr": "Erik"
+  },
+  {
+    "en": "plum baby food",
+    "tr": "Erik bebek maması"
+  },
+  {
+    "en": "plum jam",
+    "tr": "erik reçeli"
+  },
+  {
+    "en": "plum jelly",
+    "tr": "erik jöle"
+  },
+  {
+    "en": "plum liquid",
+    "tr": "erik sıvı"
+  },
+  {
+    "en": "plum preserves",
+    "tr": "Erik Koruyucular"
+  },
+  {
+    "en": "plum puree",
+    "tr": "Erik püresi"
+  },
+  {
+    "en": "plum sauce",
+    "tr": "erik sosu"
+  },
+  {
+    "en": "plum tomato",
+    "tr": "erik domates"
+  },
+  {
+    "en": "plum wine",
+    "tr": "erik şarabı"
+  },
+  {
+    "en": "plum wine vinegar",
+    "tr": "Erik Şarap Sirkesi"
+  },
+  {
+    "en": "plums",
+    "tr": "erik"
+  },
+  {
+    "en": "poblano chile",
+    "tr": "Poblano Şili"
+  },
+  {
+    "en": "poblano chiles",
+    "tr": "Poblano Chiles"
+  },
+  {
+    "en": "polenta",
+    "tr": "polenta"
+  },
+  {
+    "en": "polish kielbasa",
+    "tr": "Polonya Kielbasa"
+  },
+  {
+    "en": "polish sausage",
+    "tr": "cila"
+  },
+  {
+    "en": "polished rice",
+    "tr": "cilalı pirinç"
+  },
+  {
+    "en": "polska kielbasa",
+    "tr": "Polska Kielbasa"
+  },
+  {
+    "en": "polyunsaturated margarine",
+    "tr": "Çoklu doymamış margarin"
+  },
+  {
+    "en": "pomegranate",
+    "tr": "nar"
+  },
+  {
+    "en": "pomegranate concentrate",
+    "tr": "nar konsantresi"
+  },
+  {
+    "en": "pomegranate juice",
+    "tr": "nar suyu"
+  },
+  {
+    "en": "pomegranate molasses",
+    "tr": "Nar pekmezi"
+  },
+  {
+    "en": "pomegranate paste",
+    "tr": "nar macunu"
+  },
+  {
+    "en": "pomegranate seeds",
+    "tr": "nar tohumları"
+  },
+  {
+    "en": "pomegranate syrup",
+    "tr": "nar şurubu"
+  },
+  {
+    "en": "pomegranates",
+    "tr": "Nar"
+  },
+  {
+    "en": "pomelo fruit",
+    "tr": "Pomelo meyvesi"
+  },
+  {
+    "en": "ponzu sauce",
+    "tr": "ponzu sosu"
+  },
+  {
+    "en": "popiah wrapper",
+    "tr": "Popiah sarmalayıcı"
+  },
+  {
+    "en": "poppy seed",
+    "tr": "haşhaş tohumu"
+  },
+  {
+    "en": "porcini mushroom",
+    "tr": "porcini mantar"
+  },
+  {
+    "en": "pork",
+    "tr": "domuz eti"
+  },
+  {
+    "en": "pork bouillon cube",
+    "tr": "Domuz Bouillon Cube"
+  },
+  {
+    "en": "pork broth",
+    "tr": "Domuz et suyu"
+  },
+  {
+    "en": "pork chops",
+    "tr": "domuz pirzolası"
+  },
+  {
+    "en": "pork escalopes",
+    "tr": "Domuz Escalopları"
+  },
+  {
+    "en": "pork hocks",
+    "tr": "Domuz Hocks"
+  },
+  {
+    "en": "pork ribs",
+    "tr": "domuz kaburga"
+  },
+  {
+    "en": "pork sausage",
+    "tr": "domuz sosisi"
+  },
+  {
+    "en": "pork sausage links",
+    "tr": "Domuz Sosis Bağlantıları"
+  },
+  {
+    "en": "pork schnitzel",
+    "tr": "Domuz Schnitzel"
+  },
+  {
+    "en": "porridge oats",
+    "tr": "yulaf lapası yulaf"
+  },
+  {
+    "en": "port wine",
+    "tr": "liman şarabı"
+  },
+  {
+    "en": "portabella mushroom",
+    "tr": "Portabella mantar"
+  },
+  {
+    "en": "potato",
+    "tr": "patates"
+  },
+  {
+    "en": "potato & cheese pierogies",
+    "tr": "Patates ve Peynir Pierojileri"
+  },
+  {
+    "en": "potato flour",
+    "tr": "patates unu"
+  },
+  {
+    "en": "potato starch",
+    "tr": "patates nişastası"
+  },
+  {
+    "en": "potatoes",
+    "tr": "patates"
+  },
+  {
+    "en": "poultry seasoning",
+    "tr": "Kümes hayvanları baharat"
+  },
+  {
+    "en": "poundcake",
+    "tr": "poundcake"
+  },
+  {
+    "en": "pourablemargarine",
+    "tr": "pourablemargarin"
+  },
+  {
+    "en": "pouring custard",
+    "tr": "Dökme muhallebi"
+  },
+  {
+    "en": "pre-shredded mozzarella cheese",
+    "tr": "önceden rendelenmiş mozzarella peyniri"
+  },
+  {
+    "en": "premade puff pastry",
+    "tr": "önceden yapılmış puf böreği"
+  },
+  {
+    "en": "prickly pear cactus",
+    "tr": "dikenli armut kaktüs"
+  },
+  {
+    "en": "prickly pears",
+    "tr": "dikenli armut"
+  },
+  {
+    "en": "process american cheese",
+    "tr": "Amerikan peynirini işleyin"
+  },
+  {
+    "en": "processed cheese",
+    "tr": "işlenmiş peynir"
+  },
+  {
+    "en": "processed cheese spread",
+    "tr": "İşlenmiş peynir yayılımı"
+  },
+  {
+    "en": "prosciutto",
+    "tr": "prosciutto"
+  },
+  {
+    "en": "prosciutto di parma",
+    "tr": "prosciutto di parma"
+  },
+  {
+    "en": "prosciutto ham",
+    "tr": "prosciutto jambon"
+  },
+  {
+    "en": "prosciutto rind",
+    "tr": "Prosciutto Rind"
+  },
+  {
+    "en": "provolone cheese",
+    "tr": "provolon peyniri"
+  },
+  {
+    "en": "prune",
+    "tr": "budamak"
+  },
+  {
+    "en": "prunes",
+    "tr": "budama"
+  },
+  {
+    "en": "pudding",
+    "tr": "puding"
+  },
+  {
+    "en": "pudding rice",
+    "tr": "puding pirinç"
+  },
+  {
+    "en": "puff pastry",
+    "tr": "puf böreği"
+  },
+  {
+    "en": "puff pastry sheets",
+    "tr": "puf böreği sayfaları"
+  },
+  {
+    "en": "puff pastry shells",
+    "tr": "puf böreği kabukları"
+  },
+  {
+    "en": "pumpkin",
+    "tr": "kabak"
+  },
+  {
+    "en": "pumpkin pie filling",
+    "tr": "Kabak Pastası Dolgusu"
+  },
+  {
+    "en": "pumpkin pie spice",
+    "tr": "Balkabağı Pasta Baharat"
+  },
+  {
+    "en": "pure maple syrup",
+    "tr": "saf akçaağaç şurubu"
+  },
+  {
+    "en": "pure vanilla extract",
+    "tr": "saf vanilya özü"
+  },
+  {
+    "en": "pureed chipotle chile",
+    "tr": "püre chipotle şili"
+  },
+  {
+    "en": "pureed chipotle chiles",
+    "tr": "püre chipotle chiles"
+  },
+  {
+    "en": "purple cabbage",
+    "tr": "mor lahana"
+  },
+  {
+    "en": "purple figs",
+    "tr": "Mor incir"
+  },
+  {
+    "en": "purple onion",
+    "tr": "mor soğan"
+  },
+  {
+    "en": "purple plums",
+    "tr": "mor erik"
+  },
+  {
+    "en": "purple potatoes",
+    "tr": "mor patates"
+  },
+  {
+    "en": "purple sweet potato",
+    "tr": "mor tatlı patates"
+  },
+  {
+    "en": "purslane",
+    "tr": "semizotu"
+  },
+  {
+    "en": "quail",
+    "tr": "bıldırcın"
+  },
+  {
+    "en": "quaker quick barley",
+    "tr": "Quaker Quick Arpa"
+  },
+  {
+    "en": "quark cheese",
+    "tr": "quark peyniri"
+  },
+  {
+    "en": "queso anejo",
+    "tr": "queso anejo"
+  },
+  {
+    "en": "queso blanco",
+    "tr": "queso blanco"
+  },
+  {
+    "en": "queso fresco",
+    "tr": "queso fresk"
+  },
+  {
+    "en": "queso ranchero",
+    "tr": "queso ranchero"
+  },
+  {
+    "en": "queso sauce",
+    "tr": "queso sosu"
+  },
+  {
+    "en": "quince jelly",
+    "tr": "Quince jölesi"
+  },
+  {
+    "en": "quince paste",
+    "tr": "ayva macunu"
+  },
+  {
+    "en": "quinces",
+    "tr": "çırpı"
+  },
+  {
+    "en": "quinoa",
+    "tr": "Kinoa"
+  },
+  {
+    "en": "quorn mince",
+    "tr": "quorn kıyma"
+  },
+  {
+    "en": "quorn tenders",
+    "tr": "quorn ihaleleri"
+  },
+  {
+    "en": "rabbit",
+    "tr": "tavşan"
+  },
+  {
+    "en": "racks of lamb",
+    "tr": "kuzu rafları"
+  },
+  {
+    "en": "raclette cheese",
+    "tr": "raclette peyniri"
+  },
+  {
+    "en": "radiatore",
+    "tr": "radyator"
+  },
+  {
+    "en": "radicchio",
+    "tr": "Radicchio"
+  },
+  {
+    "en": "radish",
+    "tr": "turp"
+  },
+  {
+    "en": "rainbow trout",
+    "tr": "gökkuşağı alabalığı"
+  },
+  {
+    "en": "raisins",
+    "tr": "kuru üzüm"
+  },
+  {
+    "en": "rajma",
+    "tr": "Rajma"
+  },
+  {
+    "en": "rapini",
+    "tr": "rapini"
+  },
+  {
+    "en": "ras el hanout",
+    "tr": "Ras El Hanout"
+  },
+  {
+    "en": "raspberries",
+    "tr": "ahududu"
+  },
+  {
+    "en": "raspberry gelatin powder",
+    "tr": "ahududu jelatin tozu"
+  },
+  {
+    "en": "raspberry jell-o gelatin",
+    "tr": "ahududu jell-o jelatin"
+  },
+  {
+    "en": "raspberry puree",
+    "tr": "ahududu püresi"
+  },
+  {
+    "en": "raspberry vinegar",
+    "tr": "ahududu sirke"
+  },
+  {
+    "en": "raspberry vodka",
+    "tr": "ahududu votkası"
+  },
+  {
+    "en": "rava",
+    "tr": "rava"
+  },
+  {
+    "en": "recaito",
+    "tr": "Recaito"
+  },
+  {
+    "en": "red apple",
+    "tr": "kırmızı elma"
+  },
+  {
+    "en": "red apples",
+    "tr": "kırmızı elma"
+  },
+  {
+    "en": "red bananas",
+    "tr": "kırmızı muz"
+  },
+  {
+    "en": "red beans",
+    "tr": "kırmızı fasulye"
+  },
+  {
+    "en": "red beets",
+    "tr": "kırmızı pancar"
+  },
+  {
+    "en": "red bell peppers",
+    "tr": "kırmızı biber"
+  },
+  {
+    "en": "red bliss potatoes",
+    "tr": "kırmızı mutluluk patates"
+  },
+  {
+    "en": "red cabbage",
+    "tr": "kırmızı lahana"
+  },
+  {
+    "en": "red capsicums",
+    "tr": "Kırmızı Capsicums"
+  },
+  {
+    "en": "red cayenne pepper",
+    "tr": "kırmızı biber"
+  },
+  {
+    "en": "red cherries",
+    "tr": "kırmızı kiraz"
+  },
+  {
+    "en": "red chile",
+    "tr": "Kırmızı Şili"
+  },
+  {
+    "en": "red chile sauce",
+    "tr": "kırmızı şili sosu"
+  },
+  {
+    "en": "red chili peppers",
+    "tr": "kırmızı biber"
+  },
+  {
+    "en": "red chili powder",
+    "tr": "kırmızı biber tozu"
+  },
+  {
+    "en": "red chili sauce",
+    "tr": "kırmızı biber sosu"
+  },
+  {
+    "en": "red chili sauce  (to be used with traditional tamales]",
+    "tr": "Kırmızı biber sosu (geleneksel tamales ile kullanılacak]"
+  },
+  {
+    "en": "red chilies",
+    "tr": "kırmızı biber"
+  },
+  {
+    "en": "red currant jam",
+    "tr": "Kırmızı Frenk üzümü"
+  },
+  {
+    "en": "red currant jelly",
+    "tr": "Kırmızı Frenk üzümü jölesi"
+  },
+  {
+    "en": "red currants",
+    "tr": "Kırmızı Çarşamba"
+  },
+  {
+    "en": "red curry paste",
+    "tr": "kırmızı köri macunu"
+  },
+  {
+    "en": "red dates",
+    "tr": "Kırmızı Tarihler"
+  },
+  {
+    "en": "red enchilada sauce",
+    "tr": "kırmızı enchilada sosu"
+  },
+  {
+    "en": "red gelatin",
+    "tr": "kırmızı jelatin"
+  },
+  {
+    "en": "red gram",
+    "tr": "kırmızı gram"
+  },
+  {
+    "en": "red grapefruits",
+    "tr": "Kırmızı Greyfürler"
+  },
+  {
+    "en": "red grapes",
+    "tr": "kırmızı üzüm"
+  },
+  {
+    "en": "red kidney beans",
+    "tr": "Kırmızı böbrek fasulyesi"
+  },
+  {
+    "en": "red leaf lettuce",
+    "tr": "kırmızı yaprak marul"
+  },
+  {
+    "en": "red leicester cheese",
+    "tr": "Kırmızı Leicester Peyniri"
+  },
+  {
+    "en": "red lentils",
+    "tr": "kırmızı mercimek"
+  },
+  {
+    "en": "red miso",
+    "tr": "kırmızı miso"
+  },
+  {
+    "en": "red onion",
+    "tr": "Kırmızı Soğan"
+  },
+  {
+    "en": "red onion marmalade",
+    "tr": "kırmızı soğan marmelat"
+  },
+  {
+    "en": "red paprika",
+    "tr": "kırmızı biber"
+  },
+  {
+    "en": "red pear tomatoes",
+    "tr": "kırmızı armut domatesleri"
+  },
+  {
+    "en": "red pepper",
+    "tr": "kırmızı biber"
+  },
+  {
+    "en": "red pepper blend",
+    "tr": "kırmızı biber karışımı"
+  },
+  {
+    "en": "red pepper flakes",
+    "tr": "kırmızı biber pulları"
+  },
+  {
+    "en": "red pesto sauce",
+    "tr": "kırmızı pesto sosu"
+  },
+  {
+    "en": "red plums",
+    "tr": "kırmızı erik"
+  },
+  {
+    "en": "red potatoes",
+    "tr": "kırmızı patates"
+  },
+  {
+    "en": "red radish",
+    "tr": "kırmızı turp"
+  },
+  {
+    "en": "red radishes",
+    "tr": null
+  },
+  {
+    "en": "red raspberry vinegar",
+    "tr": "kırmızı ahududu sirkesi"
+  },
+  {
+    "en": "red rice wine",
+    "tr": "Kırmızı Pirinç Şarabı"
+  },
+  {
+    "en": "red shallots",
+    "tr": "kırmızı arpacık"
+  },
+  {
+    "en": "red snapper",
+    "tr": "Kırlangıç ​​balığı"
+  },
+  {
+    "en": "red sweet bell pepper",
+    "tr": "kırmızı tatlı biber"
+  },
+  {
+    "en": "red sweet pepper",
+    "tr": "kırmızı tatlı biber"
+  },
+  {
+    "en": "red swiss chard",
+    "tr": "Kırmızı İsviçre"
+  },
+  {
+    "en": "red table wine",
+    "tr": "kırmızı sofra şarabı"
+  },
+  {
+    "en": "red tomatoes",
+    "tr": "kırmızı domates"
+  },
+  {
+    "en": "red vinegar",
+    "tr": "kırmızı sirke"
+  },
+  {
+    "en": "red wine",
+    "tr": "kırmızı şarap"
+  },
+  {
+    "en": "red wine vinegar",
+    "tr": "kırmızı şarap sirkesi"
+  },
+  {
+    "en": "red-leaf lettuce",
+    "tr": "kırmızı yapraklı marul"
+  },
+  {
+    "en": "redondo iglesias jamsn serrano",
+    "tr": "Redondo Iglesias Jamsn Serrano"
+  },
+  {
+    "en": "redpork",
+    "tr": "reppork"
+  },
+  {
+    "en": "redtomatillo salsa with chiles",
+    "tr": "Chiles ile Redtomatillo Salsa"
+  },
+  {
+    "en": "remoulade sauce",
+    "tr": "Remoulade Sos"
+  },
+  {
+    "en": "rhubarb",
+    "tr": "ravent"
+  },
+  {
+    "en": "ricard",
+    "tr": "ricard"
+  },
+  {
+    "en": "rice",
+    "tr": "pirinç"
+  },
+  {
+    "en": "rice balls",
+    "tr": "pirinç topları"
+  },
+  {
+    "en": "rice flour",
+    "tr": "pirinç unu"
+  },
+  {
+    "en": "rice paper",
+    "tr": "pirinç kağıdı"
+  },
+  {
+    "en": "rice powder",
+    "tr": "pirinç tozu"
+  },
+  {
+    "en": "rice sherry wine",
+    "tr": "Pirinç Şarabı Şarabı"
+  },
+  {
+    "en": "rice sidedish",
+    "tr": "pirinç"
+  },
+  {
+    "en": "rice vinegar",
+    "tr": "pirinç sirkesi"
+  },
+  {
+    "en": "rice wine",
+    "tr": "pirinç şarabı"
+  },
+  {
+    "en": "rich chicken broth",
+    "tr": "zengin tavuk suyu"
+  },
+  {
+    "en": "rich tart shell",
+    "tr": "zengin tart kabuğu"
+  },
+  {
+    "en": "ricotta cheese",
+    "tr": "ricotta peyniri"
+  },
+  {
+    "en": "ricotta salata",
+    "tr": "Ricotta Salata"
+  },
+  {
+    "en": "riesling wine",
+    "tr": "Riesling şarabı"
+  },
+  {
+    "en": "rigatoni pasta",
+    "tr": "Rigatoni makarna"
+  },
+  {
+    "en": "rind of",
+    "tr": "kabuk"
+  },
+  {
+    "en": "rindless smoked streaky bacon",
+    "tr": "Kıyılmış füme çizgili pastırma"
+  },
+  {
+    "en": "ripe olives",
+    "tr": "olgun zeytin"
+  },
+  {
+    "en": "ripe pineapple",
+    "tr": "olgun ananas"
+  },
+  {
+    "en": "risotto rice",
+    "tr": "risotto pirinç"
+  },
+  {
+    "en": "roast beef",
+    "tr": "sığır eti"
+  },
+  {
+    "en": "roast shredded beef",
+    "tr": "rendelenmiş sığır eti kızartın"
+  },
+  {
+    "en": "roasting chicken",
+    "tr": "tavuk kavurma"
+  },
+  {
+    "en": "rock &amp; roll bbq salsa loco (similar to baja fresh]",
+    "tr": "Rock & amp; Roll Barbekü Salsa Loco (Baja Fresh'e benzer]"
+  },
+  {
+    "en": "rock salt",
+    "tr": "kaya tuzu"
+  },
+  {
+    "en": "rocket",
+    "tr": "roket"
+  },
+  {
+    "en": "roll mix",
+    "tr": "rulo karışımı"
+  },
+  {
+    "en": "roll of pork sausage",
+    "tr": "Domuz Sosis Rulosu"
+  },
+  {
+    "en": "rolled oats",
+    "tr": "yuvarlanmış yulaf"
+  },
+  {
+    "en": "rolled roast beef",
+    "tr": "Haddelenmiş sığır eti"
+  },
+  {
+    "en": "romano cheese",
+    "tr": "Romano Peyniri"
+  },
+  {
+    "en": "romulo olive oil",
+    "tr": "Romulo zeytinyağı"
+  },
+  {
+    "en": "root pickle",
+    "tr": "kök turşu"
+  },
+  {
+    "en": "roquefort cheese",
+    "tr": "Roquefort peyniri"
+  },
+  {
+    "en": "rosamarina pasta",
+    "tr": "Rosamarina makarna"
+  },
+  {
+    "en": "rose essence",
+    "tr": "gül özü"
+  },
+  {
+    "en": "rose extract",
+    "tr": "gül özü"
+  },
+  {
+    "en": "rose water",
+    "tr": "gül suyu"
+  },
+  {
+    "en": "rose wine",
+    "tr": "pembe şarap"
+  },
+  {
+    "en": "rosemary",
+    "tr": "biberiye"
+  },
+  {
+    "en": "rotel",
+    "tr": "rotel"
+  },
+  {
+    "en": "rotel chili tomatoes",
+    "tr": "Rotel Chili Domates"
+  },
+  {
+    "en": "rotel tomatoes",
+    "tr": "rotel domates"
+  },
+  {
+    "en": "rotel tomatoes & chilies",
+    "tr": "rotel domates ve biber"
+  },
+  {
+    "en": "rotelle pasta",
+    "tr": "rotelle makarna"
+  },
+  {
+    "en": "rotini pasta",
+    "tr": "rotini makarna"
+  },
+  {
+    "en": "round onion",
+    "tr": "yuvarlak soğan"
+  },
+  {
+    "en": "round steak",
+    "tr": "yuvarlak biftek"
+  },
+  {
+    "en": "rubbed sage",
+    "tr": "ovuşturulmuş adaçayı"
+  },
+  {
+    "en": "ruby red grapefruit juice",
+    "tr": "yakut kırmızı greyfurt suyu"
+  },
+  {
+    "en": "ruby red grapefruits",
+    "tr": "yakut kırmızı greyfurtlar"
+  },
+  {
+    "en": "rum",
+    "tr": "ROM"
+  },
+  {
+    "en": "rump roast",
+    "tr": "Rump Rosto"
+  },
+  {
+    "en": "rump steak",
+    "tr": "kıç biftek"
+  },
+  {
+    "en": "rusks",
+    "tr": "müstehcen"
+  },
+  {
+    "en": "russet potatoes",
+    "tr": "Russet patates"
+  },
+  {
+    "en": "saffron",
+    "tr": "safran"
+  },
+  {
+    "en": "saffron color",
+    "tr": "safran rengi"
+  },
+  {
+    "en": "saffron essence",
+    "tr": "safran özü"
+  },
+  {
+    "en": "saffron rojo rice",
+    "tr": "Safran Rojo Rice"
+  },
+  {
+    "en": "saffron threads",
+    "tr": "Safran iplikleri"
+  },
+  {
+    "en": "saffron white wine pasta dough",
+    "tr": "Safran beyaz şarap makarna hamuru"
+  },
+  {
+    "en": "sage",
+    "tr": "adaçayı"
+  },
+  {
+    "en": "sage derby cheese",
+    "tr": "Sage Derby Peyniri"
+  },
+  {
+    "en": "sage sausage",
+    "tr": "adaçayı sosis"
+  },
+  {
+    "en": "sage sprig",
+    "tr": "adaçayı fışkırtma"
+  },
+  {
+    "en": "sago",
+    "tr": "sago"
+  },
+  {
+    "en": "sake",
+    "tr": "hatır"
+  },
+  {
+    "en": "salami",
+    "tr": "salam"
+  },
+  {
+    "en": "salmon",
+    "tr": "somon"
+  },
+  {
+    "en": "salsa",
+    "tr": "salsa"
+  },
+  {
+    "en": "salsa de chile rojo",
+    "tr": "Salsa de Chile Rojo"
+  },
+  {
+    "en": "salsa fresca",
+    "tr": "salsa freska"
+  },
+  {
+    "en": "salsa verde",
+    "tr": "Salsa Verde"
+  },
+  {
+    "en": "salsify",
+    "tr": "Salsify"
+  },
+  {
+    "en": "salt",
+    "tr": "tuz"
+  },
+  {
+    "en": "sambal chili paste",
+    "tr": "Sambal biber macunu"
+  },
+  {
+    "en": "sambal oelek",
+    "tr": "Sambal Oelek"
+  },
+  {
+    "en": "san marzano tomatoes",
+    "tr": "San Marzano Domates"
+  },
+  {
+    "en": "sansho pepper",
+    "tr": "Sansho Biber"
+  },
+  {
+    "en": "sardine fillet",
+    "tr": "sardalya filetosu"
+  },
+  {
+    "en": "sashimi-grade tuna",
+    "tr": "Sashimi-dereceli ton balığı"
+  },
+  {
+    "en": "satay sauce",
+    "tr": "satay sosu"
+  },
+  {
+    "en": "satsuma oranges",
+    "tr": "satsuma portakal"
+  },
+  {
+    "en": "sauce",
+    "tr": "sos"
+  },
+  {
+    "en": "sauce mix",
+    "tr": "sos karışımı"
+  },
+  {
+    "en": "saucy jerk chicken",
+    "tr": "Saucy pislik tavuk"
+  },
+  {
+    "en": "sauerkraut",
+    "tr": "lahana"
+  },
+  {
+    "en": "sausage",
+    "tr": "sosis"
+  },
+  {
+    "en": "sauteed green cabbage",
+    "tr": "sote yeşil lahana"
+  },
+  {
+    "en": "savoiardi cookie",
+    "tr": "Savoiardi kurabiyesi"
+  },
+  {
+    "en": "savory",
+    "tr": "tuzlu"
+  },
+  {
+    "en": "savoy cabbage",
+    "tr": "Savoy lahanası"
+  },
+  {
+    "en": "sazon goya",
+    "tr": "sazon goya"
+  },
+  {
+    "en": "sazon goya con culantro y achiote",
+    "tr": "sazon goya con culantro y achiote"
+  },
+  {
+    "en": "sazon goya with cori",
+    "tr": "Cori ile Sazon Goya"
+  },
+  {
+    "en": "scallions",
+    "tr": "yeşil soğan"
+  },
+  {
+    "en": "scalloped potatoes mix",
+    "tr": "taraklı patates karışımı"
+  },
+  {
+    "en": "scallops",
+    "tr": "tarak"
+  },
+  {
+    "en": "scotch bonnet pepper",
+    "tr": "Scotch Bonnet Biber"
+  },
+  {
+    "en": "screwpine leaves",
+    "tr": "Screwpine Yaprakları"
+  },
+  {
+    "en": "sea bass fillet",
+    "tr": "deniz bas filetosu"
+  },
+  {
+    "en": "sea cucumber",
+    "tr": "deniz salatalık"
+  },
+  {
+    "en": "sea salt",
+    "tr": "deniz tuzu"
+  },
+  {
+    "en": "sea scallops",
+    "tr": "deniz tarakları"
+  },
+  {
+    "en": "seasoned breadcrumbs",
+    "tr": "Tecrübeli ekmek kırıntıları"
+  },
+  {
+    "en": "seasoning",
+    "tr": "baharat"
+  },
+  {
+    "en": "seaweed salad",
+    "tr": "deniz yosunu salatası"
+  },
+  {
+    "en": "seitan",
+    "tr": "seitan"
+  },
+  {
+    "en": "seltzer water",
+    "tr": "seltzer suyu"
+  },
+  {
+    "en": "semisweet vegan chocolate chips",
+    "tr": "Yarı tatlı vegan çikolata parçaları"
+  },
+  {
+    "en": "semolina",
+    "tr": "irmik"
+  },
+  {
+    "en": "semolina flour",
+    "tr": "terim"
+  },
+  {
+    "en": "serrano chili",
+    "tr": "Serrano biber"
+  },
+  {
+    "en": "serrano chili pepper",
+    "tr": "Serrano biber"
+  },
+  {
+    "en": "serrano chili peppers",
+    "tr": "Serrano biber"
+  },
+  {
+    "en": "serrano chilies",
+    "tr": "Serrano Chilies"
+  },
+  {
+    "en": "serrano ham",
+    "tr": "Serrano jambonu"
+  },
+  {
+    "en": "serve sausages",
+    "tr": "Sosis servis et"
+  },
+  {
+    "en": "sesame",
+    "tr": "susam"
+  },
+  {
+    "en": "sesame seed paste",
+    "tr": "susam tohumu macunu"
+  },
+  {
+    "en": "sesame seed sauce",
+    "tr": "susam tohumu sosu"
+  },
+  {
+    "en": "seville oranges",
+    "tr": "Seville Portakalları"
+  },
+  {
+    "en": "shabu chili sauce",
+    "tr": "shabu biber sosu"
+  },
+  {
+    "en": "shallot",
+    "tr": "Arpacık soğanı"
+  },
+  {
+    "en": "shallot sauce",
+    "tr": "ampul sosu"
+  },
+  {
+    "en": "shallots",
+    "tr": "arpacık"
+  },
+  {
+    "en": "shell clams",
+    "tr": "kabuk istiridye"
+  },
+  {
+    "en": "shell macaroni",
+    "tr": "Kabuk Macaroni"
+  },
+  {
+    "en": "shell pasta",
+    "tr": "kabuklu makarna"
+  },
+  {
+    "en": "shellfish",
+    "tr": "kabuklu deniz hayvanları"
+  },
+  {
+    "en": "sherry",
+    "tr": "sherry"
+  },
+  {
+    "en": "sherry wine",
+    "tr": "şerif şarabı"
+  },
+  {
+    "en": "sherry wine vinegar",
+    "tr": "Sherry Şarap Sirkesi"
+  },
+  {
+    "en": "shichimi-togarashi",
+    "tr": "Shichimi-Togarashi"
+  },
+  {
+    "en": "shiitake mushroom",
+    "tr": "shiitake mantar"
+  },
+  {
+    "en": "shin beef",
+    "tr": "shin sığır eti"
+  },
+  {
+    "en": "shiro miso",
+    "tr": "Shiro Miso"
+  },
+  {
+    "en": "shoestring fries",
+    "tr": "Shoestring Fries"
+  },
+  {
+    "en": "shoestring potatoes",
+    "tr": "Patates Patates"
+  },
+  {
+    "en": "short rib of beef",
+    "tr": "Kısa sığır eti kaburga"
+  },
+  {
+    "en": "short-grain rice",
+    "tr": "kısa tahıl pirinç"
+  },
+  {
+    "en": "shortening",
+    "tr": "kısaltma"
+  },
+  {
+    "en": "shoulder lamb chop",
+    "tr": "omuz kuzu pirzolası"
+  },
+  {
+    "en": "shoulder lamb chops",
+    "tr": "omuz kuzu pirzolaları"
+  },
+  {
+    "en": "shredded chicken for enchiladas",
+    "tr": "Enchiladas için parçalanmış tavuk"
+  },
+  {
+    "en": "shredded coconut",
+    "tr": "parçalanmış hindistancevizi"
+  },
+  {
+    "en": "shrimp",
+    "tr": "karides"
+  },
+  {
+    "en": "shrimp bouillon cubes",
+    "tr": "Karides Bouillon Küpleri"
+  },
+  {
+    "en": "shrimp paste",
+    "tr": "karides macunu"
+  },
+  {
+    "en": "sichuan peppercorn",
+    "tr": "Sichuan Biber"
+  },
+  {
+    "en": "silver beet",
+    "tr": "gümüş pancar"
+  },
+  {
+    "en": "simple",
+    "tr": "basit"
+  },
+  {
+    "en": "simply the best  salsa",
+    "tr": "sadece en iyi salsa"
+  },
+  {
+    "en": "sirloin beef",
+    "tr": "Silon sığır eti"
+  },
+  {
+    "en": "sirloin tip roast",
+    "tr": "Silloin ucu kızartma"
+  },
+  {
+    "en": "sirloin tip steak",
+    "tr": "Silloin ucu biftek"
+  },
+  {
+    "en": "sirloin tip steaks",
+    "tr": "Silloin uçlu biftek"
+  },
+  {
+    "en": "sisters sweet cinnamon - swirl bread",
+    "tr": "Kız kardeşler tatlı tarçın - girdap ekmeği"
+  },
+  {
+    "en": "skim evaporated milk",
+    "tr": "yağsız buharlaştırılmış süt"
+  },
+  {
+    "en": "skim milk",
+    "tr": "yağsız süt"
+  },
+  {
+    "en": "skim milk powder",
+    "tr": "yağsız süt tozu"
+  },
+  {
+    "en": "skim milk yogurt",
+    "tr": "yağsız süt yoğurt"
+  },
+  {
+    "en": "smelt",
+    "tr": "koklamak"
+  },
+  {
+    "en": "smoky",
+    "tr": "dumanlı"
+  },
+  {
+    "en": "snow peas",
+    "tr": "kar yağışı"
+  },
+  {
+    "en": "sockeye salmon",
+    "tr": "sockeye somon"
+  },
+  {
+    "en": "soda",
+    "tr": "soda"
+  },
+  {
+    "en": "soda water",
+    "tr": "soda suyu"
+  },
+  {
+    "en": "sofrito",
+    "tr": "sofrito"
+  },
+  {
+    "en": "sole",
+    "tr": "ayak tabanı"
+  },
+  {
+    "en": "sole fillet",
+    "tr": "tek fileto"
+  },
+  {
+    "en": "sole fillets",
+    "tr": "tek fileto"
+  },
+  {
+    "en": "sopressata",
+    "tr": "sopressta"
+  },
+  {
+    "en": "sorghum flour",
+    "tr": "sorgum unu"
+  },
+  {
+    "en": "sorrel",
+    "tr": "Kuzukulağı"
+  },
+  {
+    "en": "sour apples",
+    "tr": "ekşi elmalar"
+  },
+  {
+    "en": "sour cherries",
+    "tr": "ekşi kiraz"
+  },
+  {
+    "en": "sour cherry",
+    "tr": "vişne"
+  },
+  {
+    "en": "sour cream",
+    "tr": "Ekşi krema"
+  },
+  {
+    "en": "sour cream substitute",
+    "tr": "Ekşi Krem Yedek"
+  },
+  {
+    "en": "sour dill pickle",
+    "tr": "ekşi dereotu turşusu"
+  },
+  {
+    "en": "sour dill pickles",
+    "tr": "ekşi dereotu turşusu"
+  },
+  {
+    "en": "sour pickles",
+    "tr": "ekşi turşu"
+  },
+  {
+    "en": "sour pitted cherries",
+    "tr": "ekşi çukur kirazlar"
+  },
+  {
+    "en": "soy cheddar cheese",
+    "tr": "soya çedar peyniri"
+  },
+  {
+    "en": "soy margarine",
+    "tr": "soya margarin"
+  },
+  {
+    "en": "soy miso",
+    "tr": "soya"
+  },
+  {
+    "en": "soy mozzarella cheese",
+    "tr": "Soya mozzarella peyniri"
+  },
+  {
+    "en": "soy protein",
+    "tr": "soya proteini"
+  },
+  {
+    "en": "soy sauce",
+    "tr": "soya sosu"
+  },
+  {
+    "en": "soy sauce substitute",
+    "tr": "soya sosu yerine"
+  },
+  {
+    "en": "soy-braised pork belly",
+    "tr": "soya kızarmış domuz göbeği"
+  },
+  {
+    "en": "soya milk",
+    "tr": "soya sütü"
+  },
+  {
+    "en": "soya sauce",
+    "tr": "soya sosu"
+  },
+  {
+    "en": "soyabean nuggets",
+    "tr": "Soyabe Nuggets"
+  },
+  {
+    "en": "soybeans",
+    "tr": "Soya fasulyesi"
+  },
+  {
+    "en": "soymilk",
+    "tr": "soya"
+  },
+  {
+    "en": "soymilk lite",
+    "tr": "Soyailk Lite"
+  },
+  {
+    "en": "spaghetti noodles",
+    "tr": "spagetti erişte"
+  },
+  {
+    "en": "spaghetti squash",
+    "tr": "spagetti kabağı"
+  },
+  {
+    "en": "spagos chocolate chiffon cake",
+    "tr": "Spagos Çikolata Şifon Pastası"
+  },
+  {
+    "en": "sparkling apple cider",
+    "tr": "ışıltılı elma şarabı"
+  },
+  {
+    "en": "sparkling water",
+    "tr": "köpüklü su"
+  },
+  {
+    "en": "spearmint",
+    "tr": "nane"
+  },
+  {
+    "en": "spice",
+    "tr": "baharat"
+  },
+  {
+    "en": "spiced rum",
+    "tr": "baharatlı rom"
+  },
+  {
+    "en": "spinach",
+    "tr": "ıspanak"
+  },
+  {
+    "en": "spinach fettuccine",
+    "tr": "ıspanak fettuccine"
+  },
+  {
+    "en": "spinach pasta",
+    "tr": "ıspanak makarna"
+  },
+  {
+    "en": "spinach tortillas",
+    "tr": "ıspanak ekmeği"
+  },
+  {
+    "en": "spiral pasta",
+    "tr": "spiral makarna"
+  },
+  {
+    "en": "splenda granular",
+    "tr": "splenda granüler"
+  },
+  {
+    "en": "splenda sugar blend for",
+    "tr": "Splenda Şeker Karışımı"
+  },
+  {
+    "en": "splenda sugar substitute",
+    "tr": "Splenda Şeker Yedek"
+  },
+  {
+    "en": "split chickpeas",
+    "tr": "bölünmüş nohut"
+  },
+  {
+    "en": "split red lentils",
+    "tr": "bölünmüş kırmızı mercimek"
+  },
+  {
+    "en": "split yellow lentils",
+    "tr": "Sarı mercimek bölünmüş"
+  },
+  {
+    "en": "spring onion",
+    "tr": "yaylı soğan"
+  },
+  {
+    "en": "spring onion leaves",
+    "tr": "Spring Soğan Yaprakları"
+  },
+  {
+    "en": "squash",
+    "tr": "kabak"
+  },
+  {
+    "en": "squid",
+    "tr": "kalamar"
+  },
+  {
+    "en": "sriracha sauce",
+    "tr": "sriracha sosu"
+  },
+  {
+    "en": "star anise",
+    "tr": "Yıldız Anason"
+  },
+  {
+    "en": "star fruit",
+    "tr": "yıldız meyvesi"
+  },
+  {
+    "en": "steak",
+    "tr": "biftek"
+  },
+  {
+    "en": "steak-style fries",
+    "tr": "biftek tarzı patates kızartması"
+  },
+  {
+    "en": "steamed rice",
+    "tr": "buğulanmış pirinç"
+  },
+  {
+    "en": "steel cut oats",
+    "tr": "Çelik kesilmiş yulaf"
+  },
+  {
+    "en": "stevia",
+    "tr": "Stevia"
+  },
+  {
+    "en": "stevia powder",
+    "tr": "Stevia tozu"
+  },
+  {
+    "en": "stew beef chunks",
+    "tr": "güveç sığır eti parçaları"
+  },
+  {
+    "en": "stewed tomatoes",
+    "tr": "Yahudi domates"
+  },
+  {
+    "en": "stewing beef",
+    "tr": "Sığır eti"
+  },
+  {
+    "en": "stewing chicken",
+    "tr": "Yahudi Tavuk"
+  },
+  {
+    "en": "stewing lamb",
+    "tr": "Yahudi kuzu"
+  },
+  {
+    "en": "sticky rice",
+    "tr": "yapışkan pirinç"
+  },
+  {
+    "en": "stilton cheese",
+    "tr": "Stilton peyniri"
+  },
+  {
+    "en": "stone mustard",
+    "tr": "taş hardal"
+  },
+  {
+    "en": "stout beer",
+    "tr": "şişman bira"
+  },
+  {
+    "en": "stove top stuffing mix",
+    "tr": "soba üst doldurma karışımı"
+  },
+  {
+    "en": "strawberries",
+    "tr": "çilek"
+  },
+  {
+    "en": "strawberries in syrup",
+    "tr": "Şurupta çilek"
+  },
+  {
+    "en": "strawberry",
+    "tr": "çilek"
+  },
+  {
+    "en": "strawberry cream cheese",
+    "tr": "Çilek krem ​​peyniri"
+  },
+  {
+    "en": "strawberry custard",
+    "tr": "çilek muhallebi"
+  },
+  {
+    "en": "strawberry gelatin",
+    "tr": "çilek jelatin"
+  },
+  {
+    "en": "strawberry ice cream",
+    "tr": "Çilek dondurma"
+  },
+  {
+    "en": "strawberry jell-o gelatin dessert",
+    "tr": "Çilek Jell-O jelatin tatlısı"
+  },
+  {
+    "en": "strawberry puree",
+    "tr": "çilek püresi"
+  },
+  {
+    "en": "strawberry sauce",
+    "tr": "çilek sosu"
+  },
+  {
+    "en": "strawberry syrup",
+    "tr": "çilek şurubu"
+  },
+  {
+    "en": "streaky bacon",
+    "tr": "çizgili pastırma"
+  },
+  {
+    "en": "string bean",
+    "tr": "çalı fasulyesi"
+  },
+  {
+    "en": "stuffing",
+    "tr": "doldurma"
+  },
+  {
+    "en": "style pinto beans",
+    "tr": "stil pinto fasulyesi"
+  },
+  {
+    "en": "suet",
+    "tr": "suy"
+  },
+  {
+    "en": "sugar",
+    "tr": "şeker"
+  },
+  {
+    "en": "sugar powder",
+    "tr": "şeker tozu"
+  },
+  {
+    "en": "sugar snap peas",
+    "tr": "şeker"
+  },
+  {
+    "en": "sugar substitute",
+    "tr": "şeker yerine"
+  },
+  {
+    "en": "sugar water",
+    "tr": "şeker suyu"
+  },
+  {
+    "en": "sultana raisins",
+    "tr": "sultana kuru üzüm"
+  },
+  {
+    "en": "sumaq",
+    "tr": "sumaq"
+  },
+  {
+    "en": "summer savory",
+    "tr": "yaz tuzlu"
+  },
+  {
+    "en": "sun-tomato",
+    "tr": "güneş domato"
+  },
+  {
+    "en": "sun-tomato paste",
+    "tr": "Güneş domato salçası"
+  },
+  {
+    "en": "sun-tomato pesto",
+    "tr": "Güneş domato pesto"
+  },
+  {
+    "en": "sun-tomato puree",
+    "tr": "Güneş domato püresi"
+  },
+  {
+    "en": "sunflower margarine",
+    "tr": "ayçiçeği margarin"
+  },
+  {
+    "en": "sunflower seeds",
+    "tr": "ayçiçeği tohumları"
+  },
+  {
+    "en": "sushi rice",
+    "tr": "suşi pirinç"
+  },
+  {
+    "en": "swanson chicken broth",
+    "tr": "swanson tavuk suyu"
+  },
+  {
+    "en": "swede",
+    "tr": "İsveçli"
+  },
+  {
+    "en": "sweet",
+    "tr": "tatlı"
+  },
+  {
+    "en": "sweet chili sauce",
+    "tr": "tatlı biber sosu"
+  },
+  {
+    "en": "sweet paprika",
+    "tr": "tatlı kırmızı biber"
+  },
+  {
+    "en": "sweet peas",
+    "tr": "tatlı bezelye"
+  },
+  {
+    "en": "sweet pepper",
+    "tr": "tatlı biber"
+  },
+  {
+    "en": "sweet pickle",
+    "tr": "tatlı turşu"
+  },
+  {
+    "en": "sweet pickle juice",
+    "tr": "Tatlı turşu suyu"
+  },
+  {
+    "en": "sweet potato",
+    "tr": "tatlı patates"
+  },
+  {
+    "en": "sweet potato burger buns",
+    "tr": "tatlı patates burger çörekler"
+  },
+  {
+    "en": "sweet potato puree",
+    "tr": "tatlı patates püresi"
+  },
+  {
+    "en": "sweet red wine",
+    "tr": "Tatlı kırmızı şarap"
+  },
+  {
+    "en": "sweet rice",
+    "tr": "tatlı pirinç"
+  },
+  {
+    "en": "sweet sausage",
+    "tr": "tatlı sosis"
+  },
+  {
+    "en": "sweet sherry",
+    "tr": "tatlı şeri"
+  },
+  {
+    "en": "sweet vermouth",
+    "tr": "Tatlı Vermut"
+  },
+  {
+    "en": "sweet white onion",
+    "tr": "Tatlı Beyaz Soğan"
+  },
+  {
+    "en": "sweet wine",
+    "tr": "tatlı şarap"
+  },
+  {
+    "en": "sweetener",
+    "tr": "tatlandırıcı"
+  },
+  {
+    "en": "swiss chard",
+    "tr": "İsviçre Chard"
+  },
+  {
+    "en": "swiss cheese",
+    "tr": "İsviçre peyniri"
+  },
+  {
+    "en": "swiss provolone cheese mix",
+    "tr": "İsviçre Provolone Peynir Karışımı"
+  },
+  {
+    "en": "swordfish fillets",
+    "tr": "kılıç balığı filetoları"
+  },
+  {
+    "en": "swordfish steak",
+    "tr": "kılıç balığı biftek"
+  },
+  {
+    "en": "swordfish steaks",
+    "tr": "kılıç balığı biftek"
+  },
+  {
+    "en": "szechuan black pepper",
+    "tr": "szechuan karabiber"
+  },
+  {
+    "en": "szechwan pepper",
+    "tr": "Szechwan Biber"
+  },
+  {
+    "en": "t-bone type lamb chops",
+    "tr": "T-kemik tipi kuzu pirzolası"
+  },
+  {
+    "en": "tabasco bread",
+    "tr": "Tabasco ekmeği"
+  },
+  {
+    "en": "tabasco garlic pepper sauce",
+    "tr": "Tabasco sarımsak biber sosu"
+  },
+  {
+    "en": "tabasco jalapeno sauce",
+    "tr": "Tabasco Jalapeno Sos"
+  },
+  {
+    "en": "tabasco sauce",
+    "tr": "Tabasco sosu"
+  },
+  {
+    "en": "taco beef filling",
+    "tr": "taco sığır eti dolgusu"
+  },
+  {
+    "en": "taco sauce",
+    "tr": "taco sosu"
+  },
+  {
+    "en": "taco seasoning",
+    "tr": "taco baharat"
+  },
+  {
+    "en": "taco seasoning mix",
+    "tr": "taco baharat karışımı"
+  },
+  {
+    "en": "taco seasoning mix - the best!",
+    "tr": "Taco Baharat Karışımı - En iyisi!"
+  },
+  {
+    "en": "taco/fajita seasoning",
+    "tr": "Taco/Fajita Baharat"
+  },
+  {
+    "en": "tacos",
+    "tr": "tacos"
+  },
+  {
+    "en": "tagliatelle pasta noodles",
+    "tr": "Tagliatelle makarna erişteleri"
+  },
+  {
+    "en": "tahini",
+    "tr": "Tahini"
+  },
+  {
+    "en": "tahini sesame butter",
+    "tr": "tahini susam tereyağı"
+  },
+  {
+    "en": "taleggio",
+    "tr": "taleggio"
+  },
+  {
+    "en": "tamari",
+    "tr": "tamari"
+  },
+  {
+    "en": "tamari soy sauce",
+    "tr": "tamari soya sosu"
+  },
+  {
+    "en": "tamarind",
+    "tr": "demirhindi"
+  },
+  {
+    "en": "tamarind chutney",
+    "tr": "Demirhindi Chutney"
+  },
+  {
+    "en": "tamarind extract",
+    "tr": "demirhindi özü"
+  },
+  {
+    "en": "tamarind juice",
+    "tr": "demirhindi suyu"
+  },
+  {
+    "en": "tamarind paste",
+    "tr": "demirhindi macun"
+  },
+  {
+    "en": "tamarind pulp",
+    "tr": "demirhindi"
+  },
+  {
+    "en": "tamarind soup mix",
+    "tr": "Demirhindi çorbası karışımı"
+  },
+  {
+    "en": "tangerine",
+    "tr": "mandalina"
+  },
+  {
+    "en": "tangerine juice",
+    "tr": "mandal suyu"
+  },
+  {
+    "en": "tangerine peel",
+    "tr": "mandalina kabuğu"
+  },
+  {
+    "en": "tangerine zest",
+    "tr": "mandalina kabuğu"
+  },
+  {
+    "en": "tangy tomatillo sauce",
+    "tr": "Keskin Tomatillo sosu"
+  },
+  {
+    "en": "tap water",
+    "tr": "Musluk suyu"
+  },
+  {
+    "en": "tapioca",
+    "tr": "tapyoka"
+  },
+  {
+    "en": "tapioca flour",
+    "tr": "tapyoka unu"
+  },
+  {
+    "en": "tapioca starch",
+    "tr": "Tapioka nişastası"
+  },
+  {
+    "en": "tarragon",
+    "tr": "tarragon"
+  },
+  {
+    "en": "tarragon vinegar",
+    "tr": "tarragon sirkesi"
+  },
+  {
+    "en": "tarragon white wine vinegar",
+    "tr": "Tarragon beyaz şarap sirkesi"
+  },
+  {
+    "en": "tasso",
+    "tr": "portakal"
+  },
+  {
+    "en": "tatsoi",
+    "tr": "Tatsoi"
+  },
+  {
+    "en": "tea",
+    "tr": "çay"
+  },
+  {
+    "en": "tea bag",
+    "tr": "çay poşeti"
+  },
+  {
+    "en": "teff flour",
+    "tr": "teff unu"
+  },
+  {
+    "en": "tempeh",
+    "tr": "tempeh"
+  },
+  {
+    "en": "tempeh bacon",
+    "tr": "tempeh pastırma"
+  },
+  {
+    "en": "tequila",
+    "tr": "tekila"
+  },
+  {
+    "en": "tequila-lime salsa fresca",
+    "tr": "tekila-kireç salsa fresca"
+  },
+  {
+    "en": "teriyaki marinade or sauce",
+    "tr": "teriyaki turşusu veya sos"
+  },
+  {
+    "en": "tex-mex carne asada",
+    "tr": "Tex-Mex Carne Asada"
+  },
+  {
+    "en": "texas red enchilada sauce",
+    "tr": "Texas kırmızı enchilada sosu"
+  },
+  {
+    "en": "thick",
+    "tr": "kalın"
+  },
+  {
+    "en": "thick & chunky salsa",
+    "tr": "kalın ve tıknaz salsa"
+  },
+  {
+    "en": "thick slab bacon",
+    "tr": "Kalın Döşeme Pastırma"
+  },
+  {
+    "en": "thick soy sauce",
+    "tr": "kalın soya sosu"
+  },
+  {
+    "en": "thin soy sauce",
+    "tr": "ince soya sosu"
+  },
+  {
+    "en": "thompsongrapes",
+    "tr": "Thompsongrapes"
+  },
+  {
+    "en": "thyme",
+    "tr": "kekik"
+  },
+  {
+    "en": "thyme honey",
+    "tr": "Kekik Bal"
+  },
+  {
+    "en": "tiger shrimp",
+    "tr": "Kaplan Karides"
+  },
+  {
+    "en": "tikka masala sauce",
+    "tr": "Tikka masala sosu"
+  },
+  {
+    "en": "tilsit cheese",
+    "tr": "tilsit peyniri"
+  },
+  {
+    "en": "tiny pasta",
+    "tr": "küçük makarna"
+  },
+  {
+    "en": "tiny peas",
+    "tr": "küçük bezelye"
+  },
+  {
+    "en": "toasted hazelnuts",
+    "tr": "kızarmış fındık"
+  },
+  {
+    "en": "toasted sesame",
+    "tr": "kızarmış susam"
+  },
+  {
+    "en": "toasted wheat germ",
+    "tr": "kızarmış buğday mikrop"
+  },
+  {
+    "en": "tofu",
+    "tr": "tofu"
+  },
+  {
+    "en": "tofu crumbles",
+    "tr": "tofu parçalanır"
+  },
+  {
+    "en": "tofu mock cream cheese",
+    "tr": "Tofu Mock krem ​​peynir"
+  },
+  {
+    "en": "tofu pockets",
+    "tr": "tofu cepleri"
+  },
+  {
+    "en": "tofu sour cream",
+    "tr": "tofu ekşi krema"
+  },
+  {
+    "en": "tofutti better-than-cream-cheese",
+    "tr": "tofutti kremadan daha iyi"
+  },
+  {
+    "en": "tofutti sour cream",
+    "tr": "tofutti ekşi krema"
+  },
+  {
+    "en": "togarashi pepper",
+    "tr": "Togarashi Pepper"
+  },
+  {
+    "en": "tomatillo salsa",
+    "tr": "Tomatillo salsa"
+  },
+  {
+    "en": "tomatillo salsa fresca",
+    "tr": "Tomatillo Salsa Fresca"
+  },
+  {
+    "en": "tomato",
+    "tr": "domates"
+  },
+  {
+    "en": "tomato base chili sauce",
+    "tr": "domates tabanı biber sosu"
+  },
+  {
+    "en": "tomato bisque soup",
+    "tr": "domates bisque çorbası"
+  },
+  {
+    "en": "tomato chutney",
+    "tr": "domates chutney"
+  },
+  {
+    "en": "tomato juice",
+    "tr": "domates suyu"
+  },
+  {
+    "en": "tomato ketchup",
+    "tr": "domates ketçap"
+  },
+  {
+    "en": "tomato paste",
+    "tr": "salça"
+  },
+  {
+    "en": "tomato puree",
+    "tr": "domates püresi"
+  },
+  {
+    "en": "tomato salsa",
+    "tr": "domates salsa"
+  },
+  {
+    "en": "tomato sauce",
+    "tr": "domates sosu"
+  },
+  {
+    "en": "tomato sauce & mushrooms",
+    "tr": "domates sosu ve mantar"
+  },
+  {
+    "en": "tomato sauce with basil garlic",
+    "tr": "Fesleğen sarımsak ile domates sosu"
+  },
+  {
+    "en": "tomato tortilla",
+    "tr": "domates tortilla"
+  },
+  {
+    "en": "tomatoes",
+    "tr": "domates"
+  },
+  {
+    "en": "tomatoes seasoned with basil garlic & oregano",
+    "tr": "Fesleğen sarımsak ve kekik ile terbiyeli domates"
+  },
+  {
+    "en": "tomatoes with basil",
+    "tr": "Fesleğenli domates"
+  },
+  {
+    "en": "tomatoes with basil oregano",
+    "tr": "fesleğen kekik ile domates"
+  },
+  {
+    "en": "tomatoes with garlic",
+    "tr": "Sarımsaklı domates"
+  },
+  {
+    "en": "tomatoes with green chilies",
+    "tr": "Yeşil biberlerle domates"
+  },
+  {
+    "en": "tomatoes with green pepper celery",
+    "tr": "Yeşil biber kerevizli domates"
+  },
+  {
+    "en": "tomatoes with jalapeno peppers",
+    "tr": "Jalapeno biber ile domates"
+  },
+  {
+    "en": "tomatoes with jalapenos",
+    "tr": "Jalapenoslu Domates"
+  },
+  {
+    "en": "tomatoes with juice",
+    "tr": "meyve suyu ile domates"
+  },
+  {
+    "en": "tomatoes with liquid",
+    "tr": "Sıvılı domates"
+  },
+  {
+    "en": "tomatoes with mild green chilies",
+    "tr": "Hafif yeşil biberlerle domates"
+  },
+  {
+    "en": "tomatoes with onion",
+    "tr": "Soğan domatesleri"
+  },
+  {
+    "en": "tomatoes with onion garlic",
+    "tr": "Soğan sarımsak domatesleri"
+  },
+  {
+    "en": "tomatoes with peppers",
+    "tr": "Biberli domates"
+  },
+  {
+    "en": "tonic water",
+    "tr": "tonik su"
+  },
+  {
+    "en": "top",
+    "tr": "tepe"
+  },
+  {
+    "en": "top round beef",
+    "tr": "üst yuvarlak sığır eti"
+  },
+  {
+    "en": "top round roast",
+    "tr": "Üst Yuvarlak Kızartma"
+  },
+  {
+    "en": "top round steak",
+    "tr": "üst yuvarlak biftek"
+  },
+  {
+    "en": "top round steaks",
+    "tr": "Üst Yuvarlak Biftek"
+  },
+  {
+    "en": "topping",
+    "tr": "tepe"
+  },
+  {
+    "en": "tops",
+    "tr": "üst kısım"
+  },
+  {
+    "en": "topside mince",
+    "tr": "Topside kıyma"
+  },
+  {
+    "en": "tortilla",
+    "tr": "tortilla"
+  },
+  {
+    "en": "tortilla flour",
+    "tr": "tortilla unu"
+  },
+  {
+    "en": "tostadas",
+    "tr": "Tostadalar"
+  },
+  {
+    "en": "treacle",
+    "tr": "treacle"
+  },
+  {
+    "en": "tri-color spiral pasta",
+    "tr": "üç renkli sarmal makarna"
+  },
+  {
+    "en": "tri-colored corkscrew macaroni",
+    "tr": "Üç renkli tirbuşon macarnoni"
+  },
+  {
+    "en": "tri-tip roast",
+    "tr": "Tri uçlu kızartma"
+  },
+  {
+    "en": "tri-tip steak",
+    "tr": "üçlü biftek"
+  },
+  {
+    "en": "tripe",
+    "tr": "saçmalık"
+  },
+  {
+    "en": "triple sec",
+    "tr": "üçlü saniye"
+  },
+  {
+    "en": "trout",
+    "tr": "alabalık"
+  },
+  {
+    "en": "truffle",
+    "tr": "manşet"
+  },
+  {
+    "en": "tubetti pasta",
+    "tr": "Tubetti makarna"
+  },
+  {
+    "en": "tuna",
+    "tr": "orkinos"
+  },
+  {
+    "en": "tuna salad",
+    "tr": "Ton balığı salatası"
+  },
+  {
+    "en": "tuna steak",
+    "tr": "Ton balığı biftek"
+  },
+  {
+    "en": "tuna steaks",
+    "tr": "Ton balığı biftek"
+  },
+  {
+    "en": "turbinado sugar",
+    "tr": "turbinado şekeri"
+  },
+  {
+    "en": "turkey",
+    "tr": "Türkiye"
+  },
+  {
+    "en": "turkey breast",
+    "tr": "hindi göğsü"
+  },
+  {
+    "en": "turkey breast tenderloin",
+    "tr": "Türkiye Göğüs Teslimat"
+  },
+  {
+    "en": "turkey breast tenderloins",
+    "tr": "Türkiye Göğüs Bonfile"
+  },
+  {
+    "en": "turkey broth",
+    "tr": "Türkiye suyu"
+  },
+  {
+    "en": "turkey carcass",
+    "tr": "Türkiye karkası"
+  },
+  {
+    "en": "turkey kielbasa",
+    "tr": "Türkiye Kielbasa"
+  },
+  {
+    "en": "turkey meat",
+    "tr": "hindi eti"
+  },
+  {
+    "en": "turkey polish kielbasa",
+    "tr": "Türkiye Lehçe Kielbasa"
+  },
+  {
+    "en": "turkey sausage",
+    "tr": "Türkiye Sosis"
+  },
+  {
+    "en": "turkey slices",
+    "tr": "Türkiye Dilimleri"
+  },
+  {
+    "en": "turkey tenderloins",
+    "tr": "Türkiye Bonfile"
+  },
+  {
+    "en": "turkish baharat spice mix",
+    "tr": "Türk Baharat baharat karışımı"
+  },
+  {
+    "en": "turkish coffee - kahve",
+    "tr": "Türk kahvesi - Kahve"
+  },
+  {
+    "en": "turmeric",
+    "tr": "zerdeçal"
+  },
+  {
+    "en": "turmeric powder",
+    "tr": "zerdeçal tozu"
+  },
+  {
+    "en": "turnip",
+    "tr": "şalgam"
+  },
+  {
+    "en": "tutti-frutti ice cream",
+    "tr": "Tutti-frutti dondurma"
+  },
+  {
+    "en": "tzatziki",
+    "tr": "tzatziki"
+  },
+  {
+    "en": "udon noodles",
+    "tr": "Udon erişteleri"
+  },
+  {
+    "en": "umami sauce",
+    "tr": "umami sosu"
+  },
+  {
+    "en": "umeboshi",
+    "tr": "UMEBOSHI"
+  },
+  {
+    "en": "umeboshi plum paste",
+    "tr": "Umeboshi erik macunu"
+  },
+  {
+    "en": "unbleached  flour",
+    "tr": "Ağarsız un"
+  },
+  {
+    "en": "unbleached flour",
+    "tr": "Ağarsız un"
+  },
+  {
+    "en": "unbleached white flour",
+    "tr": "Ağarsız beyaz un"
+  },
+  {
+    "en": "uncle bens converted br",
+    "tr": "Bens Amca BR'yi dönüştürdü"
+  },
+  {
+    "en": "unsifted  flour",
+    "tr": "Hortumsuz un"
+  },
+  {
+    "en": "unsifted flour",
+    "tr": "Hortumsuz un"
+  },
+  {
+    "en": "unsmoked bacon",
+    "tr": "Missed Pastırma"
+  },
+  {
+    "en": "unsulphured molasses",
+    "tr": "Sülfürsüz pekmez"
+  },
+  {
+    "en": "urad dal",
+    "tr": "urad dal"
+  },
+  {
+    "en": "valencia oranges",
+    "tr": "Valencia portakalları"
+  },
+  {
+    "en": "vanilla",
+    "tr": "vanilya"
+  },
+  {
+    "en": "vanilla bean",
+    "tr": "vanilya fasulyesi"
+  },
+  {
+    "en": "vanilla bean paste",
+    "tr": "vanilya fasulyesi macunu"
+  },
+  {
+    "en": "vanilla beans",
+    "tr": "vanilya fasulyesi"
+  },
+  {
+    "en": "vanilla cool whip",
+    "tr": "vanilya serin kırbaç"
+  },
+  {
+    "en": "vanilla custard",
+    "tr": "vanilyalı muhallebi"
+  },
+  {
+    "en": "vanilla custard powder",
+    "tr": "vanilyalı koruma tozu"
+  },
+  {
+    "en": "vanilla essence",
+    "tr": "vanilya özü"
+  },
+  {
+    "en": "vanilla extract",
+    "tr": "vanilya özü"
+  },
+  {
+    "en": "vanilla flavor pudding",
+    "tr": "vanilya aroması puding"
+  },
+  {
+    "en": "vanilla flavoring",
+    "tr": "vanilya aroması"
+  },
+  {
+    "en": "vanilla ice cream",
+    "tr": "vanilyalı dondurma"
+  },
+  {
+    "en": "vanilla pastry cream",
+    "tr": "Vanilya Pasta Kremi"
+  },
+  {
+    "en": "vanilla pod",
+    "tr": "vanilya"
+  },
+  {
+    "en": "vanilla pudding",
+    "tr": "vanilya puding"
+  },
+  {
+    "en": "vanilla pudding mix",
+    "tr": "vanilya puding karışımı"
+  },
+  {
+    "en": "vanilla soymilk",
+    "tr": "vanilya soya"
+  },
+  {
+    "en": "vanilla vodka",
+    "tr": "vanilya votkası"
+  },
+  {
+    "en": "vanilla yogurt",
+    "tr": "vanilya yoğurt"
+  },
+  {
+    "en": "vanilla-flavored soymilk",
+    "tr": "vanilya aromalı soya"
+  },
+  {
+    "en": "vanillapudding",
+    "tr": "vanilapudding"
+  },
+  {
+    "en": "vanillapudding mix",
+    "tr": "Vanillapudding karışımı"
+  },
+  {
+    "en": "veal",
+    "tr": "dana eti"
+  },
+  {
+    "en": "veal broth",
+    "tr": "dana et suyu"
+  },
+  {
+    "en": "veal escalopes",
+    "tr": "dana eti escalopları"
+  },
+  {
+    "en": "veal liver",
+    "tr": "dana karacağı"
+  },
+  {
+    "en": "vegan butter",
+    "tr": "vegan tereyağı"
+  },
+  {
+    "en": "vegan cheddar cheese",
+    "tr": "Vegan kaşar peyniri"
+  },
+  {
+    "en": "vegan cheese",
+    "tr": "vegan peyniri"
+  },
+  {
+    "en": "vegan chicken",
+    "tr": "vegan tavuk"
+  },
+  {
+    "en": "vegan egg replacer powder",
+    "tr": "vegan yumurta yedek tozu"
+  },
+  {
+    "en": "vegan margarine",
+    "tr": "vegan margarin"
+  },
+  {
+    "en": "vegan mayonnaise",
+    "tr": "vegan mayonez"
+  },
+  {
+    "en": "vegan meatballs",
+    "tr": "Vegan köfte"
+  },
+  {
+    "en": "vegan mozzarella cheese",
+    "tr": "Vegan mozzarella peyniri"
+  },
+  {
+    "en": "vegan parmesan cheese",
+    "tr": "Vegan Parmesan peyniri"
+  },
+  {
+    "en": "vegan sausage links",
+    "tr": "Vegan sosis bağlantıları"
+  },
+  {
+    "en": "vegan sour cream",
+    "tr": "Vegan ekşi krema"
+  },
+  {
+    "en": "vegan sugar",
+    "tr": "vegan şekeri"
+  },
+  {
+    "en": "vegan yogurt",
+    "tr": "vegan yoğurt"
+  },
+  {
+    "en": "vegemite",
+    "tr": "vegemit"
+  },
+  {
+    "en": "vegetable bouillon cube",
+    "tr": "Sebze Bouillon Küpü"
+  },
+  {
+    "en": "vegetable broth",
+    "tr": "sebze suyu"
+  },
+  {
+    "en": "vegetable marrows",
+    "tr": "Sebze Kırakları"
+  },
+  {
+    "en": "vegetable oil",
+    "tr": "bitkisel yağ"
+  },
+  {
+    "en": "vegetable shortening",
+    "tr": "Sebze kısaltması"
+  },
+  {
+    "en": "vegetable suet",
+    "tr": "sebze"
+  },
+  {
+    "en": "vegetarian bacon",
+    "tr": "vejetaryen pastırma"
+  },
+  {
+    "en": "vegetarian baked beans",
+    "tr": "vejetaryen pişmiş fasulye"
+  },
+  {
+    "en": "vegetarian beef",
+    "tr": "vejetaryen sığır eti"
+  },
+  {
+    "en": "vegetarian beef bouillon powder",
+    "tr": "Vejetaryen sığır eti buluil tozu"
+  },
+  {
+    "en": "vegetarian beef broth",
+    "tr": "Vejetaryen sığır eti suyu"
+  },
+  {
+    "en": "vegetarian beef strips",
+    "tr": "Vejetaryen sığır şeritleri"
+  },
+  {
+    "en": "vegetarian beef substitute",
+    "tr": "Vejetaryen sığır eti"
+  },
+  {
+    "en": "vegetarian chicken bouillon granules",
+    "tr": "Vejetaryen tavuk bouillon granülleri"
+  },
+  {
+    "en": "vegetarian chicken broth",
+    "tr": "Vejetaryen tavuk suyu"
+  },
+  {
+    "en": "vegetarian chicken pieces",
+    "tr": "Vejetaryen tavuk parçaları"
+  },
+  {
+    "en": "vegetarian chicken stock",
+    "tr": "vejetaryen tavuk stoğu"
+  },
+  {
+    "en": "vegetarian chicken substitute",
+    "tr": "Vejetaryen tavuk ikamesi"
+  },
+  {
+    "en": "vegetarian chili",
+    "tr": "vejetaryen biber"
+  },
+  {
+    "en": "vegetarian ham",
+    "tr": "vejetaryen jambon"
+  },
+  {
+    "en": "vegetarian meat substitute",
+    "tr": "vejetaryen et ikamesi"
+  },
+  {
+    "en": "vegetarian mincemeat",
+    "tr": "vejetaryen mini"
+  },
+  {
+    "en": "vegetarian oyster sauce",
+    "tr": "Vejetaryen istiridye sosu"
+  },
+  {
+    "en": "vegetarian pudding mix",
+    "tr": "vejetaryen puding karışımı"
+  },
+  {
+    "en": "vegetarian refried beans",
+    "tr": "vejetaryen kızartılmış fasulye"
+  },
+  {
+    "en": "vegetarian sausage patties",
+    "tr": "Vejetaryen sosis köftesi"
+  },
+  {
+    "en": "vegetarian worcestershire sauce",
+    "tr": "Vejetaryen Worcestershire Sos"
+  },
+  {
+    "en": "velveeta american cheese spread",
+    "tr": "Velveeta Amerikan Peyniri Yayıyor"
+  },
+  {
+    "en": "velveeta cheese",
+    "tr": "Velveeta peyniri"
+  },
+  {
+    "en": "velveeta mexican cheese",
+    "tr": "Velveeta Meksika Peyniri"
+  },
+  {
+    "en": "velveeta reduced fat cheese product",
+    "tr": "Velveeta Azaltılmış Yağ Peyniri Ürünü"
+  },
+  {
+    "en": "venison steak",
+    "tr": "geyik eti biftek"
+  },
+  {
+    "en": "vermont sharp cheddar cheese",
+    "tr": "Vermont keskin çedar peyniri"
+  },
+  {
+    "en": "vermouth",
+    "tr": "vermut"
+  },
+  {
+    "en": "vietnamese lemongrass shrimp",
+    "tr": "Vietnamca limon otu karides"
+  },
+  {
+    "en": "vindaloo curry paste",
+    "tr": "Vindaloo köri macunu"
+  },
+  {
+    "en": "vinegar",
+    "tr": "sirke"
+  },
+  {
+    "en": "vital wheat gluten",
+    "tr": "hayati buğday gluten"
+  },
+  {
+    "en": "vital wheat gluten flour",
+    "tr": "Hayati buğday gluten unu"
+  },
+  {
+    "en": "vodka",
+    "tr": "votka"
+  },
+  {
+    "en": "walnut oil",
+    "tr": "ceviz yağı"
+  },
+  {
+    "en": "walnut pieces",
+    "tr": "Ceviz Parçaları"
+  },
+  {
+    "en": "walnuts",
+    "tr": "ceviz"
+  },
+  {
+    "en": "warm water",
+    "tr": "ılık su"
+  },
+  {
+    "en": "wasabi",
+    "tr": "Wasabi"
+  },
+  {
+    "en": "wasabi paste",
+    "tr": "wasabi macunu"
+  },
+  {
+    "en": "wasabi powder",
+    "tr": "Wasabi Tozu"
+  },
+  {
+    "en": "water",
+    "tr": "su"
+  },
+  {
+    "en": "water chestnut",
+    "tr": "su kestanesi"
+  },
+  {
+    "en": "water chestnut flour",
+    "tr": "su kestane unu"
+  },
+  {
+    "en": "water-packed artichoke hearts",
+    "tr": "Su dolu enginar kalpleri"
+  },
+  {
+    "en": "watercress",
+    "tr": "su teresi"
+  },
+  {
+    "en": "watermelon",
+    "tr": "karpuz"
+  },
+  {
+    "en": "watermelon balls",
+    "tr": "karpuz topları"
+  },
+  {
+    "en": "watermelon juice",
+    "tr": "karpuz suyu"
+  },
+  {
+    "en": "watermelon wedges",
+    "tr": "karpuz takozları"
+  },
+  {
+    "en": "weisswurst sausages",
+    "tr": "Weisswurst Sosis"
+  },
+  {
+    "en": "wensleydale cheese",
+    "tr": "Wensleydale peyniri"
+  },
+  {
+    "en": "westphalian ham",
+    "tr": "Westphalian jambonu"
+  },
+  {
+    "en": "wheat beer",
+    "tr": "buğday birası"
+  },
+  {
+    "en": "wheat germ",
+    "tr": "buğday mikrop"
+  },
+  {
+    "en": "wheat gluten",
+    "tr": "buğday gluteni"
+  },
+  {
+    "en": "wheat pasta shells",
+    "tr": "buğday makarna kabukları"
+  },
+  {
+    "en": "whipped butter",
+    "tr": "çırpılmış tereyağı"
+  },
+  {
+    "en": "whipped cream",
+    "tr": "çırpılmış krema"
+  },
+  {
+    "en": "whipped topping",
+    "tr": "çırpılmış tepesinde"
+  },
+  {
+    "en": "white asparagus",
+    "tr": "Beyaz Kuşkonmaz"
+  },
+  {
+    "en": "white bean",
+    "tr": "beyaz fasulye"
+  },
+  {
+    "en": "white beans",
+    "tr": "beyaz fasulye"
+  },
+  {
+    "en": "white bread flour",
+    "tr": "Beyaz Ekmek Unu"
+  },
+  {
+    "en": "white button mushrooms",
+    "tr": "Beyaz Düğme Mantarları"
+  },
+  {
+    "en": "white cabbage",
+    "tr": "beyaz lahana"
+  },
+  {
+    "en": "white cardamom pods",
+    "tr": "Beyaz kakule kapsülleri"
+  },
+  {
+    "en": "white cheddar cheese",
+    "tr": "beyaz çedar peyniri"
+  },
+  {
+    "en": "white chocolate",
+    "tr": "beyaz çikolata"
+  },
+  {
+    "en": "white chocolate chips",
+    "tr": "beyaz çikolata parçaları"
+  },
+  {
+    "en": "white chocolate pudding",
+    "tr": "Beyaz Çikolata Puding"
+  },
+  {
+    "en": "white chocolate pudding mix",
+    "tr": "Beyaz çikolata puding karışımı"
+  },
+  {
+    "en": "white chocolatesquares",
+    "tr": "Beyaz çikolatalar"
+  },
+  {
+    "en": "white corn",
+    "tr": "beyaz mısır"
+  },
+  {
+    "en": "white corn kernels",
+    "tr": "beyaz mısır çekirdekleri"
+  },
+  {
+    "en": "white corn syrup",
+    "tr": "beyaz mısır şurubu"
+  },
+  {
+    "en": "white corn tortilla",
+    "tr": "Beyaz Mısır Tortilla"
+  },
+  {
+    "en": "white cornmeal",
+    "tr": "beyaz mısır unu"
+  },
+  {
+    "en": "white crab meat",
+    "tr": "beyaz yengeç eti"
+  },
+  {
+    "en": "white creme de menthe",
+    "tr": "beyaz creme de menthe"
+  },
+  {
+    "en": "white distilled vinegar",
+    "tr": "beyaz damıtılmış sirke"
+  },
+  {
+    "en": "white fish",
+    "tr": "beyaz balık"
+  },
+  {
+    "en": "white grapes",
+    "tr": "beyaz üzüm"
+  },
+  {
+    "en": "white hominy",
+    "tr": "Beyaz Hominy"
+  },
+  {
+    "en": "white kidney beans",
+    "tr": "beyaz böbrek fasulyesi"
+  },
+  {
+    "en": "white lentils",
+    "tr": "beyaz mercimek"
+  },
+  {
+    "en": "white meat",
+    "tr": "beyaz et"
+  },
+  {
+    "en": "white meat chicken",
+    "tr": "beyaz et tavuk"
+  },
+  {
+    "en": "white miso",
+    "tr": "beyaz miso"
+  },
+  {
+    "en": "white mushroom",
+    "tr": "beyaz mantar"
+  },
+  {
+    "en": "white mushrooms",
+    "tr": "beyaz mantar"
+  },
+  {
+    "en": "white mustard seeds",
+    "tr": "beyaz hardal tohumu"
+  },
+  {
+    "en": "white pepper",
+    "tr": "beyaz biber"
+  },
+  {
+    "en": "white poppy seeds",
+    "tr": "beyaz haşhaş tohumu"
+  },
+  {
+    "en": "white potato",
+    "tr": "beyaz patates"
+  },
+  {
+    "en": "white potatoes",
+    "tr": "beyaz patates"
+  },
+  {
+    "en": "white radish",
+    "tr": "beyaz turp"
+  },
+  {
+    "en": "white raisins",
+    "tr": "beyaz kuru üzüm"
+  },
+  {
+    "en": "white rice",
+    "tr": "beyaz pirinç"
+  },
+  {
+    "en": "white rice wine",
+    "tr": "Beyaz Pirinç Şarabı"
+  },
+  {
+    "en": "white rum",
+    "tr": "beyaz rom"
+  },
+  {
+    "en": "white sauce",
+    "tr": "beyaz sos"
+  },
+  {
+    "en": "white shoepeg corn",
+    "tr": "Beyaz Ayak Mısır"
+  },
+  {
+    "en": "white sugar",
+    "tr": "beyaz şeker"
+  },
+  {
+    "en": "white swiss chard",
+    "tr": "Beyaz İsviçre"
+  },
+  {
+    "en": "white tuna",
+    "tr": "beyaz ton balığı"
+  },
+  {
+    "en": "white vermouth",
+    "tr": "beyaz vermut"
+  },
+  {
+    "en": "white vinegar",
+    "tr": "beyaz sirke"
+  },
+  {
+    "en": "white wine",
+    "tr": "beyaz şarap"
+  },
+  {
+    "en": "white wine vinegar",
+    "tr": "beyaz şarap sirkesi"
+  },
+  {
+    "en": "white wine worcestershire sauce",
+    "tr": "Beyaz Şarap Worcestershire Sos"
+  },
+  {
+    "en": "white zinf",
+    "tr": "beyaz zinf"
+  },
+  {
+    "en": "whitewheat flour",
+    "tr": "Beyaz Kafa Unu"
+  },
+  {
+    "en": "wich bread",
+    "tr": "ekmek"
+  },
+  {
+    "en": "wild ducks",
+    "tr": "Yabani Ördekler"
+  },
+  {
+    "en": "wild rice",
+    "tr": "vahşi pirinç"
+  },
+  {
+    "en": "wild rice mix",
+    "tr": "Vahşi Pirinç Karışımı"
+  },
+  {
+    "en": "wildflower honey",
+    "tr": "kır çiçeği tatlım"
+  },
+  {
+    "en": "wine",
+    "tr": "şarap"
+  },
+  {
+    "en": "wine vinegar",
+    "tr": "şarap sirkesi"
+  },
+  {
+    "en": "wine-cured sauerkraut",
+    "tr": "Şaraplı lahana turşusu"
+  },
+  {
+    "en": "winter melon",
+    "tr": "kış kavun"
+  },
+  {
+    "en": "winter savory",
+    "tr": "Kış Tuzlu"
+  },
+  {
+    "en": "wondra flour",
+    "tr": "Wondra Un"
+  },
+  {
+    "en": "wonton",
+    "tr": "Wonton"
+  },
+  {
+    "en": "wonton skins",
+    "tr": "Wonton derileri"
+  },
+  {
+    "en": "wonton wrappers",
+    "tr": "Wonton sarmalayıcıları"
+  },
+  {
+    "en": "worcestershire sauce",
+    "tr": "Worcestershire Sos"
+  },
+  {
+    "en": "xanthan gum",
+    "tr": "ksanta sakızı"
+  },
+  {
+    "en": "yeast",
+    "tr": "maya"
+  },
+  {
+    "en": "yeast cake",
+    "tr": "maya pastası"
+  },
+  {
+    "en": "yeast energizer",
+    "tr": "maya enerjisi"
+  },
+  {
+    "en": "yellow bell pepper",
+    "tr": "sarı biber"
+  },
+  {
+    "en": "yellow capsicum",
+    "tr": "sarı alabora"
+  },
+  {
+    "en": "yellow cherry tomato",
+    "tr": "sarı kiraz domates"
+  },
+  {
+    "en": "yellow chiles",
+    "tr": "sarı chiles"
+  },
+  {
+    "en": "yellow corn grits",
+    "tr": "sarı mısır yüce"
+  },
+  {
+    "en": "yellow cornmeal",
+    "tr": "sarı mısır unu"
+  },
+  {
+    "en": "yellow fin potatoes",
+    "tr": "sarı yüzgeçli patates"
+  },
+  {
+    "en": "yellow hominy",
+    "tr": "sarı hominy"
+  },
+  {
+    "en": "yellow lentils",
+    "tr": "sarı mercimek"
+  },
+  {
+    "en": "yellow miso",
+    "tr": "sarı miso"
+  },
+  {
+    "en": "yellow mustard",
+    "tr": "sarı hardal"
+  },
+  {
+    "en": "yellow onion",
+    "tr": "sarı soğan"
+  },
+  {
+    "en": "yellow pear tomatoes",
+    "tr": "sarı armut domatesleri"
+  },
+  {
+    "en": "yellow plums",
+    "tr": "sarı erik"
+  },
+  {
+    "en": "yellow potatoes",
+    "tr": "sarı patates"
+  },
+  {
+    "en": "yellow rice",
+    "tr": "sarı pirinç"
+  },
+  {
+    "en": "yellow sweet bell pepper",
+    "tr": "sarı tatlı biber"
+  },
+  {
+    "en": "yellow sweet onion",
+    "tr": "sarı tatlı soğan"
+  },
+  {
+    "en": "yellow sweet pepper",
+    "tr": "sarı tatlı biber"
+  },
+  {
+    "en": "yellow tomatoes",
+    "tr": "sarı domates"
+  },
+  {
+    "en": "yellow zucchini",
+    "tr": "sarı kabak"
+  },
+  {
+    "en": "yellowfin tuna",
+    "tr": "sarı yüzgeçli orkinos"
+  },
+  {
+    "en": "yogurt",
+    "tr": "yoğurt"
+  },
+  {
+    "en": "young ginger root",
+    "tr": "genç zencefil kökü"
+  },
+  {
+    "en": "yucca root",
+    "tr": "yucca kökü"
+  },
+  {
+    "en": "yukon gold potatoes",
+    "tr": "Yukon altın patates"
+  },
+  {
+    "en": "zaatar",
+    "tr": "zaatar"
+  },
+  {
+    "en": "zaatar spice mix",
+    "tr": "Zaatar baharat karışımı"
+  },
+  {
+    "en": "zatarains jambalaya mix",
+    "tr": "Zatarains Jambalaya Mix"
+  },
+  {
+    "en": "zest of",
+    "tr": "hoşnutsuzluk"
+  },
+  {
+    "en": "zesty dressing spice mix",
+    "tr": "Zesty Pansuma Baharat Mix"
+  },
+  {
+    "en": "zinf",
+    "tr": "zinf"
+  },
+  {
+    "en": "ziti pasta",
+    "tr": "Ziti makarna"
+  },
+  {
+    "en": "ziti rigati",
+    "tr": "Ziti Rigati"
+  },
+  {
+    "en": "zucchini",
+    "tr": "kabak"
   }
 ]
