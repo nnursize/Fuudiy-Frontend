@@ -47,5 +47,9 @@
   "confirmLogoutMessage": "Are you sure you want to log out of the website?",
   "cancel": "Cancel",
   "profile": "Profile",
-  "noBio": "No bio available."
+  "noBio": "No bio available.",
+  "comments": "Comments",
+  "keywords": "keywords",
+  "addToList": "Add To List",
+"removeFromList": "Remove From List"
 }

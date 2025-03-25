@@ -35,12 +35,11 @@ const Header = () => {
       
         method: "POST",
         headers: {
-          "Authorization": "Bearer " + localStorage.getItem("accessToken"),
+          "Authorization": "Bearer " + token,
         },
       })
         .then((response) => response.json())
         .then((data) => {
-          console.log("User:", data.data[0]);
           setUserData(data.data[0]); // Save user
         })
         .catch((error) => console.error("Error fetching /me:", error));
@@ -71,9 +70,9 @@ const Header = () => {
   //changed to id but the user fetching model is not compatible with the current users model,
   // needs to change  to token after model updates
   const handleProfileClick = () => {
-    if (userData && userData.id) {
+    if (userData) {
       console.log("user id in profile click 222", userData.id)
-      navigate(`/profile/${userData.id}`);
+      navigate(`/profile/${userData.username}`);
     }
   };
   
@@ -126,21 +125,6 @@ const Header = () => {
           ) : (
             <LoginContainer>
               <Link to="/login">{t("login")}</Link>
-              <ProfileIcon>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  strokeWidth={2}
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M12 12c2.28 0 4-1.72 4-4s-1.72-4-4-4-4 1.72-4 4 1.72 4 4 4zm0 2c-3.3137 0-6 1.6863-6 3.7619V19h12v-1.2381c0-2.0756-2.6863-3.7619-6-3.7619z"
-                  />
-                </svg>
-              </ProfileIcon>
             </LoginContainer>
           )}
         </RightSection>
