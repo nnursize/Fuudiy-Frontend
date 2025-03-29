@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Home from './pages/Home';
+import Explore from "./pages/Explore";
 import FoodDetailPage from './pages/FoodDetailPage';
 import Survey from './pages/Survey';
 
@@ -14,7 +15,8 @@ const App = () => {
       <Routes>
         {/* Default Route: "/" points to Home */}
         <Route path="/" element={<Home />} /> 
-
+        {/* Default Route: "/" points to Explore */}
+        <Route path="/explore" element={<Explore />} />
         {/* Dynamic Route for Food Details */}
         <Route path="/food/:id" element={<FoodDetailPage />} /> 
 
