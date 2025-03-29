@@ -51,5 +51,6 @@
   "comments": "Comments",
   "keywords": "keywords",
   "addToList": "Add To List",
-"removeFromList": "Remove From List"
+  "removeFromList": "Remove From List",
+  "allergies": "Allergies"
 }

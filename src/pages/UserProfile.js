@@ -19,7 +19,6 @@ console.log("access token: ", accessToken);
 
 
 const UserProfile = () => {
-  const { USER_ID } = useParams();
   const [userData, setUserData] = useState(null);
   const [ratedFoodDetails, setRatedFoodDetails] = useState([]);
   const [favoriteFoodDetails, setFavoriteFoodDetails] = useState([]);
@@ -28,6 +27,7 @@ const UserProfile = () => {
   const [dislikedIngredients, setDislikedIngredients] = useState([]);
   const [editingBio, setEditingBio] = useState(false);
   const [editedBio, setEditedBio] = useState("");
+  const [allergies, setAllergies] = useState([]);
   const { t } = useTranslation("global");
 
   useEffect(() => {
@@ -50,7 +50,11 @@ const UserProfile = () => {
         setEditedDislikedIngredients(parsedDisliked);
         setDislikedIngredients(parsedDisliked);
         console.log("edited disliked ingredients: ", editedDislikedIngredients);
-  
+
+        const allergiesResponse = await axios.get(`${API_BASE_URL}/users/allergies/${user.username}`);
+        setAllergies(allergiesResponse.data.data || []);
+        console.log("allergies: ", allergies);
+        
         return axios.get(`${API_BASE_URL}/comments/me`, {
           headers: { Authorization: `Bearer ${accessToken}` }
         });
@@ -334,6 +338,24 @@ const UserProfile = () => {
                     label={ingredient} 
                     {...(editingDisliked ? { onDelete: () => handleRemoveIngredient(ingredient) } : {})}
                     sx={{ backgroundColor: "#f1f1f1", fontWeight: "bold", fontSize: "14px", py: 0.5, px: 1 }} 
+                  />
+                ))}
+              </Stack>
+            </Box>
+          )}
+          {allergies.length > 0 && (
+            <Box sx={{ mt: 2 }}>
+              <Box display="flex" alignItems="center" justifyContent="space-between" sx={{ mb: 1 }}>
+                <Typography variant="body1" sx={{ fontWeight: "bold", color: "gray" }}>
+                  {t("allergies")} {/* Add to translation file */}
+                </Typography>
+              </Box>
+              <Stack direction="row" spacing={1} alignItems="center" flexWrap="wrap">
+                {allergies.map((ingredient, index) => (
+                  <Chip 
+                    key={index} 
+                    label={ingredient}
+                    sx={{ backgroundColor: "#ffe5e5", fontWeight: "bold", fontSize: "14px", py: 0.5, px: 1 }} 
                   />
                 ))}
               </Stack>
