@@ -22,6 +22,8 @@ import React, { useState, useEffect } from "react";
  import TranslateIcon from "@mui/icons-material/Translate";
  import { useTranslation } from "react-i18next";
  
+ const API_BASE_URL = "http://localhost:8000";
+
  const StarRating = ({ value, onChange, readOnly = false }) => {
    const [hoverRating, setHoverRating] = useState(0);
    return (
@@ -45,6 +47,7 @@ import React, { useState, useEffect } from "react";
  
  const Comments = () => {
    const { id: food_id } = useParams();
+   const [userData, setUserData] = useState(null);
    const [comments, setComments] = useState([]);
    const [loading, setLoading] = useState(true);
    const [newComment, setNewComment] = useState("");
@@ -57,23 +60,8 @@ import React, { useState, useEffect } from "react";
    useEffect(() => {
      const fetchComments = async () => {
        try {
-         const response = await axios.get(`http://localhost:8000/comments/${food_id}`);
-         const commentsWithUser = await Promise.all(
-           response.data.map(async (comment) => {
-             try {
-               const userResponse = await axios.get(`http://localhost:8000/users/${comment.userId}`);
-               return {
-                 ...comment,
-                 name: userResponse.data.data[0].name,
-                 avatarId: userResponse.data.data[0].avatarId,
-               };
-             } catch (error) {
-               console.error("Error fetching user data:", error);
-               return { ...comment, name: "Unknown User", avatarId: "default" };
-             }
-           })
-         );
-         setComments(commentsWithUser);
+         const response = await axios.get(`${API_BASE_URL}/comments/${food_id}`);
+         setComments(response.data);
        } catch (error) {
          setError("Error fetching comments.");
          console.error("API Error:", error);
@@ -83,39 +71,77 @@ import React, { useState, useEffect } from "react";
      };
      fetchComments();
    }, [food_id]);
- 
+
    const handleCommentSubmit = async () => {
-     if (!newComment.trim() || rating === 0) return;
-     try {
-       const response = await axios.post("http://localhost:8000/comments", {
-         foodId: food_id,
-         userId: "currentUserId", // Replace with actual logged-in user ID
-         rate: rating,
-         comment: newComment,
-       });
-       setComments([
-         {
-           ...response.data,
-           name: "Your Name", // Replace with actual user name
-           avatarId: "default", // Replace with actual avatar if needed
-         },
-         ...comments,
-       ]);
-       setNewComment("");
-       setRating(0);
-     } catch (error) {
-       console.error("Error adding comment:", error);
-     }
-   };
+    const token = localStorage.getItem("accessToken");
+    console.log("Token", token)
+    if (!token) {
+      alert("You have to login before submit a comment.");
+      return;
+    }
+        
+    if (!newComment.trim() || rating === 0) return;
+    try {
+      if (!userData) {
+        try {
+          const userResponse = await axios.get(`${API_BASE_URL}/auth/users/me`, {
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': token ? `Bearer ${token}` : ''
+            }
+          });
+          console.log(userResponse)
+          setUserData(userResponse.data.data[0]);
+        } catch (userError) {
+          console.error("Error fetching user data:", userError);
+        }
+      }
+      console.log(userData)
+      const response = await axios.post(
+        `${API_BASE_URL}/comments`, 
+        {
+          food_id: food_id,
+          rate: rating,
+          comment: newComment
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+          }
+        }
+      );
+  
+      if (response.data && userData) {
+        setComments([
+          {
+            ...response.data.data,
+            userName: userData.username,
+            userAvatar: userData.avatarId,
+            rate: rating
+          },
+          ...comments
+        ]);
+      }
+      
+      // Reset form
+      setNewComment("");
+      setRating(0);
+    } catch (error) {
+      console.error("Error adding comment:", error);
+      setError("Failed to submit comment. Please try again.");
+    }
+  };
  
    const translateComment = async (uniqueKey, text) => {
      // Mark this comment as translating
      setTranslating((prev) => ({ ...prev, [uniqueKey]: true }));
      try {
        const targetLanguage = i18n.language;
-       const response = await axios.post("http://localhost:8000/translate/", {
-         text,
-         target_language: targetLanguage,
+       console.log(targetLanguage)
+       const response = await axios.post(`${API_BASE_URL}/translation/`, {
+         text: text,
+         target_lang: targetLanguage,
        });
        setTranslatedComments((prev) => ({
          ...prev,
@@ -134,9 +160,6 @@ import React, { useState, useEffect } from "react";
  
    return (
      <Box sx={{ maxWidth: 800, margin: "0 auto", padding: "10px" }}>
-       <Typography variant="h5" gutterBottom>
-         {t("comments")}
-       </Typography>
        {loading ? (
          <CircularProgress />
        ) : error ? (
@@ -162,8 +185,8 @@ import React, { useState, useEffect } from "react";
                  <CardContent>
                    <ListItem alignItems="flex-start" sx={{ alignItems: "center" }}>
                      <ListItemAvatar>
-                       <IconButton onClick={() => (window.location.href = `/user/${comment.userId}`)}>
-                         <Avatar src={`/avatars/${comment.avatarId}.png`} alt={comment.name} />
+                       <IconButton onClick={() => (window.location.href = `/user/${comment.userName}`)}>
+                         <Avatar src={`/avatars/${comment.userAvatar}.png`} alt={comment.userName} />
                        </IconButton>
                      </ListItemAvatar>
                      <ListItemText
@@ -178,7 +201,7 @@ import React, { useState, useEffect } from "react";
                            >
                              <Box>
                                <Typography variant="subtitle2" sx={{ fontWeight: "bold" }}>
-                                 {comment.name}
+                                 {comment.userName}
                                </Typography>
                                <Rating name="read-only" value={comment.rate || 0} readOnly precision={0.5} 
                                  sx={{ 

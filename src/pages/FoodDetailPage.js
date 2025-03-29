@@ -18,7 +18,8 @@ import {
   ListItem,
   ToggleButton
 } from "@mui/material";
-import { Favorite, FavoriteBorder } from "@mui/icons-material";
+import AddIcon from '@mui/icons-material/Add';
+import CloseIcon from '@mui/icons-material/Close';
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Comments from "../components/Comments";
@@ -32,7 +33,7 @@ const FoodDetailPage = () => {
   const [foodDetails, setFoodDetails] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [isFavorite, setIsFavorite] = useState(false);
+  const [isInList, setisInList] = useState(false);
   const [view, setView] = useState("ingredients");
   const [imageUrl, setImageUrl] = useState("");
 
@@ -59,11 +60,11 @@ const FoodDetailPage = () => {
     fetchFoodDetails();
   }, [id, t]);
 
-  const handleFavoriteToggle = async () => {
-    setIsFavorite(!isFavorite);
-    await axios.post(`${API_BASE_URL}/favorites`, {
+  const handleListToggle = async () => {
+    setisInList(!isInList);
+    await axios.post(`${API_BASE_URL}/add_list`, {
       foodId: id,
-      isFavorite: !isFavorite
+      isInList: !isInList
     });
   };
 
@@ -96,11 +97,15 @@ const FoodDetailPage = () => {
             </Card>
             <Box sx={{ flex: 1, textAlign: { xs: "center", md: "left" }, position: "relative", padding: "20px" }}>
               <Box sx={{ position: "absolute", top: 0, right: 0 }}>
-                <Tooltip title={isFavorite ? t("removeFavorite") : t("addFavorite")}>
-                  <IconButton onClick={handleFavoriteToggle} color={isFavorite ? "error" : "default"} sx={{ fontSize: "1rem", padding: "4px" }}>
-                    {isFavorite ? <Favorite fontSize="small" /> : <FavoriteBorder fontSize="small" />}
-                  </IconButton>
-                </Tooltip>
+              <Tooltip title={isInList ? t("removeFromList") : t("addToList")}>
+                <IconButton
+                  onClick={handleListToggle}
+                  color={isInList ? "error" : "default"}
+                  sx={{ fontSize: "1rem", padding: "4px" }}
+                >
+                  {isInList ? <CloseIcon fontSize="small" /> : <AddIcon fontSize="small" />}
+                </IconButton>
+              </Tooltip>
               </Box>
               <Typography variant="h3" fontWeight="bold" sx={{ marginBottom: "10px" }}>
                 {foodDetails.name}, {foodDetails.country}
@@ -137,7 +142,6 @@ const FoodDetailPage = () => {
         <Paper elevation={3} sx={{ padding: "30px", borderRadius: "20px", textAlign: "center" }}>
           {view === "ingredients" ? (
             <>
-              <Typography variant="h5" fontWeight="bold" gutterBottom>{t("ingredients")}:</Typography>
               <List sx={{ columnCount:3, gap: "10px" }}>
                 {foodDetails.ingredients.map((ingredient, index) => (
                   <ListItem key={index} sx={{ width: "100%", justifyContent: "center" }}>

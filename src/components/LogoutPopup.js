@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from "react-i18next";
 import {
   Dialog,
   DialogActions,
@@ -11,6 +12,7 @@ import {
 
 const LogoutPopup = ({ open, onClose, onLogout }) => {
   const theme = useTheme();
+  const { t } = useTranslation("global");
 
   return (
     <Dialog
@@ -27,14 +29,14 @@ const LogoutPopup = ({ open, onClose, onLogout }) => {
       }}
     >
       <DialogTitle id="logout-dialog-title" sx={{ color: theme.palette.text.primary }}>
-        Confirm Logout
+        {t("confirmLogout")}
       </DialogTitle>
       <DialogContent>
         <DialogContentText
           id="logout-dialog-description"
           sx={{ color: theme.palette.text.secondary }}
         >
-          Are you sure you want to log out of the website?
+          {t("confirmLogoutMessage")}
         </DialogContentText>
       </DialogContent>
       <DialogActions>
@@ -47,7 +49,7 @@ const LogoutPopup = ({ open, onClose, onLogout }) => {
               backgroundColor: theme.palette.action.selected,
             }}}
           >
-            Cancel
+            {t("cancel")}
         </Button>
         <Button
             onClick={onLogout}
@@ -60,7 +62,7 @@ const LogoutPopup = ({ open, onClose, onLogout }) => {
             }}
             variant="contained"
         >
-            Log Out
+            {t("logout")}
         </Button>
         </DialogActions>
     </Dialog>

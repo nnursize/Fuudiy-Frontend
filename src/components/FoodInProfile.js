@@ -2,12 +2,14 @@ import React, { useState, useEffect } from "react";
 import { Box, Typography, Avatar, Rating } from "@mui/material";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const FoodInProfile = ({ food, onRateChange }) => {
   const [imageUrl, setImageUrl] = useState(
     food.imageUrl || `${process.env.PUBLIC_URL}/default-food.png`
   );
   const navigate = useNavigate();
+  const { t } = useTranslation("global"); 
 
   useEffect(() => {
     const fetchSignedImageUrl = async () => {
@@ -70,7 +72,7 @@ const FoodInProfile = ({ food, onRateChange }) => {
           {food.country}
         </Typography>
         <Typography variant="body2" color="textSecondary" marginTop={1}>
-          Ingredients: {food.ingredients?.join(", ") || "Unknown"}
+          {t("ingredients")}: {food.ingredients?.join(", ") || t("unknown")}
         </Typography>
 
         {food.comment && (
