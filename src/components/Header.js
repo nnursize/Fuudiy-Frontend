@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from "react";
+// Header.js
+import React, { useState, useEffect } from "react"; 
 import styled from "styled-components";
-import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import LanguageSwitcher from "../components/LanguageSwitcher";
 import { Avatar } from "@mui/material";
 import LogoutPopup from "../components/LogoutPopup";
+import axiosInstance from "../axiosInstance";  // Use custom axios instance
 
-const API_BASE_URL = "http://localhost:8000";
 // Helper function to generate the correct avatar image path
 const getAvatarSrc = (avatarId) => {
   return avatarId && avatarId.includes(".png")
@@ -23,36 +23,25 @@ const Header = () => {
   const { t, i18n } = useTranslation("global");
   const navigate = useNavigate();
 
-  // Check login status
+  // Check login status and fetch user data
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
     console.log("access token is:", token);
-    
+
     if (token) {
       setIsLoggedIn(true);
-  
-      fetch(`${API_BASE_URL}/auth/users/me`, {
-        method: "GET", // <-- change this line
-        headers: {
-          "Authorization": "Bearer " + token,
-        },
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          setUserData(data.data[0]); // Save user
+      axiosInstance.get("/auth/users/me")
+        .then((response) => {
+          setUserData(response.data.data[0]); // Save user data
         })
-        .catch((error) => console.error("Error fetching /me:", error));      
-    }else{
+        .catch((error) => console.error("Error fetching /me:", error));
+    } else {
       localStorage.removeItem("accessToken");
       setIsLoggedIn(false);
       setShowDropdown(false);
       setShowLogoutPopup(false);
     }
   }, []);
-  
-
-  // Fetch user data (including avatar) if logged in
- 
 
   const changeLanguage = (lng) => {
     i18n.changeLanguage(lng).catch((err) =>
@@ -60,7 +49,7 @@ const Header = () => {
     );
   };
 
-  // This function is called when the logout is confirmed in the popup
+  // Called when logout is confirmed in the popup
   const handleLogoutConfirmed = () => {
     localStorage.removeItem("accessToken");
     setIsLoggedIn(false);
@@ -69,16 +58,14 @@ const Header = () => {
     navigate("/");
   };
 
-
-  //changed to id but the user fetching model is not compatible with the current users model,
-  // needs to change  to token after model updates
+  // Navigate to the user's profile page
   const handleProfileClick = () => {
     if (userData) {
-      console.log("user id in profile click 222", userData.id)
+      console.log("User profile clicked:", userData.username);
       navigate(`/profile/${userData.username}`);
     }
   };
-  
+
   const toggleDropdown = () => {
     setShowDropdown((prev) => !prev);
   };
@@ -132,7 +119,7 @@ const Header = () => {
           )}
         </RightSection>
       </HeaderContainer>
-      {/* Render the LogoutPopup for confirmation */}
+      {/* Logout confirmation popup */}
       <LogoutPopup
         open={showLogoutPopup}
         onClose={() => setShowLogoutPopup(false)}
@@ -204,20 +191,6 @@ const LoginContainer = styled.div`
 const ProfileContainer = styled.div`
   position: relative;
   display: inline-block;
-`;
-
-// Fallback for non-logged in state
-const ProfileIcon = styled.div`
-  width: 24px;
-  height: 24px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  svg {
-    width: 100%;
-    height: 100%;
-    color: gray;
-  }
 `;
 
 const DropdownMenu = styled.div`

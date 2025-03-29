@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'; 
-import axios from 'axios';
+// UserProfile.js
+import React, { useEffect, useState } from 'react';  
 import { Box, Stack, Typography, Paper, Chip, IconButton } from '@mui/material';
 import { useTranslation } from "react-i18next";
 import EditIcon from '@mui/icons-material/Edit';
@@ -10,11 +10,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import ProfilePictureSelector from '../components/ProfilePictureSelector';
 import { useParams } from 'react-router-dom';
-
-const API_BASE_URL = 'http://localhost:8000'; 
-
-const accessToken = localStorage.getItem("accessToken"); 
-console.log("access token: ", accessToken);
+import axiosInstance from '../axiosInstance';  // Import the custom axios instance
 
 const UserProfile = () => {
   const { USERNAME } = useParams();
@@ -30,49 +26,51 @@ const UserProfile = () => {
   const [editedBio, setEditedBio] = useState("");
   const { t } = useTranslation("global");
 
+  const getAvatarSrc = (avatarId) => {
+    if (typeof avatarId !== 'string' || avatarId.trim() === '') {
+      return '/avatars/default-profile.jpeg';
+    }
+    return avatarId.includes('.png')
+      ? `/avatars/${avatarId}`
+      : `/avatars/${avatarId}.png`;
+  };
+
   useEffect(() => {
-    // First get the current user information
-    axios.get(`${API_BASE_URL}/auth/users/me`, {
-      headers: { Authorization: `Bearer ${accessToken}` }
-    })
+    axiosInstance.get('/auth/users/me')
       .then(response => {
         const user = response.data.data[0];
         setCurrentUser(user);
-        
-        // Check if we're viewing our own profile or someone else's
+
+        // Check if we’re viewing our own profile or someone else’s
         if (USERNAME === user.username) {
           setIsOwnProfile(true);
           setUserData(user);
           setEditedBio(user.bio || "");
-          
+
           const parsedDisliked = Array.isArray(user?.disliked_ingredients)
             ? user.disliked_ingredients
             : [];
-    
           setEditedDislikedIngredients(parsedDisliked);
           setDislikedIngredients(parsedDisliked);
-          
+
           // Get current user's comments/ratings
-          return axios.get(`${API_BASE_URL}/comments/me`, {
-            headers: { Authorization: `Bearer ${accessToken}` }
-          });
+          return axiosInstance.get('/comments/me');
         } else {
           // Get the requested user's profile
-          return axios.get(`${API_BASE_URL}/users/${USERNAME}`)
+          return axiosInstance.get(`/users/${USERNAME}`)
             .then(userResponse => {
               const profileUser = userResponse.data.data[0];
               setUserData(profileUser);
               setEditedBio(profileUser.bio || "");
-              
+
               const parsedDisliked = Array.isArray(profileUser?.disliked_ingredients)
                 ? profileUser.disliked_ingredients
                 : [];
-        
               setEditedDislikedIngredients(parsedDisliked);
               setDislikedIngredients(parsedDisliked);
-              
+
               // Get the requested user's comments/ratings
-              return axios.get(`${API_BASE_URL}/comments/${USERNAME}/comments`);
+              return axiosInstance.get(`/comments/${USERNAME}/comments`);
             });
         }
       })
@@ -82,12 +80,12 @@ const UserProfile = () => {
           rate: comment.rate, 
           comment: comment.comment,
         }));
-  
+
         const foodRequests = ratedFoods.map(food =>
-          axios.get(`${API_BASE_URL}/food/${food.foodId}`)
+          axiosInstance.get(`/food/${food.foodId}`)
             .then(res => ({
               ...food,
-              ...res.data, 
+              ...res.data,
             }))
         );
         return Promise.all(foodRequests);
@@ -100,134 +98,96 @@ const UserProfile = () => {
   }, [USERNAME]);
 
   const handleRateChange = async (foodId, newRate) => {
-    // Only allow rating changes if it's the user's own profile
     if (!isOwnProfile) return;
-    
-    console.log("🔄 Updating rating for foodId:", foodId);
 
-    // Find the food object in the state
     const food = ratedFoodDetails.find(f => f.foodId === foodId);
     if (!food) return;
 
-    const oldRate = food.rate; // User's previous rating
+    const oldRate = food.rate;
     const votes = food.popularity?.votes || 0;
     const oldRating = food.popularity?.rating || 0;
-
-    // Optimistically calculate the new popularity rating
     const newCalculatedRating = ((oldRating * votes - oldRate + newRate) / votes).toFixed(1);
 
-    // **Instant UI update** (Optimistic UI for rating update)
-    setRatedFoodDetails(prev => prev.map(food => 
-        food.foodId === foodId 
-            ? { ...food, rate: newRate, popularity: { ...food.popularity, rating: parseFloat(newCalculatedRating) } }
-            : food
+    // Optimistic UI update
+    setRatedFoodDetails(prev => prev.map(food =>
+      food.foodId === foodId
+        ? { ...food, rate: newRate, popularity: { ...food.popularity, rating: parseFloat(newCalculatedRating) } }
+        : food
     ));
 
     try {
-        // **Update rating in backend**
-        await axios.put(`${API_BASE_URL}/comments/update-rate/${foodId}?rate=${newRate}`, {}, {
-          headers: {
-            Authorization: `Bearer ${accessToken}`
+      // Update rating in backend
+      await axiosInstance.put(`/comments/update-rate/${foodId}?rate=${newRate}`, {});
+      // Update popularity in backend
+      await axiosInstance.put(`/food/update-popularity/${foodId}`, {
+        rating: parseFloat(newCalculatedRating),
+        existing_vote: true
+      });
+      
+      setFavoriteFoodDetails(prev => {
+        if (newRate === 5) {
+          const updatedFood = ratedFoodDetails.find(food => food.foodId === foodId);
+          if (updatedFood) {
+            return [...prev, {
+              ...updatedFood,
+              rate: 5,
+              popularity: { ...updatedFood.popularity, rating: parseFloat(newCalculatedRating) }
+            }];
           }
-        });
-        console.log("✅ Rating updated successfully");
-
-        // **Update popularity in backend**
-        const popularityResponse = await axios.put(`${API_BASE_URL}/food/update-popularity/${foodId}`, {
-            rating: parseFloat(newCalculatedRating),
-            existing_vote: true
-        });
-
-        console.log("✅ Food popularity updated successfully:", popularityResponse.data);
-
-        // ✅ **Only now update favorite foods with the correct popularity value**
-        setFavoriteFoodDetails(prev => {
-            if (newRate === 5) {
-                const updatedFood = ratedFoodDetails.find(food => food.foodId === foodId);
-                if (updatedFood) {
-                    return [...prev, { 
-                        ...updatedFood, 
-                        rate: 5, 
-                        popularity: { ...updatedFood.popularity, rating: parseFloat(newCalculatedRating) } 
-                    }];
-                }
-            } else {
-                return prev.filter(food => food.foodId !== foodId);
-            }
-            return prev;
-        });
-
+        } else {
+          return prev.filter(food => food.foodId !== foodId);
+        }
+        return prev;
+      });
     } catch (error) {
-        console.error('❌ Error updating rating or popularity:', error);
-
-        // ❌ **Revert UI if backend fails**
-        setRatedFoodDetails(prev => prev.map(food => 
-            food.foodId === foodId 
-                ? { ...food, rate: oldRate, popularity: { ...food.popularity, rating: oldRating } }
-                : food
-        ));
-
-        // **Remove from favorites if the rating update failed**
-        setFavoriteFoodDetails(prev => prev.filter(favFood => favFood.foodId !== foodId));
+      console.error('Error updating rating or popularity:', error);
+      // Revert UI changes on error
+      setRatedFoodDetails(prev => prev.map(food =>
+        food.foodId === foodId
+          ? { ...food, rate: oldRate, popularity: { ...food.popularity, rating: oldRating } }
+          : food
+      ));
+      setFavoriteFoodDetails(prev => prev.filter(favFood => favFood.foodId !== foodId));
     }
 
-    // **If the updated rating is below 5, remove the food from favorites**
     if (newRate < 5) {
-        setFavoriteFoodDetails(prev => prev.filter(favFood => favFood.foodId !== foodId));
+      setFavoriteFoodDetails(prev => prev.filter(favFood => favFood.foodId !== foodId));
     }
   };
 
-  
-  // Handler to remove an ingredient from the temporary list.
   const handleRemoveIngredient = (ingredientToRemove) => {
     if (!isOwnProfile) return;
     setEditedDislikedIngredients(prev => prev.filter(ing => ing !== ingredientToRemove));
   };
 
-  // Save the updated disliked ingredients list to the backend.
   const handleSaveEditedIngredients = () => {
     if (!isOwnProfile) return;
     
-    const dislikedString = editedDislikedIngredients.join(', ');
-  
-    axios.put(`${API_BASE_URL}/users/update-disliked-by-username/${userData.username}`, 
-      { dislikedIngredients: editedDislikedIngredients }, // 👈 still array, backend will convert
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`
-        }
-      }
+    axiosInstance.put(`/users/update-disliked-by-username/${userData.username}`, 
+      { dislikedIngredients: editedDislikedIngredients },
+      {}
     )
     .then(() => {
-        setUserData(prev => ({ ...prev, dislikedIngredients: editedDislikedIngredients }));
-        setEditingDisliked(false);
-        setDislikedIngredients(editedDislikedIngredients);
-
-      })
-      .catch(error => console.error('Error updating disliked ingredients:', error));
+      setUserData(prev => ({ ...prev, dislikedIngredients: editedDislikedIngredients }));
+      setEditingDisliked(false);
+      setDislikedIngredients(editedDislikedIngredients);
+    })
+    .catch(error => console.error('Error updating disliked ingredients:', error));
   };
 
-  // Cancel the edit and revert changes.
   const handleCancelEditedIngredients = () => {
     setEditedDislikedIngredients(dislikedIngredients);
     setEditingDisliked(false);
   };
 
-  // Compute what to show (parsed string or edited list)
-  const displayedDislikedIngredients = editingDisliked
-    ? editedDislikedIngredients
-    : dislikedIngredients;
+  const displayedDislikedIngredients = editingDisliked ? editedDislikedIngredients : dislikedIngredients;
 
   const handleSaveEditedBio = () => {
     if (!isOwnProfile) return;
     
-    axios.put(`${API_BASE_URL}/users/update-bio-by-username/${userData.username}`, 
+    axiosInstance.put(`/users/update-bio-by-username/${userData.username}`, 
       { bio: editedBio },
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`
-        }
-      }
+      {}
     )
     .then(() => {
       setUserData(prev => ({ ...prev, bio: editedBio }));
@@ -240,7 +200,7 @@ const UserProfile = () => {
     setEditedBio(userData.bio || "");
     setEditingBio(false);
   };
-    
+
   if (!userData) return <Typography>{t("loading")}</Typography>;
 
   return (
@@ -251,19 +211,19 @@ const UserProfile = () => {
           <Box display="flex" alignItems="center" marginBottom={3} gap={2}>
             {isOwnProfile ? (
               <ProfilePictureSelector
-                currentAvatar={userData.avatarId}
+                currentAvatar={userData.avatarId || ''} // ensures an empty string is passed
                 onSelect={(newAvatar) => {
-                  axios.put(`${API_BASE_URL}/users/update-avatar-by-username/${userData.username}`, { avatarId: newAvatar })
+                  axiosInstance.put(`/users/update-avatar-by-username/${userData.username}`, { avatarId: newAvatar })
                     .then(() => {
                       setUserData(prev => ({ ...prev, avatarId: newAvatar }));
                     })
-                    .catch(error => console.error('Error updating avatar by username:', error));
+                    .catch(error => console.error('Error updating avatar:', error));
                 }}
               />
             ) : (
               <Box sx={{ width: 80, height: 80, borderRadius: '50%', overflow: 'hidden' }}>
                 <img 
-                  src={`/avatars/${`${userData.avatarId}.png` || 'default.png'}`} 
+                  src={getAvatarSrc(userData.avatarId)} 
                   alt="Profile" 
                   style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                 />
@@ -327,13 +287,12 @@ const UserProfile = () => {
             </Box>
           </Box>
 
-          {/* Disliked Ingredients Section with Edit Toggle */}
           {displayedDislikedIngredients.length > 0 && (
             <Box sx={{ mt: 2 }}>
               <Box display="flex" alignItems="center" justifyContent="space-between" sx={{ mb: 1 }}>
-              <Typography variant="body1" sx={{ fontWeight: "bold", color: "gray" }}>
-                {t("dislikedIngredients") /* Add to translation file */}
-              </Typography>
+                <Typography variant="body1" sx={{ fontWeight: "bold", color: "gray" }}>
+                  {t("dislikedIngredients")}
+                </Typography>
                 {isOwnProfile && (
                   editingDisliked ? (
                     <Box>
@@ -356,7 +315,7 @@ const UserProfile = () => {
                     <IconButton 
                       onClick={() => {                  
                         setEditedDislikedIngredients(dislikedIngredients);
-                        setTimeout(() => setEditingDisliked(true), 0); // 👈 Force it into next render cycle
+                        setTimeout(() => setEditingDisliked(true), 0);
                       }}                  
                       size="small"
                       sx={{ p: 0.25, minWidth: 0, width: "20px", height: "20px" }}
@@ -380,12 +339,10 @@ const UserProfile = () => {
           )}
         </Paper>
 
-        {/* Food Sections */}
         <Box display="flex" justifyContent="space-between" sx={{ gap: 2, width: '100%' }}>
-          {/* Rated Foods Section */}
           <Paper elevation={3} sx={{ flex: 1, padding: 3 }}>
             <Typography variant="h6" marginBottom={2}>
-              {t("ratedFoods")} {/* Add to translation file */}
+              {t("ratedFoods")}
             </Typography>            
             <Box display="flex" flexDirection="column" gap={2}>
               {ratedFoodDetails.map((ratedFood, index) => (
@@ -399,10 +356,9 @@ const UserProfile = () => {
             </Box>
           </Paper>
 
-          {/* Favorite Foods Section */}
           <Paper elevation={3} sx={{ flex: 1, padding: 3 }}>                        
             <Typography variant="h6" marginBottom={2}>
-              {t("favoriteFoods")} {/* Add to translation file */}
+              {t("favoriteFoods")}
             </Typography>
             {favoriteFoodDetails.length > 0 ? (
               <Box display="flex" flexDirection="column" gap={2}>
