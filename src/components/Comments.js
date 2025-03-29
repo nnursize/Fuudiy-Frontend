@@ -185,7 +185,7 @@ import React, { useState, useEffect } from "react";
                  <CardContent>
                    <ListItem alignItems="flex-start" sx={{ alignItems: "center" }}>
                      <ListItemAvatar>
-                       <IconButton onClick={() => (window.location.href = `/user/${comment.userName}`)}>
+                       <IconButton onClick={() => (window.location.href = `/profile/${comment.userName}`)}>
                          <Avatar src={`/avatars/${comment.userAvatar}.png`} alt={comment.userName} />
                        </IconButton>
                      </ListItemAvatar>
