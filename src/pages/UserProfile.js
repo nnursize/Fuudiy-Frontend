@@ -31,10 +31,6 @@ const UserProfile = () => {
   const { t } = useTranslation("global");
 
   useEffect(() => {
-    if (!USER_ID) {
-      console.error('No user ID in URL');
-      return;
-    }
   
     axios.get(`${API_BASE_URL}/auth/users/me`, {
       headers: { Authorization: `Bearer ${accessToken}` }
