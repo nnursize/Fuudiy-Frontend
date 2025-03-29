@@ -6,6 +6,7 @@ import ScoreQuestion from '../components/ui/ScoreQuestion';
 import { Box, Button, Typography } from '@mui/material';
 import LanguageSwitcher from '../components/LanguageSwitcher';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from "react-router-dom";
 
 const Survey = () => {
     const { t, i18n } = useTranslation("global");
@@ -14,6 +15,7 @@ const Survey = () => {
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [loading, setLoading] = useState(true);
     const [errorMessage, setErrorMessage] = useState(""); // Store error message
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchQuestions = async () => {
@@ -118,6 +120,7 @@ const Survey = () => {
             const data = await response.json();
             console.log('Survey submitted successfully:', data);
             alert('Thank you for completing the survey!');
+            navigate('/login');
 
         } catch (error) {
             console.error('Error submitting survey:', error);

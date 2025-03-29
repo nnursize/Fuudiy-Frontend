@@ -49,7 +49,9 @@
   "profile": "Profil",
   "noBio": "Biyografi bulunamadı.",
   "comments": "Yorumlar",
-  "keywords": "anahtar kelimeler",
   "addToList": "Listene Ekle",
-  "removeFromList": "Listenden Çıkar"
+  "removeFromList": "Listenden Çıkar",
+  "noComments": "Bu yemek için daha yorum yapılmadı",
+  "loginRequired": "Yorum eklemek için giriş yapmalısınız",
+  "pleaseLoginToComment": "Lütfen giriş yapın"
 }
