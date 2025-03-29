@@ -122,7 +122,6 @@ const FoodDetailPage = () => {
                   }} 
               />              
                 <Box sx={{ display: "flex", flexWrap: "wrap", gap: "12px", alignItems: "center", marginTop: 2, justifyContent: { xs: "center", md: "flex-start" } }}>
-                <Typography variant="body1" fontWeight="bold">{t("keywords")}:</Typography>
                 {foodDetails.keywords.map((keyword, index) => (
                   <Chip key={index} label={keyword} sx={{ backgroundColor: "#f1f1f1", fontWeight: "bold", fontSize: "1rem", padding: "8px" }} />
                 ))}
