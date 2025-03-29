@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";    
-import axios from "axios";
+// Comments.js
+import React, { useState, useEffect } from "react";     
+import axiosInstance from "../axiosInstance"; // Use your custom axios instance
 import {
   Box,
   Typography,
@@ -16,14 +17,16 @@ import {
   CardContent,
   Tooltip,
   Rating,
+  Dialog,
+  useTheme,
 } from "@mui/material";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import StarIcon from "@mui/icons-material/Star";
 import TranslateIcon from "@mui/icons-material/Translate";
 import { useTranslation } from "react-i18next";
+import LoginPopup from "./LoginPopup";
 
-const API_BASE_URL = "http://localhost:8000";
-
+// Reusable StarRating Component
 const StarRating = ({ value, onChange, readOnly = false }) => {
   const [hoverRating, setHoverRating] = useState(0);
   return (
@@ -58,12 +61,14 @@ const Comments = ({ onRatingUpdate }) => {
   const [error, setError] = useState(null);
   const [translatedComments, setTranslatedComments] = useState({});
   const [translating, setTranslating] = useState({});
+  const [loginPopupOpen, setLoginPopupOpen] = useState(false);
   const { t, i18n } = useTranslation("global");
+  const navigate = useNavigate();
 
-  // Reusable function to fetch all comments
+  // Fetch all comments for the food item
   const fetchComments = async () => {
     try {
-      const response = await axios.get(`${API_BASE_URL}/comments/${food_id}`);
+      const response = await axiosInstance.get(`/comments/${food_id}`);
       setComments(response.data);
     } catch (error) {
       setError("Error fetching comments.");
@@ -73,7 +78,6 @@ const Comments = ({ onRatingUpdate }) => {
     }
   };
 
-  // Fetch comments on mount and when food_id changes
   useEffect(() => {
     fetchComments();
   }, [food_id]);
@@ -81,22 +85,21 @@ const Comments = ({ onRatingUpdate }) => {
   const handleCommentSubmit = async () => {
     const accessToken = localStorage.getItem("accessToken");
     if (!accessToken) {
-      alert("You have to login before submitting a comment.");
+      // Open the login popup instead of alerting
+      setLoginPopupOpen(true);
       return;
     }
     
     if (!newComment.trim() || rating === 0) return;
     try {
       // Get the current user data
-      const userResponse = await axios.get(`${API_BASE_URL}/auth/users/me`, {
-        headers: { Authorization: `Bearer ${accessToken}` },
-      });
+      const userResponse = await axiosInstance.get("/auth/users/me");
       const currentUser = userResponse.data.data[0];
       setUserData(currentUser);
   
       // Submit the new comment
-      const response = await axios.post(
-        `${API_BASE_URL}/comments`, 
+      await axiosInstance.post(
+        "/comments", 
         {
           foodId: food_id,
           rate: rating,
@@ -105,13 +108,12 @@ const Comments = ({ onRatingUpdate }) => {
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${accessToken}`,
           },
         }
       );
   
       // Get current food details to calculate the new rating
-      const foodResponse = await axios.get(`${API_BASE_URL}/food/${food_id}`);
+      const foodResponse = await axiosInstance.get(`/food/${food_id}`);
       const food = foodResponse.data;
       const currentVotes = food.popularity?.votes || 0;
       const currentRating = food.popularity?.rating || 0;
@@ -119,8 +121,8 @@ const Comments = ({ onRatingUpdate }) => {
       const newCalculatedRating = ((currentRating * currentVotes + rating) / (currentVotes + 1)).toFixed(1);
   
       // Update the food popularity
-      const popularityResponse = await axios.put(
-        `${API_BASE_URL}/food/update-popularity/${food_id}`,
+      const popularityResponse = await axiosInstance.put(
+        `/food/update-popularity/${food_id}`,
         {
           rating: parseFloat(newCalculatedRating),
           existing_vote: false,
@@ -133,7 +135,7 @@ const Comments = ({ onRatingUpdate }) => {
         onRatingUpdate(popularityResponse.data.new_rating, popularityResponse.data.votes);
       }
   
-      // Re-fetch all comments to update the list with full details
+      // Re-fetch all comments to update the list with the new comment
       await fetchComments();
   
       // Reset the comment form
@@ -154,7 +156,7 @@ const Comments = ({ onRatingUpdate }) => {
     setTranslating((prev) => ({ ...prev, [uniqueKey]: true }));
     try {
       const targetLanguage = i18n.language;
-      const response = await axios.post(`${API_BASE_URL}/translation/`, {
+      const response = await axiosInstance.post("/translation/", {
         text: text,
         target_lang: targetLanguage,
       });
@@ -201,7 +203,7 @@ const Comments = ({ onRatingUpdate }) => {
                 <CardContent>
                   <ListItem alignItems="flex-start" sx={{ alignItems: "center" }}>
                     <ListItemAvatar>
-                      <IconButton onClick={() => (window.location.href = `/profile/${comment.userName}`)}>
+                      <IconButton onClick={() => navigate(`/profile/${comment.userName}`)}>
                         <Avatar src={`/avatars/${comment.userAvatar}.png`} alt={comment.userName} />
                       </IconButton>
                     </ListItemAvatar>
@@ -299,6 +301,16 @@ const Comments = ({ onRatingUpdate }) => {
           {t("submit")}
         </Button>
       </Box>
+      
+      {/* Login Popup for users not logged in */}
+      <LoginPopup
+        open={loginPopupOpen}
+        onClose={() => setLoginPopupOpen(false)}
+        onLogin={() => {
+          setLoginPopupOpen(false);
+          navigate("/login");
+        }}
+      />
     </Box>
   );
 };

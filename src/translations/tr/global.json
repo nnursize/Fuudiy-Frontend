@@ -51,5 +51,7 @@
   "comments": "Yorumlar",
   "addToList": "Listene Ekle",
   "removeFromList": "Listenden Çıkar",
-  "noComments": "Bu yemek için daha yorum yapılmadı"
+  "noComments": "Bu yemek için daha yorum yapılmadı",
+  "loginRequired": "Yorum eklemek için giriş yapmalısınız",
+  "pleaseLoginToComment": "Lütfen giriş yapın"
 }
