@@ -5,11 +5,12 @@ import { useTranslation } from "react-i18next";
 import EditIcon from '@mui/icons-material/Edit';
 import CancelIcon from '@mui/icons-material/Cancel';
 import CheckIcon from '@mui/icons-material/Check';
+import AddIcon from "@mui/icons-material/Add";
 import FoodInProfile from '../components/FoodInProfile';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import ProfilePictureSelector from '../components/ProfilePictureSelector';
-import { useParams } from 'react-router-dom';
+import AddIngredientAutocomplete from "../components/AddIngredientAutocomplete";
 
 const API_BASE_URL = 'http://localhost:8000'; 
 
@@ -28,6 +29,13 @@ const UserProfile = () => {
   const [editingBio, setEditingBio] = useState(false);
   const [editedBio, setEditedBio] = useState("");
   const [allergies, setAllergies] = useState([]);
+  const [editingAllergies, setEditingAllergies] = useState(false);
+  const [editedAllergies, setEditedAllergies] = useState([]);
+  const [ingredientsList, setIngredientsList] = useState([]);
+  const [newAllergyInput, setNewAllergyInput] = useState("");
+  const [showAllergyInput, setShowAllergyInput] = useState(false);
+
+
   const { t } = useTranslation("global");
 
   useEffect(() => {
@@ -53,6 +61,7 @@ const UserProfile = () => {
 
         const allergiesResponse = await axios.get(`${API_BASE_URL}/users/allergies/${user.username}`);
         setAllergies(allergiesResponse.data.data || []);
+        setEditedAllergies(allergiesResponse.data.data || []);
         console.log("allergies: ", allergies);
         
         return axios.get(`${API_BASE_URL}/comments/me`, {
@@ -215,7 +224,32 @@ const UserProfile = () => {
     setEditedBio(userData.bio || "");
     setEditingBio(false);
   };
-    
+
+  const handleRemoveAllergy = (allergyToRemove) => {
+    setEditedAllergies(prev => prev.filter(ing => ing !== allergyToRemove));
+  };
+  
+  const handleSaveEditedAllergies = () => {
+    axios.put(`${API_BASE_URL}/users/update-allergies-by-username/${userData.username}`, 
+      { allergies: editedAllergies }, 
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        }
+      }
+    )
+    .then(() => {
+      setUserData(prev => ({ ...prev, allergies: editedAllergies }));
+      setAllergies(editedAllergies);
+      setEditingAllergies(false);
+    })
+    .catch(error => console.error("Error updating allergies:", error));
+  };
+  
+  const handleCancelEditedAllergies = () => {
+    setEditedAllergies(allergies);
+    setEditingAllergies(false);
+  };  
 
   console.log("displayedDislikedIngredients: ", displayedDislikedIngredients)
   console.log("editingDisliked: ", editingDisliked)
@@ -343,21 +377,85 @@ const UserProfile = () => {
               </Stack>
             </Box>
           )}
-          {allergies.length > 0 && (
+          {(editingAllergies ? editedAllergies.length > 0 : allergies.length > 0 || editingAllergies) && (
             <Box sx={{ mt: 2 }}>
               <Box display="flex" alignItems="center" justifyContent="space-between" sx={{ mb: 1 }}>
                 <Typography variant="body1" sx={{ fontWeight: "bold", color: "gray" }}>
-                  {t("allergies")} {/* Add to translation file */}
+                  {t("allergies")}
                 </Typography>
+                {editingAllergies ? (
+                  <Box>
+                    <IconButton 
+                      onClick={handleSaveEditedAllergies}
+                      size="small"
+                      sx={{ p: 0.25, minWidth: 0, width: "20px", height: "20px" }}
+                    >
+                      <CheckIcon fontSize="small" />
+                    </IconButton>
+                    <IconButton 
+                      onClick={handleCancelEditedAllergies}
+                      size="small"
+                      sx={{ p: 0.25, minWidth: 0, width: "20px", height: "20px" }}
+                    >
+                      <CancelIcon fontSize="small" />
+                    </IconButton>
+                  </Box>
+                ) : (
+                  <IconButton 
+                    onClick={() => {
+                      setEditedAllergies(allergies);
+                      setTimeout(() => setEditingAllergies(true), 0);
+                    }}
+                    size="small"
+                    sx={{ p: 0.25, minWidth: 0, width: "20px", height: "20px" }}
+                  >
+                    <EditIcon fontSize="small" />
+                  </IconButton>
+                )}
               </Box>
+
               <Stack direction="row" spacing={1} alignItems="center" flexWrap="wrap">
-                {allergies.map((ingredient, index) => (
+                {(editingAllergies ? editedAllergies : allergies).map((allergy, index) => (
                   <Chip 
                     key={index} 
-                    label={ingredient}
-                    sx={{ backgroundColor: "#ffe5e5", fontWeight: "bold", fontSize: "14px", py: 0.5, px: 1 }} 
+                    label={allergy} 
+                    {...(editingAllergies ? { onDelete: () => handleRemoveAllergy(allergy) } : {})}
+                    sx={{ backgroundColor: "#ffe5e5", fontWeight: "bold", fontSize: "14px", py: 0.5, px: 1 }}
                   />
                 ))}
+
+                {/* Autocomplete input appears here */}
+                {editingAllergies && showAllergyInput && (
+                  <Box display="flex" alignItems="center" gap={1} mt={1}>
+                    <AddIngredientAutocomplete
+                      onAdd={(newAllergy) => {
+                        if (!editedAllergies.includes(newAllergy)) {
+                          setEditedAllergies((prev) => [...prev, newAllergy]);
+                          setShowAllergyInput(false);
+                        }
+                      }}
+                    />
+                  </Box>
+                )}
+
+                {/* ➕ Add button only if input is not visible */}
+                {editingAllergies && !showAllergyInput && (
+                  <IconButton
+                    onClick={() => setShowAllergyInput(true)}
+                    size="small"
+                    sx={{
+                      p: 0.25,
+                      minWidth: 0,
+                      width: "24px",
+                      height: "24px",
+                      border: "1px dashed #ccc",
+                      ml: 0.5,
+                      alignSelf: "center"
+                    }}
+                  >
+                    <AddIcon fontSize="small" />
+                  </IconButton>
+                )}
               </Stack>
             </Box>
           )}
