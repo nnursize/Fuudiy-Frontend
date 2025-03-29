@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react'; 
 import axios from 'axios';
 import { Box, Stack, Typography, Paper, Chip, IconButton } from '@mui/material';
 import { useTranslation } from "react-i18next";
@@ -13,14 +13,14 @@ import { useParams } from 'react-router-dom';
 
 const API_BASE_URL = 'http://localhost:8000'; 
 
-//const USER_ID = localStorage.getItem("user"); 
 const accessToken = localStorage.getItem("accessToken"); 
 console.log("access token: ", accessToken);
 
-
 const UserProfile = () => {
-  const { USER_ID } = useParams();
+  const { USERNAME } = useParams();
   const [userData, setUserData] = useState(null);
+  const [currentUser, setCurrentUser] = useState(null);
+  const [isOwnProfile, setIsOwnProfile] = useState(false);
   const [ratedFoodDetails, setRatedFoodDetails] = useState([]);
   const [favoriteFoodDetails, setFavoriteFoodDetails] = useState([]);
   const [editingDisliked, setEditingDisliked] = useState(false);
@@ -31,29 +31,52 @@ const UserProfile = () => {
   const { t } = useTranslation("global");
 
   useEffect(() => {
-  
+    // First get the current user information
     axios.get(`${API_BASE_URL}/auth/users/me`, {
       headers: { Authorization: `Bearer ${accessToken}` }
     })
-      .then(async response => {
+      .then(response => {
         const user = response.data.data[0];
-        setUserData(user);
-        setEditedBio(user.bio || "");
-        console.log("user: ", user);
+        setCurrentUser(user);
         
-        const rawDisliked = user?.disliked_ingredients || "";
-        console.log("raw disliked: ", rawDisliked);
-        const parsedDisliked = Array.isArray(user?.disliked_ingredients)
-          ? user.disliked_ingredients
-          : [];
-  
-        setEditedDislikedIngredients(parsedDisliked);
-        setDislikedIngredients(parsedDisliked);
-        console.log("edited disliked ingredients: ", editedDislikedIngredients);
-  
-        return axios.get(`${API_BASE_URL}/comments/me`, {
-          headers: { Authorization: `Bearer ${accessToken}` }
-        });
+        // Check if we're viewing our own profile or someone else's
+        if (USERNAME === user.username) {
+          setIsOwnProfile(true);
+          setUserData(user);
+          setEditedBio(user.bio || "");
+          
+          const parsedDisliked = Array.isArray(user?.disliked_ingredients)
+            ? user.disliked_ingredients
+            : [];
+    
+          setEditedDislikedIngredients(parsedDisliked);
+          setDislikedIngredients(parsedDisliked);
+          
+          // Get current user's comments/ratings
+          return axios.get(`${API_BASE_URL}/comments/me`, {
+            headers: { Authorization: `Bearer ${accessToken}` }
+          });
+        } else {
+          // Get the requested user's profile
+          return axios.get(`${API_BASE_URL}/users/${USERNAME}`)
+            .then(userResponse => {
+              const profileUser = userResponse.data.data[0];
+              setUserData(profileUser);
+              setEditedBio(profileUser.bio || "");
+
+              console.log("SVSTSR IFDDD",profileUser.avatarId)
+              
+              const parsedDisliked = Array.isArray(profileUser?.disliked_ingredients)
+                ? profileUser.disliked_ingredients
+                : [];
+        
+              setEditedDislikedIngredients(parsedDisliked);
+              setDislikedIngredients(parsedDisliked);
+              
+              // Get the requested user's comments/ratings
+              return axios.get(`${API_BASE_URL}/comments/${USERNAME}/comments`);
+            });
+        }
       })
       .then(response => {
         const ratedFoods = response.data.map(comment => ({
@@ -76,9 +99,12 @@ const UserProfile = () => {
         setFavoriteFoodDetails(updatedRatedFoods.filter(food => food.rate === 5));
       })
       .catch(error => console.error('Error fetching user data:', error));
-  }, []);
+  }, [USERNAME]);
 
   const handleRateChange = async (foodId, newRate) => {
+    // Only allow rating changes if it's the user's own profile
+    if (!isOwnProfile) return;
+    
     console.log("🔄 Updating rating for foodId:", foodId);
 
     // Find the food object in the state
@@ -156,11 +182,14 @@ const UserProfile = () => {
   
   // Handler to remove an ingredient from the temporary list.
   const handleRemoveIngredient = (ingredientToRemove) => {
+    if (!isOwnProfile) return;
     setEditedDislikedIngredients(prev => prev.filter(ing => ing !== ingredientToRemove));
   };
 
   // Save the updated disliked ingredients list to the backend.
   const handleSaveEditedIngredients = () => {
+    if (!isOwnProfile) return;
+    
     const dislikedString = editedDislikedIngredients.join(', ');
   
     axios.put(`${API_BASE_URL}/users/update-disliked-by-username/${userData.username}`, 
@@ -192,6 +221,8 @@ const UserProfile = () => {
     : dislikedIngredients;
 
   const handleSaveEditedBio = () => {
+    if (!isOwnProfile) return;
+    
     axios.put(`${API_BASE_URL}/users/update-bio-by-username/${userData.username}`, 
       { bio: editedBio },
       {
@@ -212,11 +243,6 @@ const UserProfile = () => {
     setEditingBio(false);
   };
     
-
-  console.log("displayedDislikedIngredients: ", displayedDislikedIngredients)
-  console.log("editingDisliked: ", editingDisliked)
-  console.log("editedDislikedIngredients: ", editedDislikedIngredients)
-
   if (!userData) return <Typography>{t("loading")}</Typography>;
 
   return (
@@ -225,23 +251,34 @@ const UserProfile = () => {
       <Box padding={4} bgcolor="white">
         <Paper elevation={3} sx={{ padding: 3, marginBottom: 4, position: 'relative' }}>
           <Box display="flex" alignItems="center" marginBottom={3} gap={2}>
-            <ProfilePictureSelector
-              currentAvatar={userData.avatarId}
-              onSelect={(newAvatar) => {
-                axios.put(`${API_BASE_URL}/users/update-avatar-by-username/${userData.username}`, { avatarId: newAvatar })
-                  .then(() => {
-                    setUserData(prev => ({ ...prev, avatarId: newAvatar }));
-                  })
-                  .catch(error => console.error('Error updating avatar by username:', error));
-              }}
-            />
+            {isOwnProfile ? (
+              <ProfilePictureSelector
+                currentAvatar={userData.avatarId}
+                onSelect={(newAvatar) => {
+                  axios.put(`${API_BASE_URL}/users/update-avatar-by-username/${userData.username}`, { avatarId: newAvatar })
+                    .then(() => {
+                      setUserData(prev => ({ ...prev, avatarId: newAvatar }));
+                    })
+                    .catch(error => console.error('Error updating avatar by username:', error));
+                }}
+              />
+            ) : (
+              <Box sx={{ width: 80, height: 80, borderRadius: '50%', overflow: 'hidden' }}>
+                <img 
+                  src={`/avatars/${`${userData.avatarId}.png` || 'default.png'}`} 
+                  alt="Profile" 
+                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                />
+              </Box>
+            )}
+            
             <Box sx={{ paddingLeft: 1 }}>
               <Typography variant="h5">{userData.username || 'Anonymous User'}</Typography>
               <Typography variant="body2" color="textSecondary" gutterBottom>
                 {userData.email || 'No email available.'}
               </Typography>
               <Box display="flex" alignItems="right" justifyContent="space-between" gap={1}>
-                {editingBio ? (
+                {isOwnProfile && editingBio ? (
                   <>
                     <input
                       type="text"
@@ -277,13 +314,15 @@ const UserProfile = () => {
                     <Typography variant="body1" sx={{ flex: 1 }}>
                       {userData.bio || t("noBio")}
                     </Typography>
-                    <IconButton
-                      onClick={() => setEditingBio(true)}
-                      size="small"
-                      sx={{ p: 0.25, minWidth: 0, width: "20px", height: "20px" }}
-                    >
-                      <EditIcon fontSize="small" />
-                    </IconButton>
+                    {isOwnProfile && (
+                      <IconButton
+                        onClick={() => setEditingBio(true)}
+                        size="small"
+                        sx={{ p: 0.25, minWidth: 0, width: "20px", height: "20px" }}
+                      >
+                        <EditIcon fontSize="small" />
+                      </IconButton>
+                    )}
                   </>
                 )}
               </Box>
@@ -297,34 +336,36 @@ const UserProfile = () => {
               <Typography variant="body1" sx={{ fontWeight: "bold", color: "gray" }}>
                 {t("dislikedIngredients") /* Add to translation file */}
               </Typography>
-                {editingDisliked ? (
-                  <Box>
+                {isOwnProfile && (
+                  editingDisliked ? (
+                    <Box>
+                      <IconButton 
+                        onClick={handleSaveEditedIngredients}
+                        size="small"
+                        sx={{ p: 0.25, minWidth: 0, width: "20px", height: "20px" }}
+                      >
+                        <CheckIcon fontSize="small" />
+                      </IconButton>
+                      <IconButton 
+                        onClick={handleCancelEditedIngredients}
+                        size="small"
+                        sx={{ p: 0.25, minWidth: 0, width: "20px", height: "20px" }}
+                      >
+                        <CancelIcon fontSize="small" />
+                      </IconButton>
+                    </Box>
+                  ) : (
                     <IconButton 
-                      onClick={handleSaveEditedIngredients}
+                      onClick={() => {                  
+                        setEditedDislikedIngredients(dislikedIngredients);
+                        setTimeout(() => setEditingDisliked(true), 0); // 👈 Force it into next render cycle
+                      }}                  
                       size="small"
                       sx={{ p: 0.25, minWidth: 0, width: "20px", height: "20px" }}
                     >
-                      <CheckIcon fontSize="small" />
+                      <EditIcon fontSize="small" />
                     </IconButton>
-                    <IconButton 
-                      onClick={handleCancelEditedIngredients}
-                      size="small"
-                      sx={{ p: 0.25, minWidth: 0, width: "20px", height: "20px" }}
-                    >
-                      <CancelIcon fontSize="small" />
-                    </IconButton>
-                  </Box>
-                ) : (
-                  <IconButton 
-                  onClick={() => {                  
-                    setEditedDislikedIngredients(dislikedIngredients);
-                    setTimeout(() => setEditingDisliked(true), 0); // 👈 Force it into next render cycle
-                  }}                  
-                    size="small"
-                    sx={{ p: 0.25, minWidth: 0, width: "20px", height: "20px" }}
-                  >
-                    <EditIcon fontSize="small" />
-                  </IconButton>
+                  )
                 )}
               </Box>
               <Stack direction="row" spacing={1} alignItems="center" flexWrap="wrap">
@@ -332,7 +373,7 @@ const UserProfile = () => {
                   <Chip 
                     key={index} 
                     label={ingredient} 
-                    {...(editingDisliked ? { onDelete: () => handleRemoveIngredient(ingredient) } : {})}
+                    {...(isOwnProfile && editingDisliked ? { onDelete: () => handleRemoveIngredient(ingredient) } : {})}
                     sx={{ backgroundColor: "#f1f1f1", fontWeight: "bold", fontSize: "14px", py: 0.5, px: 1 }} 
                   />
                 ))}
@@ -350,7 +391,12 @@ const UserProfile = () => {
             </Typography>            
             <Box display="flex" flexDirection="column" gap={2}>
               {ratedFoodDetails.map((ratedFood, index) => (
-                <FoodInProfile key={index} food={ratedFood} onRateChange={handleRateChange} />
+                <FoodInProfile 
+                  key={index} 
+                  food={ratedFood} 
+                  onRateChange={handleRateChange}
+                  readOnly={!isOwnProfile} 
+                />
               ))}
             </Box>
           </Paper>
@@ -363,7 +409,12 @@ const UserProfile = () => {
             {favoriteFoodDetails.length > 0 ? (
               <Box display="flex" flexDirection="column" gap={2}>
                 {favoriteFoodDetails.map((food, index) => (
-                  <FoodInProfile key={index} food={food} onRateChange={handleRateChange} />
+                  <FoodInProfile 
+                    key={index} 
+                    food={food} 
+                    onRateChange={handleRateChange}
+                    readOnly={!isOwnProfile}
+                  />
                 ))}
               </Box>
             ) : (
