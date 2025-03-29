@@ -50,5 +50,6 @@
   "noBio": "Biyografi bulunamadı.",
   "comments": "Yorumlar",
   "addToList": "Listene Ekle",
-  "removeFromList": "Listenden Çıkar"
+  "removeFromList": "Listenden Çıkar",
+  "noComments": "Bu yemek için daha yorum yapılmadı"
 }

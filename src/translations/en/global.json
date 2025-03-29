@@ -50,5 +50,6 @@
   "noBio": "No bio available.",
   "comments": "Comments",
   "addToList": "Add To List",
-  "removeFromList": "Remove From List"
+  "removeFromList": "Remove From List",
+  "noComments": "No comment submitted to this food"
 }

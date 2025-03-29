@@ -63,8 +63,6 @@ const UserProfile = () => {
               const profileUser = userResponse.data.data[0];
               setUserData(profileUser);
               setEditedBio(profileUser.bio || "");
-
-              console.log("SVSTSR IFDDD",profileUser.avatarId)
               
               const parsedDisliked = Array.isArray(profileUser?.disliked_ingredients)
                 ? profileUser.disliked_ingredients
