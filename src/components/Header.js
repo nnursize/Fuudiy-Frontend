@@ -42,6 +42,11 @@ const Header = () => {
           setUserData(data.data[0]); // Save user
         })
         .catch((error) => console.error("Error fetching /me:", error));      
+    }else{
+      localStorage.removeItem("accessToken");
+      setIsLoggedIn(false);
+      setShowDropdown(false);
+      setShowLogoutPopup(false);
     }
   }, []);
   

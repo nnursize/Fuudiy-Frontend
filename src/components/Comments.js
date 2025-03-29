@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";  
+import React, { useState, useEffect } from "react";    
 import axios from "axios";
 import {
   Box,
@@ -48,7 +48,7 @@ const StarRating = ({ value, onChange, readOnly = false }) => {
   );
 };
 
-const Comments = () => {
+const Comments = ({ onRatingUpdate }) => {
   const { id: food_id } = useParams();
   const [userData, setUserData] = useState(null);
   const [comments, setComments] = useState([]);
@@ -60,23 +60,25 @@ const Comments = () => {
   const [translating, setTranslating] = useState({});
   const { t, i18n } = useTranslation("global");
 
+  // Reusable function to fetch all comments
+  const fetchComments = async () => {
+    try {
+      const response = await axios.get(`${API_BASE_URL}/comments/${food_id}`);
+      setComments(response.data);
+    } catch (error) {
+      setError("Error fetching comments.");
+      console.error("API Error:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Fetch comments on mount and when food_id changes
   useEffect(() => {
-    const fetchComments = async () => {
-      try {
-        const response = await axios.get(`${API_BASE_URL}/comments/${food_id}`);
-        setComments(response.data);
-      } catch (error) {
-        setError("Error fetching comments.");
-        console.error("API Error:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
     fetchComments();
   }, [food_id]);
 
   const handleCommentSubmit = async () => {
-
     const accessToken = localStorage.getItem("accessToken");
     if (!accessToken) {
       alert("You have to login before submitting a comment.");
@@ -85,7 +87,7 @@ const Comments = () => {
     
     if (!newComment.trim() || rating === 0) return;
     try {
-      // Fetch the current user data
+      // Get the current user data
       const userResponse = await axios.get(`${API_BASE_URL}/auth/users/me`, {
         headers: { Authorization: `Bearer ${accessToken}` },
       });
@@ -107,35 +109,34 @@ const Comments = () => {
           },
         }
       );
-
-      const food_response = await axios.get(`${API_BASE_URL}/food/${food_id}`);
-      const food = food_response.data;
   
-      const votes = food.popularity?.votes || 0;
-      const oldRating = food.popularity?.rating || 0;
-      
-      const newCalculatedRating = ((oldRating * votes + rating) / (votes+1)).toFixed(1);
+      // Get current food details to calculate the new rating
+      const foodResponse = await axios.get(`${API_BASE_URL}/food/${food_id}`);
+      const food = foodResponse.data;
+      const currentVotes = food.popularity?.votes || 0;
+      const currentRating = food.popularity?.rating || 0;
   
-      const popularityResponse = await axios.put(`${API_BASE_URL}/food/update-popularity/${food_id}`, {
-        rating: parseFloat(newCalculatedRating),
-        existing_vote: false
-    });
-
+      const newCalculatedRating = ((currentRating * currentVotes + rating) / (currentVotes + 1)).toFixed(1);
+  
+      // Update the food popularity
+      const popularityResponse = await axios.put(
+        `${API_BASE_URL}/food/update-popularity/${food_id}`,
+        {
+          rating: parseFloat(newCalculatedRating),
+          existing_vote: false,
+        }
+      );
       console.log("✅ Food popularity updated successfully:", popularityResponse.data);
-  
-      // Immediately update the comments list using the current user data
-      if (response.data && currentUser) {
-        setComments((prevComments) => [
-          {
-            ...response.data.data,
-            userName: currentUser.username,
-            userAvatar: currentUser.avatarId,
-            rate: rating,
-          },
-          ...prevComments,
-        ]);
+      
+      // Update parent's rating state if a callback is provided
+      if (popularityResponse.data && onRatingUpdate) {
+        onRatingUpdate(popularityResponse.data.new_rating, popularityResponse.data.votes);
       }
   
+      // Re-fetch all comments to update the list with full details
+      await fetchComments();
+  
+      // Reset the comment form
       setNewComment("");
       setRating(0);
     } catch (error) {
@@ -147,14 +148,12 @@ const Comments = () => {
         setError("Failed to submit comment. Please try again.");
       }
     }
-  };  
+  };
 
   const translateComment = async (uniqueKey, text) => {
-    // Mark this comment as translating
     setTranslating((prev) => ({ ...prev, [uniqueKey]: true }));
     try {
       const targetLanguage = i18n.language;
-      console.log(targetLanguage);
       const response = await axios.post(`${API_BASE_URL}/translation/`, {
         text: text,
         target_lang: targetLanguage,
@@ -185,7 +184,6 @@ const Comments = () => {
       ) : (
         <List>
           {comments.map((comment, index) => {
-            // Create a unique key using comment.id and index
             const uniqueKey = `${comment.id}-${index}`;
             return (
               <Card
