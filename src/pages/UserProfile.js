@@ -34,6 +34,7 @@ const UserProfile = () => {
   const [ingredientsList, setIngredientsList] = useState([]);
   const [newAllergyInput, setNewAllergyInput] = useState("");
   const [showAllergyInput, setShowAllergyInput] = useState(false);
+  const [showDislikedInput, setShowDislikedInput] = useState(false);
 
 
   const { t } = useTranslation("global");
@@ -60,9 +61,11 @@ const UserProfile = () => {
         console.log("edited disliked ingredients: ", editedDislikedIngredients);
 
         const allergiesResponse = await axios.get(`${API_BASE_URL}/users/allergies/${user.username}`);
-        setAllergies(allergiesResponse.data.data || []);
-        setEditedAllergies(allergiesResponse.data.data || []);
-        console.log("allergies: ", allergies);
+        const allergyData = allergiesResponse.data.data;
+        const parsedAllergies = Array.isArray(allergyData) ? allergyData.flat() : [];
+        setAllergies(parsedAllergies);
+        setEditedAllergies(parsedAllergies);
+        console.log("allergies: ", allergiesResponse.data.data);
         
         return axios.get(`${API_BASE_URL}/comments/me`, {
           headers: { Authorization: `Bearer ${accessToken}` }
@@ -333,53 +336,88 @@ const UserProfile = () => {
 
           {/* Disliked Ingredients Section with Edit Toggle */}
           {displayedDislikedIngredients.length > 0 && (
-            <Box sx={{ mt: 2 }}>
-              <Box display="flex" alignItems="center" justifyContent="space-between" sx={{ mb: 1 }}>
+          <Box sx={{ mt: 2 }}>
+            <Box display="flex" alignItems="center" justifyContent="space-between" sx={{ mb: 1 }}>
               <Typography variant="body1" sx={{ fontWeight: "bold", color: "gray" }}>
-                {t("dislikedIngredients") /* Add to translation file */}
+                {t("dislikedIngredients")}
               </Typography>
-                {editingDisliked ? (
-                  <Box>
-                    <IconButton 
-                      onClick={handleSaveEditedIngredients}
-                      size="small"
-                      sx={{ p: 0.25, minWidth: 0, width: "20px", height: "20px" }}
-                    >
-                      <CheckIcon fontSize="small" />
-                    </IconButton>
-                    <IconButton 
-                      onClick={handleCancelEditedIngredients}
-                      size="small"
-                      sx={{ p: 0.25, minWidth: 0, width: "20px", height: "20px" }}
-                    >
-                      <CancelIcon fontSize="small" />
-                    </IconButton>
-                  </Box>
-                ) : (
-                  <IconButton 
-                  onClick={() => {                  
-                    setEditedDislikedIngredients(dislikedIngredients);
-                    setTimeout(() => setEditingDisliked(true), 0); // 👈 Force it into next render cycle
-                  }}                  
+              {editingDisliked ? (
+                <Box>
+                  <IconButton
+                    onClick={handleSaveEditedIngredients}
                     size="small"
                     sx={{ p: 0.25, minWidth: 0, width: "20px", height: "20px" }}
                   >
-                    <EditIcon fontSize="small" />
+                    <CheckIcon fontSize="small" />
                   </IconButton>
-                )}
-              </Box>
-              <Stack direction="row" spacing={1} alignItems="center" flexWrap="wrap">
-                {displayedDislikedIngredients.map((ingredient, index) => (
-                  <Chip 
-                    key={index} 
-                    label={ingredient} 
-                    {...(editingDisliked ? { onDelete: () => handleRemoveIngredient(ingredient) } : {})}
-                    sx={{ backgroundColor: "#f1f1f1", fontWeight: "bold", fontSize: "14px", py: 0.5, px: 1 }} 
-                  />
-                ))}
-              </Stack>
+                  <IconButton
+                    onClick={handleCancelEditedIngredients}
+                    size="small"
+                    sx={{ p: 0.25, minWidth: 0, width: "20px", height: "20px" }}
+                  >
+                    <CancelIcon fontSize="small" />
+                  </IconButton>
+                </Box>
+              ) : (
+                <IconButton
+                  onClick={() => {
+                    setEditedDislikedIngredients(dislikedIngredients);
+                    setTimeout(() => setEditingDisliked(true), 0);
+                  }}
+                  size="small"
+                  sx={{ p: 0.25, minWidth: 0, width: "20px", height: "20px" }}
+                >
+                  <EditIcon fontSize="small" />
+                </IconButton>
+              )}
             </Box>
-          )}
+
+            <Stack direction="row" spacing={1} alignItems="center" flexWrap="wrap">
+              {displayedDislikedIngredients.map((ingredient, index) => (
+                <Chip
+                  key={index}
+                  label={ingredient}
+                  {...(editingDisliked ? { onDelete: () => handleRemoveIngredient(ingredient) } : {})}
+                  sx={{ backgroundColor: "#f1f1f1", fontWeight: "bold", fontSize: "14px", py: 0.5, px: 1 }}
+                />
+              ))}
+
+              {/* Autocomplete input appears here */}
+              {editingDisliked && showDislikedInput && (
+                <Box display="flex" alignItems="center" gap={1} mt={1}>
+                  <AddIngredientAutocomplete
+                    onAdd={(newIngredient) => {
+                      if (!editedDislikedIngredients.includes(newIngredient)) {
+                        setEditedDislikedIngredients((prev) => [...prev, newIngredient].flat());
+                        setShowDislikedInput(false);
+                      }
+                    }}
+                  />
+                </Box>
+              )}
+
+              {/* ➕ Add button only if input is not visible */}
+              {editingDisliked && !showDislikedInput && (
+                <IconButton
+                  onClick={() => setShowDislikedInput(true)}
+                  size="small"
+                  sx={{
+                    p: 0.25,
+                    minWidth: 0,
+                    width: "24px",
+                    height: "24px",
+                    border: "1px dashed #ccc",
+                    ml: 0.5,
+                    alignSelf: "center"
+                  }}
+                >
+                  <AddIcon fontSize="small" />
+                </IconButton>
+              )}
+            </Stack>
+          </Box>
+        )}
+
           {(editingAllergies ? editedAllergies.length > 0 : allergies.length > 0 || editingAllergies) && (
             <Box sx={{ mt: 2 }}>
               <Box display="flex" alignItems="center" justifyContent="space-between" sx={{ mb: 1 }}>
