@@ -166,6 +166,9 @@ const UserProfile = () => {
     }
   };
 
+  useEffect(() => {
+    console.log("🩺 editedAllergies now:", editedAllergies);
+  }, [editedAllergies]);
   
   // Handler to remove an ingredient from the temporary list.
   const handleRemoveIngredient = (ingredientToRemove) => {
@@ -430,7 +433,7 @@ const UserProfile = () => {
                     <AddIngredientAutocomplete
                       onAdd={(newAllergy) => {
                         if (!editedAllergies.includes(newAllergy)) {
-                          setEditedAllergies((prev) => [...prev, newAllergy]);
+                          setEditedAllergies((prev) => [...prev, newAllergy].flat()); // flatten
                           setShowAllergyInput(false);
                         }
                       }}
