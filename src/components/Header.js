@@ -1,14 +1,13 @@
-// Header.js
-import React, { useState, useEffect } from "react"; 
+import React, { useState, useEffect, useCallback } from "react";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import LanguageSwitcher from "../components/LanguageSwitcher";
 import { Avatar } from "@mui/material";
 import LogoutPopup from "../components/LogoutPopup";
-import axiosInstance from "../axiosInstance";  // Use custom axios instance
+import RefreshPopup from "../components/RefreshPopup";
+import axiosInstance from "../axiosInstance";
 
-// Helper function to generate the correct avatar image path
 const getAvatarSrc = (avatarId) => {
   return avatarId && avatarId.includes(".png")
     ? `/avatars/${avatarId}`
@@ -19,29 +18,119 @@ const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
   const [showLogoutPopup, setShowLogoutPopup] = useState(false);
+  const [showRefreshPopup, setShowRefreshPopup] = useState(false);
   const [userData, setUserData] = useState(null);
+  const [tokenExpiryTime, setTokenExpiryTime] = useState(null);
   const { t, i18n } = useTranslation("global");
   const navigate = useNavigate();
 
-  // Check login status and fetch user data
-  useEffect(() => {
+  // Check token expiration
+  const checkTokenExpiration = useCallback(() => {
     const token = localStorage.getItem("accessToken");
-    console.log("access token is:", token);
+    if (!token) return false;
 
-    if (token) {
-      setIsLoggedIn(true);
-      axiosInstance.get("/auth/users/me")
-        .then((response) => {
-          setUserData(response.data.data[0]); // Save user data
-        })
-        .catch((error) => console.error("Error fetching /me:", error));
-    } else {
-      localStorage.removeItem("accessToken");
-      setIsLoggedIn(false);
-      setShowDropdown(false);
-      setShowLogoutPopup(false);
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      const expiryTime = payload.exp * 1000;
+      setTokenExpiryTime(expiryTime);
+      return expiryTime < Date.now();
+    } catch (error) {
+      return true;
     }
   }, []);
+
+  // Refresh token function
+  const refreshToken = async () => {
+    try {
+      const token = localStorage.getItem("accessToken");
+      const response = await axiosInstance.post("/auth/refresh", { token });
+      localStorage.setItem("accessToken", response.data.access_token);
+      checkTokenExpiration();
+      return true;
+    } catch (error) {
+      console.error("Token refresh failed:", error);
+      return false;
+    }
+  };
+
+  // Check login status and fetch user data
+  useEffect(() => {
+    const checkAuthStatus = async () => {
+      const token = localStorage.getItem("accessToken");
+      
+      if (!token) {
+        cleanupAuth();
+        return;
+      }
+
+      if (checkTokenExpiration()) {
+        // Token is expired, show refresh popup if not already shown
+        if (!showRefreshPopup) {
+          setShowRefreshPopup(true);
+        }
+        return;
+      }
+
+      try {
+        const response = await axiosInstance.get("/auth/users/me");
+        setIsLoggedIn(true);
+        setUserData(response.data.data[0]);
+      } catch (error) {
+        if (error.response?.status === 401) {
+          cleanupAuth();
+          navigate("/login");
+        }
+      }
+    };
+
+    checkAuthStatus();
+
+    // Set up periodic check (every minute)
+    const interval = setInterval(checkAuthStatus, 60 * 1000);
+    return () => clearInterval(interval);
+  }, [checkTokenExpiration, navigate, showRefreshPopup]);
+
+  // Set up timeout for token expiration warning
+  useEffect(() => {
+    if (!tokenExpiryTime) return;
+
+    const timeUntilExpiry = tokenExpiryTime - Date.now();
+    const warningTime = 5 * 60 * 1000; // 5 minutes before expiry
+
+    if (timeUntilExpiry > warningTime) {
+      const timeout = setTimeout(() => {
+        setShowRefreshPopup(true);
+      }, timeUntilExpiry - warningTime);
+
+      return () => clearTimeout(timeout);
+    } else if (timeUntilExpiry > 0) {
+      // If we're already within warning period
+      setShowRefreshPopup(true);
+    }
+  }, [tokenExpiryTime]);
+
+  const cleanupAuth = () => {
+    localStorage.removeItem("accessToken");
+    setIsLoggedIn(false);
+    setUserData(null);
+    setShowDropdown(false);
+    setShowLogoutPopup(false);
+    setShowRefreshPopup(false);
+  };
+
+  const handleStayLoggedIn = async () => {
+    const success = await refreshToken();
+    if (!success) {
+      cleanupAuth();
+      navigate("/login");
+    }
+    setShowRefreshPopup(false);
+  };
+
+  const handleForceLogout = () => {
+    cleanupAuth();
+    navigate("/login");
+  };
 
   const changeLanguage = (lng) => {
     i18n.changeLanguage(lng).catch((err) =>
@@ -49,19 +138,18 @@ const Header = () => {
     );
   };
 
-  // Called when logout is confirmed in the popup
-  const handleLogoutConfirmed = () => {
-    localStorage.removeItem("accessToken");
-    setIsLoggedIn(false);
-    setShowDropdown(false);
-    setShowLogoutPopup(false);
-    navigate("/");
+  const handleLogout = async () => {
+    try {
+      await axiosInstance.post("/auth/logout");
+    } catch (error) {
+      console.error("Logout error:", error);
+    } finally {
+      cleanupAuth();
+    }
   };
 
-  // Navigate to the user's profile page
   const handleProfileClick = () => {
     if (userData) {
-      console.log("User profile clicked:", userData.username);
       navigate(`/profile/${userData.username}`);
     }
   };
@@ -93,7 +181,7 @@ const Header = () => {
             <ProfileContainer>
               <Avatar
                 src={
-                  userData && userData.avatarId
+                  userData?.avatarId
                     ? getAvatarSrc(userData.avatarId)
                     : "/avatars/default_avatar.png"
                 }
@@ -119,20 +207,24 @@ const Header = () => {
           )}
         </RightSection>
       </HeaderContainer>
-      {/* Logout confirmation popup */}
+      
       <LogoutPopup
         open={showLogoutPopup}
         onClose={() => setShowLogoutPopup(false)}
-        onLogout={handleLogoutConfirmed}
+        onLogout={handleLogout}
+      />
+      
+      <RefreshPopup
+        open={showRefreshPopup}
+        onStayLoggedIn={handleStayLoggedIn}
+        onLogout={handleForceLogout}
       />
     </>
   );
 };
 
+
 export default Header;
-
-// Styled-components
-
 const HeaderContainer = styled.header`
   display: flex;
   justify-content: space-between;
