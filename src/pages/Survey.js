@@ -55,27 +55,26 @@ const Survey = () => {
 
     const isCurrentQuestionAnswered = () => {
         if (!currentQuestion) return false;
-    
+
         if (currentQuestion.type === 'radio' && currentQuestion.rows && currentQuestion.columns) {
-            const userResponses = responses[currentQuestion.id] || {}; // Get stored responses for this question
+            const userResponses = responses[currentQuestion.id] || {};
             return currentQuestion.rows.every(row => {
-                const rowKey = row.en.toLowerCase().replace(/\s+/g, '_'); // Ensure key matches
+                const rowKey = row.en.toLowerCase().replace(/\s+/g, '_');
                 return userResponses[rowKey] !== undefined && userResponses[rowKey] !== "";
             });
-            
         }
-    
+
         if (currentQuestion.type === 'score') {
             return responses[currentQuestion.id] !== undefined && responses[currentQuestion.id] !== "";
         }
-    
+
         return true; // Other types are optional
     };
-    
+
 
     const goToNextQuestion = () => {
         if (!isCurrentQuestionAnswered()) {
-            window.alert(t('please_answer')); 
+            window.alert(t('please_answer'));
             return;
         }
         if (currentQuestionIndex < questions.length - 1) {
@@ -92,7 +91,7 @@ const Survey = () => {
 
     const handleSubmit = async () => {
         if (!isCurrentQuestionAnswered()) {
-            window.alert(t('please_answer')); 
+            window.alert(t('please_answer'));
             return;
         }
 
@@ -188,10 +187,14 @@ const Survey = () => {
                         rows={currentQuestion.rows}
                         columns={currentQuestion.columns}
                         onChange={(row, value) => {
-                            const newResponses = { ...responses[currentQuestion.id], [row]: value };
+                            const newResponses = {
+                                ...(responses[currentQuestion.id] || {}),
+                                [row]: value
+                            };
                             handleResponseChange(currentQuestion.id, newResponses);
                         }}
                         language={language}
+                        values={responses[currentQuestion.id] || {}}
                     />
                 )}
 
