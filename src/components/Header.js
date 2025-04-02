@@ -26,23 +26,33 @@ const Header = () => {
   // Check login status and fetch user data
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
-    console.log("access token is:", token);
-
+  
     if (token) {
-      setIsLoggedIn(true);
-      axiosInstance.get("/auth/users/me")
-        .then((response) => {
-          setUserData(response.data.data[0]); // Save user data
-        })
-        .catch((error) => console.error("Error fetching /me:", error));
-    } else {
-      localStorage.removeItem("accessToken");
-      setIsLoggedIn(false);
-      setShowDropdown(false);
-      setShowLogoutPopup(false);
+      if (isTokenExpired(token)) {
+        console.warn("Token expired. Removing from storage.");
+        localStorage.removeItem("accessToken");
+        setIsLoggedIn(false);
+        navigate("/login"); // Redirect to login page
+      } else {
+        setIsLoggedIn(true);
+        axiosInstance.get("/auth/users/me")
+          .then((response) => setUserData(response.data.data[0]))
+          .catch((error) => console.error("Error fetching /me:", error));
+      }
     }
   }, []);
+  
 
+  const isTokenExpired = (token) => {
+    try {
+      const payload = JSON.parse(atob(token.split(".")[1])); // Decode JWT payload
+      return payload.exp * 1000 < Date.now(); // Check if expiration time is past
+    } catch (error) {
+      return true; // Assume token is invalid if decoding fails
+    }
+  };
+
+  
   const changeLanguage = (lng) => {
     i18n.changeLanguage(lng).catch((err) =>
       console.error("Language switch failed:", err)
