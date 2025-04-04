@@ -1,8 +1,15 @@
-import React , { useState, useEffect }from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 const RefreshPopup = ({ open, onStayLoggedIn, onLogout }) => {
     const [timeLeft, setTimeLeft] = useState(60); // 60 seconds countdown
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        onLogout(); // Call the original logout function
+        navigate("/"); // Redirect to home page
+    };
 
     useEffect(() => {
       if (!open) return;
@@ -14,7 +21,7 @@ const RefreshPopup = ({ open, onStayLoggedIn, onLogout }) => {
         setTimeLeft(prevTime => {
           if (prevTime <= 1) {
             clearInterval(timer);
-            onLogout(); // Auto logout when time runs out
+            handleLogout(); // Use our custom logout handler
             return 0;
           }
           return prevTime - 1;
@@ -22,28 +29,27 @@ const RefreshPopup = ({ open, onStayLoggedIn, onLogout }) => {
       }, 1000);
   
       return () => clearInterval(timer);
-    }, [open, onLogout]);
+    }, [open, handleLogout]);
   
     if (!open) return null;
-  
 
-  return (
-    <Overlay>
-      <Popup>
-        <Message>Are you still there?</Message>
-        <Timer>Your session will expire in {timeLeft} seconds</Timer>
-        <Buttons>
-          <Button onClick={onStayLoggedIn}>Yes, I'm here</Button>
-          <Button onClick={onLogout}>No, Log me out</Button>
-        </Buttons>
-      </Popup>
-    </Overlay>
-  );
+    return (
+        <Overlay>
+            <Popup>
+                <Message>Are you still there?</Message>
+                <Timer>Your session will expire in {timeLeft} seconds</Timer>
+                <Buttons>
+                    <Button onClick={onStayLoggedIn}>Yes, I'm here</Button>
+                    <Button onClick={handleLogout}>No, Log me out</Button>
+                </Buttons>
+            </Popup>
+        </Overlay>
+    );
 };
 
 export default RefreshPopup;
 
-// Styled-components for styling
+// Styled-components remain the same
 const Overlay = styled.div`
   position: fixed;
   top: 0;
