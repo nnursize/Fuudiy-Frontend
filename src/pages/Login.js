@@ -3,15 +3,21 @@ import React, { useEffect, useState } from 'react';
 import { 
   Box,
   Button,
+  Divider,
   IconButton,
   InputAdornment,
   TextField,
   Typography,
-  Link as MuiLink
+  Link as MuiLink,
+  Stack
 } from '@mui/material';
 import { 
   FaUser as UserIcon,
-  FaLock as LockIcon 
+  FaLock as LockIcon,
+  FaGithub,
+  FaGoogle,
+  FaFacebookF,
+  FaTwitter
 } from "react-icons/fa";
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
@@ -43,39 +49,7 @@ const Login = () => {
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
     setErrorMsg('');
-    console.log("Login form submitted");
-
-    // Build the payload
-    const payload = { email, password };
-
-    try {
-      const response = await fetch('http://localhost:8000/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: "your@email.com",
-          password: "yourPassword",
-        }),
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        setErrorMsg(errorData.detail || 'Login failed');
-        return;
-      }
-
-      const data = await response.json();
-      console.log("Login successful", data);
-      // Store the token in localStorage (or use another storage method)
-      localStorage.setItem('accessToken', data.access_token);
-      // Redirect to the homepage or desired page after login
-      navigate('/');
-    } catch (error) {
-      console.error("Error during login:", error);
-      setErrorMsg("An error occurred during login.");
-    }    
+    
     try {
       const response = await fetch('http://localhost:8000/auth/login', {
         method: 'POST',
@@ -101,16 +75,16 @@ const Login = () => {
   };
 
   return (
-    <Frame title={t('login')} onSubmit={handleLoginSubmit} >
-      
+    <Frame title={t('login')} onSubmit={handleLoginSubmit}>
       <Box sx={{ position: 'absolute', top: '35px', right: '35px' }}>
         <LanguageSwitcher 
-        changeLanguage={changeLanguage} 
+          changeLanguage={changeLanguage} 
           size="large" 
           height="35px" 
           width="35px" 
           fontSize="0.8rem" 
-          color="white" />
+          color="white" 
+        />
       </Box>
 
       {errorMsg && (
@@ -119,7 +93,8 @@ const Login = () => {
         </Typography>
       )}
 
-      <TextField required
+      <TextField 
+        required
         fullWidth
         variant="outlined"
         placeholder={t('email')}
@@ -148,7 +123,8 @@ const Login = () => {
         }}
       />
 
-      <TextField required
+      <TextField 
+        required
         fullWidth
         type="password"
         variant="outlined"
@@ -178,9 +154,24 @@ const Login = () => {
         }}
       />
 
-      <Box sx={{ display: 'flex', justifyContent: 'center', mb: 3 }}>
+      <Button
+        fullWidth
+        variant="contained"
+        type="submit"
+        sx={{
+          height: '50px',
+          borderRadius: '10px',
+          fontSize: '1rem',
+          fontWeight: 600,
+          mb: 3
+        }}
+      >
+        {t('login')}
+      </Button>
+
+      <Box sx={{ display: 'flex', justifyContent: 'center' }}>
         <Typography variant="body2" color="text.primary">
-          {t('no_account') }{' '}
+          {t('no_account')}{' '}
           <MuiLink 
             component={Link} 
             to="/register" 
@@ -191,20 +182,6 @@ const Login = () => {
           </MuiLink>
         </Typography>
       </Box>
-
-      <Button
-        fullWidth
-        variant="contained"
-        type="submit"
-        sx={{
-          height: '50px',
-          borderRadius: '10px',
-          fontSize: '1rem',
-          fontWeight: 600,
-        }}
-      >
-        {t('login')}
-      </Button>
     </Frame>
   );
 };
