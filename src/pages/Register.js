@@ -48,7 +48,7 @@ const Register = () => {
   };
 
   const parseValidationError = (errorData) => {
-    if (!errorData.detail) return 'Registration failed';
+    if (!errorData.detail) return t('errors.registration_failed');
     
     // Handle FastAPI validation errors (422 Unprocessable Entity)
     if (Array.isArray(errorData.detail)) {
@@ -68,7 +68,10 @@ const Register = () => {
           newFieldErrors.password = t('errors.weak_password');
         }
         else if (field === 'username') {
-          newFieldErrors.username = t('errors.invalid_username');
+          // Handle both validation and uniqueness errors
+          newFieldErrors.username = message.includes('unique')
+            ? t('errors.username_taken')
+            : t('errors.invalid_username');
         }
         else {
           generalError = message;
@@ -80,7 +83,7 @@ const Register = () => {
     }
     
     // Handle other error types
-    return errorData.detail || 'Registration failed';
+    return errorData.detail || t('errors.registration_failed');
   };
 
   const handleRegisterSubmit = async (e) => {
@@ -138,7 +141,13 @@ const Register = () => {
         variant="outlined"
         placeholder={t('username')}
         value={username}
-        onChange={(e) => setUsername(e.target.value)}
+        onChange={(e) => {
+          setUsername(e.target.value);
+          // Clear username error when user starts typing
+          if (fieldErrors.username) {
+            setFieldErrors(prev => ({ ...prev, username: '' }));
+          }
+        }}
         error={!!fieldErrors.username}
         helperText={fieldErrors.username}
         sx={{ mb: 3 }}
@@ -165,6 +174,7 @@ const Register = () => {
         }}
       />
 
+      {/* ... (keep other TextField components the same) ... */}
       <TextField 
         required
         fullWidth
