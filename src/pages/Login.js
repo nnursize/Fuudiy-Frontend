@@ -1,6 +1,6 @@
 // src/pages/Login.js
 import React, { useEffect, useState } from 'react';
-import { 
+import {
   Box,
   Button,
   Divider,
@@ -11,7 +11,7 @@ import {
   Link as MuiLink,
   Stack
 } from '@mui/material';
-import { 
+import {
   FaUser as UserIcon,
   FaLock as LockIcon,
   FaGithub,
@@ -23,6 +23,10 @@ import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
 import Frame from '../components/Frame';
 import LanguageSwitcher from '../components/LanguageSwitcher';
+import { GoogleLogin } from '@react-oauth/google';
+import { jwtDecode } from 'jwt-decode';
+
+
 
 const Login = () => {
   const { t, i18n } = useTranslation("global");
@@ -49,7 +53,7 @@ const Login = () => {
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
     setErrorMsg('');
-    
+  
     try {
       const response = await fetch('http://localhost:8000/auth/login', {
         method: 'POST',
@@ -58,13 +62,13 @@ const Login = () => {
         },
         body: JSON.stringify({ email, password }),
       });
-
+  
       if (!response.ok) {
         const errorData = await response.json();
-        setErrorMsg(errorData.detail || 'Login failed');
+        setErrorMsg(errorData.detail?.message || 'Login failed'); // Ensure it's a string
         return;
       }
-
+  
       const data = await response.json();
       localStorage.setItem('accessToken', data.access_token);
       navigate('/');
@@ -73,17 +77,17 @@ const Login = () => {
       setErrorMsg("An error occurred during login.");
     }
   };
-
+  
   return (
     <Frame title={t('login')} onSubmit={handleLoginSubmit}>
       <Box sx={{ position: 'absolute', top: '35px', right: '35px' }}>
-        <LanguageSwitcher 
-          changeLanguage={changeLanguage} 
-          size="large" 
-          height="35px" 
-          width="35px" 
-          fontSize="0.8rem" 
-          color="white" 
+        <LanguageSwitcher
+          changeLanguage={changeLanguage}
+          size="large"
+          height="35px"
+          width="35px"
+          fontSize="0.8rem"
+          color="white"
         />
       </Box>
 
@@ -93,11 +97,12 @@ const Login = () => {
         </Typography>
       )}
 
-      <TextField 
+      <TextField
         required
         fullWidth
         variant="outlined"
         placeholder={t('email')}
+        type="email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         sx={{ mb: 3 }}
@@ -123,7 +128,7 @@ const Login = () => {
         }}
       />
 
-      <TextField 
+      <TextField
         required
         fullWidth
         type="password"
@@ -169,19 +174,63 @@ const Login = () => {
         {t('login')}
       </Button>
 
-      <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+      <Box sx={{ textAlign: 'center' }}>
+
+        <Divider sx={{ my: 3 }}>
+          <Typography variant="body2" sx={{ textTransform: 'uppercase', color: 'gray', fontWeight: 500 }}>
+            or
+          </Typography>
+        </Divider>
+
+
+<Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+  <GoogleLogin
+    onSuccess={async (credentialResponse) => {
+      try {
+        const credential = credentialResponse.credential;
+        const decoded = jwtDecode(credential);
+        console.log("Google user:", decoded);
+
+        const response = await fetch('http://localhost:8000/auth/google-login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            token: credential // Use the credential directly here
+          }),
+        });
+        
+        if (!response.ok) {
+          const errorData = await response.json();
+          setErrorMsg(errorData.detail || 'Google login failed');
+          return;
+        }
+
+        const data = await response.json();
+        localStorage.setItem('accessToken', data.access_token);
+        navigate('/');
+      } catch (err) {
+        console.error(err);
+        setErrorMsg("Google login failed.");
+      }
+    }}
+    onError={() => {
+      setErrorMsg("Google login failed.");
+    }}
+    useOneTap
+    width="300"
+  />
+</Box>
         <Typography variant="body2" color="text.primary">
           {t('no_account')}{' '}
-          <MuiLink 
-            component={Link} 
-            to="/register" 
-            color="primary"
-            fontWeight="bold"
-          >
+          <MuiLink component={Link} to="/register" color="primary" fontWeight="bold">
             {t('register')}
           </MuiLink>
         </Typography>
       </Box>
+
     </Frame>
   );
 };
