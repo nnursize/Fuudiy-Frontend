@@ -59,7 +59,8 @@
   "weak_password": "Şifre en az 8 karakter olmalıdır",
   "invalid_username": "Kullanıcı adı 3-20 karakter arasında olmalıdır",
   "validation_error": "Lütfen formdaki hataları düzeltin",
-  "network_error": "Ağ hatası. Lütfen tekrar deneyin."
+  "network_error": "Ağ hatası. Lütfen tekrar deneyin.",
+  "google_not_registered": "Hesabınız bulunamadı. Lütfen önce kayıt olun...",
+  "google_already_registered": "Bu email ile zaten kayıtlısınız. Giriş sayfasına yönlendiriliyorsunuz..."
 }
-
 }

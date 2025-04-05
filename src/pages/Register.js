@@ -7,17 +7,22 @@ import {
   Typography,
   InputAdornment,
   Link as MuiLink,
-  Alert
+  Alert,
+  Divider,
+  Stack
 } from '@mui/material';
 import { 
   FaUser as UserIcon,
-  FaLock as LockIcon 
+  FaLock as LockIcon,
+  FaGoogle
 } from "react-icons/fa";
 import { MdEmail as EmailIcon } from "react-icons/md";
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
 import Frame from '../components/Frame';
 import LanguageSwitcher from '../components/LanguageSwitcher';
+import { GoogleLogin } from '@react-oauth/google';
+import { jwtDecode } from 'jwt-decode';
 
 const Register = () => {
   const { t, i18n } = useTranslation("global");
@@ -116,6 +121,43 @@ const Register = () => {
     }
   };
 
+  const handleGoogleRegister = async (credentialResponse) => {
+    try {
+      const credential = credentialResponse.credential;
+      const decoded = jwtDecode(credential);
+      console.log("Google user:", decoded);
+
+      const response = await fetch('http://localhost:8000/auth/google-register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          token: credential
+        }),
+      });
+      
+      if (!response.ok) {
+        const errorData = await response.json();
+        if (response.status === 400) {
+          // Zaten kayıtlıysa giriş sayfasına yönlendir
+          setErrorMsg(t('errors.google_already_registered'));
+          setTimeout(() => navigate('/login'), 2000);
+        } else {
+          setErrorMsg(errorData.detail || 'Google registration failed');
+        }
+        return;
+      }
+
+      const data = await response.json();
+      localStorage.setItem('accessToken', data.access_token);
+      navigate('/survey');
+    } catch (err) {
+      console.error(err);
+      setErrorMsg("Google registration failed.");
+    }
+  };
+
   return (
     <Frame title={t('register')} onSubmit={handleRegisterSubmit}>
       <Box sx={{ position: 'absolute', top: '35px', right: '35px' }}>
@@ -130,10 +172,21 @@ const Register = () => {
       </Box>
 
       {errorMsg && (
-        <Alert severity="error" sx={{ mb: 3 }}>
-          {errorMsg}
-        </Alert>
-      )}
+  <Alert 
+    severity="error" 
+    sx={{ mb: 3 }}
+    action={
+      errorMsg === t('errors.google_already_registered') && (
+        <Button color="inherit" size="small" onClick={() => navigate('/login')}>
+          {t('login')}
+        </Button>
+      )
+    }
+  >
+    {errorMsg}
+  </Alert>
+)}
+
 
       <TextField 
         required
@@ -174,7 +227,6 @@ const Register = () => {
         }}
       />
 
-      {/* ... (keep other TextField components the same) ... */}
       <TextField 
         required
         fullWidth
@@ -243,20 +295,6 @@ const Register = () => {
         }}
       />
 
-      <Box sx={{ display: 'flex', justifyContent: 'center', mb: 3 }}>
-        <Typography variant="body2" color="text.primary">
-          {t('have_account')}{' '}
-          <MuiLink 
-            component={Link} 
-            to="/login" 
-            color="primary"
-            fontWeight="bold"
-          >
-            {t('login')}
-          </MuiLink>
-        </Typography>
-      </Box>
-
       <Button
         fullWidth
         variant="contained"
@@ -266,10 +304,37 @@ const Register = () => {
           borderRadius: '10px',
           fontSize: '1rem',
           fontWeight: 600,
+          mb: 3
         }}
       >
         {t('register')}
       </Button>
+
+      <Box sx={{ textAlign: 'center' }}>
+        <Divider sx={{ my: 3 }}>
+          <Typography variant="body2" sx={{ textTransform: 'uppercase', color: 'gray', fontWeight: 500 }}>
+            or
+          </Typography>
+        </Divider>
+
+        <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
+          <GoogleLogin
+            onSuccess={handleGoogleRegister}
+            onError={() => {
+              setErrorMsg("Google registration failed.");
+            }}
+            useOneTap
+            width="300"
+          />
+        </Box>
+
+        <Typography variant="body2" color="text.primary">
+          {t('have_account')}{' '}
+          <MuiLink component={Link} to="/login" color="primary" fontWeight="bold">
+            {t('login')}
+          </MuiLink>
+        </Typography>
+      </Box>
     </Frame>
   );
 };

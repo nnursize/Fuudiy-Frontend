@@ -204,10 +204,15 @@ const Login = () => {
         
         if (!response.ok) {
           const errorData = await response.json();
-          setErrorMsg(errorData.detail || 'Google login failed');
+          if (response.status === 404) {
+            // Kayıtlı değilse kayıt sayfasına yönlendir
+            setErrorMsg(t('errors.google_not_registered'));
+            setTimeout(() => navigate('/register'), 2000);
+          } else {
+            setErrorMsg(errorData.detail || 'Google login failed');
+          }
           return;
         }
-
         const data = await response.json();
         localStorage.setItem('accessToken', data.access_token);
         navigate('/');
