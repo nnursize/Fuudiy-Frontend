@@ -137,17 +137,18 @@ const Survey = () => {
 
     return (
         <>
-            <Box position='relative'>
+            <Box position='relative' >
                 <LanguageSwitcher color='white' changeLanguage={(lng) => i18n.changeLanguage(lng)} />
             </Box>
-            <Box
+            <Box 
                 sx={{
                     width: 600,
                     borderRadius: 15,
                     bgcolor: 'background.main',
                     textAlign: 'center',
                     padding: 5,
-                    margin: 'auto',
+                    margin: 'auto'
+                    , borderRadius: '50px'
                 }}
             >
                 <Typography variant="h6" color='grey' sx={{ marginBottom: 3 }}>
@@ -218,8 +219,8 @@ const Survey = () => {
                 )}
 
                 {/* Navigation Buttons */}
-                <Box sx={{ display: 'flex', justifyContent: 'space-between', marginTop: 4, gap: 2 }}>
-                    <Button
+                <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 4, gap: 2 }}>
+                <Button
                         variant="contained"
                         onClick={goToPreviousQuestion}
                         disabled={currentQuestionIndex === 0}
