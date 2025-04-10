@@ -3,9 +3,9 @@ import { createTheme } from '@mui/material/styles';
 // Color palette with semantic names and variations
 const colors = {
   primary: {
-    main: '#A02334',
-    light: '#D14D5E',
-    dark: '#7A0011',
+    main: '#5E362F',
+    light: '#b88c6e',
+    dark: '#4b2f18',
     contrastText: '#FFFFFF',
   },
   secondary: {
@@ -15,7 +15,7 @@ const colors = {
     contrastText: '#000000',
   },
   background: {
-    main: '#FFEEAD',
+    main: '#F5E8DC',
     default: '#f5f5f5',
     paper: '#FFFFFF',
   },
