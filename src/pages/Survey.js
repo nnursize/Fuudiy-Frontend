@@ -6,6 +6,7 @@ import ScoreQuestion from '../components/ui/ScoreQuestion';
 import { Box, Button, Typography } from '@mui/material';
 import LanguageSwitcher from '../components/LanguageSwitcher';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from "react-router-dom";
 
 const Survey = () => {
     const { t, i18n } = useTranslation("global");
@@ -14,6 +15,7 @@ const Survey = () => {
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [loading, setLoading] = useState(true);
     const [errorMessage, setErrorMessage] = useState(""); // Store error message
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchQuestions = async () => {
@@ -53,27 +55,26 @@ const Survey = () => {
 
     const isCurrentQuestionAnswered = () => {
         if (!currentQuestion) return false;
-    
+
         if (currentQuestion.type === 'radio' && currentQuestion.rows && currentQuestion.columns) {
-            const userResponses = responses[currentQuestion.id] || {}; // Get stored responses for this question
+            const userResponses = responses[currentQuestion.id] || {};
             return currentQuestion.rows.every(row => {
-                const rowKey = row.en.toLowerCase().replace(/\s+/g, '_'); // Ensure key matches
+                const rowKey = row.en.toLowerCase().replace(/\s+/g, '_');
                 return userResponses[rowKey] !== undefined && userResponses[rowKey] !== "";
             });
-            
         }
-    
+
         if (currentQuestion.type === 'score') {
             return responses[currentQuestion.id] !== undefined && responses[currentQuestion.id] !== "";
         }
-    
+
         return true; // Other types are optional
     };
-    
+
 
     const goToNextQuestion = () => {
         if (!isCurrentQuestionAnswered()) {
-            window.alert(t('please_answer')); 
+            window.alert(t('please_answer'));
             return;
         }
         if (currentQuestionIndex < questions.length - 1) {
@@ -90,7 +91,7 @@ const Survey = () => {
 
     const handleSubmit = async () => {
         if (!isCurrentQuestionAnswered()) {
-            window.alert(t('please_answer')); 
+            window.alert(t('please_answer'));
             return;
         }
 
@@ -118,6 +119,7 @@ const Survey = () => {
             const data = await response.json();
             console.log('Survey submitted successfully:', data);
             alert('Thank you for completing the survey!');
+            navigate('/login');
 
         } catch (error) {
             console.error('Error submitting survey:', error);
@@ -135,17 +137,18 @@ const Survey = () => {
 
     return (
         <>
-            <Box position='relative'>
+            <Box position='relative' >
                 <LanguageSwitcher color='white' changeLanguage={(lng) => i18n.changeLanguage(lng)} />
             </Box>
-            <Box
+            <Box 
                 sx={{
                     width: 600,
                     borderRadius: 15,
                     bgcolor: 'background.main',
                     textAlign: 'center',
                     padding: 5,
-                    margin: 'auto',
+                    margin: 'auto'
+                    , borderRadius: '50px'
                 }}
             >
                 <Typography variant="h6" color='grey' sx={{ marginBottom: 3 }}>
@@ -185,10 +188,14 @@ const Survey = () => {
                         rows={currentQuestion.rows}
                         columns={currentQuestion.columns}
                         onChange={(row, value) => {
-                            const newResponses = { ...responses[currentQuestion.id], [row]: value };
+                            const newResponses = {
+                                ...(responses[currentQuestion.id] || {}),
+                                [row]: value
+                            };
                             handleResponseChange(currentQuestion.id, newResponses);
                         }}
                         language={language}
+                        values={responses[currentQuestion.id] || {}}
                     />
                 )}
 
@@ -212,8 +219,8 @@ const Survey = () => {
                 )}
 
                 {/* Navigation Buttons */}
-                <Box sx={{ display: 'flex', justifyContent: 'space-between', marginTop: 4, gap: 2 }}>
-                    <Button
+                <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 4, gap: 2 }}>
+                <Button
                         variant="contained"
                         onClick={goToPreviousQuestion}
                         disabled={currentQuestionIndex === 0}

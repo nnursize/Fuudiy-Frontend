@@ -43,7 +43,6 @@ const FoodDetailPage = () => {
         const response = await axios.get(`${API_BASE_URL}/food/${id}`);
         const foodData = response.data;
         setFoodDetails(foodData);
-
   
         // Fetch signed image URL if 'url_id' exists
         if (foodData.url_id) {
@@ -59,6 +58,14 @@ const FoodDetailPage = () => {
     };
     fetchFoodDetails();
   }, [id, t]);
+
+  // Function to update the food rating from the Comments component
+  const updateFoodRating = (newRating, votes) => {
+    setFoodDetails(prev => ({
+      ...prev,
+      popularity: { rating: newRating, votes: votes }
+    }));
+  };
 
   const handleListToggle = async () => {
     setisInList(!isInList);
@@ -97,32 +104,31 @@ const FoodDetailPage = () => {
             </Card>
             <Box sx={{ flex: 1, textAlign: { xs: "center", md: "left" }, position: "relative", padding: "20px" }}>
               <Box sx={{ position: "absolute", top: 0, right: 0 }}>
-              <Tooltip title={isInList ? t("removeFromList") : t("addToList")}>
-                <IconButton
-                  onClick={handleListToggle}
-                  color={isInList ? "error" : "default"}
-                  sx={{ fontSize: "1rem", padding: "4px" }}
-                >
-                  {isInList ? <CloseIcon fontSize="small" /> : <AddIcon fontSize="small" />}
-                </IconButton>
-              </Tooltip>
+                <Tooltip title={isInList ? t("removeFromList") : t("addToList")}>
+                  <IconButton
+                    onClick={handleListToggle}
+                    color={isInList ? "error" : "default"}
+                    sx={{ fontSize: "1rem", padding: "4px" }}
+                  >
+                    {isInList ? <CloseIcon fontSize="small" /> : <AddIcon fontSize="small" />}
+                  </IconButton>
+                </Tooltip>
               </Box>
               <Typography variant="h3" fontWeight="bold" sx={{ marginBottom: "10px" }}>
                 {foodDetails.name}, {foodDetails.country}
               </Typography>
-              <Rating name="read-only" value={foodDetails.popularity.rating || 0} readOnly precision={0.5} 
+              <Rating
+                name="read-only"
+                value={foodDetails.popularity.rating || 0}
+                readOnly
+                precision={0.5}
                 sx={{ 
-                    marginBottom: "10px",
-                    "& .MuiRating-iconFilled": {
-                      color: "#FFD700", // Gold/yellow color for filled stars
-                    },
-                    "& .MuiRating-iconEmpty": {
-                      color: "#C0C0C0", // Light gray for empty stars
-                    }
-                  }} 
+                  marginBottom: "10px",
+                  "& .MuiRating-iconFilled": { color: "#FFD700" },
+                  "& .MuiRating-iconEmpty": { color: "#C0C0C0" },
+                }} 
               />              
-                <Box sx={{ display: "flex", flexWrap: "wrap", gap: "12px", alignItems: "center", marginTop: 2, justifyContent: { xs: "center", md: "flex-start" } }}>
-                <Typography variant="body1" fontWeight="bold">{t("keywords")}:</Typography>
+              <Box sx={{ display: "flex", flexWrap: "wrap", gap: "12px", alignItems: "center", marginTop: 2, justifyContent: { xs: "center", md: "flex-start" } }}>
                 {foodDetails.keywords.map((keyword, index) => (
                   <Chip key={index} label={keyword} sx={{ backgroundColor: "#f1f1f1", fontWeight: "bold", fontSize: "1rem", padding: "8px" }} />
                 ))}
@@ -142,7 +148,7 @@ const FoodDetailPage = () => {
         <Paper elevation={3} sx={{ padding: "30px", borderRadius: "20px", textAlign: "center" }}>
           {view === "ingredients" ? (
             <>
-              <List sx={{ columnCount:3, gap: "10px" }}>
+              <List sx={{ columnCount: 3, gap: "10px" }}>
                 {foodDetails.ingredients.map((ingredient, index) => (
                   <ListItem key={index} sx={{ width: "100%", justifyContent: "center" }}>
                     <Paper sx={{ padding: "15px", borderRadius: "10px", backgroundColor: "#f9f9f9", textAlign: "center", width: "50%" }}>
@@ -153,7 +159,8 @@ const FoodDetailPage = () => {
               </List>
             </>
           ) : (
-            <Comments />
+            // Pass the update function to Comments
+            <Comments onRatingUpdate={updateFoodRating} />
           )}
         </Paper>
       </Box>

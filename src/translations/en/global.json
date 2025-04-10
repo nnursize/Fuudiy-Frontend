@@ -49,8 +49,19 @@
   "profile": "Profile",
   "noBio": "No bio available.",
   "comments": "Comments",
-  "keywords": "keywords",
   "addToList": "Add To List",
   "removeFromList": "Remove From List",
-  "allergies": "Allergies"
+  "allergies": "Allergies",
+  "noComments": "No comment submitted to this food",
+  "loginRequired": "You need to login to submit comment",
+  "pleaseLoginToComment": "Please Login",
+  "errors": {
+    "invalid_email": "Please enter a valid email address",
+    "weak_password": "Password must be at least 8 characters",
+    "invalid_username": "Username must be 3-20 characters",
+    "validation_error": "Please fix the errors in the form",
+    "network_error": "Network error. Please try again."
+  }
+
 }
+

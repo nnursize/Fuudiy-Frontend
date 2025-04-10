@@ -49,8 +49,19 @@
   "profile": "Profil",
   "noBio": "Biyografi bulunamadı.",
   "comments": "Yorumlar",
-  "keywords": "anahtar kelimeler",
   "addToList": "Listene Ekle",
   "removeFromList": "Listenden Çıkar",
-  "allergies": "Alerjiler"
+  "allergies": "Alerjiler",
+  "noComments": "Bu yemek için daha yorum yapılmadı",
+  "loginRequired": "Yorum eklemek için giriş yapmalısınız",
+  "pleaseLoginToComment": "Lütfen giriş yapın",
+  "errors": {
+    "invalid_email": "Lütfen geçerli bir e-posta adresi girin",
+    "weak_password": "Şifre en az 8 karakter olmalıdır",
+    "invalid_username": "Kullanıcı adı 3-20 karakter arasında olmalıdır",
+    "validation_error": "Lütfen formdaki hataları düzeltin",
+    "network_error": "Ağ hatası. Lütfen tekrar deneyin.",
+    "google_not_registered": "Hesabınız bulunamadı. Lütfen önce kayıt olun...",
+    "google_already_registered": "Bu email ile zaten kayıtlısınız. Giriş sayfasına yönlendiriliyorsunuz..."
+  }
 }
