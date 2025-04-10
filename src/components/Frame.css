@@ -3,7 +3,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background: url('../assets/login_background.jpg') no-repeat center center;
+    background: url('../Assets/login_background.jpg') no-repeat center center;
     background-size: cover;
     padding-left: 38%; /* Default for large screens */
 
