@@ -37,7 +37,7 @@ const UserProfile = () => {
   const [showDislikedInput, setShowDislikedInput] = useState(false);
 
 
-  const { t } = useTranslation("global");
+  const { t, i18n } = useTranslation("global");
 
   useEffect(() => {
   
@@ -92,6 +92,13 @@ const UserProfile = () => {
         setFavoriteFoodDetails(updatedRatedFoods.filter(food => food.rate === 5));
       })
       .catch(error => console.error('Error fetching user data:', error));
+  }, []);
+
+  useEffect(() => {
+    fetch("/ingredients.json")
+      .then((res) => res.json())
+      .then((data) => setIngredientsList(data))
+      .catch((err) => console.error("Failed to load ingredients:", err));
   }, []);
 
   const handleRateChange = async (foodId, newRate) => {
@@ -257,6 +264,11 @@ const UserProfile = () => {
     setEditingAllergies(false);
   };  
 
+  const getLocalizedIngredient = (enName) => {
+    const found = ingredientsList.find((item) => item.en === enName);
+    return found ? (i18n.language === "tr" ? found.tr : found.en) : enName;
+  };
+
   console.log("displayedDislikedIngredients: ", displayedDislikedIngredients)
   console.log("editingDisliked: ", editingDisliked)
   console.log("editedDislikedIngredients: ", editedDislikedIngredients)
@@ -376,7 +388,7 @@ const UserProfile = () => {
               {displayedDislikedIngredients.map((ingredient, index) => (
                 <Chip
                   key={index}
-                  label={ingredient}
+                  label={getLocalizedIngredient(ingredient)}
                   {...(editingDisliked ? { onDelete: () => handleRemoveIngredient(ingredient) } : {})}
                   sx={{ backgroundColor: "#f1f1f1", fontWeight: "bold", fontSize: "14px", py: 0.5, px: 1 }}
                 />
@@ -459,7 +471,7 @@ const UserProfile = () => {
                 {(editingAllergies ? editedAllergies : allergies).map((allergy, index) => (
                   <Chip 
                     key={index} 
-                    label={allergy} 
+                    label={getLocalizedIngredient(allergy)}
                     {...(editingAllergies ? { onDelete: () => handleRemoveAllergy(allergy) } : {})}
                     sx={{ backgroundColor: "#ffe5e5", fontWeight: "bold", fontSize: "14px", py: 0.5, px: 1 }}
                   />
@@ -511,7 +523,12 @@ const UserProfile = () => {
             </Typography>            
             <Box display="flex" flexDirection="column" gap={2}>
               {ratedFoodDetails.map((ratedFood, index) => (
-                <FoodInProfile key={index} food={ratedFood} onRateChange={handleRateChange} />
+                <FoodInProfile
+                key={index}
+                food={ratedFood}
+                onRateChange={handleRateChange}
+                ingredientsList={ingredientsList}
+              />
               ))}
             </Box>
           </Paper>
@@ -524,7 +541,12 @@ const UserProfile = () => {
             {favoriteFoodDetails.length > 0 ? (
               <Box display="flex" flexDirection="column" gap={2}>
                 {favoriteFoodDetails.map((food, index) => (
-                  <FoodInProfile key={index} food={food} onRateChange={handleRateChange} />
+                  <FoodInProfile
+                  key={index}
+                  food={food}
+                  onRateChange={handleRateChange}
+                  ingredientsList={ingredientsList}
+                />
                 ))}
               </Box>
             ) : (

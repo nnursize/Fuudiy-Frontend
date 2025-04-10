@@ -4,12 +4,12 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
-const FoodInProfile = ({ food, onRateChange }) => {
+const FoodInProfile = ({ food, onRateChange, ingredientsList }) => {
   const [imageUrl, setImageUrl] = useState(
     food.imageUrl || `${process.env.PUBLIC_URL}/default-food.png`
   );
   const navigate = useNavigate();
-  const { t } = useTranslation("global"); 
+  const { i18n, t } = useTranslation("global");
 
   useEffect(() => {
     const fetchSignedImageUrl = async () => {
@@ -25,6 +25,11 @@ const FoodInProfile = ({ food, onRateChange }) => {
 
     fetchSignedImageUrl();
   }, [food.url_id]);
+
+  const getLocalizedIngredient = (enName) => {
+    const match = ingredientsList?.find((item) => item.en === enName);
+    return match ? (i18n.language === "tr" ? match.tr : match.en) : enName;
+  };
 
   return (
     <Box
@@ -72,7 +77,11 @@ const FoodInProfile = ({ food, onRateChange }) => {
           {food.country}
         </Typography>
         <Typography variant="body2" color="textSecondary" marginTop={1}>
-          {t("ingredients")}: {food.ingredients?.join(", ") || t("unknown")}
+          {t("ingredients")}: {
+            food.ingredients
+              ? food.ingredients.map(getLocalizedIngredient).join(", ")
+              : t("unknown")
+          }
         </Typography>
 
         {food.comment && (
