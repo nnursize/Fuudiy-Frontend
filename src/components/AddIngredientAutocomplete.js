@@ -18,12 +18,11 @@ const AddIngredientAutocomplete = ({ onAdd }) => {
 
   useEffect(() => {
     if (selected) {
-      const display = i18n.language === "tr" ? selected.tr : selected.en;
-      onAdd(display);
+      onAdd(selected.en); // Always send the English version
       setSelected(null);
       setInputValue("");
     }
-  }, [selected, onAdd, i18n.language]);
+  }, [selected, onAdd]);
 
   return (
     <Box display="flex" alignItems="center" gap={1} mt={1} sx={{ width: "100%", maxWidth: 400 }}>
