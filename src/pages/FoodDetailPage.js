@@ -36,6 +36,7 @@ const FoodDetailPage = () => {
   const [isInList, setisInList] = useState(false);
   const [view, setView] = useState("ingredients");
   const [imageUrl, setImageUrl] = useState("");
+  const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(() => {
     const fetchFoodDetails = async () => {
@@ -44,7 +45,6 @@ const FoodDetailPage = () => {
         const foodData = response.data;
         setFoodDetails(foodData);
   
-        // Fetch signed image URL if 'url_id' exists
         if (foodData.url_id) {
           const imageResponse = await axios.get(`${API_BASE_URL}/food/image/${foodData.url_id}`);
           setImageUrl(imageResponse.data.image_url);
@@ -56,9 +56,24 @@ const FoodDetailPage = () => {
         setLoading(false);
       }
     };
-    fetchFoodDetails();
-  }, [id, t]);
 
+    const fetchCurrentUser = async () => {
+      try {
+        const response = await axios.get(`${API_BASE_URL}/auth/users/me`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        });
+        setCurrentUser(response.data.data[0]);
+      } catch (err) {
+        console.error("Failed to fetch current user", err);
+      }
+    };
+  
+    fetchFoodDetails();
+    fetchCurrentUser(); // ← Added
+  }, [id, t]);
+  
   // Function to update the food rating from the Comments component
   const updateFoodRating = (newRating, votes) => {
     setFoodDetails(prev => ({
@@ -68,12 +83,20 @@ const FoodDetailPage = () => {
   };
 
   const handleListToggle = async () => {
-    setisInList(!isInList);
-    await axios.post(`${API_BASE_URL}/add_list`, {
-      foodId: id,
-      isInList: !isInList
-    });
-  };
+    if (!currentUser?.username) {
+      console.warn("No username found for the current user.");
+      return;
+    }
+  
+    try {
+      await axios.post(
+        `${API_BASE_URL}/survey/add-to-wanna-try/${currentUser.username}/${id}`
+      );
+      setisInList(true); // optimistic UI update
+    } catch (err) {
+      console.error("Failed to add to wannaTry:", err);
+    }
+  };  
 
   if (loading) {
     return (
