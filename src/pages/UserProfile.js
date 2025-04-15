@@ -1,4 +1,3 @@
-// UserProfile.js
 import React, { useEffect, useState } from 'react';  
 import { Box, Stack, Typography, Paper, Chip, IconButton } from '@mui/material';
 import { useTranslation } from "react-i18next";
@@ -11,6 +10,22 @@ import Footer from '../components/Footer';
 import ProfilePictureSelector from '../components/ProfilePictureSelector';
 import { useParams } from 'react-router-dom';
 import axiosInstance from '../axiosInstance';  // Import the custom axios instance
+import styled from "styled-components";
+
+// Add these styled components to match the Home component's structure
+const PageContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+`;
+
+const MainContent = styled.div`
+  flex: 1 0 auto;
+  padding-bottom: 0;
+  padding-top: 35px;
+`;
 
 const UserProfile = () => {
   const { USERNAME } = useParams();
@@ -41,7 +56,7 @@ const UserProfile = () => {
         const user = response.data.data[0];
         setCurrentUser(user);
 
-        // Check if we’re viewing our own profile or someone else’s
+        // Check if we're viewing our own profile or someone else's
         if (USERNAME === user.username) {
           setIsOwnProfile(true);
           setUserData(user);
@@ -201,186 +216,196 @@ const UserProfile = () => {
     setEditingBio(false);
   };
 
-  if (!userData) return <Typography>{t("loading")}</Typography>;
+  if (!userData) return (
+    <PageContainer>
+      <Header />
+      <MainContent>
+        <Typography>{t("loading")}</Typography>
+      </MainContent>
+      <Footer />
+    </PageContainer>
+  );
 
   return (
-    <>
+    <PageContainer>
       <Header />
-      <Box padding={4} bgcolor="white">
-        <Paper elevation={3} sx={{ padding: 3, marginBottom: 4, position: 'relative' }}>
-          <Box display="flex" alignItems="center" marginBottom={3} gap={2}>
-            {isOwnProfile ? (
-              <ProfilePictureSelector
-                currentAvatar={userData.avatarId || ''} // ensures an empty string is passed
-                onSelect={(newAvatar) => {
-                  axiosInstance.put(`/users/update-avatar-by-username/${userData.username}`, { avatarId: newAvatar })
-                    .then(() => {
-                      setUserData(prev => ({ ...prev, avatarId: newAvatar }));
-                    })
-                    .catch(error => console.error('Error updating avatar:', error));
-                }}
-              />
-            ) : (
-              <Box sx={{ width: 80, height: 80, borderRadius: '50%', overflow: 'hidden' }}>
-                <img 
-                  src={getAvatarSrc(userData.avatarId)} 
-                  alt="Profile" 
-                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+      <MainContent>
+        <Box padding={4} bgcolor="white">
+          <Paper elevation={3} sx={{ padding: 3, marginBottom: 4, position: 'relative' }}>
+            <Box display="flex" alignItems="center" marginBottom={3} gap={2}>
+              {isOwnProfile ? (
+                <ProfilePictureSelector
+                  currentAvatar={userData.avatarId || ''} // ensures an empty string is passed
+                  onSelect={(newAvatar) => {
+                    axiosInstance.put(`/users/update-avatar-by-username/${userData.username}`, { avatarId: newAvatar })
+                      .then(() => {
+                        setUserData(prev => ({ ...prev, avatarId: newAvatar }));
+                      })
+                      .catch(error => console.error('Error updating avatar:', error));
+                  }}
                 />
+              ) : (
+                <Box sx={{ width: 80, height: 80, borderRadius: '50%', overflow: 'hidden' }}>
+                  <img 
+                    src={getAvatarSrc(userData.avatarId)} 
+                    alt="Profile" 
+                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                  />
+                </Box>
+              )}
+              
+              <Box sx={{ paddingLeft: 1 }}>
+                <Typography variant="h5">{userData.username || 'Anonymous User'}</Typography>
+                <Typography variant="body2" color="textSecondary" gutterBottom>
+                  {userData.email || 'No email available.'}
+                </Typography>
+                <Box display="flex" alignItems="right" justifyContent="space-between" gap={1}>
+                  {isOwnProfile && editingBio ? (
+                    <>
+                      <input
+                        type="text"
+                        value={editedBio}
+                        onChange={(e) => setEditedBio(e.target.value)}
+                        style={{
+                          flex: 1,
+                          padding: "4px 8px",
+                          fontSize: "1rem",
+                          border: "1px solid #ccc",
+                          borderRadius: "4px"
+                        }}
+                      />
+                      <Box display="flex" gap={0.5}>
+                        <IconButton
+                          onClick={handleSaveEditedBio}
+                          size="small"
+                          sx={{ p: 0.25, minWidth: 0, width: "20px", height: "20px" }}
+                        >
+                          <CheckIcon fontSize="small" />
+                        </IconButton>
+                        <IconButton
+                          onClick={handleCancelEditedBio}
+                          size="small"
+                          sx={{ p: 0.25, minWidth: 0, width: "20px", height: "20px" }}
+                        >
+                          <CancelIcon fontSize="small" />
+                        </IconButton>
+                      </Box>
+                    </>
+                  ) : (
+                    <>
+                      <Typography variant="body1" sx={{ flex: 1 }}>
+                        {userData.bio || t("noBio")}
+                      </Typography>
+                      {isOwnProfile && (
+                        <IconButton
+                          onClick={() => setEditingBio(true)}
+                          size="small"
+                          sx={{ p: 0.25, minWidth: 0, width: "20px", height: "20px" }}
+                        >
+                          <EditIcon fontSize="small" />
+                        </IconButton>
+                      )}
+                    </>
+                  )}
+                </Box>
               </Box>
-            )}
-            
-            <Box sx={{ paddingLeft: 1 }}>
-              <Typography variant="h5">{userData.username || 'Anonymous User'}</Typography>
-              <Typography variant="body2" color="textSecondary" gutterBottom>
-                {userData.email || 'No email available.'}
-              </Typography>
-              <Box display="flex" alignItems="right" justifyContent="space-between" gap={1}>
-                {isOwnProfile && editingBio ? (
-                  <>
-                    <input
-                      type="text"
-                      value={editedBio}
-                      onChange={(e) => setEditedBio(e.target.value)}
-                      style={{
-                        flex: 1,
-                        padding: "4px 8px",
-                        fontSize: "1rem",
-                        border: "1px solid #ccc",
-                        borderRadius: "4px"
-                      }}
-                    />
-                    <Box display="flex" gap={0.5}>
-                      <IconButton
-                        onClick={handleSaveEditedBio}
-                        size="small"
-                        sx={{ p: 0.25, minWidth: 0, width: "20px", height: "20px" }}
-                      >
-                        <CheckIcon fontSize="small" />
-                      </IconButton>
-                      <IconButton
-                        onClick={handleCancelEditedBio}
-                        size="small"
-                        sx={{ p: 0.25, minWidth: 0, width: "20px", height: "20px" }}
-                      >
-                        <CancelIcon fontSize="small" />
-                      </IconButton>
-                    </Box>
-                  </>
-                ) : (
-                  <>
-                    <Typography variant="body1" sx={{ flex: 1 }}>
-                      {userData.bio || t("noBio")}
-                    </Typography>
-                    {isOwnProfile && (
-                      <IconButton
-                        onClick={() => setEditingBio(true)}
+            </Box>
+
+            {displayedDislikedIngredients.length > 0 && (
+              <Box sx={{ mt: 2 }}>
+                <Box display="flex" alignItems="center" justifyContent="space-between" sx={{ mb: 1 }}>
+                  <Typography variant="body1" sx={{ fontWeight: "bold", color: "gray" }}>
+                    {t("dislikedIngredients")}
+                  </Typography>
+                  {isOwnProfile && (
+                    editingDisliked ? (
+                      <Box>
+                        <IconButton 
+                          onClick={handleSaveEditedIngredients}
+                          size="small"
+                          sx={{ p: 0.25, minWidth: 0, width: "20px", height: "20px" }}
+                        >
+                          <CheckIcon fontSize="small" />
+                        </IconButton>
+                        <IconButton 
+                          onClick={handleCancelEditedIngredients}
+                          size="small"
+                          sx={{ p: 0.25, minWidth: 0, width: "20px", height: "20px" }}
+                        >
+                          <CancelIcon fontSize="small" />
+                        </IconButton>
+                      </Box>
+                    ) : (
+                      <IconButton 
+                        onClick={() => {                  
+                          setEditedDislikedIngredients(dislikedIngredients);
+                          setTimeout(() => setEditingDisliked(true), 0);
+                        }}                  
                         size="small"
                         sx={{ p: 0.25, minWidth: 0, width: "20px", height: "20px" }}
                       >
                         <EditIcon fontSize="small" />
                       </IconButton>
-                    )}
-                  </>
-                )}
+                    )
+                  )}
+                </Box>
+                <Stack direction="row" spacing={1} alignItems="center" flexWrap="wrap">
+                  {displayedDislikedIngredients.map((ingredient, index) => (
+                    <Chip 
+                      key={index} 
+                      label={ingredient} 
+                      {...(isOwnProfile && editingDisliked ? { onDelete: () => handleRemoveIngredient(ingredient) } : {})}
+                      sx={{ backgroundColor: "#f1f1f1", fontWeight: "bold", fontSize: "14px", py: 0.5, px: 1 }} 
+                    />
+                  ))}
+                </Stack>
               </Box>
-            </Box>
-          </Box>
-
-          {displayedDislikedIngredients.length > 0 && (
-            <Box sx={{ mt: 2 }}>
-              <Box display="flex" alignItems="center" justifyContent="space-between" sx={{ mb: 1 }}>
-                <Typography variant="body1" sx={{ fontWeight: "bold", color: "gray" }}>
-                  {t("dislikedIngredients")}
-                </Typography>
-                {isOwnProfile && (
-                  editingDisliked ? (
-                    <Box>
-                      <IconButton 
-                        onClick={handleSaveEditedIngredients}
-                        size="small"
-                        sx={{ p: 0.25, minWidth: 0, width: "20px", height: "20px" }}
-                      >
-                        <CheckIcon fontSize="small" />
-                      </IconButton>
-                      <IconButton 
-                        onClick={handleCancelEditedIngredients}
-                        size="small"
-                        sx={{ p: 0.25, minWidth: 0, width: "20px", height: "20px" }}
-                      >
-                        <CancelIcon fontSize="small" />
-                      </IconButton>
-                    </Box>
-                  ) : (
-                    <IconButton 
-                      onClick={() => {                  
-                        setEditedDislikedIngredients(dislikedIngredients);
-                        setTimeout(() => setEditingDisliked(true), 0);
-                      }}                  
-                      size="small"
-                      sx={{ p: 0.25, minWidth: 0, width: "20px", height: "20px" }}
-                    >
-                      <EditIcon fontSize="small" />
-                    </IconButton>
-                  )
-                )}
-              </Box>
-              <Stack direction="row" spacing={1} alignItems="center" flexWrap="wrap">
-                {displayedDislikedIngredients.map((ingredient, index) => (
-                  <Chip 
-                    key={index} 
-                    label={ingredient} 
-                    {...(isOwnProfile && editingDisliked ? { onDelete: () => handleRemoveIngredient(ingredient) } : {})}
-                    sx={{ backgroundColor: "#f1f1f1", fontWeight: "bold", fontSize: "14px", py: 0.5, px: 1 }} 
-                  />
-                ))}
-              </Stack>
-            </Box>
-          )}
-        </Paper>
-
-        <Box display="flex" justifyContent="space-between" sx={{ gap: 2, width: '100%' }}>
-          <Paper elevation={3} sx={{ flex: 1, padding: 3 }}>
-            <Typography variant="h6" marginBottom={2}>
-              {t("ratedFoods")}
-            </Typography>            
-            <Box display="flex" flexDirection="column" gap={2}>
-              {ratedFoodDetails.map((ratedFood, index) => (
-                <FoodInProfile 
-                  key={index} 
-                  food={ratedFood} 
-                  onRateChange={handleRateChange}
-                  readOnly={!isOwnProfile} 
-                />
-              ))}
-            </Box>
-          </Paper>
-
-          <Paper elevation={3} sx={{ flex: 1, padding: 3 }}>                        
-            <Typography variant="h6" marginBottom={2}>
-              {t("favoriteFoods")}
-            </Typography>
-            {favoriteFoodDetails.length > 0 ? (
-              <Box display="flex" flexDirection="column" gap={2}>
-                {favoriteFoodDetails.map((food, index) => (
-                  <FoodInProfile 
-                    key={index} 
-                    food={food} 
-                    onRateChange={handleRateChange}
-                    readOnly={!isOwnProfile}
-                  />
-                ))}
-              </Box>
-            ) : (
-              <Typography variant="body2" color="textSecondary">
-                {t("noFavoriteFoods")}
-              </Typography>            
             )}
           </Paper>
+
+          <Box display="flex" justifyContent="space-between" sx={{ gap: 2, width: '100%' }}>
+            <Paper elevation={3} sx={{ flex: 1, padding: 3 }}>
+              <Typography variant="h6" marginBottom={2}>
+                {t("ratedFoods")}
+              </Typography>            
+              <Box display="flex" flexDirection="column" gap={2}>
+                {ratedFoodDetails.map((ratedFood, index) => (
+                  <FoodInProfile 
+                    key={index} 
+                    food={ratedFood} 
+                    onRateChange={handleRateChange}
+                    readOnly={!isOwnProfile} 
+                  />
+                ))}
+              </Box>
+            </Paper>
+
+            <Paper elevation={3} sx={{ flex: 1, padding: 3 }}>                        
+              <Typography variant="h6" marginBottom={2}>
+                {t("favoriteFoods")}
+              </Typography>
+              {favoriteFoodDetails.length > 0 ? (
+                <Box display="flex" flexDirection="column" gap={2}>
+                  {favoriteFoodDetails.map((food, index) => (
+                    <FoodInProfile 
+                      key={index} 
+                      food={food} 
+                      onRateChange={handleRateChange}
+                      readOnly={!isOwnProfile}
+                    />
+                  ))}
+                </Box>
+              ) : (
+                <Typography variant="body2" color="textSecondary">
+                  {t("noFavoriteFoods")}
+                </Typography>            
+              )}
+            </Paper>
+          </Box>
         </Box>
-      </Box>
+      </MainContent>
       <Footer />
-    </>
+    </PageContainer>
   );
 };
 
