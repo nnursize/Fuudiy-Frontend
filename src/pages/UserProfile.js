@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';  
 import { Box, Stack, Typography, Paper, Chip, IconButton } from '@mui/material';
 import { useTranslation } from "react-i18next";
+import axios from 'axios';
 import EditIcon from '@mui/icons-material/Edit';
 import CancelIcon from '@mui/icons-material/Cancel';
 import CheckIcon from '@mui/icons-material/Check';
@@ -41,7 +42,6 @@ const UserProfile = () => {
   const [showAllergyInput, setShowAllergyInput] = useState(false);
   const [showDislikedInput, setShowDislikedInput] = useState(false);
 
-
   const { t, i18n } = useTranslation("global");
 
   const getAvatarSrc = (avatarId) => {
@@ -54,91 +54,72 @@ const UserProfile = () => {
   };
 
   useEffect(() => {
-    axiosInstance.get('/auth/users/me')
-      .then(response => {
+    const fetchUserData = async () => {
+      try {
+        const response = await axiosInstance.get('/auth/users/me');
         const user = response.data.data[0];
         setCurrentUser(user);
-
-        // Check if we’re viewing our own profile or someone else’s
+  
+        let profileUser = null;
+  
         if (USERNAME === user.username) {
           setIsOwnProfile(true);
-          setUserData(user);
-          setEditedBio(user.bio || "");
-          console.log("user: ", user);
+          profileUser = user;
+        } else {
+          setIsOwnProfile(false);
+          const userResponse = await axiosInstance.get(`/users/${USERNAME}`);
+          profileUser = userResponse.data.data[0];
+        }
+        console.log("Is Own Profile: ", isOwnProfile);
+  
+        setUserData(profileUser);
+        setEditedBio(profileUser.bio || "");
+  
+        const parsedDisliked = Array.isArray(profileUser?.disliked_ingredients)
+          ? profileUser.disliked_ingredients
+          : [];
+        setEditedDislikedIngredients(parsedDisliked);
+        setDislikedIngredients(parsedDisliked);
 
-          const rawDisliked = user?.disliked_ingredients || "";
-          console.log("raw disliked: ", rawDisliked);
-          const parsedDisliked = Array.isArray(user?.disliked_ingredients)
-            ? user.disliked_ingredients
-            : [];
-
-          setEditedDislikedIngredients(parsedDisliked);
-          setDislikedIngredients(parsedDisliked);
-          console.log("edited disliked ingredients: ", editedDislikedIngredients);
-
-          const allergiesResponse = await axios.get(`${API_BASE_URL}/users/allergies/${user.username}`);
+        if (profileUser?.username) {
+          const allergiesResponse = await axios.get(`${API_BASE_URL}/users/allergies/${profileUser.username}`);
           const allergyData = allergiesResponse.data.data;
           const parsedAllergies = Array.isArray(allergyData) ? allergyData.flat() : [];
           setAllergies(parsedAllergies);
           setEditedAllergies(parsedAllergies);
-          console.log("allergies: ", allergiesResponse.data.data);
-
-          // Get current user's comments/ratings
-          return axios.get(`${API_BASE_URL}/comments/me`, {
-            headers: { Authorization: `Bearer ${accessToken}` }
-          });
         } else {
-          // Get the requested user's profile
-          return axiosInstance.get(`/users/${USERNAME}`)
-            .then(userResponse => {
-              const profileUser = userResponse.data.data[0];
-              setUserData(profileUser);
-              setEditedBio(profileUser.bio || "");
-
-              const rawDisliked = profileUser?.disliked_ingredients || "";
-              console.log("raw disliked: ", rawDisliked);
-              const parsedDisliked = Array.isArray(profileUser?.disliked_ingredients)
-                ? profileUser.disliked_ingredients
-                : [];
-              setEditedDislikedIngredients(parsedDisliked);
-              setDislikedIngredients(parsedDisliked);
-              console.log("edited disliked ingredients: ", editedDislikedIngredients);
-
-              const allergiesResponse = await axios.get(`${API_BASE_URL}/users/allergies/${USERNAME}`);
-              const allergyData = allergiesResponse.data.data;
-              const parsedAllergies = Array.isArray(allergyData) ? allergyData.flat() : [];
-              setAllergies(parsedAllergies);
-              setEditedAllergies(parsedAllergies);
-              console.log("allergies: ", allergiesResponse.data.data);
-
-              // Get the requested user's comments/ratings
-              return axiosInstance.get(`/comments/${USERNAME}/comments`);
-            });
+          console.warn("⚠️ Username is missing, skipping allergy fetch.");
         }
-      })
-      .then(response => {
-        const ratedFoods = response.data.map(comment => ({
+  
+        // Get comments
+        const commentsResponse = USERNAME === user.username
+          ? await axios.get(`${API_BASE_URL}/comments/me`, {
+              headers: { Authorization: `Bearer ${accessToken}` }
+            })
+          : await axiosInstance.get(`/comments/${USERNAME}/comments`);
+  
+        const ratedFoods = commentsResponse.data.map(comment => ({
           foodId: comment.foodId,
-          rate: comment.rate, 
+          rate: comment.rate,
           comment: comment.comment,
         }));
-
-        const foodRequests = ratedFoods.map(food =>
-          axiosInstance.get(`/food/${food.foodId}`)
-            .then(res => ({
-              ...food,
-              ...res.data,
-            }))
-        );
-        return Promise.all(foodRequests);
-      })
-      .then(updatedRatedFoods => {
+  
+        const foodRequests = ratedFoods.map(async food => {
+          const res = await axiosInstance.get(`/food/${food.foodId}`);
+          return { ...food, ...res.data };
+        });
+  
+        const updatedRatedFoods = await Promise.all(foodRequests);
         setRatedFoodDetails(updatedRatedFoods);
         setFavoriteFoodDetails(updatedRatedFoods.filter(food => food.rate === 5));
-      })
-      .catch(error => console.error('Error fetching user data:', error));
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    };
+  
+    fetchUserData();
   }, [USERNAME]);
-
+  
   useEffect(() => {
     fetch("/ingredients.json")
       .then((res) => res.json())
@@ -376,45 +357,51 @@ const UserProfile = () => {
             </Box>
           </Box>
 
-          {displayedDislikedIngredients.length > 0 && (
+          {dislikedIngredients.length > 0 && (
           <Box sx={{ mt: 2 }}>
-            <Box display="flex" alignItems="center" justifyContent="space-between" sx={{ mb: 1 }}>
-              <Typography variant="body1" sx={{ fontWeight: "bold", color: "gray" }}>
-                {t("dislikedIngredients")}
-              </Typography>
-              {isOwnProfile && (
-                editingDisliked ? (
-                  <Box>
-                    <IconButton
-                      onClick={handleSaveEditedIngredients}
-                      size="small"
-                      sx={{ p: 0.25, minWidth: 0, width: "20px", height: "20px" }}
-                    >
-                      <CheckIcon fontSize="small" />
-                    </IconButton>
-                    <IconButton
-                      onClick={handleCancelEditedIngredients}
-                      size="small"
-                      sx={{ p: 0.25, minWidth: 0, width: "20px", height: "20px" }}
-                    >
-                      <CancelIcon fontSize="small" />
-                    </IconButton>
-                  </Box>
-                ) : (
+          <Box display="flex" alignItems="center" justifyContent="space-between" sx={{ mb: 1 }}>
+            <Typography variant="body1" sx={{ fontWeight: "bold", color: "gray" }}>
+              {t("dislikedIngredients")}
+            </Typography>
+        
+            {isOwnProfile && (
+              editingDisliked ? (
+                <Box>
                   <IconButton
-                    onClick={() => {
-                      setEditedDislikedIngredients(dislikedIngredients);
-                      setTimeout(() => setEditingDisliked(true), 0);
-                    }}
+                    onClick={handleSaveEditedIngredients}
                     size="small"
                     sx={{ p: 0.25, minWidth: 0, width: "20px", height: "20px" }}
                   >
-                    <EditIcon fontSize="small" />
+                    <CheckIcon fontSize="small" />
                   </IconButton>
-                )
-              )}
-            </Box>
-
+                  <IconButton
+                    onClick={handleCancelEditedIngredients}
+                    size="small"
+                    sx={{ p: 0.25, minWidth: 0, width: "20px", height: "20px" }}
+                  >
+                    <CancelIcon fontSize="small" />
+                  </IconButton>
+                </Box>
+              ) : (
+                <IconButton
+                  onClick={() => {
+                    setEditedDislikedIngredients(dislikedIngredients);
+                    setTimeout(() => setEditingDisliked(true), 0);
+                  }}
+                  size="small"
+                  sx={{ p: 0.25, minWidth: 0, width: "20px", height: "20px" }}
+                >
+                  <EditIcon fontSize="small" />
+                </IconButton>
+              )
+            )}
+          </Box>
+        
+          {dislikedIngredients.length === 0 && !isOwnProfile ? (
+            <Typography variant="body2" color="textSecondary">
+              {t("noDislikedIngredients")}
+            </Typography>
+          ) : (
             <Stack direction="row" spacing={1} alignItems="center" flexWrap="wrap">
               {displayedDislikedIngredients.map((ingredient, index) => (
                 <Chip
@@ -424,8 +411,7 @@ const UserProfile = () => {
                   sx={{ backgroundColor: "#f1f1f1", fontWeight: "bold", fontSize: "14px", py: 0.5, px: 1 }}
                 />
               ))}
-
-              {/* Autocomplete input appears here */}
+        
               {editingDisliked && showDislikedInput && (
                 <Box display="flex" alignItems="center" gap={1} mt={1}>
                   <AddIngredientAutocomplete
@@ -438,8 +424,7 @@ const UserProfile = () => {
                   />
                 </Box>
               )}
-
-              {/* ➕ Add button only if input is not visible */}
+        
               {editingDisliked && !showDislikedInput && (
                 <IconButton
                   onClick={() => setShowDislikedInput(true)}
@@ -458,10 +443,12 @@ const UserProfile = () => {
                 </IconButton>
               )}
             </Stack>
-          </Box>
+          )}
+        </Box>        
+        
         )}
 
-          {(editingAllergies ? editedAllergies.length > 0 : allergies.length > 0 || editingAllergies) && (
+          {isOwnProfile && (editingAllergies ? editedAllergies.length > 0 : allergies.length > 0 || editingAllergies) && (
             <Box sx={{ mt: 2 }}>
               <Box display="flex" alignItems="center" justifyContent="space-between" sx={{ mb: 1 }}>
                 <Typography variant="body1" sx={{ fontWeight: "bold", color: "gray" }}>
