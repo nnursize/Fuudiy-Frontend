@@ -8,11 +8,14 @@ import styled from "styled-components";
 import "../index.css";
 import { useTranslation } from "react-i18next";
 
-const CategorySection = styled.section`
+const PageContainer = styled.div`
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  padding: 2rem;
+  flex-direction: column;
+  min-height: 100vh; /* Ensures full height for sticky footer */
+`;
+
+const MainContent = styled.div`
+  flex: 1;
 `;
 
 const Title = styled.div`
@@ -38,7 +41,7 @@ const Home = () => {
   const { t } = useTranslation("global");
 
   useEffect(() => {
-    let isMounted = true; // Prevent memory leaks
+    let isMounted = true;
 
     const fetchFoods = async () => {
       try {
@@ -69,16 +72,19 @@ const Home = () => {
     fetchFoods();
 
     return () => {
-      isMounted = false; // Cleanup function
+      isMounted = false;
     };
   }, []);
 
   return (
-    <>
+    <PageContainer>
       <Header />
-      <Hero />
-      <Title>
-        <h2>{t("trendingFoods")}</h2>
+      {/* Main Content */}
+      <MainContent>
+        <Hero />
+        <Title>
+          <h2>{t("trendingFoods")}</h2>
+        </Title>
         <FoodSection>
           {loading ? (
             <p>Loading food items...</p>
@@ -90,9 +96,9 @@ const Home = () => {
             <p>No food items available.</p>
           )}
         </FoodSection>
-      </Title>
+      </MainContent>
       <Footer />
-    </>
+    </PageContainer>
   );
 };
 
