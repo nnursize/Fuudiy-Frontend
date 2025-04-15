@@ -11,11 +11,14 @@ import { useTranslation } from "react-i18next";
 const PageContainer = styled.div`
   display: flex;
   flex-direction: column;
-  min-height: 100vh; /* Ensures full height for sticky footer */
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
 `;
 
 const MainContent = styled.div`
-  flex: 1;
+  flex: 1 0 auto;
+  paddingBottom: 0;
 `;
 
 const Title = styled.div`
