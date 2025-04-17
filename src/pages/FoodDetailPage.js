@@ -64,9 +64,21 @@ const FoodDetailPage = () => {
             Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
           },
         });
-        setCurrentUser(response.data.data[0]);
+        const user = response.data.data[0];
+        setCurrentUser(user);
+    
+        // 👇 Check if food is in the user's survey wannaTry list
+        const surveyResponse = await axios.get(
+          `${API_BASE_URL}/survey/user/${user.username}`
+        );
+    
+        const wannaTryList = surveyResponse.data.wannaTry || [];
+    
+        if (wannaTryList.includes(id)) {
+          setisInList(true);
+        }
       } catch (err) {
-        console.error("Failed to fetch current user", err);
+        console.error("Failed to fetch current user or survey", err);
       }
     };
   
@@ -89,14 +101,21 @@ const FoodDetailPage = () => {
     }
   
     try {
-      await axios.post(
-        `${API_BASE_URL}/survey/add-to-wanna-try/${currentUser.username}/${id}`
-      );
-      setisInList(true); // optimistic UI update
+      if (isInList) {
+        await axios.delete(
+          `${API_BASE_URL}/survey/remove-from-wanna-try/${currentUser.username}/${id}`
+        );
+        setisInList(false);
+      } else {
+        await axios.post(
+          `${API_BASE_URL}/survey/add-to-wanna-try/${currentUser.username}/${id}`
+        );
+        setisInList(true);
+      }
     } catch (err) {
-      console.error("Failed to add to wannaTry:", err);
+      console.error("Failed to toggle wannaTry:", err);
     }
-  };  
+  }; 
 
   if (loading) {
     return (
@@ -127,15 +146,17 @@ const FoodDetailPage = () => {
             </Card>
             <Box sx={{ flex: 1, textAlign: { xs: "center", md: "left" }, position: "relative", padding: "20px" }}>
               <Box sx={{ position: "absolute", top: 0, right: 0 }}>
-                <Tooltip title={isInList ? t("removeFromList") : t("addToList")}>
-                  <IconButton
-                    onClick={handleListToggle}
-                    color={isInList ? "error" : "default"}
-                    sx={{ fontSize: "1rem", padding: "4px" }}
-                  >
-                    {isInList ? <CloseIcon fontSize="small" /> : <AddIcon fontSize="small" />}
-                  </IconButton>
-                </Tooltip>
+                {currentUser && (
+                  <Tooltip title={isInList ? t("removeFromList") : t("addToList")}>
+                    <IconButton
+                      onClick={handleListToggle}
+                      color={isInList ? "error" : "default"}
+                      sx={{ fontSize: "1rem", padding: "4px" }}
+                    >
+                      {isInList ? <CloseIcon fontSize="small" /> : <AddIcon fontSize="small" />}
+                    </IconButton>
+                  </Tooltip>
+                )}
               </Box>
               <Typography variant="h3" fontWeight="bold" sx={{ marginBottom: "10px" }}>
                 {foodDetails.name}, {foodDetails.country}
