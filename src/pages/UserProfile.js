@@ -41,6 +41,7 @@ const UserProfile = () => {
   const [newAllergyInput, setNewAllergyInput] = useState("");
   const [showAllergyInput, setShowAllergyInput] = useState(false);
   const [showDislikedInput, setShowDislikedInput] = useState(false);
+  const [wannaTryFoods, setWannaTryFoods] = useState([]);
 
   const { t, i18n } = useTranslation("global");
 
@@ -111,7 +112,21 @@ const UserProfile = () => {
   
         const updatedRatedFoods = await Promise.all(foodRequests);
         setRatedFoodDetails(updatedRatedFoods);
-        setFavoriteFoodDetails(updatedRatedFoods.filter(food => food.rate === 5));
+        try {
+          const surveyRes = await axios.get(`${API_BASE_URL}/survey/user/${profileUser.username}`);
+          const wannaTryIds = surveyRes.data.wannaTry || [];
+        
+          // Fetch food data for each ID
+          const wannaTryFoodRequests = wannaTryIds.map(async (foodId) => {
+            const res = await axiosInstance.get(`/food/${foodId}`);
+            return { foodId, ...res.data };
+          });
+        
+          const fetchedWannaTryFoods = await Promise.all(wannaTryFoodRequests);
+          setWannaTryFoods(fetchedWannaTryFoods);
+        } catch (surveyErr) {
+          console.warn("Couldn't fetch wannaTry list:", surveyErr);
+        }
       } catch (error) {
         console.error('Error fetching user data:', error);
       }
@@ -154,21 +169,6 @@ const UserProfile = () => {
         existing_vote: true
       });
       
-      setFavoriteFoodDetails(prev => {
-        if (newRate === 5) {
-          const updatedFood = ratedFoodDetails.find(food => food.foodId === foodId);
-          if (updatedFood) {
-            return [...prev, {
-              ...updatedFood,
-              rate: 5,
-              popularity: { ...updatedFood.popularity, rating: parseFloat(newCalculatedRating) }
-            }];
-          }
-        } else {
-          return prev.filter(food => food.foodId !== foodId);
-        }
-        return prev;
-      });
     } catch (error) {
       console.error('Error updating rating or popularity:', error);
       // Revert UI changes on error
@@ -177,11 +177,6 @@ const UserProfile = () => {
           ? { ...food, rate: oldRate, popularity: { ...food.popularity, rating: oldRating } }
           : food
       ));
-      setFavoriteFoodDetails(prev => prev.filter(favFood => favFood.foodId !== foodId));
-    }
-
-    if (newRate < 5) {
-      setFavoriteFoodDetails(prev => prev.filter(favFood => favFood.foodId !== foodId));
     }
   };
 
@@ -551,26 +546,33 @@ const UserProfile = () => {
             </Box>
           </Paper>
 
-          <Paper elevation={3} sx={{ flex: 1, padding: 3 }}>                        
-            <Typography variant="h6" marginBottom={2}>
-              {t("favoriteFoods")}
-            </Typography>
-            {favoriteFoodDetails.length > 0 ? (
+          <Paper elevation={3} sx={{ flex: 1, padding: 3 }}>
+          <Typography variant="h6" marginBottom={2}>
+            {t("wannaTryFoods")}
+          </Typography>
+            {wannaTryFoods.length > 0 ? (
               <Box display="flex" flexDirection="column" gap={2}>
-                {favoriteFoodDetails.map((food, index) => (
+                {wannaTryFoods.map((food, index) => (
                   <FoodInProfile
                     key={index}
                     food={food}
-                    onRateChange={handleRateChange}
-                    readOnly={!isOwnProfile}
+                    isWannaTry={true}
+                    onRemoveFromWannaTry={async (foodIdToRemove) => {
+                      try {
+                        await axios.delete(`${API_BASE_URL}/survey/remove-from-wanna-try/${userData.username}/${foodIdToRemove}`);
+                        setWannaTryFoods(prev => prev.filter(f => f.foodId !== foodIdToRemove));
+                      } catch (err) {
+                        console.error("Failed to remove from wannaTry:", err);
+                      }
+                    }}
                     ingredientsList={ingredientsList}
-                />
+                  />
                 ))}
               </Box>
             ) : (
               <Typography variant="body2" color="textSecondary">
-                {t("noFavoriteFoods")}
-              </Typography>            
+                {t("noWannaTryFoods")}
+              </Typography>
             )}
           </Paper>
         </Box>

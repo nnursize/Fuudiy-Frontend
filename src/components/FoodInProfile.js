@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Box, Typography, Avatar, Rating } from "@mui/material";
+import { Box, Typography, Avatar, Rating, IconButton } from "@mui/material";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import CloseIcon from '@mui/icons-material/Close';
 
-const FoodInProfile = ({ food, onRateChange, ingredientsList }) => {
+const FoodInProfile = ({ food, onRateChange, ingredientsList, isWannaTry = false, onRemoveFromWannaTry }) => {
   const [imageUrl, setImageUrl] = useState(
     food.imageUrl || `${process.env.PUBLIC_URL}/default-food.png`
   );
@@ -57,20 +58,30 @@ const FoodInProfile = ({ food, onRateChange, ingredientsList }) => {
           >
             {food.name}
           </Typography>
-          <Box display="flex" alignItems="center" gap={1}>
-          <Typography variant="body2" color="textSecondary">
-            {food.popularity && food.popularity.rating 
-              ? food.popularity.rating.toFixed(1) 
-              : "N/A"}
-          </Typography>
-            <Rating
-              name={`user-rating-${food.foodId}`}
-              value={food.rate || 0}
-              onChange={(event, newValue) => onRateChange(food.foodId, newValue)}
-              precision={1}
+
+          {isWannaTry ? (
+            <IconButton
+              onClick={() => onRemoveFromWannaTry && onRemoveFromWannaTry(food.foodId)}
               size="small"
-            />
-          </Box>
+              color="error"
+              sx={{ p: 0.5 }}
+            >
+              <CloseIcon fontSize="small" />
+            </IconButton>
+          ) : (
+            <Box display="flex" alignItems="center" gap={1}>
+              <Typography variant="body2" color="textSecondary">
+                {food.popularity?.rating ? food.popularity.rating.toFixed(1) : "N/A"}
+              </Typography>
+              <Rating
+                name={`user-rating-${food.foodId}`}
+                value={food.rate || 0}
+                onChange={(event, newValue) => onRateChange(food.foodId, newValue)}
+                precision={1}
+                size="small"
+              />
+            </Box>
+          )}
         </Box>
 
         <Typography variant="body2" color="textSecondary">
