@@ -255,8 +255,33 @@ const UserProfile = () => {
   const handleCancelEditedAllergies = () => {
     setEditedAllergies(allergies);
     setEditingAllergies(false);
+  }; 
+  
+  const handleCommentUpdate = async (foodId, newComment) => {
+    try {
+      const commentRes = await axios.get(`${API_BASE_URL}/comments/me`, {
+        headers: { Authorization: `Bearer ${accessToken}` }
+      });
+  
+      const comment = commentRes.data.find(c => c.foodId === foodId);
+      if (!comment) return;
+  
+      await axios.put(`${API_BASE_URL}/comments/${comment._id}`, {
+        comment: newComment
+      });
+  
+      // ✅ Immediately update local state for UI
+      setRatedFoodDetails(prev =>
+        prev.map(food =>
+          food.foodId === foodId ? { ...food, comment: newComment } : food
+        )
+      );
+  
+    } catch (err) {
+      console.error("Failed to update comment:", err);
+    }
   };  
-
+  
   const getLocalizedIngredient = (enName) => {
     const found = ingredientsList.find((item) => item.en === enName);
     return found ? (i18n.language === "tr" ? found.tr : found.en) : enName;
@@ -540,7 +565,7 @@ const UserProfile = () => {
                   onRateChange={handleRateChange}
                   readOnly={!isOwnProfile} 
                   ingredientsList={ingredientsList}
-
+                  onCommentUpdate={handleCommentUpdate}
                 />
               ))}
             </Box>
