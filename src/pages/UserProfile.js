@@ -19,11 +19,6 @@ import loadingAnimation from "../assets/loading_animation.json"; // adjust path 
 
 const API_BASE_URL = 'http://localhost:8000'; 
 
-//const USER_ID = localStorage.getItem("user"); 
-const accessToken = localStorage.getItem("accessToken"); 
-console.log("access token: ", accessToken);
-
-
 const UserProfile = () => {
   const { USERNAME } = useParams();
   const [userData, setUserData] = useState(null);
@@ -93,10 +88,11 @@ const UserProfile = () => {
           console.warn("⚠️ Username is missing, skipping allergy fetch.");
         }
   
+        const token = localStorage.getItem("accessToken");
         // Get comments
         const commentsResponse = USERNAME === user.username
           ? await axios.get(`${API_BASE_URL}/comments/me`, {
-              headers: { Authorization: `Bearer ${accessToken}` }
+              headers: { Authorization: `Bearer ${token}` }
             })
           : await axiosInstance.get(`/comments/${USERNAME}/comments`);
   
@@ -244,7 +240,7 @@ const UserProfile = () => {
       { allergies: editedAllergies }, 
       {
         headers: {
-          Authorization: `Bearer ${accessToken}`
+          Authorization: `Bearer ${token}`
         }
       }
     )
@@ -260,11 +256,12 @@ const UserProfile = () => {
     setEditedAllergies(allergies);
     setEditingAllergies(false);
   }; 
-  
+
+  const token = localStorage.getItem("accessToken");
   const handleCommentUpdate = async (foodId, newComment) => {
     try {
       const commentRes = await axios.get(`${API_BASE_URL}/comments/me`, {
-        headers: { Authorization: `Bearer ${accessToken}` }
+        headers: { Authorization: `Bearer ${token}` }
       });
   
       const comment = commentRes.data.find(c => c.foodId === foodId);
