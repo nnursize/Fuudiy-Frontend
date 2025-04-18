@@ -52,6 +52,7 @@
   "comments": "Comments",
   "addToList": "Add To List",
   "removeFromList": "Remove From List",
+  "allergies": "Allergies",
   "noComments": "No comment submitted to this food",
   "loginRequired": "You need to login to submit comment",
   "pleaseLoginToComment": "Please Login",
