@@ -24,8 +24,24 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Comments from "../components/Comments";
 import { useTranslation } from "react-i18next";
+import styled from "styled-components";
+
 
 const API_BASE_URL = 'http://localhost:8000'; 
+
+const PageContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+`;
+
+const MainContent = styled.div`
+  flex: 1 0 auto;
+  padding-bottom: 0;
+  padding-top: 35px;
+`;
 
 const FoodDetailPage = () => {
   const { id } = useParams();
@@ -94,8 +110,9 @@ const FoodDetailPage = () => {
   const foodImage = imageUrl || `${process.env.PUBLIC_URL}/default-food.png`;
 
   return (
-    <>
+    <PageContainer>
       <Header />
+      <MainContent>
       <Box sx={{ maxWidth: "1400px", margin: "0 auto", padding: "30px" }}>
         <Paper elevation={3} sx={{ padding: "30px", borderRadius: "20px", marginBottom: "30px" }}>
           <Stack direction={{ xs: "column", md: "row" }} spacing={5} alignItems="center">
@@ -164,8 +181,9 @@ const FoodDetailPage = () => {
           )}
         </Paper>
       </Box>
+      </MainContent>
       <Footer />
-    </>
+    </PageContainer>
   );
 };
 
