@@ -3,6 +3,8 @@ import { initReactI18next } from 'react-i18next';
 import translationEN from './translations/en/global.json';
 import translationTR from './translations/tr/global.json';
 
+const savedLanguage = localStorage.getItem('language') || 'en';
+
 i18n
   .use(initReactI18next)
   .init({
@@ -10,7 +12,7 @@ i18n
       en: { translation: translationEN },
       tr: { translation: translationTR },
     },
-    lng: 'en', // default language
+    lng: savedLanguage, // <- Use saved language
     fallbackLng: 'en',
     interpolation: { escapeValue: false },
   });

@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 const HeroContainer = styled.section`
   height: 500px; /* Full height of the viewport */
   width: 100%; /* Full width */
-  background: url('/home_background.jpeg');
+  background: url('/h-background-2.png');
   background-size: cover; /* Ensure the image covers the entire container */
   display: flex;
   flex-direction: column;

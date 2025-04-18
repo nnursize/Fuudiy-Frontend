@@ -23,7 +23,8 @@
   "title": "Eşsiz Lezzetleri Keşfedin",
   "subtitle": "Dünya mutfağını ve yemeklerini keşfedin",
   "searchPlaceholder": "Yemekleri veya mutfakları arayın...",
-  "trendingFoods": "Popüler Yemekler",
+  "topFoods": "Popüler Yemekler",
+  "topFoodsCountry": "Ülkelere Göre Popüler Yemekler",
   "trendingCuisines": "Popüler Mutfaklar",
   "traditionalFoods": "Geleneksel Yemek",
   "differentCountries": "Farklı Ülke",
@@ -56,12 +57,36 @@
   "loginRequired": "Yorum eklemek için giriş yapmalısınız",
   "pleaseLoginToComment": "Lütfen giriş yapın",
   "errors": {
-    "invalid_email": "Lütfen geçerli bir e-posta adresi girin",
-    "weak_password": "Şifre en az 8 karakter olmalıdır",
-    "invalid_username": "Kullanıcı adı 3-20 karakter arasında olmalıdır",
-    "validation_error": "Lütfen formdaki hataları düzeltin",
-    "network_error": "Ağ hatası. Lütfen tekrar deneyin.",
-    "google_not_registered": "Hesabınız bulunamadı. Lütfen önce kayıt olun...",
-    "google_already_registered": "Bu email ile zaten kayıtlısınız. Giriş sayfasına yönlendiriliyorsunuz..."
+  "invalid_email": "Lütfen geçerli bir e-posta adresi girin",
+  "weak_password": "Şifre en az 8 karakter olmalıdır",
+  "invalid_username": "Kullanıcı adı 3-20 karakter arasında olmalıdır",
+  "validation_error": "Lütfen formdaki hataları düzeltin",
+  "network_error": "Ağ hatası. Lütfen tekrar deneyin.",
+  "google_not_registered": "Hesabınız bulunamadı. Lütfen önce kayıt olun...",
+  "google_already_registered": "Bu email ile zaten kayıtlısınız. Giriş sayfasına yönlendiriliyorsunuz..."
+  },
+  "exploreWriting": "Merhaba sayın kullanıcı! Gelişmiş yemek önerilerimizi görmek için önce aşağıdaki ülkelerden istediğinizi seçiniz.",
+  "PersonalizedRecommendations": "Kişiselleştirilmiş Öneriler",
+  "FoodsYouMayLike": "Sevebileceğiniz Yemekler",
+  "explorePage": {
+    "loading": {
+      "finding": "Lezzetli yiyecekler bulunuyor...",
+      "searching": "Leziz öneriler aranıyor...",
+      "cooking": "Bazı öneriler hazırlanıyor...",
+      "gathering": "En iyiler toplanıyor...",
+      "exploring": "Mutfak hazineleri keşfediliyor...",
+      "preparing": "Yemek maceran hazırlanıyor...",
+      "searching_cuisine": "{{country}} mutfağı aranıyor..."
+    },
+    "score": "Skor",
+    "rating": "Puan",
+    "not_available": "N/A",
+    "key_ingredients": "Anahtar Malzemeler",
+    "similar_to_this": "Buna Benzer",
+    "match": "Eş",
+    "more_ingredients": "+{{count}} daha",
+    "users_liked": "{{count}} kullanıcı beğendi",
+    "no_foods": "Bu ülke için yemek bulunamadı",
+    "global": "global"
   }
 }
