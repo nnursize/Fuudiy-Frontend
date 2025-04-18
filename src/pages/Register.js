@@ -24,6 +24,8 @@ import LanguageSwitcher from '../components/LanguageSwitcher';
 import { GoogleLogin } from '@react-oauth/google';
 import { jwtDecode } from 'jwt-decode';
 
+const API_BASE_URL = "http://localhost:8000";
+
 const Register = () => {
   const { t, i18n } = useTranslation("global");
   const navigate = useNavigate();
@@ -97,7 +99,7 @@ const Register = () => {
     setFieldErrors({ username: '', email: '', password: '' });
   
     try {
-      const response = await fetch('http://localhost:8000/auth/register', {
+      const response = await fetch(`${API_BASE_URL}/auth/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -127,7 +129,7 @@ const Register = () => {
       const decoded = jwtDecode(credential);
       console.log("Google user:", decoded);
 
-      const response = await fetch('http://localhost:8000/auth/google-register', {
+      const response = await fetch(`${API_BASE_URL}/auth/google-register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

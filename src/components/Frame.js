@@ -51,16 +51,16 @@ const FormBox = styled('form')(({ theme }) => ({
   width: '100%',
 }));
 
-const Frame = ({ title, onSubmit, children }) => {
+const Frame = ({ title, onSubmit, children , sx = {}}) => {
   return (
     <StyledContainer maxWidth={false} >
       <StyledPaper elevation={0}>
-        <FormBox onSubmit={onSubmit}>
+      <FormBox onSubmit={onSubmit} sx={sx}>
           <Typography 
             variant="h3" 
             sx={{ 
               textAlign: 'center',
-              mb: 4,
+              mb: 4, mt:2,
               color: theme => theme.palette.primary.main
             }}
           >

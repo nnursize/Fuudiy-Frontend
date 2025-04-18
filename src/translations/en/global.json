@@ -6,6 +6,7 @@
   "email": "Email",
   "remember_me": "Remember Me",
   "forgot_password": "Forgot Password?",
+  "send_reset_link": "Send Reset Link",
   "no_account": "Don't have an account?",
   "have_account": "Already have an account?",
   "agree_terms": "I agree to the terms",
