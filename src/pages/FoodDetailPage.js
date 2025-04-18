@@ -37,6 +37,8 @@ const FoodDetailPage = () => {
   const [view, setView] = useState("ingredients");
   const [imageUrl, setImageUrl] = useState("");
   const [currentUser, setCurrentUser] = useState(null);
+  const [hasCommented, setHasCommented] = useState(false);
+
 
   useEffect(() => {
     const fetchFoodDetails = async () => {
@@ -56,7 +58,7 @@ const FoodDetailPage = () => {
         setLoading(false);
       }
     };
-
+  
     const fetchCurrentUser = async () => {
       try {
         const response = await axios.get(`${API_BASE_URL}/auth/users/me`, {
@@ -66,25 +68,30 @@ const FoodDetailPage = () => {
         });
         const user = response.data.data[0];
         setCurrentUser(user);
-    
-        // 👇 Check if food is in the user's survey wannaTry list
-        const surveyResponse = await axios.get(
-          `${API_BASE_URL}/survey/user/${user.username}`
-        );
-    
-        const wannaTryList = surveyResponse.data.wannaTry || [];
-    
+  
+        const [surveyRes, commentRes] = await Promise.all([
+          axios.get(`${API_BASE_URL}/survey/user/${user.username}`),
+          axios.get(`${API_BASE_URL}/comments/has-commented/${id}/${user.username}`)
+        ]);
+  
+        const wannaTryList = surveyRes.data.wannaTry || [];
         if (wannaTryList.includes(id)) {
           setisInList(true);
         }
+  
+        if (commentRes.data.hasCommented) {
+          setHasCommented(true);
+        }
+  
       } catch (err) {
-        console.error("Failed to fetch current user or survey", err);
+        console.error("Failed to fetch user data or comment info:", err);
       }
     };
   
     fetchFoodDetails();
-    fetchCurrentUser(); // ← Added
+    fetchCurrentUser();
   }, [id, t]);
+  
   
   // Function to update the food rating from the Comments component
   const updateFoodRating = (newRating, votes) => {
@@ -204,7 +211,7 @@ const FoodDetailPage = () => {
             </>
           ) : (
             // Pass the update function to Comments
-            <Comments onRatingUpdate={updateFoodRating} />
+            <Comments onRatingUpdate={updateFoodRating} hasCommented={hasCommented} />          
           )}
         </Paper>
       </Box>

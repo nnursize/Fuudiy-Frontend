@@ -57,6 +57,9 @@
   "pleaseLoginToComment": "Please Login",
   "wannaTryFoods": "Wanna Try Foods",
   "noWannaTryFoods": "No foods in your list yet.",
+  "alreadyCommentedMessage": "You’ve already commented on this food.",
+  "editFromProfile": "If you'd like to update or delete your comment, please visit your profile.",
+  "goToProfile": "Go to Profile",
   "errors": {
     "invalid_email": "Please enter a valid email address",
     "weak_password": "Password must be at least 8 characters",
