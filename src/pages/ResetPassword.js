@@ -1,58 +1,52 @@
 import React, { useState } from 'react';
-import {
-    Box,
-    Button,
-    TextField,
-    Typography,
-} from '@mui/material';
+import { useSearchParams } from 'react-router-dom';
+import { Box, Button, TextField, Typography } from '@mui/material';
 import Frame from '../components/Frame';
 import { useTranslation } from 'react-i18next';
 import LanguageSwitcher from '../components/LanguageSwitcher';
 
 const API_BASE_URL = "http://localhost:8000";
 
-const ForgotPassword = () => {
+const ResetPassword = () => {
     const { t, i18n } = useTranslation("global");
-    const [email, setEmail] = useState('');
+    const [searchParams] = useSearchParams();
+    const token = searchParams.get('token');
+
+    const [newPassword, setNewPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
     const [message, setMessage] = useState('');
-    const [errorMsg, setErrorMsg] = useState('');
+    const [error, setError] = useState('');
 
-    const handleSubmit = async (e) => {
+    const handleReset = async (e) => {
         e.preventDefault();
+        setError('');
         setMessage('');
-        setErrorMsg('');
 
-        // Ensure email input is not empty
-        if (!email) {
-            setErrorMsg(t('errors.empty_email'));
+        if (newPassword !== confirmPassword) {
+            setError(t('errors.passwords_do_not_match'));
             return;
         }
 
         try {
-            // Send POST request to backend API
-            const response = await fetch(`${API_BASE_URL}/auth/forgot-password`, {
+            const response = await fetch(`${API_BASE_URL}/auth/reset-password`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email }),  // Send email in the request body
+                body: JSON.stringify({ token, new_password: newPassword })
             });
 
-            // Check if response is successful
+            const data = await response.json();
+
             if (!response.ok) {
-                const data = await response.json();
-                // Check if the response contains a message or error detail
-                setErrorMsg(data.detail || t('errors.default_error'));
+                setError(data.detail || t('errors.default_error'));
                 return;
             }
 
-            // If email sent successfully
-            setMessage(t('reset_link_sent'));
-        } catch (error) {
-            console.error(error);
-            // Ensure error message is a string before setting it
-            setErrorMsg(t('errors.reset_email_failed'));
+            setMessage(t('password_reset_success'));
+        } catch (err) {
+            console.error(err);
+            setError(t('errors.reset_password_failed'));
         }
     };
-
 
     const changeLanguage = (lng) => {
         i18n.changeLanguage(lng)
@@ -62,8 +56,8 @@ const ForgotPassword = () => {
 
     return (
         <Frame
-            title={t('forgot_password')}
-            onSubmit={handleSubmit}
+            title={t('reset_password')}
+            onSubmit={handleReset}
             sx={{
                 minHeight: '300px',
                 padding: '40px',
@@ -82,9 +76,9 @@ const ForgotPassword = () => {
             </Box>
 
             {/* Error or Success Message */}
-            {errorMsg && (
+            {error && (
                 <Typography color="error" sx={{ mb: 2 }}>
-                    {typeof errorMsg === 'string' ? errorMsg : JSON.stringify(errorMsg)}
+                    {error}
                 </Typography>
             )}
 
@@ -94,29 +88,53 @@ const ForgotPassword = () => {
                 </Typography>
             )}
 
+            {/* New Password Input Field */}
 
-            {/* Email Input Field */}
             <TextField
-                required
+                type="password"
+                label={t('new_password')}
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
                 fullWidth
+                required
                 variant="outlined"
-                label={t('email')}
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
                 sx={{
+
                     marginBottom: 2,
                     '& .MuiInputLabel-root': {
-                        color: 'primary.main', // Change the label color
+                        color: 'primary.main', // Change the label color (e.g., primary theme color)
                     },
                     '& .MuiInputLabel-root.Mui-focused': {
                         color: 'primary.main', // Change the label color when the field is focused
                     },
                     '& .MuiOutlinedInput-root': {
-                        borderRadius: '25px', // Adjust the border radius here
+                        borderRadius: '256px', // Adjust border-radius
                     },
                 }}
             />
+
+            <TextField
+                type="password"
+                label={t('confirm_password')}
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                fullWidth
+                required
+                variant="outlined"
+                sx={{
+                    marginBottom: 2,
+                    '& .MuiInputLabel-root': {
+                        color: 'primary.main', // Change the label color (e.g., primary theme color)
+                    },
+                    '& .MuiInputLabel-root.Mui-focused': {
+                        color: 'primary.main', // Change the label color when the field is focused
+                    },
+                    '& .MuiOutlinedInput-root': {
+                        borderRadius: '25px', // Adjust border-radius
+                    },
+                }}
+            />
+
 
             {/* Submit Button */}
             <Button
@@ -131,10 +149,10 @@ const ForgotPassword = () => {
                     textTransform: 'none', // Disable all caps
                 }}
             >
-                {t('send_reset_link')}
+                {t('reset_password')}
             </Button>
         </Frame>
     );
 };
 
-export default ForgotPassword;
+export default ResetPassword;

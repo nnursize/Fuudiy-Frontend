@@ -66,6 +66,7 @@ const Frame = ({ title, onSubmit, children , sx = {}}) => {
           >
             {title}
           </Typography>
+          
           {children}
         </FormBox>
       </StyledPaper>
