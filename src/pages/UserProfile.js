@@ -336,53 +336,53 @@ const UserProfile = () => {
               <Typography variant="body2" color="textSecondary" gutterBottom>
                 {userData.email || 'No email available.'}
               </Typography>
-              <Box display="flex" alignItems="right" justifyContent="space-between" gap={1}>
-                {isOwnProfile && editingBio ? (
-                  <>
-                    <input
-                      type="text"
-                      value={editedBio}
-                      onChange={(e) => setEditedBio(e.target.value)}
-                      style={{
-                        flex: 1,
-                        padding: "4px 8px",
-                        fontSize: "1rem",
-                        border: "1px solid #ccc",
-                        borderRadius: "4px"
-                      }}
-                    />
+              <Box sx={{ width: '100%', mt: 1 }}>
+                <Box display="flex" alignItems="center" justifyContent="space-between" sx={{ mb: 1 }}>
+                  <Typography variant="body1" sx={{ fontWeight: "bold", color: "gray" }}>
+                    {t("bio")}
+                  </Typography>
+                  {isOwnProfile && editingBio ? (
                     <Box display="flex" gap={0.5}>
-                      <IconButton
-                        onClick={handleSaveEditedBio}
-                        size="small"
-                        sx={{ p: 0.25, minWidth: 0, width: "20px", height: "20px" }}
-                      >
+                      <IconButton onClick={handleSaveEditedBio} size="small" sx={{ p: 0.25, width: 20, height: 20 }}>
                         <CheckIcon fontSize="small" />
                       </IconButton>
-                      <IconButton
-                        onClick={handleCancelEditedBio}
-                        size="small"
-                        sx={{ p: 0.25, minWidth: 0, width: "20px", height: "20px" }}
-                      >
+                      <IconButton onClick={handleCancelEditedBio} size="small" sx={{ p: 0.25, width: 20, height: 20 }}>
                         <CancelIcon fontSize="small" />
                       </IconButton>
                     </Box>
-                  </>
-                ) : (
-                  <>
-                    <Typography variant="body1" sx={{ flex: 1 }}>
-                      {userData.bio || t("noBio")}
-                    </Typography>
-                    {isOwnProfile && (
+                  ) : (
+                    isOwnProfile && (
                       <IconButton
                         onClick={() => setEditingBio(true)}
                         size="small"
-                        sx={{ p: 0.25, minWidth: 0, width: "20px", height: "20px" }}
+                        sx={{ p: 0.25, width: 20, height: 20 }}
                       >
                         <EditIcon fontSize="small" />
                       </IconButton>
-                    )}
-                  </>
+                    )
+                  )}
+                </Box>
+
+                {!editingBio ? (
+                  <Typography variant="body1" sx={{ color: 'text.primary', maxWidth: '650px' }}>
+                    {userData.bio || t("noBio")}
+                  </Typography>
+                ) : (
+                  <textarea
+                    value={editedBio}
+                    onChange={(e) => setEditedBio(e.target.value)}
+                    rows={2}
+                    style={{
+                      width: "650px", // increase horizontal size
+                      maxWidth: "100%",
+                      padding: "8px",
+                      fontSize: "1rem",
+                      border: "1px solid #ccc",
+                      borderRadius: "6px",
+                      resize: "none", // disable resizing
+                      lineHeight: "1.4"
+                    }}
+                  />
                 )}
               </Box>
             </Box>
