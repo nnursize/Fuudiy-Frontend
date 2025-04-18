@@ -60,6 +60,8 @@
   "alreadyCommentedMessage": "Bu yemeğe daha önce zaten yorum yazdınız.",
   "editFromProfile": "Yorumunuzu güncellemek veya silmek için profilizi ziyaret edebilirsiniz.",
   "goToProfile": "Porfile git",
+  "noDislikedIngredients": "Sevilmeyen malzeme yok.",
+  "noAllergies": "Alerji yok.",
   "errors": {
     "invalid_email": "Lütfen geçerli bir e-posta adresi girin",
     "weak_password": "Şifre en az 8 karakter olmalıdır",

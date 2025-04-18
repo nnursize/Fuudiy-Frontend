@@ -60,6 +60,8 @@
   "alreadyCommentedMessage": "You’ve already commented on this food.",
   "editFromProfile": "If you'd like to update or delete your comment, please visit your profile.",
   "goToProfile": "Go to Profile",
+  "noDislikedIngredients": "No disliked ingredients.",
+  "noAllergies": "No allergies.",
   "errors": {
     "invalid_email": "Please enter a valid email address",
     "weak_password": "Password must be at least 8 characters",
