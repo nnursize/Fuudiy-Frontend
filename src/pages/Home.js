@@ -7,6 +7,8 @@ import FoodItemCard from "../components/FoodItemCard";
 import styled from "styled-components";
 import "../index.css";
 import { useTranslation } from "react-i18next";
+import Lottie from "lottie-react";
+import loadingAnimation from "../assets/loading_animation.json";
 
 const CategorySection = styled.section`
   display: flex;
@@ -81,7 +83,13 @@ const Home = () => {
         <h2>{t("trendingFoods")}</h2>
         <FoodSection>
           {loading ? (
-            <p>Loading food items...</p>
+            <div style={{ textAlign: "center", padding: "2rem" }}>
+              <Lottie
+                animationData={loadingAnimation}
+                loop={true}
+                style={{ height: 120, width: 120, margin: "0 auto" }} // 👈 Smaller size here
+              />
+            </div>
           ) : error ? (
             <p style={{ color: "red" }}>{error}</p>
           ) : foods.length > 0 ? (

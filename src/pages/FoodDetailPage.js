@@ -24,6 +24,8 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Comments from "../components/Comments";
 import { useTranslation } from "react-i18next";
+import Lottie from "lottie-react";
+import loadingAnimation from "../assets/loading_animation.json";
 
 const API_BASE_URL = 'http://localhost:8000'; 
 
@@ -126,8 +128,12 @@ const FoodDetailPage = () => {
 
   if (loading) {
     return (
-      <Box sx={{ display: "flex", justifyContent: "center", marginTop: "50px" }}>
-        <CircularProgress />
+      <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", minHeight: "60vh" }}>
+        <Lottie
+          animationData={loadingAnimation}
+          loop
+          style={{ height: 120, width: 120 }}
+        />
       </Box>
     );
   }

@@ -14,6 +14,8 @@ import ProfilePictureSelector from '../components/ProfilePictureSelector';
 import AddIngredientAutocomplete from "../components/AddIngredientAutocomplete";
 import axiosInstance from '../axiosInstance';  // Import the custom axios instance
 import { useParams } from 'react-router-dom';
+import Lottie from "lottie-react";
+import loadingAnimation from "../assets/loading_animation.json"; // adjust path if needed
 
 const API_BASE_URL = 'http://localhost:8000'; 
 
@@ -40,6 +42,7 @@ const UserProfile = () => {
   const [showAllergyInput, setShowAllergyInput] = useState(false);
   const [showDislikedInput, setShowDislikedInput] = useState(false);
   const [wannaTryFoods, setWannaTryFoods] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const { t, i18n } = useTranslation("global");
 
@@ -128,8 +131,11 @@ const UserProfile = () => {
       } catch (error) {
         console.error('Error fetching user data:', error);
       }
+      finally {
+        setLoading(false);
+      }
     };
-  
+
     fetchUserData();
   }, [USERNAME]);
   
@@ -289,7 +295,17 @@ const UserProfile = () => {
   console.log("editingDisliked: ", editingDisliked)
   console.log("editedDislikedIngredients: ", editedDislikedIngredients)
 
-  if (!userData) return <Typography>{t("loading")}</Typography>;
+  if (loading || !userData) {
+    return (
+      <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center" minHeight="60vh">
+        <Lottie
+          animationData={loadingAnimation}
+          loop
+          style={{ height: 120, width: 120 }}
+        />
+      </Box>
+    );
+  }
 
   return (
     <>

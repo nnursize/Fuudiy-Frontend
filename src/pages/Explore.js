@@ -8,6 +8,8 @@ import Hero from "../components/Hero";
 import { useTranslation } from "react-i18next";
 import LoadingSpinner from "../components/ui/LoadingSpinner";
 import PropTypes from 'prop-types';
+import Lottie from "lottie-react";
+import loadingAnimation from "../assets/loading_animation.json";
 
 const API_BASE_URL = "http://localhost:8000";
 
@@ -158,8 +160,11 @@ const Explore = () => {
         <ContentArea>
           {loading ? (
             <LoadingWrapper>
-              <LoadingSpinner />
-              <p>{t("explore.loading")}</p>
+              <Lottie
+                animationData={loadingAnimation}
+                loop
+                style={{ height: 120, width: 120 }}
+              />
             </LoadingWrapper>
           ) : error ? (
             <ErrorMessage>{error}</ErrorMessage>
