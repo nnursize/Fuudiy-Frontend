@@ -23,7 +23,8 @@
   "title": "Discover Authentic Flavors",
   "subtitle": "Explore dishes and cuisines from around the world",
   "searchPlaceholder": "Search dishes or cuisines...",
-  "trendingFoods": "Trending Foods",
+  "topFoods": "Top Foods",
+  "topFoodsCountry": "Top Foods From Every Country",
   "trendingCuisines": "Trending Cuisines",
   "traditionalFoods": "Traditional Foods",
   "differentCountries": "Different Countries",
@@ -59,8 +60,32 @@
     "weak_password": "Password must be at least 8 characters",
     "invalid_username": "Username must be 3-20 characters",
     "validation_error": "Please fix the errors in the form",
-    "network_error": "Network error. Please try again."
+    "network_error": "Network error. Please try again."  
+  },
+  "exploreWriting": "Hello dear user! First, select country to check our advanced recommendations .",
+  "PersonalizedRecommendations": "Personalized Recommendations",
+  "FoodsYouMayLike": "Foods You May Like",
+  "explorePage": {
+    "loading": {
+      "finding": "Finding delicious dishes...",
+      "searching": "Searching for tasty recommendations...",
+      "cooking": "Cooking up some suggestions...",
+      "gathering": "Gathering the finest recipes...",
+      "exploring": "Exploring culinary treasures...",
+      "preparing": "Preparing your food adventure...",
+      "searching_cuisine": "Searching {{country}} cuisine..."
+    },
+    "score": "Score",
+    "rating": "Rating",
+    "not_available": "N/A",
+    "key_ingredients": "Key Ingredients",
+    "similar_to_this": "Similar to This",
+    "match": "Match",
+    "more_ingredients": "+{{count}} more",
+    "users_liked": "{{count}} users liked this",
+    "personalized_recommendations": "Personalized Recommendations",
+    "foods_you_may_like": "Foods You May Like",
+    "no_foods": "No foods found for {{country}} cuisine",
+    "global": "global"
   }
-
 }
-
