@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
-import SearchBar from './SearchBar';
+import SearchBar from '../components/SearchBar';
 
 const HeroContainer = styled.section`
   height: 500px; /* Full height of the viewport */
