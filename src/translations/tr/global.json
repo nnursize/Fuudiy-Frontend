@@ -54,8 +54,13 @@
   "removeFromList": "Listenden Çıkar",
   "allergies": "Alerjiler",
   "noComments": "Bu yemek için daha yorum yapılmadı",
-  "loginRequired": "Yorum eklemek için giriş yapmalısınız",
-  "pleaseLoginToComment": "Lütfen giriş yapın",
+  "loginRequired":{ 
+    "toComment": "Yorum eklemek için giriş yapmalısınız",
+    "toView": "Kullanıcı profili görüntülemek için giriş yapmalısınız",
+    "default":"Bu özelliği kullanabilmek için giriş yapmalısınız"
+  },
+  
+  "pleaseLoginTo": "Lütfen giriş yapın",
   "errors": {
   "invalid_email": "Lütfen geçerli bir e-posta adresi girin",
   "weak_password": "Şifre en az 8 karakter olmalıdır",
@@ -88,5 +93,26 @@
     "users_liked": "{{count}} kullanıcı beğendi",
     "no_foods": "Bu ülke için yemek bulunamadı",
     "global": "global"
+  },
+  "searching": "Aranıyor..",
+  "noResults": "Sonuç Bulunamadı",
+  "typeToSearch": "Aramak için yazın",
+  "country":{
+    "Spanish": "İspanya",
+    "Mexican":"Meksika",
+    "Vietnamese":"Vietnam",
+    "Thai":"Tayland",
+    "Turkish":"Türkiye",
+    "Korean":"Kore",
+    "Italian":"İtalya",
+    "Japanese":"Japon",
+    "French":"Fransa",
+    "Chinese":"Çin",
+    "American":"Amerika",
+    "Brazilian":"Brezilya",
+    "Indian":"Hindistan",
+    "Greek":"Yunanistan",
+    "German":"Almanya",
+    "British":"İngiliz" 
   }
 }

@@ -54,8 +54,12 @@
   "removeFromList": "Remove From List",
   "allergies": "Allergies",
   "noComments": "No comment submitted to this food",
-  "loginRequired": "You need to login to submit comment",
-  "pleaseLoginToComment": "Please Login",
+  "loginRequired":{ 
+    "toComment": "You need to login to submit comment",
+    "toView": "You need to login to view user's profile",
+    "default":"You need to login to use this feature"
+  },
+  "pleaseLoginTo": "Please Login",
   "errors": {
     "invalid_email": "Please enter a valid email address",
     "weak_password": "Password must be at least 8 characters",
@@ -88,5 +92,26 @@
     "foods_you_may_like": "Foods You May Like",
     "no_foods": "No foods found for {{country}} cuisine",
     "global": "global"
+  },
+  "searching": "Searching..",
+  "noResults": "No Results Found",
+  "typeToSearch": "Type to search",
+  "country":{
+    "Spanish": "Spanish",
+    "Mexican":"Mexican",
+    "Vietnamese":"Vietnamese",
+    "Thai":"Thai",
+    "Turkish":"Turkish",
+    "Korean":"Korean",
+    "Italian":"Italian",
+    "Japanese":"Japanese",
+    "French":"French",
+    "Chinese":"Chinese",
+    "American":"American",
+    "Brazilian":"Brazilian",
+    "Indian":"Indian",
+    "Greek":"Greek",
+    "German":"German",
+    "British":"British" 
   }
 }

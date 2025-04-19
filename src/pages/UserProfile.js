@@ -13,6 +13,8 @@ import ProfilePictureSelector from '../components/ProfilePictureSelector';
 import AddIngredientAutocomplete from "../components/AddIngredientAutocomplete";
 import axiosInstance from '../axiosInstance';  // Import the custom axios instance
 import styled from "styled-components";
+import { useParams } from 'react-router-dom';
+
 
 // Add these styled components to match the Home component's structure
 const PageContainer = styled.div`
@@ -28,7 +30,6 @@ const MainContent = styled.div`
   padding-bottom: 0;
   padding-top: 35px;
 `;
-import { useParams } from 'react-router-dom';
 
 const API_BASE_URL = 'http://localhost:8000'; 
 

@@ -132,7 +132,7 @@ const FoodDetailPage = () => {
                 </Tooltip>
               </Box>
               <Typography variant="h3" fontWeight="bold" sx={{ marginBottom: "10px" }}>
-                {foodDetails.name}, {foodDetails.country}
+                {foodDetails.name}, { t(`country.${foodDetails.country}`)}
               </Typography>
               <Rating
                 name="read-only"

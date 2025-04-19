@@ -1,67 +1,137 @@
+// src/components/FoodItemCard.js
 import React, { useState, useEffect } from "react";
-import { Card, CardMedia, CardContent, Typography, Box } from "@mui/material";
+import {
+  Card,
+  CardMedia,
+  CardContent,
+  Typography,
+  Box,
+  Skeleton
+} from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useTranslation } from "react-i18next";
+
+const defaultImage = `${process.env.PUBLIC_URL}/default-food.png`;
 
 const FoodItemCard = ({ food }) => {
+  const { t } = useTranslation("global");
   const navigate = useNavigate();
-  const [imageUrl, setImageUrl] = useState(food.imageUrl || `${process.env.PUBLIC_URL}/default-food.png`);
+
+  // 1) Start with no URL (null) if we expect to fetch it
+  //    If there's no url_id, we'll immediately set fallback below.
+  const [imageUrl, setImageUrl] = useState(food.url_id ? null : (food.imageUrl || defaultImage));
+
+  // 2) Are we fetching a signed URL?
+  const [loadingUrl, setLoadingUrl] = useState(!!food.url_id);
+
+  // 3) Has the <img> itself finished loading?
+  const [imgLoaded, setImgLoaded] = useState(false);
 
   useEffect(() => {
-    const fetchSignedImageUrl = async () => {
-      try {
-        if (food.url_id) {
-          const response = await axios.get(`http://localhost:8000/food/image/${food.url_id}`);
-          setImageUrl(response.data.image_url);
-        }
-      } catch (error) {
-        console.error("Error fetching signed image URL:", error);
-      }
+    let canceled = false;
+
+    // If there's a url_id, fetch its signed URL
+    if (food.url_id) {
+      setLoadingUrl(true);
+      axios
+        .get(`http://localhost:8000/food/image/${food.url_id}`)
+        .then(({ data }) => {
+          if (!canceled && data.image_url) {
+            setImageUrl(data.image_url);
+          }
+        })
+        .catch((err) => {
+          console.error("Error fetching signed image URL:", err);
+          // fall back to default
+          if (!canceled) {
+            setImageUrl(food.imageUrl || defaultImage);
+          }
+        })
+        .finally(() => {
+          if (!canceled) setLoadingUrl(false);
+        });
+    } 
+    // No url_id: we already seeded imageUrl above, so mark loaded immediately
+    else {
+      setImgLoaded(true);
+    }
+
+    return () => {
+      canceled = true;
     };
-
-    fetchSignedImageUrl();
-  }, [food.url_id]);
-
-  if (!food) {
-    return <Typography color="error">Error: Food data is missing</Typography>;
-  }
+  }, [food.url_id, food.imageUrl]);
 
   const handleClick = () => {
-    navigate(`/food/${food.id}`); // Ensure `id` is used consistently
+    navigate(`/food/${food.id}`);
   };
 
   return (
     <Card
+      onClick={handleClick}
       sx={{
         width: 250,
         height: 270,
-        margin: "1rem",
+        m: 1,
         borderRadius: 2,
         boxShadow: 3,
         cursor: "pointer",
         transition: "transform 0.2s ease-in-out",
-        "&:hover": {
-          transform: "scale(1.05)",
-        },
+        "&:hover": { transform: "scale(1.05)" },
+        overflow: "hidden",
       }}
-      onClick={handleClick}
     >
-      {/* Food Image */}
-      <CardMedia
-        component="img"
-        height="150"
-        image={imageUrl}
-        alt={food.name || "Food Item"}
-        sx={{ objectFit: "cover" }}
-      />
+      {/* IMAGE CONTAINER */}
+      <Box
+        sx={{
+          position: "relative",
+          width: "100%",
+          height: 150,
+          bgcolor: "#f0f0f0",
+        }}
+      >
+        {/* Show skeleton while either fetching URL or waiting for <img> load */}
+        {(loadingUrl || !imgLoaded) && (
+          <Skeleton
+            variant="rectangular"
+            width="100%"
+            height="100%"
+            animation="wave"
+            sx={{ position: "absolute", top: 0, left: 0 }}
+          />
+        )}
 
-      {/* Food Info */}
+        {/* Render the image once we have a URL; hide until loaded */}
+        {imageUrl && (
+          <CardMedia
+            component="img"
+            src={imageUrl}
+            alt={food.name || "Food Item"}
+            onLoad={() => setImgLoaded(true)}
+            onError={() => {
+              // if signed URL fails to load, fallback once more:
+              if (imageUrl !== defaultImage) {
+                setImageUrl(defaultImage);
+              }
+              setImgLoaded(true);
+            }}
+            sx={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              display: imgLoaded ? "block" : "none",
+            }}
+          />
+        )}
+      </Box>
+
+      {/* FOOD INFO */}
       <CardContent>
-        <Typography variant="h6" gutterBottom>
-          {food.name || "Unknown Food"}
+        <Typography variant="h6" gutterBottom noWrap>
+          {food.name || t("unknownFood")}
         </Typography>
-        <Typography variant="body2" color="textSecondary">
-          {food.country || "Unknown Country"}
+        <Typography variant="body2" color="text.secondary" noWrap>
+          {t(`country.${food.country}`, { defaultValue: food.country || t("unknownCountry") })}
         </Typography>
       </CardContent>
     </Card>
