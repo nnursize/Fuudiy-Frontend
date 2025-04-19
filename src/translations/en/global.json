@@ -88,5 +88,8 @@
     "foods_you_may_like": "Foods You May Like",
     "no_foods": "No foods found for {{country}} cuisine",
     "global": "global"
-  }
+  },
+  "searching": "Searching..",
+  "noResults": "No Results Found",
+  "typeToSearch": "Type to search"
 }

@@ -2,6 +2,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
+import SearchBar from './SearchBar';
 
 const HeroContainer = styled.section`
   height: 500px; /* Full height of the viewport */
@@ -28,21 +29,6 @@ const HeroText = styled.div`
   }
 `;
 
-// Update SearchBar styling
-const SearchBar = styled.input`
-  padding: 0.8rem 2rem; /* Increase padding to make it taller */
-  width: 60%;           /* Adjust width for a larger search bar */
-  max-width: 800px;     /* Set max width for larger screens */
-  border-radius: 20px;
-  border: 1px solid #ddd;
-  outline: none;
-  align-items: center;
-  justify-content: center;
-  margin-top: 2rem;
-  font-size: 1rem;      /* Increase font size if needed */
-  background: rgb(255, 255, 255,.2);
-  `;
-
 const Hero = () => {
   const { t, i18n } = useTranslation("global");
 
@@ -52,8 +38,8 @@ const Hero = () => {
         <h1>{t('title')}</h1>
         <p>{t('subtitle')}</p>
       </HeroText>
-      <SearchBar placeholder={t('searchPlaceholder')} />
-    </HeroContainer>
+      <SearchBar />
+      </HeroContainer>
   );
 };
 

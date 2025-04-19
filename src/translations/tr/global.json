@@ -88,5 +88,8 @@
     "users_liked": "{{count}} kullanıcı beğendi",
     "no_foods": "Bu ülke için yemek bulunamadı",
     "global": "global"
-  }
+  },
+  "searching": "Aranıyor..",
+  "noResults": "Sonuç Bulunamadı",
+  "typeToSearch": "Aramak için yazın"
 }
