@@ -1,5 +1,5 @@
 // Hero.js
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import SearchBar from './SearchBar';
@@ -31,6 +31,12 @@ const HeroText = styled.div`
 
 const Hero = () => {
   const { t, i18n } = useTranslation("global");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  
+  useEffect(() => {
+    const token = localStorage.getItem('accessToken');
+    setIsLoggedIn(!!token);
+  }, []);
 
   return (    
     <HeroContainer>
@@ -38,7 +44,7 @@ const Hero = () => {
         <h1>{t('title')}</h1>
         <p>{t('subtitle')}</p>
       </HeroText>
-      <SearchBar />
+      <SearchBar isLoggedIn={isLoggedIn} />
       </HeroContainer>
   );
 };
