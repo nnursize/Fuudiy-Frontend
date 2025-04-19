@@ -310,6 +310,7 @@ const Comments = ({ onRatingUpdate }) => {
           setLoginPopupOpen(false);
           navigate("/login");
         }}
+        messageKey="toComment"
       />
     </Box>
   );
