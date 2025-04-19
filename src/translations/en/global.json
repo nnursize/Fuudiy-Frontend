@@ -91,5 +91,23 @@
   },
   "searching": "Searching..",
   "noResults": "No Results Found",
-  "typeToSearch": "Type to search"
+  "typeToSearch": "Type to search",
+  "country":{
+    "Spanish": "Spanish",
+    "Mexican":"Mexican",
+    "Vietnamese":"Vietnamese",
+    "Thai":"Thai",
+    "Turkish":"Turkish",
+    "Korean":"Korean",
+    "Italian":"Italian",
+    "Japanese":"Japanese",
+    "French":"French",
+    "Chinese":"Chinese",
+    "American":"American",
+    "Brazilian":"Brazilian",
+    "Indian":"Indian",
+    "Greek":"Greek",
+    "German":"German",
+    "British":"British" 
+  }
 }

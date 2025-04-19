@@ -91,5 +91,23 @@
   },
   "searching": "Aranıyor..",
   "noResults": "Sonuç Bulunamadı",
-  "typeToSearch": "Aramak için yazın"
+  "typeToSearch": "Aramak için yazın",
+  "country":{
+    "Spanish": "İspanya",
+    "Mexican":"Meksika",
+    "Vietnamese":"Vietnam",
+    "Thai":"Tayland",
+    "Turkish":"Türkiye",
+    "Korean":"Kore",
+    "Italian":"İtalya",
+    "Japanese":"Japon",
+    "French":"Fransa",
+    "Chinese":"Çin",
+    "American":"Amerika",
+    "Brazilian":"Brezilya",
+    "Indian":"Hindistan",
+    "Greek":"Yunanistan",
+    "German":"Almanya",
+    "British":"İngiltere" 
+  }
 }
