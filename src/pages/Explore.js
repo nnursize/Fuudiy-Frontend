@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import axiosInstance from "../axiosInstance";
-import axios from "axios"; // ← add this
+import axios from "axios";
 import {
   Box,
   Typography,
@@ -128,14 +128,12 @@ const Explore = () => {
     if (!selectedCountry || !user?._id) return;
     setLoading(true);
 
-    axiosInstance
-      .get(`${API_BASE_URL}/explore/recommend/`, {
-        params: { country: selectedCountry },
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "X-User-ID": user._id,
-        },
-      })
+    axiosInstance.get(`/explore/recommend/`, {  // Remove API_BASE_URL prefix
+      params: { country: selectedCountry },
+      headers: {
+        "X-User-ID": user._id,
+      },
+    })
       .then((res) => {
         setRecommendations({
           personalized: transformFoodData(
@@ -166,11 +164,10 @@ const Explore = () => {
     setLoading(true);
     try {
       const res = await axiosInstance.get(
-        `${API_BASE_URL}/explore/similar/${foodId}`,
+        `/explore/similar/${foodId}`,  // Remove API_BASE_URL prefix
         {
           params: { country: selectedCountry },
           headers: {
-            Authorization: `Bearer ${token}`,
             "X-User-ID": user._id,
           },
         }
