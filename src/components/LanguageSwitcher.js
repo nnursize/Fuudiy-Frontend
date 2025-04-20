@@ -3,12 +3,13 @@ import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 
 const LanguageSwitcher = ({ changeLanguage, size = "small", height = "25px", width = "25px", fontSize = "0.7rem", padding = "2px", display='flex' }) => {
-  const [language, setLanguage] = useState("en"); // Default language is English
+  const [language, setLanguage] = useState(() => localStorage.getItem('language') || 'en');
 
   const handleChange = (event, newLanguage) => {
     if (newLanguage !== null) {
       setLanguage(newLanguage);
       changeLanguage(newLanguage);
+      localStorage.setItem('language', newLanguage); // <- Persist selection
     }
   };
 

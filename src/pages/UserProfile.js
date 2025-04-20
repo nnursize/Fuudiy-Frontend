@@ -1,4 +1,3 @@
-// UserProfile.js
 import React, { useEffect, useState } from 'react';  
 import { Box, Stack, Typography, Paper, Chip, IconButton } from '@mui/material';
 import { useTranslation } from "react-i18next";
@@ -13,10 +12,27 @@ import Footer from '../components/Footer';
 import ProfilePictureSelector from '../components/ProfilePictureSelector';
 import AddIngredientAutocomplete from "../components/AddIngredientAutocomplete";
 import axiosInstance from '../axiosInstance';  // Import the custom axios instance
+import styled from "styled-components";
 import { useParams } from 'react-router-dom';
 import Lottie from "lottie-react";
 import loadingAnimation from "../assets/loading_animation.json"; // adjust path if needed
 import ConnectionModal from "../components/ConnectionModal";
+
+
+// Add these styled components to match the Home component's structure
+const PageContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+`;
+
+const MainContent = styled.div`
+  flex: 1 0 auto;
+  padding-bottom: 0;
+  padding-top: 35px;
+`;
 
 const API_BASE_URL = 'http://localhost:8000'; 
 
@@ -388,308 +404,252 @@ const UserProfile = () => {
   }
 
   return (
-    <>
+    <PageContainer>
       <Header />
-      <Box padding={4} bgcolor="white">
-        <Paper elevation={3} sx={{ padding: 3, marginBottom: 4, position: 'relative' }}>
-          <Box display="flex" alignItems="center" marginBottom={3} gap={2}>
-            {isOwnProfile ? (
-              <ProfilePictureSelector
-                currentAvatar={userData.avatarId || ''}
-                onSelect={(newAvatar) => {
-                  axiosInstance.put(`/users/update-avatar-by-username/${userData.username}`, { avatarId: newAvatar })
-                    .then(() => {
-                      setUserData(prev => ({ ...prev, avatarId: newAvatar }));
-                    })
-                    .catch(error => console.error('Error updating avatar:', error));
-                }}
-              />
-            ) : (
-              <Box sx={{ width: 80, height: 80, borderRadius: '50%', overflow: 'hidden' }}>
-                <img
-                  src={getAvatarSrc(userData.avatarId)}
-                  alt="Profile"
-                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+      <MainContent>
+        <Box padding={4} bgcolor="white">
+          <Paper elevation={3} sx={{ padding: 3, marginBottom: 4, position: 'relative' }}>
+            <Box display="flex" alignItems="center" marginBottom={3} gap={2}>
+              {isOwnProfile ? (
+                <ProfilePictureSelector
+                  currentAvatar={userData.avatarId || ''}
+                  onSelect={(newAvatar) => {
+                    axiosInstance.put(`/users/update-avatar-by-username/${userData.username}`, { avatarId: newAvatar })
+                      .then(() => {
+                        setUserData(prev => ({ ...prev, avatarId: newAvatar }));
+                      })
+                      .catch(error => console.error('Error updating avatar:', error));
+                  }}
                 />
-              </Box>
-            )}
-  
-            <Box sx={{ paddingLeft: 1, width: '100%' }}>
-              <Box display="flex" alignItems="center" justifyContent="space-between">
-                <Box display="flex" alignItems="center" gap={2}>
-                  <Typography variant="h5">{userData.username || 'Anonymous User'}</Typography>
-                  <Chip
-                    clickable
-                    label={`${connectionCount} ${t("connections")}`}
-                    onClick={() => fetchConnectionList()}
-                    sx={{ backgroundColor: "#e0f7fa", fontWeight: "bold" }}
-                  />
-                  <ConnectionModal
-                    open={showConnectionList}
-                    onClose={() => setShowConnectionList(false)}
-                    usernames={connectedUsernames}
+              ) : (
+                <Box sx={{ width: 80, height: 80, borderRadius: '50%', overflow: 'hidden' }}>
+                  <img
+                    src={getAvatarSrc(userData.avatarId)}
+                    alt="Profile"
+                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                   />
                 </Box>
-  
-                {!isOwnProfile && (
-                  connectionStatus === "pending" ? (
-                    showAcceptRejectButtons ? (
-                      <Box display="flex" gap={1}>
+              )}
+    
+              <Box sx={{ paddingLeft: 1, width: '100%' }}>
+                <Box display="flex" alignItems="center" justifyContent="space-between">
+                  <Box display="flex" alignItems="center" gap={2}>
+                    <Typography variant="h5">{userData.username || 'Anonymous User'}</Typography>
+                    <Chip
+                      clickable
+                      label={`${connectionCount} ${t("connections")}`}
+                      onClick={() => fetchConnectionList()}
+                      sx={{ backgroundColor: "#e0f7fa", fontWeight: "bold" }}
+                    />
+                    <ConnectionModal
+                      open={showConnectionList}
+                      onClose={() => setShowConnectionList(false)}
+                      usernames={connectedUsernames}
+                    />
+                  </Box>
+    
+                  {!isOwnProfile && (
+                    connectionStatus === "pending" ? (
+                      showAcceptRejectButtons ? (
+                        <Box display="flex" gap={1}>
+                          <Chip
+                            clickable
+                            label={t("accept")}
+                            onClick={async () => {
+                              try {
+                                console.log("connection id: ", pendingConnectionId)
+                                await axiosInstance.put(`/connections/update-status`, {
+                                  connection_id: pendingConnectionId,
+                                  status: "accepted"
+                                });                              
+                                setConnectionStatus("accepted");
+                                setConnectionCount(prev => prev + 1);
+                                setShowAcceptRejectButtons(false);
+                              } catch (err) {
+                                console.error("Failed to accept connection:", err);
+                              }
+                            }}
+                            sx={{ backgroundColor: "#c8e6c9", fontWeight: "bold" }}
+                          />
+                          <Chip
+                            clickable
+                            label={t("reject")}
+                            onClick={async () => {
+                              try {
+                                await axiosInstance.delete(`/connections/remove-by-id/${pendingConnectionId}`);
+                                setConnectionStatus(null);
+                                setShowAcceptRejectButtons(false);
+                                setPendingConnectionId(null);
+                              } catch (err) {
+                                console.error("Failed to reject connection:", err);
+                              }
+                            }}
+                            sx={{ backgroundColor: "#ffcdd2", fontWeight: "bold" }}
+                          />
+                        </Box>
+                      ) : (
                         <Chip
-                          clickable
-                          label={t("accept")}
-                          onClick={async () => {
-                            try {
-                              console.log("connection id: ", pendingConnectionId)
-                              await axiosInstance.put(`/connections/update-status`, {
-                                connection_id: pendingConnectionId,
-                                status: "accepted"
-                              });                              
-                              setConnectionStatus("accepted");
-                              setConnectionCount(prev => prev + 1);
-                              setShowAcceptRejectButtons(false);
-                            } catch (err) {
-                              console.error("Failed to accept connection:", err);
-                            }
-                          }}
-                          sx={{ backgroundColor: "#c8e6c9", fontWeight: "bold" }}
+                          label={t("requestPending")}
+                          sx={{ backgroundColor: "#fff3cd", color: "#856404" }}
                         />
-                        <Chip
-                          clickable
-                          label={t("reject")}
-                          onClick={async () => {
-                            try {
-                              await axiosInstance.delete(`/connections/remove-by-id/${pendingConnectionId}`);
-                              setConnectionStatus(null);
-                              setShowAcceptRejectButtons(false);
-                              setPendingConnectionId(null);
-                            } catch (err) {
-                              console.error("Failed to reject connection:", err);
-                            }
-                          }}
-                          sx={{ backgroundColor: "#ffcdd2", fontWeight: "bold" }}
-                        />
-                      </Box>
+                      )
+                    ) : connectionStatus === "accepted" ? (
+                      <Chip
+                        clickable
+                        label={t("removeConnection")}
+                        onClick={handleRemoveConnection}
+                        sx={{ backgroundColor: "#ffcdd2", fontWeight: "bold" }}
+                      />
                     ) : (
                       <Chip
-                        label={t("requestPending")}
-                        sx={{ backgroundColor: "#fff3cd", color: "#856404" }}
+                        clickable
+                        label={t("sendConnectionRequest")}
+                        onClick={handleSendConnectionRequest}
+                        sx={{ backgroundColor: "#c8e6c9", fontWeight: "bold" }}
                       />
                     )
-                  ) : connectionStatus === "accepted" ? (
-                    <Chip
-                      clickable
-                      label={t("removeConnection")}
-                      onClick={handleRemoveConnection}
-                      sx={{ backgroundColor: "#ffcdd2", fontWeight: "bold" }}
-                    />
+                  )}
+                </Box>
+    
+                <Typography variant="body2" color="textSecondary" gutterBottom>
+                  {userData.email || 'No email available.'}
+                </Typography>
+                <Box sx={{ width: '100%', mt: 1 }}>
+                  <Box display="flex" alignItems="center" justifyContent="space-between" sx={{ mb: 1 }}>
+                    <Typography variant="body1" sx={{ fontWeight: "bold", color: "gray" }}>
+                      {t("bio")}
+                    </Typography>
+                    {isOwnProfile && editingBio ? (
+                      <>
+                        <input
+                          type="text"
+                          value={editedBio}
+                          onChange={(e) => setEditedBio(e.target.value)}
+                          style={{
+                            flex: 1,
+                            padding: "4px 8px",
+                            fontSize: "1rem",
+                            border: "1px solid #ccc",
+                            borderRadius: "4px"
+                          }}
+                        />
+                        <Box display="flex" gap={0.5}>
+                          <IconButton
+                            onClick={handleSaveEditedBio}
+                            size="small"
+                            sx={{ p: 0.25, minWidth: 0, width: "20px", height: "20px" }}
+                          >
+                            <CheckIcon fontSize="small" />
+                          </IconButton>
+                          <IconButton
+                            onClick={handleCancelEditedBio}
+                            size="small"
+                            sx={{ p: 0.25, minWidth: 0, width: "20px", height: "20px" }}
+                          >
+                            <CancelIcon fontSize="small" />
+                          </IconButton>
+                        </Box>
+                      </>
+                    ) : (
+                      isOwnProfile && (
+                        <IconButton
+                          onClick={() => setEditingBio(true)}
+                          size="small"
+                          sx={{ p: 0.25, width: 20, height: 20 }}
+                        >
+                          <EditIcon fontSize="small" />
+                        </IconButton>
+                      )
+                    )}
+                  </Box>
+
+                  {!editingBio ? (
+                    <Typography variant="body1" sx={{ color: 'text.primary', maxWidth: '650px' }}>
+                      {userData.bio || t("noBio")}
+                    </Typography>
                   ) : (
-                    <Chip
-                      clickable
-                      label={t("sendConnectionRequest")}
-                      onClick={handleSendConnectionRequest}
-                      sx={{ backgroundColor: "#c8e6c9", fontWeight: "bold" }}
+                    <textarea
+                      value={editedBio}
+                      onChange={(e) => setEditedBio(e.target.value)}
+                      rows={2}
+                      style={{
+                        width: "650px", // increase horizontal size
+                        maxWidth: "100%",
+                        padding: "8px",
+                        fontSize: "1rem",
+                        border: "1px solid #ccc",
+                        borderRadius: "6px",
+                        resize: "none", // disable resizing
+                        lineHeight: "1.4"
+                      }}
                     />
-                  )
-                )}
+                  )}
+                </Box>
               </Box>
-  
-              <Typography variant="body2" color="textSecondary" gutterBottom>
-                {userData.email || 'No email available.'}
-              </Typography>
-              <Box sx={{ width: '100%', mt: 1 }}>
-                <Box display="flex" alignItems="center" justifyContent="space-between" sx={{ mb: 1 }}>
-                  <Typography variant="body1" sx={{ fontWeight: "bold", color: "gray" }}>
-                    {t("bio")}
-                  </Typography>
-                  {isOwnProfile && editingBio ? (
-                    <Box display="flex" gap={0.5}>
-                      <IconButton onClick={handleSaveEditedBio} size="small" sx={{ p: 0.25, width: 20, height: 20 }}>
+            </Box>
+
+            <Box sx={{ mt: 2 }}>
+              <Box display="flex" alignItems="center" justifyContent="space-between" sx={{ mb: 1 }}>
+                <Typography variant="body1" sx={{ fontWeight: "bold", color: "gray" }}>
+                  {t("dislikedIngredients")}
+                </Typography>
+                {isOwnProfile && (
+                  editingDisliked ? (
+                    <Box>
+                      <IconButton onClick={handleSaveEditedIngredients} size="small" sx={{ p: 0.25, width: 20, height: 20 }}>
                         <CheckIcon fontSize="small" />
                       </IconButton>
-                      <IconButton onClick={handleCancelEditedBio} size="small" sx={{ p: 0.25, width: 20, height: 20 }}>
+                      <IconButton onClick={handleCancelEditedIngredients} size="small" sx={{ p: 0.25, width: 20, height: 20 }}>
                         <CancelIcon fontSize="small" />
                       </IconButton>
                     </Box>
                   ) : (
-                    isOwnProfile && (
-                      <IconButton
-                        onClick={() => setEditingBio(true)}
-                        size="small"
-                        sx={{ p: 0.25, width: 20, height: 20 }}
-                      >
-                        <EditIcon fontSize="small" />
-                      </IconButton>
-                    )
-                  )}
-                </Box>
-
-                {!editingBio ? (
-                  <Typography variant="body1" sx={{ color: 'text.primary', maxWidth: '650px' }}>
-                    {userData.bio || t("noBio")}
-                  </Typography>
-                ) : (
-                  <textarea
-                    value={editedBio}
-                    onChange={(e) => setEditedBio(e.target.value)}
-                    rows={2}
-                    style={{
-                      width: "650px", // increase horizontal size
-                      maxWidth: "100%",
-                      padding: "8px",
-                      fontSize: "1rem",
-                      border: "1px solid #ccc",
-                      borderRadius: "6px",
-                      resize: "none", // disable resizing
-                      lineHeight: "1.4"
-                    }}
-                  />
-                )}
-              </Box>
-            </Box>
-          </Box>
-
-          <Box sx={{ mt: 2 }}>
-            <Box display="flex" alignItems="center" justifyContent="space-between" sx={{ mb: 1 }}>
-              <Typography variant="body1" sx={{ fontWeight: "bold", color: "gray" }}>
-                {t("dislikedIngredients")}
-              </Typography>
-              {isOwnProfile && (
-                editingDisliked ? (
-                  <Box>
-                    <IconButton onClick={handleSaveEditedIngredients} size="small" sx={{ p: 0.25, width: 20, height: 20 }}>
-                      <CheckIcon fontSize="small" />
+                    <IconButton
+                      onClick={() => {
+                        setEditedDislikedIngredients(dislikedIngredients);
+                        setTimeout(() => setEditingDisliked(true), 0);
+                      }}
+                      size="small"
+                      sx={{ p: 0.25, width: 20, height: 20 }}
+                    >
+                      <EditIcon fontSize="small" />
                     </IconButton>
-                    <IconButton onClick={handleCancelEditedIngredients} size="small" sx={{ p: 0.25, width: 20, height: 20 }}>
-                      <CancelIcon fontSize="small" />
-                    </IconButton>
-                  </Box>
-                ) : (
-                  <IconButton
-                    onClick={() => {
-                      setEditedDislikedIngredients(dislikedIngredients);
-                      setTimeout(() => setEditingDisliked(true), 0);
-                    }}
-                    size="small"
-                    sx={{ p: 0.25, width: 20, height: 20 }}
-                  >
-                    <EditIcon fontSize="small" />
-                  </IconButton>
-                )
-              )}
-            </Box>
-
-            {!editingDisliked && displayedDislikedIngredients.length === 0 && (
-              <Typography variant="body2" sx={{ color: 'grey.600' }}>
-                {t("noDislikedIngredients")}
-              </Typography>
-            )}
-
-            <Stack direction="row" spacing={1} alignItems="center" flexWrap="wrap">
-              {displayedDislikedIngredients.map((ingredient, index) => (
-                <Chip
-                  key={index}
-                  label={getLocalizedIngredient(ingredient)}
-                  {...(editingDisliked ? { onDelete: () => handleRemoveIngredient(ingredient) } : {})}
-                  sx={{ backgroundColor: "#f1f1f1", fontWeight: "bold", fontSize: "14px", py: 0.5, px: 1 }}
-                />
-              ))}
-
-              {editingDisliked && showDislikedInput && (
-                <Box display="flex" alignItems="center" gap={1} mt={1}>
-                  <AddIngredientAutocomplete
-                    onAdd={(newIngredient) => {
-                      if (!editedDislikedIngredients.includes(newIngredient)) {
-                        setEditedDislikedIngredients((prev) => [...prev, newIngredient].flat());
-                        setShowDislikedInput(false);
-                      }
-                    }}
-                  />
-                </Box>
-              )}
-
-              {editingDisliked && !showDislikedInput && (
-                <IconButton
-                  onClick={() => setShowDislikedInput(true)}
-                  size="small"
-                  sx={{
-                    p: 0.25,
-                    minWidth: 0,
-                    width: "24px",
-                    height: "24px",
-                    border: "1px dashed #ccc",
-                    ml: 0.5,
-                    alignSelf: "center"
-                  }}
-                >
-                  <AddIcon fontSize="small" />
-                </IconButton>
-              )}
-            </Stack>
-          </Box>
-
-
-          {isOwnProfile && (
-            <Box sx={{ mt: 2 }}>
-              <Box display="flex" alignItems="center" justifyContent="space-between" sx={{ mb: 1 }}>
-                <Typography variant="body1" sx={{ fontWeight: "bold", color: "gray" }}>
-                  {t("allergies")}
-                </Typography>
-                {editingAllergies ? (
-                  <Box>
-                    <IconButton onClick={handleSaveEditedAllergies} size="small" sx={{ p: 0.25, width: 20, height: 20 }}>
-                      <CheckIcon fontSize="small" />
-                    </IconButton>
-                    <IconButton onClick={handleCancelEditedAllergies} size="small" sx={{ p: 0.25, width: 20, height: 20 }}>
-                      <CancelIcon fontSize="small" />
-                    </IconButton>
-                  </Box>
-                ) : (
-                  <IconButton
-                    onClick={() => {
-                      setEditedAllergies(allergies);
-                      setTimeout(() => setEditingAllergies(true), 0);
-                    }}
-                    size="small"
-                    sx={{ p: 0.25, width: 20, height: 20 }}
-                  >
-                    <EditIcon fontSize="small" />
-                  </IconButton>
+                  )
                 )}
               </Box>
 
-              {!editingAllergies && allergies.length === 0 && (
+              {!editingDisliked && displayedDislikedIngredients.length === 0 && (
                 <Typography variant="body2" sx={{ color: 'grey.600' }}>
-                  {t("noAllergies")}
+                  {t("noDislikedIngredients")}
                 </Typography>
               )}
 
               <Stack direction="row" spacing={1} alignItems="center" flexWrap="wrap">
-                {(editingAllergies ? editedAllergies : allergies).map((allergy, index) => (
+                {displayedDislikedIngredients.map((ingredient, index) => (
                   <Chip
                     key={index}
-                    label={getLocalizedIngredient(allergy)}
-                    {...(editingAllergies ? { onDelete: () => handleRemoveAllergy(allergy) } : {})}
-                    sx={{ backgroundColor: "#ffe5e5", fontWeight: "bold", fontSize: "14px", py: 0.5, px: 1 }}
+                    label={getLocalizedIngredient(ingredient)}
+                    {...(editingDisliked ? { onDelete: () => handleRemoveIngredient(ingredient) } : {})}
+                    sx={{ backgroundColor: "#f1f1f1", fontWeight: "bold", fontSize: "14px", py: 0.5, px: 1 }}
                   />
                 ))}
 
-                {editingAllergies && showAllergyInput && (
+                {editingDisliked && showDislikedInput && (
                   <Box display="flex" alignItems="center" gap={1} mt={1}>
                     <AddIngredientAutocomplete
-                      onAdd={(newAllergy) => {
-                        if (!editedAllergies.includes(newAllergy)) {
-                          setEditedAllergies((prev) => [...prev, newAllergy].flat());
-                          setShowAllergyInput(false);
+                      onAdd={(newIngredient) => {
+                        if (!editedDislikedIngredients.includes(newIngredient)) {
+                          setEditedDislikedIngredients((prev) => [...prev, newIngredient].flat());
+                          setShowDislikedInput(false);
                         }
                       }}
                     />
                   </Box>
                 )}
 
-                {editingAllergies && !showAllergyInput && (
+                {editingDisliked && !showDislikedInput && (
                   <IconButton
-                    onClick={() => setShowAllergyInput(true)}
+                    onClick={() => setShowDislikedInput(true)}
                     size="small"
                     sx={{
                       p: 0.25,
@@ -706,62 +666,142 @@ const UserProfile = () => {
                 )}
               </Stack>
             </Box>
-          )}
 
-        </Paper>
 
-        <Box display="flex" justifyContent="space-between" sx={{ gap: 2, width: '100%' }}>
-          <Paper elevation={3} sx={{ flex: 1, padding: 3 }}>
-            <Typography variant="h6" marginBottom={2}>
-              {t("ratedFoods")}
-            </Typography>            
-            <Box display="flex" flexDirection="column" gap={2}>
-              {ratedFoodDetails.map((ratedFood, index) => (
-                <FoodInProfile 
-                  key={index} 
-                  food={ratedFood} 
-                  onRateChange={handleRateChange}
-                  readOnly={!isOwnProfile} 
-                  ingredientsList={ingredientsList}
-                  onCommentUpdate={handleCommentUpdate}
-                />
-              ))}
-            </Box>
+            {isOwnProfile && (
+              <Box sx={{ mt: 2 }}>
+                <Box display="flex" alignItems="center" justifyContent="space-between" sx={{ mb: 1 }}>
+                  <Typography variant="body1" sx={{ fontWeight: "bold", color: "gray" }}>
+                    {t("allergies")}
+                  </Typography>
+                  {editingAllergies ? (
+                    <Box>
+                      <IconButton onClick={handleSaveEditedAllergies} size="small" sx={{ p: 0.25, width: 20, height: 20 }}>
+                        <CheckIcon fontSize="small" />
+                      </IconButton>
+                      <IconButton onClick={handleCancelEditedAllergies} size="small" sx={{ p: 0.25, width: 20, height: 20 }}>
+                        <CancelIcon fontSize="small" />
+                      </IconButton>
+                    </Box>
+                  ) : (
+                    <IconButton
+                      onClick={() => {
+                        setEditedAllergies(allergies);
+                        setTimeout(() => setEditingAllergies(true), 0);
+                      }}
+                      size="small"
+                      sx={{ p: 0.25, width: 20, height: 20 }}
+                    >
+                      <EditIcon fontSize="small" />
+                    </IconButton>
+                  )}
+                </Box>
+
+                {!editingAllergies && allergies.length === 0 && (
+                  <Typography variant="body2" sx={{ color: 'grey.600' }}>
+                    {t("noAllergies")}
+                  </Typography>
+                )}
+
+                <Stack direction="row" spacing={1} alignItems="center" flexWrap="wrap">
+                  {(editingAllergies ? editedAllergies : allergies).map((allergy, index) => (
+                    <Chip
+                      key={index}
+                      label={getLocalizedIngredient(allergy)}
+                      {...(editingAllergies ? { onDelete: () => handleRemoveAllergy(allergy) } : {})}
+                      sx={{ backgroundColor: "#ffe5e5", fontWeight: "bold", fontSize: "14px", py: 0.5, px: 1 }}
+                    />
+                  ))}
+
+                  {editingAllergies && showAllergyInput && (
+                    <Box display="flex" alignItems="center" gap={1} mt={1}>
+                      <AddIngredientAutocomplete
+                        onAdd={(newAllergy) => {
+                          if (!editedAllergies.includes(newAllergy)) {
+                            setEditedAllergies((prev) => [...prev, newAllergy].flat());
+                            setShowAllergyInput(false);
+                          }
+                        }}
+                      />
+                    </Box>
+                  )}
+
+                  {editingAllergies && !showAllergyInput && (
+                    <IconButton
+                      onClick={() => setShowAllergyInput(true)}
+                      size="small"
+                      sx={{
+                        p: 0.25,
+                        minWidth: 0,
+                        width: "24px",
+                        height: "24px",
+                        border: "1px dashed #ccc",
+                        ml: 0.5,
+                        alignSelf: "center"
+                      }}
+                    >
+                      <AddIcon fontSize="small" />
+                    </IconButton>
+                  )}
+                </Stack>
+              </Box>
+            )}
+
           </Paper>
 
-          <Paper elevation={3} sx={{ flex: 1, padding: 3 }}>
-          <Typography variant="h6" marginBottom={2}>
-            {t("wannaTryFoods")}
-          </Typography>
-            {wannaTryFoods.length > 0 ? (
+          <Box display="flex" justifyContent="space-between" sx={{ gap: 2, width: '100%' }}>
+            <Paper elevation={3} sx={{ flex: 1, padding: 3 }}>
+              <Typography variant="h6" marginBottom={2}>
+                {t("ratedFoods")}
+              </Typography>            
               <Box display="flex" flexDirection="column" gap={2}>
-                {wannaTryFoods.map((food, index) => (
-                  <FoodInProfile
-                    key={index}
-                    food={food}
-                    isWannaTry={true}
-                    onRemoveFromWannaTry={async (foodIdToRemove) => {
-                      try {
-                        await axios.delete(`${API_BASE_URL}/survey/remove-from-wanna-try/${userData.username}/${foodIdToRemove}`);
-                        setWannaTryFoods(prev => prev.filter(f => f.foodId !== foodIdToRemove));
-                      } catch (err) {
-                        console.error("Failed to remove from wannaTry:", err);
-                      }
-                    }}
+                {ratedFoodDetails.map((ratedFood, index) => (
+                  <FoodInProfile 
+                    key={index} 
+                    food={ratedFood} 
+                    onRateChange={handleRateChange}
+                    readOnly={!isOwnProfile} 
                     ingredientsList={ingredientsList}
+                    onCommentUpdate={handleCommentUpdate}
                   />
                 ))}
               </Box>
-            ) : (
-              <Typography variant="body2" color="textSecondary">
-                {t("noWannaTryFoods")}
-              </Typography>
-            )}
-          </Paper>
+            </Paper>
+
+            <Paper elevation={3} sx={{ flex: 1, padding: 3 }}>
+            <Typography variant="h6" marginBottom={2}>
+              {t("wannaTryFoods")}
+            </Typography>
+              {wannaTryFoods.length > 0 ? (
+                <Box display="flex" flexDirection="column" gap={2}>
+                  {wannaTryFoods.map((food, index) => (
+                    <FoodInProfile
+                      key={index}
+                      food={food}
+                      isWannaTry={true}
+                      onRemoveFromWannaTry={async (foodIdToRemove) => {
+                        try {
+                          await axios.delete(`${API_BASE_URL}/survey/remove-from-wanna-try/${userData.username}/${foodIdToRemove}`);
+                          setWannaTryFoods(prev => prev.filter(f => f.foodId !== foodIdToRemove));
+                        } catch (err) {
+                          console.error("Failed to remove from wannaTry:", err);
+                        }
+                      }}
+                      ingredientsList={ingredientsList}
+                    />
+                  ))}
+                </Box>
+              ) : (
+                <Typography variant="body2" color="textSecondary">
+                  {t("noWannaTryFoods")}
+                </Typography>
+              )}
+            </Paper>
+          </Box>
         </Box>
-      </Box>
+        </MainContent>
       <Footer />
-    </>
+    </PageContainer>
   );
 };
 

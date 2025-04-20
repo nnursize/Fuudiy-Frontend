@@ -11,7 +11,7 @@ import {
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
-const LoginPopup = ({ open, onClose, onLogin }) => {
+const LoginPopup = ({ open, onClose, onLogin , messageKey="default"}) => {
   const theme = useTheme();
   const { t } = useTranslation("global");
 
@@ -30,14 +30,14 @@ const LoginPopup = ({ open, onClose, onLogin }) => {
       }}
     >
       <DialogTitle id="login-dialog-title" sx={{ color: theme.palette.text.primary }}>
-        {t("loginRequired")}
+        {t(`loginRequired.${messageKey}`)}
       </DialogTitle>
       <DialogContent>
         <DialogContentText
           id="login-dialog-description"
           sx={{ color: theme.palette.text.secondary }}
         >
-          {t("pleaseLoginToComment")}
+          {t("pleaseLoginTo")}
         </DialogContentText>
       </DialogContent>
       <DialogActions>

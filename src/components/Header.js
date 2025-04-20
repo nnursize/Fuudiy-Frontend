@@ -227,20 +227,23 @@ const Header = () => {
 
   return (
     <>
-      <HeaderContainer>
-        <Logo onClick={handleLogoClick}>Fuudiy</Logo>
-        <NavLinks>
-          <Link to="/">{t("home")}</Link>
-          <Link to="/explore">{t("explore")}</Link>
-        </NavLinks>
-        <RightSection>
-          <LanguageSwitcher
-            changeLanguage={changeLanguage}
-            height="35px"
-            width="35px"
-            fontSize="0.8rem"
-          />
-          <div ref={heartRef} style={{ position: "relative" }}>
+      <HeaderWrapper>
+        <HeaderContainer>
+          <Logo onClick={handleLogoClick}>Fuudiy</Logo>
+          <NavLinks>
+            <Link to="/">{t("home")}</Link>
+            {/* Only show Explore link if user is logged in */}
+            {isLoggedIn && <Link to="/explore">{t("explore")}</Link>}
+          </NavLinks>
+          <RightSection>
+            <LanguageSwitcher
+              changeLanguage={changeLanguage}
+              height="35px"
+              width="35px"
+              fontSize="0.8rem"
+            />
+
+<div ref={heartRef} style={{ position: "relative" }}>
             <Badge badgeContent={pendingRequestCount} color="error">
               <FavoriteIcon 
                 sx={{ cursor: "pointer", fontSize: 28, color: "#aaa" }} 
@@ -253,32 +256,37 @@ const Header = () => {
             </Badge>
           </div>
 
-          {isLoggedIn ? (
-            <ProfileContainer>
-              <Avatar
-                src={
-                  userData?.avatarId
-                    ? getAvatarSrc(userData.avatarId)
-                    : "/avatars/default_avatar.png"
-                }
-                alt="User Avatar"
-                sx={{ width: 24, height: 24, cursor: "pointer" }}
-                onClick={toggleDropdown}
-              />
-              {showDropdown && (
-                <DropdownMenu className="profile-dropdown">
-                  <DropdownItem onClick={handleProfileClick}>{t("profile")}</DropdownItem>
-                  <DropdownItem onClick={() => setShowLogoutPopup(true)}>{t("logout")}</DropdownItem>
-                </DropdownMenu>
-              )}
-            </ProfileContainer>
-          ) : (
-            <LoginContainer>
-              <Link to="/login">{t("login")}</Link>
-            </LoginContainer>
-          )}
-        </RightSection>
-      </HeaderContainer>
+            {isLoggedIn ? (
+              <ProfileContainer>
+                <Avatar
+                  src={
+                    userData?.avatarId
+                      ? getAvatarSrc(userData.avatarId)
+                      : "/avatars/default_avatar.png"
+                  }
+                  alt="User Avatar"
+                  sx={{ width: 24, height: 24, cursor: "pointer" }}
+                  onClick={toggleDropdown}
+                />
+                {showDropdown && (
+                  <DropdownMenu className="profile-dropdown">
+                    <DropdownItem onClick={handleProfileClick}>
+                      {t("profile")}
+                    </DropdownItem>
+                    <DropdownItem onClick={() => setShowLogoutPopup(true)}>
+                      {t("logout")}
+                    </DropdownItem>
+                  </DropdownMenu>
+                )}
+              </ProfileContainer>
+            ) : (
+              <LoginContainer>
+                <Link to="/login">{t("login")}</Link>
+              </LoginContainer>
+            )}
+          </RightSection>
+        </HeaderContainer>
+      </HeaderWrapper>
 
       {showRequestsPanel && (
         <RequestsPanel>
@@ -329,8 +337,17 @@ const Header = () => {
   );
 };
 
-
 export default Header;
+
+// Added a wrapper to handle the fixed positioning
+const HeaderWrapper = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+`;
+
 const HeaderContainer = styled.header`
   display: flex;
   justify-content: space-between;
@@ -338,6 +355,7 @@ const HeaderContainer = styled.header`
   padding: 10px 20px;
   background-color: #f8f9fa;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 100%;
 `;
 
 const Logo = styled.div`

@@ -1,12 +1,13 @@
 // Hero.js
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
+import SearchBar from './SearchBar';
 
 const HeroContainer = styled.section`
   height: 500px; /* Full height of the viewport */
   width: 100%; /* Full width */
-  background: url('/home_background.jpeg');
+  background: url('/h-background-2.png');
   background-size: cover; /* Ensure the image covers the entire container */
   display: flex;
   flex-direction: column;
@@ -28,23 +29,14 @@ const HeroText = styled.div`
   }
 `;
 
-// Update SearchBar styling
-const SearchBar = styled.input`
-  padding: 0.8rem 2rem; /* Increase padding to make it taller */
-  width: 60%;           /* Adjust width for a larger search bar */
-  max-width: 800px;     /* Set max width for larger screens */
-  border-radius: 20px;
-  border: 1px solid #ddd;
-  outline: none;
-  align-items: center;
-  justify-content: center;
-  margin-top: 2rem;
-  font-size: 1rem;      /* Increase font size if needed */
-  background: rgb(255, 255, 255,.2);
-  `;
-
 const Hero = () => {
   const { t, i18n } = useTranslation("global");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  
+  useEffect(() => {
+    const token = localStorage.getItem('accessToken');
+    setIsLoggedIn(!!token);
+  }, []);
 
   return (    
     <HeroContainer>
@@ -52,8 +44,8 @@ const Hero = () => {
         <h1>{t('title')}</h1>
         <p>{t('subtitle')}</p>
       </HeroText>
-      <SearchBar placeholder={t('searchPlaceholder')} />
-    </HeroContainer>
+      <SearchBar isLoggedIn={isLoggedIn} />
+      </HeroContainer>
   );
 };
 
