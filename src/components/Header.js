@@ -7,6 +7,7 @@ import { Avatar } from "@mui/material";
 import LogoutPopup from "../components/LogoutPopup";
 import RefreshPopup from "../components/RefreshPopup";
 import axiosInstance from "../axiosInstance";
+import { useTheme } from '@mui/material/styles';
 
 const getAvatarSrc = (avatarId) => {
   return avatarId && avatarId.includes(".png")
@@ -23,7 +24,7 @@ const Header = () => {
   const [tokenExpiryTime, setTokenExpiryTime] = useState(null);
   const { t, i18n } = useTranslation("global");
   const navigate = useNavigate();
-
+  const theme = useTheme();
   // Check token expiration
   const checkTokenExpiration = useCallback(() => {
     const token = localStorage.getItem("accessToken");
@@ -57,7 +58,7 @@ const Header = () => {
   useEffect(() => {
     const checkAuthStatus = async () => {
       const token = localStorage.getItem("accessToken");
-      
+
       if (!token) {
         cleanupAuth();
         return;
@@ -75,6 +76,44 @@ const Header = () => {
         const response = await axiosInstance.get("/auth/users/me");
         setIsLoggedIn(true);
         setUserData(response.data.data[0]);
+        if (!response.data.data[0].survey_completed) {
+          setTimeout(() => {
+            import("sweetalert2").then(Swal => {
+              Swal.default.fire({
+                title: "📝 Complete Your Survey",
+                text: "We’d love to learn more about your preferences. Would you like to complete the onboarding survey?",
+                showCancelButton: true,
+                confirmButtonText: "Yes, sure!",
+                cancelButtonText: "Maybe later",
+                didOpen: () => {
+                  const popup = document.querySelector('.swal2-popup');
+                  if (popup) {
+                    popup.style.borderRadius = '20px';
+                    popup.style.background = '#fefefe';
+                  }
+                  const confirmButton = document.querySelector('.swal2-confirm');
+                  if (confirmButton) {
+                    confirmButton.style.backgroundColor = '#FFD699';
+                    confirmButton.style.color = theme.palette.text.primary;
+                    confirmButton.style.borderRadius = '20px';
+                  }
+
+                  // Styling the Cancel Button
+                  const cancelButton = document.querySelector('.swal2-cancel');
+                  if (cancelButton) {
+                    cancelButton.style.backgroundColor = theme.palette.action.hover;
+                    cancelButton.style.color = theme.palette.text.primary;
+                    cancelButton.style.borderRadius = '20px';
+                  }
+                }
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  navigate("/survey");
+                }
+              });
+            });
+          }, 500); // Small delay to avoid interrupting initial render
+        }
       } catch (error) {
         if (error.response?.status === 401) {
           cleanupAuth();
@@ -210,13 +249,13 @@ const Header = () => {
           </RightSection>
         </HeaderContainer>
       </HeaderWrapper>
-      
+
       <LogoutPopup
         open={showLogoutPopup}
         onClose={() => setShowLogoutPopup(false)}
         onLogout={handleLogout}
       />
-      
+
       <RefreshPopup
         open={showRefreshPopup}
         onStayLoggedIn={handleStayLoggedIn}

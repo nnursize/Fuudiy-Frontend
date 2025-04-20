@@ -152,11 +152,34 @@ const components = {
       root: {
         borderRadius: 8,
         padding: '8px 22px',
+        textTransform: 'none',
+        fontSize: '1rem',
+        '@media (max-width:600px)': {
+          fontSize: '0.875rem',
+          padding: '6px 18px',
+        },
       },
       contained: {
         boxShadow: 'none',
         '&:hover': {
           boxShadow: 'none',
+          backgroundColor: `${colors.primary.dark} !important`,
+        },
+        '&.MuiButton-primary': {
+          backgroundColor: colors.primary.main,
+          color: colors.primary.contrastText,
+        },
+        '&.MuiButton-secondary': {
+          backgroundColor: colors.secondary.main,
+          color: colors.secondary.contrastText,
+        },
+      },
+      outlined: {
+        borderColor: colors.primary.main,
+        color: colors.primary.main,
+        '&:hover': {
+          backgroundColor: `${colors.primary.light}`,
+          borderColor: colors.primary.main,
         },
       },
     },
@@ -165,6 +188,11 @@ const components = {
         props: { variant: 'dashed' },
         style: {
           border: `2px dashed ${colors.primary.main}`,
+          color: colors.primary.main,
+          '&:hover': {
+            backgroundColor: colors.primary.light,
+            borderColor: colors.primary.dark,
+          },
         },
       },
     ],

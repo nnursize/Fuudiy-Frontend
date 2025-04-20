@@ -97,7 +97,10 @@ const Button = styled.button`
   font-size: 1rem;
   background: #007bff;
   color: white;
+  background: ${(props) => props.theme.colors.primary};
+  color: ${(props) => props.theme.colors.text};
+
   &:hover {
-    background: #0056b3;
+    background: ${(props) => props.theme.colors.primaryHover};
   }
 `;
