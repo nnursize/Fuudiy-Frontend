@@ -117,5 +117,13 @@
     "Greek":"Greek",
     "German":"German",
     "British":"British" 
-  }
+  },
+
+    "survey_popup": {
+      "title": "📝 Complete Your Survey",
+      "text": "We’d love to learn more about your preferences. Would you like to complete the onboarding survey?",
+      "confirm": "Yes, sure!",
+      "cancel": "Maybe later"
+    }
+  
 }

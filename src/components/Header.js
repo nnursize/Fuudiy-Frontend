@@ -8,7 +8,6 @@ import LogoutPopup from "../components/LogoutPopup";
 import RefreshPopup from "../components/RefreshPopup";
 import axiosInstance from "../axiosInstance";
 import { useTheme } from '@mui/material/styles';
-
 const getAvatarSrc = (avatarId) => {
   return avatarId && avatarId.includes(".png")
     ? `/avatars/${avatarId}`
@@ -25,6 +24,17 @@ const Header = () => {
   const { t, i18n } = useTranslation("global");
   const navigate = useNavigate();
   const theme = useTheme();
+  const SURVEY_POPUP_COOLDOWN_MINUTES = 1;
+
+const shouldShowSurveyPopup = () => {
+  const lastDeclined = localStorage.getItem("surveyPopupLastDeclined");
+  if (!lastDeclined) return true;
+
+  const cooldownTime = SURVEY_POPUP_COOLDOWN_MINUTES * 60 * 1000;
+  const timeSinceDecline = Date.now() - Number(lastDeclined);
+
+  return timeSinceDecline > cooldownTime;
+};
   // Check token expiration
   const checkTokenExpiration = useCallback(() => {
     const token = localStorage.getItem("accessToken");
@@ -76,29 +86,24 @@ const Header = () => {
         const response = await axiosInstance.get("/auth/users/me");
         setIsLoggedIn(true);
         setUserData(response.data.data[0]);
-        if (!response.data.data[0].survey_completed) {
+        if (!response.data.data[0].survey_completed && shouldShowSurveyPopup()) {
           setTimeout(() => {
             import("sweetalert2").then(Swal => {
               Swal.default.fire({
-                title: "📝 Complete Your Survey",
-                text: "We’d love to learn more about your preferences. Would you like to complete the onboarding survey?",
-                showCancelButton: true,
-                confirmButtonText: "Yes, sure!",
-                cancelButtonText: "Maybe later",
+                title: t("survey_popup.title"),
+text: t("survey_popup.text"),
+confirmButtonText: t("survey_popup.confirm"),
+cancelButtonText: t("survey_popup.cancel"),
+
                 didOpen: () => {
                   const popup = document.querySelector('.swal2-popup');
-                  if (popup) {
-                    popup.style.borderRadius = '20px';
-                    popup.style.background = '#fefefe';
-                  }
+                  if (popup) popup.style.borderRadius = '20px';
                   const confirmButton = document.querySelector('.swal2-confirm');
                   if (confirmButton) {
                     confirmButton.style.backgroundColor = '#FFD699';
                     confirmButton.style.color = theme.palette.text.primary;
                     confirmButton.style.borderRadius = '20px';
                   }
-
-                  // Styling the Cancel Button
                   const cancelButton = document.querySelector('.swal2-cancel');
                   if (cancelButton) {
                     cancelButton.style.backgroundColor = theme.palette.action.hover;
@@ -109,11 +114,15 @@ const Header = () => {
               }).then((result) => {
                 if (result.isConfirmed) {
                   navigate("/survey");
+                } else {
+                  // Set cooldown timestamp
+                  localStorage.setItem("surveyPopupLastDeclined", Date.now().toString());
                 }
               });
             });
-          }, 500); // Small delay to avoid interrupting initial render
+          }, 500);
         }
+        
       } catch (error) {
         if (error.response?.status === 401) {
           cleanupAuth();

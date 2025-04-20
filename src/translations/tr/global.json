@@ -118,5 +118,13 @@
     "Greek":"Yunanistan",
     "German":"Almanya",
     "British":"İngiliz" 
-  }
+  },
+
+    "survey_popup": {
+      "title": "📝 Anketinizi Tamamlayın",
+      "text": "Tercihlerinizi daha iyi anlamak istiyoruz. Tanıtım anketini doldurmak ister misiniz?",
+      "confirm": "Evet, tabii!",
+      "cancel": "Belki sonra"
+    }
+  
 }
