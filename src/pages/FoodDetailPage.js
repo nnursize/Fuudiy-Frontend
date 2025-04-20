@@ -165,15 +165,19 @@ const FoodDetailPage = () => {
         <Paper elevation={3} sx={{ padding: "30px", borderRadius: "20px", textAlign: "center" }}>
           {view === "ingredients" ? (
             <>
-              <List sx={{ columnCount: 3, gap: "10px" }}>
-                {foodDetails.ingredients.map((ingredient, index) => (
+            <List sx={{ columnCount: 3, gap: "10px" }}>
+              {foodDetails.ingredients.map((ingredient, index) => {
+                const normalizedIngredient = ingredient.toLowerCase().replace(/\s+/g, '');
+                
+                return (
                   <ListItem key={index} sx={{ width: "100%", justifyContent: "center" }}>
                     <Paper sx={{ padding: "15px", borderRadius: "10px", backgroundColor: "#f9f9f9", textAlign: "center", width: "50%" }}>
-                      <Typography variant="body1" fontWeight="bold">• {ingredient}</Typography>
+                      <Typography variant="body1" fontWeight="bold">• {t(`food_ingredients.${normalizedIngredient}`).toLowerCase()}</Typography>
                     </Paper>
                   </ListItem>
-                ))}
-              </List>
+                );
+              })}
+            </List>
             </>
           ) : (
             // Pass the update function to Comments

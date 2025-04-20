@@ -292,9 +292,13 @@ const Explore = () => {
             {t("explorePage.key_ingredients")}:
           </Typography>
           <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
-            {food.ingredients.slice(0, 5).map((ing, i) => (
-              <Chip key={i} label={ing} size="small" />
-            ))}
+            {food.ingredients.slice(0, 5).map((ing, i) => {
+              const normalizedIngredient = ing.toLowerCase().replace(/\s+/g, '');
+              
+              return (
+                <Chip key={i} label={t(`food_ingredients.${normalizedIngredient}`).toLowerCase()} size="small" />
+              );
+            })}
             {food.ingredients.length > 5 && (
               <Chip
                 label={t("explorePage.more_ingredients", {
