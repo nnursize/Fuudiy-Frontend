@@ -62,6 +62,7 @@ const Comments = ({ onRatingUpdate }) => {
   const [translatedComments, setTranslatedComments] = useState({});
   const [translating, setTranslating] = useState({});
   const [loginPopupOpen, setLoginPopupOpen] = useState(false);
+  const [hasCommented, setHasCommented] = useState(false);
   const { t, i18n } = useTranslation("global");
   const navigate = useNavigate();
 
@@ -79,18 +80,50 @@ const Comments = ({ onRatingUpdate }) => {
   };
 
   useEffect(() => {
-    fetchComments();
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        await fetchComments();
+    
+        const accessToken = localStorage.getItem("accessToken");
+        if (accessToken) {
+          const userResponse = await axiosInstance.get("/auth/users/me");
+          const currentUser = userResponse.data.data[0];
+          setUserData(currentUser);
+    
+          const hasCommentedResponse = await axiosInstance.get(
+            `/comments/has-commented/${food_id}/${currentUser.username}`
+          );
+          setHasCommented(hasCommentedResponse.data.hasCommented);
+          console.log("hasCommented: ", hasCommentedResponse.data.hasCommented);
+        }
+      } catch (error) {
+        console.error("Failed to fetch comment status:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+  
+    fetchData();
   }, [food_id]);
+  
 
   const handleCommentSubmit = async () => {
     const accessToken = localStorage.getItem("accessToken");
     if (!accessToken) {
-      // Open the login popup instead of alerting
       setLoginPopupOpen(true);
       return;
     }
-    
+  
+    // 🛑 Prevent duplicate comment submission
+    if (hasCommented) {
+      alert(t("alreadyCommentedMessage") || "You’ve already commented on this food.");
+      return;
+    }
+  
     if (!newComment.trim() || rating === 0) return;
+  
     try {
       // Get the current user data
       const userResponse = await axiosInstance.get("/auth/users/me");
@@ -281,27 +314,46 @@ const Comments = ({ onRatingUpdate }) => {
       )}
 
       {/* Add Comment Section */}
-      <Box sx={{ marginTop: "10px" }}>
-        <Typography variant="h6">{t("leaveComment")}</Typography>
-        <StarRating value={rating} onChange={setRating} />
-        <TextField
-          fullWidth
-          variant="outlined"
-          placeholder={t("writeComment")}
-          value={newComment}
-          onChange={(e) => setNewComment(e.target.value)}
-          sx={{ marginTop: "5px" }}
-        />
-        <Button
-          variant="contained"
-          sx={{ marginTop: "5px", backgroundColor: "#aaa", color: "#fff" }}
-          onClick={handleCommentSubmit}
-          disabled={!newComment.trim() || rating === 0}
-        >
-          {t("submit")}
-        </Button>
-      </Box>
-      
+      {hasCommented ? (
+        <Box sx={{ mt: 2, p: 2, border: "1px dashed #ccc", borderRadius: "8px", backgroundColor: "#fefefe" }}>
+          <Typography variant="body1" color="textPrimary" fontWeight="medium">
+            {t("alreadyCommentedMessage") || "You’ve already commented on this food."}
+          </Typography>
+          <Typography variant="body2" color="textSecondary" sx={{ mt: 1 }}>
+            {t("editFromProfile") || "If you'd like to update or delete your comment, please visit your profile."}
+          </Typography>
+          <Button
+            variant="outlined"
+            size="small"
+            sx={{ mt: 2 }}
+            onClick={() => navigate(`/profile/${userData?.username || ""}`)}
+          >
+            {t("goToProfile") || "Go to Profile"}
+          </Button>
+        </Box>
+      ) : (
+        <Box sx={{ marginTop: "10px" }}>
+          <Typography variant="h6">{t("leaveComment")}</Typography>
+          <StarRating value={rating} onChange={setRating} />
+          <TextField
+            fullWidth
+            variant="outlined"
+            placeholder={t("writeComment")}
+            value={newComment}
+            onChange={(e) => setNewComment(e.target.value)}
+            sx={{ marginTop: "5px" }}
+          />
+          <Button
+            variant="contained"
+            sx={{ marginTop: "5px", backgroundColor: "#aaa", color: "#fff" }}
+            onClick={handleCommentSubmit}
+            disabled={!newComment.trim() || rating === 0}
+          >
+            {t("submit")}
+          </Button>
+        </Box>
+      )}
+
       {/* Login Popup for users not logged in */}
       <LoginPopup
         open={loginPopupOpen}

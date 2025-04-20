@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -7,6 +7,9 @@ import { Avatar } from "@mui/material";
 import LogoutPopup from "../components/LogoutPopup";
 import RefreshPopup from "../components/RefreshPopup";
 import axiosInstance from "../axiosInstance";
+import Tooltip from "@mui/material/Tooltip";
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import Badge from '@mui/material/Badge';
 
 const getAvatarSrc = (avatarId) => {
   return avatarId && avatarId.includes(".png")
@@ -23,6 +26,11 @@ const Header = () => {
   const [tokenExpiryTime, setTokenExpiryTime] = useState(null);
   const { t, i18n } = useTranslation("global");
   const navigate = useNavigate();
+  const [pendingRequestCount, setPendingRequestCount] = useState(0);
+  const [showRequestsPanel, setShowRequestsPanel] = useState(false);
+  const [pendingRequests, setPendingRequests] = useState([]);
+
+  const heartRef = useRef(null);
 
   // Check token expiration
   const checkTokenExpiration = useCallback(() => {
@@ -53,6 +61,28 @@ const Header = () => {
     }
   };
 
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (
+        heartRef.current &&
+        !heartRef.current.contains(e.target)
+      ) {
+        setShowRequestsPanel(false);
+      }
+  
+      if (
+        !e.target.closest(".profile-dropdown") &&
+        !e.target.closest(".MuiAvatar-root")
+      ) {
+        setShowDropdown(false);
+      }
+    };
+  
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+  
+
   // Check login status and fetch user data
   useEffect(() => {
     const checkAuthStatus = async () => {
@@ -75,6 +105,17 @@ const Header = () => {
         const response = await axiosInstance.get("/auth/users/me");
         setIsLoggedIn(true);
         setUserData(response.data.data[0]);
+        try {
+          const username = response.data.data[0].username;
+          const res = await axiosInstance.get(`/connections/requests/details/${username}`);
+          console.log("RES: ", res);
+          const pending = res.data?.incoming_requests || [];
+          setPendingRequests(pending);
+          setPendingRequestCount(pending.length);
+        } catch (err) {
+          console.warn("Failed to fetch incoming requests:", err);
+        }        
+        
       } catch (error) {
         if (error.response?.status === 401) {
           cleanupAuth();
@@ -138,6 +179,28 @@ const Header = () => {
     );
   };
 
+  const handleRequestResponse = async (connectionId, status) => {
+    try {
+      console.log("connection id: ", connectionId);
+  
+      if (status === "rejected") {
+        await axiosInstance.delete(`/connections/remove-by-id/${connectionId}`);
+      } else {
+        await axiosInstance.put(`/connections/update-status`, {
+          connection_id: connectionId,
+          status
+        });
+      }
+  
+      setPendingRequests((prev) =>
+        prev.filter((req) => req._id !== connectionId)
+      );
+      setPendingRequestCount((prev) => Math.max(prev - 1, 0));
+    } catch (err) {
+      console.error(`Failed to ${status} connection:`, err);
+    }
+  };  
+
   const handleLogout = async () => {
     try {
       await axiosInstance.post("/auth/logout");
@@ -179,6 +242,20 @@ const Header = () => {
               width="35px"
               fontSize="0.8rem"
             />
+
+<div ref={heartRef} style={{ position: "relative" }}>
+            <Badge badgeContent={pendingRequestCount} color="error">
+              <FavoriteIcon 
+                sx={{ cursor: "pointer", fontSize: 28, color: "#aaa" }} 
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setShowRequestsPanel((prev) => !prev);
+                  setShowDropdown(false);
+                }}
+              />
+            </Badge>
+          </div>
+
             {isLoggedIn ? (
               <ProfileContainer>
                 <Avatar
@@ -192,7 +269,7 @@ const Header = () => {
                   onClick={toggleDropdown}
                 />
                 {showDropdown && (
-                  <DropdownMenu>
+                  <DropdownMenu className="profile-dropdown">
                     <DropdownItem onClick={handleProfileClick}>
                       {t("profile")}
                     </DropdownItem>
@@ -210,6 +287,40 @@ const Header = () => {
           </RightSection>
         </HeaderContainer>
       </HeaderWrapper>
+
+      {showRequestsPanel && (
+        <RequestsPanel>
+          <strong>{t("connectionRequests")}</strong>
+          {pendingRequests.length === 0 ? (
+            <p style={{ fontSize: "0.9rem", marginTop: 8 }}>{t("noRequests")}</p>
+          ) : (
+            pendingRequests.map((req, index) => (
+              <RequestItem key={index}>
+                <div>
+                  <span
+                    style={{
+                      color: "#000", // black text
+                      cursor: "pointer",
+                      fontWeight: 500,
+                      textDecoration: "underline", // optional for indicating it's clickable
+                    }}
+                    onClick={() => navigate(`/profile/${req.from_username}`)}
+                  >
+                    {req.from_username || t("Unknown")}
+                  </span>
+                  <br />
+                  <RequestMeta>{new Date(req.created_at).toLocaleString()}</RequestMeta>
+                </div>
+                <RequestButtons>
+                  <button onClick={() => handleRequestResponse(req._id, "accepted")}>✓</button>
+                  <button onClick={() => handleRequestResponse(req._id, "rejected")}>✕</button>
+                </RequestButtons>
+              </RequestItem>
+
+            ))
+          )}
+        </RequestsPanel>
+      )}
       
       <LogoutPopup
         open={showLogoutPopup}
@@ -319,4 +430,77 @@ const DropdownItem = styled.div`
   &:hover {
     background-color: #f0f0f0;
   }
+`;
+
+const RequestsPanel = styled.div`
+  position: absolute;
+  top: 50px; /* just below the heart icon */
+  right: 35px; /* shift slightly to the left */
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 12px;
+  width: 240px;
+  z-index: 999;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: -8px;
+    right: 35px; /* adjust to align with heart */
+    border-width: 0 8px 8px 8px;
+    border-style: solid;
+    border-color: transparent transparent #ddd transparent;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: -7px;
+    right: 35px;
+    border-width: 0 7px 7px 7px;
+    border-style: solid;
+    border-color: transparent transparent #fff transparent;
+  }
+`;
+
+
+const RequestItem = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 8px 0;
+  font-size: 0.9rem;
+`;
+
+const RequestButtons = styled.div`
+  display: flex;
+  gap: 8px;
+
+  button {
+    border: none;
+    background-color: transparent;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: color 0.2s;
+
+    &:first-child {
+      color: green;
+    }
+
+    &:last-child {
+      color: red;
+    }
+
+    &:hover {
+      font-weight: bold;
+    }
+  }
+`;
+
+const RequestMeta = styled.div`
+  font-size: 0.75rem;
+  color: #777;
+  margin-top: 2px;
 `;

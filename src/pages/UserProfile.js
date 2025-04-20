@@ -14,6 +14,9 @@ import AddIngredientAutocomplete from "../components/AddIngredientAutocomplete";
 import axiosInstance from '../axiosInstance';  // Import the custom axios instance
 import styled from "styled-components";
 import { useParams } from 'react-router-dom';
+import Lottie from "lottie-react";
+import loadingAnimation from "../assets/loading_animation.json"; // adjust path if needed
+import ConnectionModal from "../components/ConnectionModal";
 
 
 // Add these styled components to match the Home component's structure
@@ -33,18 +36,12 @@ const MainContent = styled.div`
 
 const API_BASE_URL = 'http://localhost:8000'; 
 
-//const USER_ID = localStorage.getItem("user"); 
-const accessToken = localStorage.getItem("accessToken"); 
-console.log("access token: ", accessToken);
-
-
 const UserProfile = () => {
   const { USERNAME } = useParams();
   const [userData, setUserData] = useState(null);
   const [currentUser, setCurrentUser] = useState(null);
   const [isOwnProfile, setIsOwnProfile] = useState(false);
   const [ratedFoodDetails, setRatedFoodDetails] = useState([]);
-  const [favoriteFoodDetails, setFavoriteFoodDetails] = useState([]);
   const [editingDisliked, setEditingDisliked] = useState(false);
   const [editedDislikedIngredients, setEditedDislikedIngredients] = useState([]);
   const [dislikedIngredients, setDislikedIngredients] = useState([]);
@@ -54,9 +51,16 @@ const UserProfile = () => {
   const [editingAllergies, setEditingAllergies] = useState(false);
   const [editedAllergies, setEditedAllergies] = useState([]);
   const [ingredientsList, setIngredientsList] = useState([]);
-  const [newAllergyInput, setNewAllergyInput] = useState("");
   const [showAllergyInput, setShowAllergyInput] = useState(false);
   const [showDislikedInput, setShowDislikedInput] = useState(false);
+  const [wannaTryFoods, setWannaTryFoods] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [connectionCount, setConnectionCount] = useState(0);
+  const [connectionStatus, setConnectionStatus] = useState(null); // "accepted", "pending", or null
+  const [connectedUsernames, setConnectedUsernames] = useState([]);
+  const [showConnectionList, setShowConnectionList] = useState(false);
+  const [showAcceptRejectButtons, setShowAcceptRejectButtons] = useState(false);
+  const [pendingConnectionId, setPendingConnectionId] = useState(null);
 
   const { t, i18n } = useTranslation("global");
 
@@ -67,6 +71,16 @@ const UserProfile = () => {
     return avatarId.includes('.png')
       ? `/avatars/${avatarId}`
       : `/avatars/${avatarId}.png`;
+  };
+
+  const fetchConnectionList = async () => {
+    try {
+      const res = await axios.get(`${API_BASE_URL}/connections/list/${userData.username}`);
+      setConnectedUsernames(res.data.connected_usernames || []);
+      setShowConnectionList(true);
+    } catch (err) {
+      console.error("Failed to fetch connected usernames:", err);
+    }
   };
 
   useEffect(() => {
@@ -90,7 +104,42 @@ const UserProfile = () => {
   
         setUserData(profileUser);
         setEditedBio(profileUser.bio || "");
-  
+
+        // Fetch connection count
+        try {
+          const countRes = await axios.get(`${API_BASE_URL}/connections/count/${profileUser.username}`);
+          setConnectionCount(countRes.data.count || 0);
+        } catch (err) {
+          console.warn("Couldn't fetch connection count:", err);
+        }
+
+        // Check connection status
+        try {
+          const statusRes = await axios.get(`${API_BASE_URL}/connections/status/${user.username}/${profileUser.username}`);
+          console.log("statusRes: ", statusRes)
+          setConnectionStatus(statusRes.data.status); // "accepted", "pending", or null
+        } catch (err) {
+          console.warn("Couldn't fetch connection status:", err);
+        }
+
+        // Check if this user has sent a request to me
+        try {
+          const res = await axiosInstance.get(`/connections/requests/details/${user.username}`);
+          const incoming = res.data?.incoming_requests || [];
+          
+          const matchedRequest = incoming.find((req) => req.from_username === profileUser.username);
+        
+          if (matchedRequest) {
+            setShowAcceptRejectButtons(true);
+            setPendingConnectionId(matchedRequest._id); // 💡 Store the connection _id
+          } else {
+            setShowAcceptRejectButtons(false);
+          }
+        } catch (err) {
+          console.warn("Failed to check incoming requests:", err);
+        }
+        
+
         const parsedDisliked = Array.isArray(profileUser?.disliked_ingredients)
           ? profileUser.disliked_ingredients
           : [];
@@ -107,10 +156,11 @@ const UserProfile = () => {
           console.warn("⚠️ Username is missing, skipping allergy fetch.");
         }
   
+        const token = localStorage.getItem("accessToken");
         // Get comments
         const commentsResponse = USERNAME === user.username
           ? await axios.get(`${API_BASE_URL}/comments/me`, {
-              headers: { Authorization: `Bearer ${accessToken}` }
+              headers: { Authorization: `Bearer ${token}` }
             })
           : await axiosInstance.get(`/comments/${USERNAME}/comments`);
   
@@ -127,12 +177,29 @@ const UserProfile = () => {
   
         const updatedRatedFoods = await Promise.all(foodRequests);
         setRatedFoodDetails(updatedRatedFoods);
-        setFavoriteFoodDetails(updatedRatedFoods.filter(food => food.rate === 5));
+        try {
+          const surveyRes = await axios.get(`${API_BASE_URL}/survey/user/${profileUser.username}`);
+          const wannaTryIds = surveyRes.data.wannaTry || [];
+        
+          // Fetch food data for each ID
+          const wannaTryFoodRequests = wannaTryIds.map(async (foodId) => {
+            const res = await axiosInstance.get(`/food/${foodId}`);
+            return { foodId, ...res.data };
+          });
+        
+          const fetchedWannaTryFoods = await Promise.all(wannaTryFoodRequests);
+          setWannaTryFoods(fetchedWannaTryFoods);
+        } catch (surveyErr) {
+          console.warn("Couldn't fetch wannaTry list:", surveyErr);
+        }
       } catch (error) {
         console.error('Error fetching user data:', error);
       }
+      finally {
+        setLoading(false);
+      }
     };
-  
+
     fetchUserData();
   }, [USERNAME]);
   
@@ -170,21 +237,6 @@ const UserProfile = () => {
         existing_vote: true
       });
       
-      setFavoriteFoodDetails(prev => {
-        if (newRate === 5) {
-          const updatedFood = ratedFoodDetails.find(food => food.foodId === foodId);
-          if (updatedFood) {
-            return [...prev, {
-              ...updatedFood,
-              rate: 5,
-              popularity: { ...updatedFood.popularity, rating: parseFloat(newCalculatedRating) }
-            }];
-          }
-        } else {
-          return prev.filter(food => food.foodId !== foodId);
-        }
-        return prev;
-      });
     } catch (error) {
       console.error('Error updating rating or popularity:', error);
       // Revert UI changes on error
@@ -193,11 +245,6 @@ const UserProfile = () => {
           ? { ...food, rate: oldRate, popularity: { ...food.popularity, rating: oldRating } }
           : food
       ));
-      setFavoriteFoodDetails(prev => prev.filter(favFood => favFood.foodId !== foodId));
-    }
-
-    if (newRate < 5) {
-      setFavoriteFoodDetails(prev => prev.filter(favFood => favFood.foodId !== foodId));
     }
   };
 
@@ -261,7 +308,7 @@ const UserProfile = () => {
       { allergies: editedAllergies }, 
       {
         headers: {
-          Authorization: `Bearer ${accessToken}`
+          Authorization: `Bearer ${token}`
         }
       }
     )
@@ -276,8 +323,65 @@ const UserProfile = () => {
   const handleCancelEditedAllergies = () => {
     setEditedAllergies(allergies);
     setEditingAllergies(false);
+  }; 
+
+  const token = localStorage.getItem("accessToken");
+  const handleCommentUpdate = async (foodId, newComment) => {
+    try {
+      const commentRes = await axios.get(`${API_BASE_URL}/comments/me`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+  
+      const comment = commentRes.data.find(c => c.foodId === foodId);
+      if (!comment) return;
+  
+      await axios.put(`${API_BASE_URL}/comments/${comment._id}`, {
+        comment: newComment
+      });
+  
+      // ✅ Immediately update local state for UI
+      setRatedFoodDetails(prev =>
+        prev.map(food =>
+          food.foodId === foodId ? { ...food, comment: newComment } : food
+        )
+      );
+  
+    } catch (err) {
+      console.error("Failed to update comment:", err);
+    }
   };  
 
+  const handleSendConnectionRequest = async () => {
+    try {
+      await axios.post(
+        `${API_BASE_URL}/connections/send-request/${currentUser.username}/${userData.username}`
+      );
+  
+      setConnectionStatus("pending"); // Update UI accordingly
+    } catch (error) {
+      console.error("Failed to send connection request: ", error);
+    }
+  };
+
+  const handleToggleConnections = async () => {
+    if (showConnectionList) {
+      setShowConnectionList(false);
+    } else {
+      await fetchConnectionList();
+    }
+  };
+  
+  const handleRemoveConnection = async () => {
+    try {
+      await axios.delete(`${API_BASE_URL}/connections/remove/${currentUser.username}/${userData.username}`);
+      setConnectionStatus(null); // switch UI to "Send Request"
+      setConnectionCount(prev => Math.max(prev - 1, 0));
+    } catch (err) {
+      console.error("Failed to remove connection:", err);
+    }
+  };
+  
+  
   const getLocalizedIngredient = (enName) => {
     const found = ingredientsList.find((item) => item.en === enName);
     return found ? (i18n.language === "tr" ? found.tr : found.en) : enName;
@@ -287,7 +391,17 @@ const UserProfile = () => {
   console.log("editingDisliked: ", editingDisliked)
   console.log("editedDislikedIngredients: ", editedDislikedIngredients)
 
-  if (!userData) return <Typography>{t("loading")}</Typography>;
+  if (loading || !userData) {
+    return (
+      <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center" minHeight="60vh">
+        <Lottie
+          animationData={loadingAnimation}
+          loop
+          style={{ height: 120, width: 120 }}
+        />
+      </Box>
+    );
+  }
 
   return (
     <PageContainer>
@@ -298,7 +412,7 @@ const UserProfile = () => {
             <Box display="flex" alignItems="center" marginBottom={3} gap={2}>
               {isOwnProfile ? (
                 <ProfilePictureSelector
-                  currentAvatar={userData.avatarId || ''} // ensures an empty string is passed
+                  currentAvatar={userData.avatarId || ''}
                   onSelect={(newAvatar) => {
                     axiosInstance.put(`/users/update-avatar-by-username/${userData.username}`, { avatarId: newAvatar })
                       .then(() => {
@@ -309,227 +423,233 @@ const UserProfile = () => {
                 />
               ) : (
                 <Box sx={{ width: 80, height: 80, borderRadius: '50%', overflow: 'hidden' }}>
-                  <img 
-                    src={getAvatarSrc(userData.avatarId)} 
-                    alt="Profile" 
+                  <img
+                    src={getAvatarSrc(userData.avatarId)}
+                    alt="Profile"
                     style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                   />
                 </Box>
               )}
-              
-              <Box sx={{ paddingLeft: 1 }}>
-                <Typography variant="h5">{userData.username || 'Anonymous User'}</Typography>
+    
+              <Box sx={{ paddingLeft: 1, width: '100%' }}>
+                <Box display="flex" alignItems="center" justifyContent="space-between">
+                  <Box display="flex" alignItems="center" gap={2}>
+                    <Typography variant="h5">{userData.username || 'Anonymous User'}</Typography>
+                    <Chip
+                      clickable
+                      label={`${connectionCount} ${t("connections")}`}
+                      onClick={() => fetchConnectionList()}
+                      sx={{ backgroundColor: "#e0f7fa", fontWeight: "bold" }}
+                    />
+                    <ConnectionModal
+                      open={showConnectionList}
+                      onClose={() => setShowConnectionList(false)}
+                      usernames={connectedUsernames}
+                    />
+                  </Box>
+    
+                  {!isOwnProfile && (
+                    connectionStatus === "pending" ? (
+                      showAcceptRejectButtons ? (
+                        <Box display="flex" gap={1}>
+                          <Chip
+                            clickable
+                            label={t("accept")}
+                            onClick={async () => {
+                              try {
+                                console.log("connection id: ", pendingConnectionId)
+                                await axiosInstance.put(`/connections/update-status`, {
+                                  connection_id: pendingConnectionId,
+                                  status: "accepted"
+                                });                              
+                                setConnectionStatus("accepted");
+                                setConnectionCount(prev => prev + 1);
+                                setShowAcceptRejectButtons(false);
+                              } catch (err) {
+                                console.error("Failed to accept connection:", err);
+                              }
+                            }}
+                            sx={{ backgroundColor: "#c8e6c9", fontWeight: "bold" }}
+                          />
+                          <Chip
+                            clickable
+                            label={t("reject")}
+                            onClick={async () => {
+                              try {
+                                await axiosInstance.delete(`/connections/remove-by-id/${pendingConnectionId}`);
+                                setConnectionStatus(null);
+                                setShowAcceptRejectButtons(false);
+                                setPendingConnectionId(null);
+                              } catch (err) {
+                                console.error("Failed to reject connection:", err);
+                              }
+                            }}
+                            sx={{ backgroundColor: "#ffcdd2", fontWeight: "bold" }}
+                          />
+                        </Box>
+                      ) : (
+                        <Chip
+                          label={t("requestPending")}
+                          sx={{ backgroundColor: "#fff3cd", color: "#856404" }}
+                        />
+                      )
+                    ) : connectionStatus === "accepted" ? (
+                      <Chip
+                        clickable
+                        label={t("removeConnection")}
+                        onClick={handleRemoveConnection}
+                        sx={{ backgroundColor: "#ffcdd2", fontWeight: "bold" }}
+                      />
+                    ) : (
+                      <Chip
+                        clickable
+                        label={t("sendConnectionRequest")}
+                        onClick={handleSendConnectionRequest}
+                        sx={{ backgroundColor: "#c8e6c9", fontWeight: "bold" }}
+                      />
+                    )
+                  )}
+                </Box>
+    
                 <Typography variant="body2" color="textSecondary" gutterBottom>
                   {userData.email || 'No email available.'}
                 </Typography>
-                <Box display="flex" alignItems="right" justifyContent="space-between" gap={1}>
-                  {isOwnProfile && editingBio ? (
-                    <>
-                      <input
-                        type="text"
-                        value={editedBio}
-                        onChange={(e) => setEditedBio(e.target.value)}
-                        style={{
-                          flex: 1,
-                          padding: "4px 8px",
-                          fontSize: "1rem",
-                          border: "1px solid #ccc",
-                          borderRadius: "4px"
-                        }}
-                      />
-                      <Box display="flex" gap={0.5}>
-                        <IconButton
-                          onClick={handleSaveEditedBio}
-                          size="small"
-                          sx={{ p: 0.25, minWidth: 0, width: "20px", height: "20px" }}
-                        >
-                          <CheckIcon fontSize="small" />
-                        </IconButton>
-                        <IconButton
-                          onClick={handleCancelEditedBio}
-                          size="small"
-                          sx={{ p: 0.25, minWidth: 0, width: "20px", height: "20px" }}
-                        >
-                          <CancelIcon fontSize="small" />
-                        </IconButton>
-                      </Box>
-                    </>
-                  ) : (
-                    <>
-                      <Typography variant="body1" sx={{ flex: 1 }}>
-                        {userData.bio || t("noBio")}
-                      </Typography>
-                      {isOwnProfile && (
+                <Box sx={{ width: '100%', mt: 1 }}>
+                  <Box display="flex" alignItems="center" justifyContent="space-between" sx={{ mb: 1 }}>
+                    <Typography variant="body1" sx={{ fontWeight: "bold", color: "gray" }}>
+                      {t("bio")}
+                    </Typography>
+                    {isOwnProfile && editingBio ? (
+                      <>
+                        <input
+                          type="text"
+                          value={editedBio}
+                          onChange={(e) => setEditedBio(e.target.value)}
+                          style={{
+                            flex: 1,
+                            padding: "4px 8px",
+                            fontSize: "1rem",
+                            border: "1px solid #ccc",
+                            borderRadius: "4px"
+                          }}
+                        />
+                        <Box display="flex" gap={0.5}>
+                          <IconButton
+                            onClick={handleSaveEditedBio}
+                            size="small"
+                            sx={{ p: 0.25, minWidth: 0, width: "20px", height: "20px" }}
+                          >
+                            <CheckIcon fontSize="small" />
+                          </IconButton>
+                          <IconButton
+                            onClick={handleCancelEditedBio}
+                            size="small"
+                            sx={{ p: 0.25, minWidth: 0, width: "20px", height: "20px" }}
+                          >
+                            <CancelIcon fontSize="small" />
+                          </IconButton>
+                        </Box>
+                      </>
+                    ) : (
+                      isOwnProfile && (
                         <IconButton
                           onClick={() => setEditingBio(true)}
                           size="small"
-                          sx={{ p: 0.25, minWidth: 0, width: "20px", height: "20px" }}
+                          sx={{ p: 0.25, width: 20, height: 20 }}
                         >
                           <EditIcon fontSize="small" />
                         </IconButton>
-                      )}
-                    </>
+                      )
+                    )}
+                  </Box>
+
+                  {!editingBio ? (
+                    <Typography variant="body1" sx={{ color: 'text.primary', maxWidth: '650px' }}>
+                      {userData.bio || t("noBio")}
+                    </Typography>
+                  ) : (
+                    <textarea
+                      value={editedBio}
+                      onChange={(e) => setEditedBio(e.target.value)}
+                      rows={2}
+                      style={{
+                        width: "650px", // increase horizontal size
+                        maxWidth: "100%",
+                        padding: "8px",
+                        fontSize: "1rem",
+                        border: "1px solid #ccc",
+                        borderRadius: "6px",
+                        resize: "none", // disable resizing
+                        lineHeight: "1.4"
+                      }}
+                    />
                   )}
                 </Box>
               </Box>
             </Box>
 
-          {dislikedIngredients.length > 0 && (
-          <Box sx={{ mt: 2 }}>
-          <Box display="flex" alignItems="center" justifyContent="space-between" sx={{ mb: 1 }}>
-            <Typography variant="body1" sx={{ fontWeight: "bold", color: "gray" }}>
-              {t("dislikedIngredients")}
-            </Typography>
-        
-            {isOwnProfile && (
-              editingDisliked ? (
-                <Box>
-                  <IconButton
-                    onClick={handleSaveEditedIngredients}
-                    size="small"
-                    sx={{ p: 0.25, minWidth: 0, width: "20px", height: "20px" }}
-                  >
-                    <CheckIcon fontSize="small" />
-                  </IconButton>
-                  <IconButton
-                    onClick={handleCancelEditedIngredients}
-                    size="small"
-                    sx={{ p: 0.25, minWidth: 0, width: "20px", height: "20px" }}
-                  >
-                    <CancelIcon fontSize="small" />
-                  </IconButton>
-                </Box>
-              ) : (
-                <IconButton
-                  onClick={() => {
-                    setEditedDislikedIngredients(dislikedIngredients);
-                    setTimeout(() => setEditingDisliked(true), 0);
-                  }}
-                  size="small"
-                  sx={{ p: 0.25, minWidth: 0, width: "20px", height: "20px" }}
-                >
-                  <EditIcon fontSize="small" />
-                </IconButton>
-              )
-            )}
-          </Box>
-        
-          {dislikedIngredients.length === 0 && !isOwnProfile ? (
-            <Typography variant="body2" color="textSecondary">
-              {t("noDislikedIngredients")}
-            </Typography>
-          ) : (
-            <Stack direction="row" spacing={1} alignItems="center" flexWrap="wrap">
-              {displayedDislikedIngredients.map((ingredient, index) => (
-                <Chip
-                  key={index}
-                  label={getLocalizedIngredient(ingredient)}
-                  {...(editingDisliked ? { onDelete: () => handleRemoveIngredient(ingredient) } : {})}
-                  sx={{ backgroundColor: "#f1f1f1", fontWeight: "bold", fontSize: "14px", py: 0.5, px: 1 }}
-                />
-              ))}
-        
-              {editingDisliked && showDislikedInput && (
-                <Box display="flex" alignItems="center" gap={1} mt={1}>
-                  <AddIngredientAutocomplete
-                    onAdd={(newIngredient) => {
-                      if (!editedDislikedIngredients.includes(newIngredient)) {
-                        setEditedDislikedIngredients((prev) => [...prev, newIngredient].flat());
-                        setShowDislikedInput(false);
-                      }
-                    }}
-                  />
-                </Box>
-              )}
-        
-              {editingDisliked && !showDislikedInput && (
-                <IconButton
-                  onClick={() => setShowDislikedInput(true)}
-                  size="small"
-                  sx={{
-                    p: 0.25,
-                    minWidth: 0,
-                    width: "24px",
-                    height: "24px",
-                    border: "1px dashed #ccc",
-                    ml: 0.5,
-                    alignSelf: "center"
-                  }}
-                >
-                  <AddIcon fontSize="small" />
-                </IconButton>
-              )}
-            </Stack>
-          )}
-        </Box>        
-        
-        )}
-
-          {isOwnProfile && (editingAllergies ? editedAllergies.length > 0 : allergies.length > 0 || editingAllergies) && (
             <Box sx={{ mt: 2 }}>
               <Box display="flex" alignItems="center" justifyContent="space-between" sx={{ mb: 1 }}>
                 <Typography variant="body1" sx={{ fontWeight: "bold", color: "gray" }}>
-                  {t("allergies")}
+                  {t("dislikedIngredients")}
                 </Typography>
-                {editingAllergies ? (
-                  <Box>
-                    <IconButton 
-                      onClick={handleSaveEditedAllergies}
+                {isOwnProfile && (
+                  editingDisliked ? (
+                    <Box>
+                      <IconButton onClick={handleSaveEditedIngredients} size="small" sx={{ p: 0.25, width: 20, height: 20 }}>
+                        <CheckIcon fontSize="small" />
+                      </IconButton>
+                      <IconButton onClick={handleCancelEditedIngredients} size="small" sx={{ p: 0.25, width: 20, height: 20 }}>
+                        <CancelIcon fontSize="small" />
+                      </IconButton>
+                    </Box>
+                  ) : (
+                    <IconButton
+                      onClick={() => {
+                        setEditedDislikedIngredients(dislikedIngredients);
+                        setTimeout(() => setEditingDisliked(true), 0);
+                      }}
                       size="small"
-                      sx={{ p: 0.25, minWidth: 0, width: "20px", height: "20px" }}
+                      sx={{ p: 0.25, width: 20, height: 20 }}
                     >
-                      <CheckIcon fontSize="small" />
+                      <EditIcon fontSize="small" />
                     </IconButton>
-                    <IconButton 
-                      onClick={handleCancelEditedAllergies}
-                      size="small"
-                      sx={{ p: 0.25, minWidth: 0, width: "20px", height: "20px" }}
-                    >
-                      <CancelIcon fontSize="small" />
-                    </IconButton>
-                  </Box>
-                ) : (
-                  <IconButton 
-                    onClick={() => {
-                      setEditedAllergies(allergies);
-                      setTimeout(() => setEditingAllergies(true), 0);
-                    }}
-                    size="small"
-                    sx={{ p: 0.25, minWidth: 0, width: "20px", height: "20px" }}
-                  >
-                    <EditIcon fontSize="small" />
-                  </IconButton>
+                  )
                 )}
               </Box>
 
+              {!editingDisliked && displayedDislikedIngredients.length === 0 && (
+                <Typography variant="body2" sx={{ color: 'grey.600' }}>
+                  {t("noDislikedIngredients")}
+                </Typography>
+              )}
+
               <Stack direction="row" spacing={1} alignItems="center" flexWrap="wrap">
-                {(editingAllergies ? editedAllergies : allergies).map((allergy, index) => (
-                  <Chip 
-                    key={index} 
-                    label={getLocalizedIngredient(allergy)}
-                    {...(editingAllergies ? { onDelete: () => handleRemoveAllergy(allergy) } : {})}
-                    sx={{ backgroundColor: "#ffe5e5", fontWeight: "bold", fontSize: "14px", py: 0.5, px: 1 }}
+                {displayedDislikedIngredients.map((ingredient, index) => (
+                  <Chip
+                    key={index}
+                    label={getLocalizedIngredient(ingredient)}
+                    {...(editingDisliked ? { onDelete: () => handleRemoveIngredient(ingredient) } : {})}
+                    sx={{ backgroundColor: "#f1f1f1", fontWeight: "bold", fontSize: "14px", py: 0.5, px: 1 }}
                   />
                 ))}
 
-                {/* Autocomplete input appears here */}
-                {editingAllergies && showAllergyInput && (
+                {editingDisliked && showDislikedInput && (
                   <Box display="flex" alignItems="center" gap={1} mt={1}>
                     <AddIngredientAutocomplete
-                      onAdd={(newAllergy) => {
-                        if (!editedAllergies.includes(newAllergy)) {
-                          setEditedAllergies((prev) => [...prev, newAllergy].flat()); // flatten
-                          setShowAllergyInput(false);
+                      onAdd={(newIngredient) => {
+                        if (!editedDislikedIngredients.includes(newIngredient)) {
+                          setEditedDislikedIngredients((prev) => [...prev, newIngredient].flat());
+                          setShowDislikedInput(false);
                         }
                       }}
                     />
                   </Box>
                 )}
 
-                {/* ➕ Add button only if input is not visible */}
-                {editingAllergies && !showAllergyInput && (
+                {editingDisliked && !showDislikedInput && (
                   <IconButton
-                    onClick={() => setShowAllergyInput(true)}
+                    onClick={() => setShowDislikedInput(true)}
                     size="small"
                     sx={{
                       p: 0.25,
@@ -546,56 +666,144 @@ const UserProfile = () => {
                 )}
               </Stack>
             </Box>
-          )}
-        </Paper>
 
-        <Box display="flex" justifyContent="space-between" sx={{ gap: 2, width: '100%' }}>
-          <Paper elevation={3} sx={{ flex: 1, padding: 3 }}>
-            <Typography variant="h6" marginBottom={2}>
-              {t("ratedFoods")}
-            </Typography>            
-            <Box display="flex" flexDirection="column" gap={2}>
-              {ratedFoodDetails.map((ratedFood, index) => (
-                <FoodInProfile 
-                  key={index} 
-                  food={ratedFood} 
-                  onRateChange={handleRateChange}
-                  readOnly={!isOwnProfile} 
-                  ingredientsList={ingredientsList}
 
-                />
-              ))}
-            </Box>
+            {isOwnProfile && (
+              <Box sx={{ mt: 2 }}>
+                <Box display="flex" alignItems="center" justifyContent="space-between" sx={{ mb: 1 }}>
+                  <Typography variant="body1" sx={{ fontWeight: "bold", color: "gray" }}>
+                    {t("allergies")}
+                  </Typography>
+                  {editingAllergies ? (
+                    <Box>
+                      <IconButton onClick={handleSaveEditedAllergies} size="small" sx={{ p: 0.25, width: 20, height: 20 }}>
+                        <CheckIcon fontSize="small" />
+                      </IconButton>
+                      <IconButton onClick={handleCancelEditedAllergies} size="small" sx={{ p: 0.25, width: 20, height: 20 }}>
+                        <CancelIcon fontSize="small" />
+                      </IconButton>
+                    </Box>
+                  ) : (
+                    <IconButton
+                      onClick={() => {
+                        setEditedAllergies(allergies);
+                        setTimeout(() => setEditingAllergies(true), 0);
+                      }}
+                      size="small"
+                      sx={{ p: 0.25, width: 20, height: 20 }}
+                    >
+                      <EditIcon fontSize="small" />
+                    </IconButton>
+                  )}
+                </Box>
+
+                {!editingAllergies && allergies.length === 0 && (
+                  <Typography variant="body2" sx={{ color: 'grey.600' }}>
+                    {t("noAllergies")}
+                  </Typography>
+                )}
+
+                <Stack direction="row" spacing={1} alignItems="center" flexWrap="wrap">
+                  {(editingAllergies ? editedAllergies : allergies).map((allergy, index) => (
+                    <Chip
+                      key={index}
+                      label={getLocalizedIngredient(allergy)}
+                      {...(editingAllergies ? { onDelete: () => handleRemoveAllergy(allergy) } : {})}
+                      sx={{ backgroundColor: "#ffe5e5", fontWeight: "bold", fontSize: "14px", py: 0.5, px: 1 }}
+                    />
+                  ))}
+
+                  {editingAllergies && showAllergyInput && (
+                    <Box display="flex" alignItems="center" gap={1} mt={1}>
+                      <AddIngredientAutocomplete
+                        onAdd={(newAllergy) => {
+                          if (!editedAllergies.includes(newAllergy)) {
+                            setEditedAllergies((prev) => [...prev, newAllergy].flat());
+                            setShowAllergyInput(false);
+                          }
+                        }}
+                      />
+                    </Box>
+                  )}
+
+                  {editingAllergies && !showAllergyInput && (
+                    <IconButton
+                      onClick={() => setShowAllergyInput(true)}
+                      size="small"
+                      sx={{
+                        p: 0.25,
+                        minWidth: 0,
+                        width: "24px",
+                        height: "24px",
+                        border: "1px dashed #ccc",
+                        ml: 0.5,
+                        alignSelf: "center"
+                      }}
+                    >
+                      <AddIcon fontSize="small" />
+                    </IconButton>
+                  )}
+                </Stack>
+              </Box>
+            )}
+
           </Paper>
 
-            <Paper elevation={3} sx={{ flex: 1, padding: 3 }}>                        
+          <Box display="flex" justifyContent="space-between" sx={{ gap: 2, width: '100%' }}>
+            <Paper elevation={3} sx={{ flex: 1, padding: 3 }}>
               <Typography variant="h6" marginBottom={2}>
-                {t("favoriteFoods")}
-              </Typography>
-              {favoriteFoodDetails.length > 0 ? (
+                {t("ratedFoods")}
+              </Typography>            
+              <Box display="flex" flexDirection="column" gap={2}>
+                {ratedFoodDetails.map((ratedFood, index) => (
+                  <FoodInProfile 
+                    key={index} 
+                    food={ratedFood} 
+                    onRateChange={handleRateChange}
+                    readOnly={!isOwnProfile} 
+                    ingredientsList={ingredientsList}
+                    onCommentUpdate={handleCommentUpdate}
+                  />
+                ))}
+              </Box>
+            </Paper>
+
+            <Paper elevation={3} sx={{ flex: 1, padding: 3 }}>
+            <Typography variant="h6" marginBottom={2}>
+              {t("wannaTryFoods")}
+            </Typography>
+              {wannaTryFoods.length > 0 ? (
                 <Box display="flex" flexDirection="column" gap={2}>
-                  {favoriteFoodDetails.map((food, index) => (
+                  {wannaTryFoods.map((food, index) => (
                     <FoodInProfile
                       key={index}
                       food={food}
-                      onRateChange={handleRateChange}
-                      readOnly={!isOwnProfile}
+                      isWannaTry={true}
+                      onRemoveFromWannaTry={async (foodIdToRemove) => {
+                        try {
+                          await axios.delete(`${API_BASE_URL}/survey/remove-from-wanna-try/${userData.username}/${foodIdToRemove}`);
+                          setWannaTryFoods(prev => prev.filter(f => f.foodId !== foodIdToRemove));
+                        } catch (err) {
+                          console.error("Failed to remove from wannaTry:", err);
+                        }
+                      }}
                       ingredientsList={ingredientsList}
-                />
+                    />
                   ))}
                 </Box>
               ) : (
                 <Typography variant="body2" color="textSecondary">
-                  {t("noFavoriteFoods")}
-                </Typography>            
+                  {t("noWannaTryFoods")}
+                </Typography>
               )}
             </Paper>
           </Box>
         </Box>
-      </MainContent>
+        </MainContent>
       <Footer />
     </PageContainer>
   );
 };
 
 export default UserProfile;
+
