@@ -94,7 +94,7 @@ const Header = () => {
                 text: t("survey_popup.text"),
                 confirmButtonText: t("survey_popup.confirm"),
                 cancelButtonText: t("survey_popup.cancel"),
-
+                showCancelButton: true,
                 didOpen: () => {
                   const popup = document.querySelector('.swal2-popup');
                   if (popup) popup.style.borderRadius = '20px';
