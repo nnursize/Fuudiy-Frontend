@@ -4,20 +4,14 @@ import {
   Box,
   Button,
   Divider,
-  IconButton,
   InputAdornment,
   TextField,
   Typography,
-  Link as MuiLink,
-  Stack
+  Link as MuiLink
 } from '@mui/material';
 import {
   FaUser as UserIcon,
-  FaLock as LockIcon,
-  FaGithub,
-  FaGoogle,
-  FaFacebookF,
-  FaTwitter
+  FaLock as LockIcon
 } from "react-icons/fa";
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
@@ -26,8 +20,7 @@ import LanguageSwitcher from '../components/LanguageSwitcher';
 import { GoogleLogin } from '@react-oauth/google';
 import { jwtDecode } from 'jwt-decode';
 
-
-
+const API_BASE_URL = "http://localhost:8000";
 const Login = () => {
   const { t, i18n } = useTranslation("global");
   const navigate = useNavigate();
@@ -53,22 +46,22 @@ const Login = () => {
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
     setErrorMsg('');
-  
+
     try {
-      const response = await fetch('http://localhost:8000/auth/login', {
+      const response = await fetch(`${API_BASE_URL}/auth/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ email, password }),
       });
-  
+
       if (!response.ok) {
         const errorData = await response.json();
         setErrorMsg(errorData.detail?.message || 'Login failed'); // Ensure it's a string
         return;
       }
-  
+
       const data = await response.json();
       localStorage.setItem('accessToken', data.access_token);
       navigate('/');
@@ -77,7 +70,7 @@ const Login = () => {
       setErrorMsg("An error occurred during login.");
     }
   };
-  
+
   return (
     <Frame title={t('login')} onSubmit={handleLoginSubmit}>
       <Box sx={{ position: 'absolute', top: '35px', right: '35px' }}>
@@ -183,58 +176,68 @@ const Login = () => {
         </Divider>
 
 
-<Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
-<script src="https://accounts.google.com/gsi/client" async defer></script>
-  <GoogleLogin
-    onSuccess={async (credentialResponse) => {
-      try {
-        const credential = credentialResponse.credential;
-        const decoded = jwtDecode(credential);
-        console.log("Google user:", decoded);
+        <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
+          <script src="https://accounts.google.com/gsi/client" async defer></script>
+          <GoogleLogin
+            onSuccess={async (credentialResponse) => {
+              try {
+                const credential = credentialResponse.credential;
+                const decoded = jwtDecode(credential);
+                console.log("Google user:", decoded);
 
-        const response = await fetch('http://localhost:8000/auth/google-login', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            token: credential // Use the credential directly here
-          }),
-        });
-        
-        if (!response.ok) {
-          const errorData = await response.json();
-          if (response.status === 404) {
-            // Kayıtlı değilse kayıt sayfasına yönlendir
-            setErrorMsg(t('errors.google_not_registered'));
-            setTimeout(() => navigate('/register'), 2000);
-          } else {
-            setErrorMsg(errorData.detail || 'Google login failed');
-          }
-          return;
-        }
-        const data = await response.json();
-        localStorage.setItem('accessToken', data.access_token);
-        navigate('/');
-      } catch (err) {
-        console.error(err);
-        setErrorMsg("Google login failed.");
-      }
-    }}
-    onError={() => {
-      setErrorMsg("Google login failed.");
-    }}
-    useOneTap
-    width="300"
-  />
-</Box>
+                const response = await fetch(`${API_BASE_URL}/auth/google-login`, {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({
+                    token: credential // Use the credential directly here
+                  }),
+                });
+
+                if (!response.ok) {
+                  const errorData = await response.json();
+                  if (response.status === 404) {
+                    // Kayıtlı değilse kayıt sayfasına yönlendir
+                    setErrorMsg(t('errors.google_not_registered'));
+                    setTimeout(() => navigate('/register'), 2000);
+                  } else {
+                    setErrorMsg(errorData.detail || 'Google login failed');
+                  }
+                  return;
+                }
+                const data = await response.json();
+                localStorage.setItem('accessToken', data.access_token);
+                navigate('/');
+              } catch (err) {
+                console.error(err);
+                setErrorMsg("Google login failed.");
+              }
+            }}
+            onError={() => {
+              setErrorMsg("Google login failed.");
+            }}
+            useOneTap
+            width="300"
+          />
+        </Box>
         <Typography variant="body2" color="text.primary">
           {t('no_account')}{' '}
           <MuiLink component={Link} to="/register" color="primary" fontWeight="bold">
             {t('register')}
           </MuiLink>
         </Typography>
+        <Typography
+          variant="body2"
+          sx={{ mb: 2 }}
+        >
+          <MuiLink component={Link} to="/forgot-password" color="primary"  fontWeight="bold">
+            {t('forgot_password') || 'Forgot Password?'}
+          </MuiLink>
+        </Typography>
+
       </Box>
+
 
     </Frame>
   );

@@ -9,6 +9,11 @@ import Explore from "./pages/Explore";
 import FoodDetailPage from './pages/FoodDetailPage';
 import Survey from './pages/Survey';
 import UserProfile from './pages/UserProfile';
+import ForgotPassword from './pages/ForgotPassword';
+import ResetPassword from './pages/ResetPassword';
+
+
+
 
 const App = () => {
   const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
@@ -23,7 +28,10 @@ const App = () => {
           <Route path="/register" element={<Register />} />
           <Route path="/profile/:USERNAME" element={<UserProfile />} />
           <Route path="/survey" element={<Survey />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="*" element={<Navigate to="/" />} />
+
         </Routes>
       </Router>
     </GoogleOAuthProvider>
