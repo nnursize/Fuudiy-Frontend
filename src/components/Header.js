@@ -26,15 +26,15 @@ const Header = () => {
   const theme = useTheme();
   const SURVEY_POPUP_COOLDOWN_MINUTES = 1;
 
-const shouldShowSurveyPopup = () => {
-  const lastDeclined = localStorage.getItem("surveyPopupLastDeclined");
-  if (!lastDeclined) return true;
+  const shouldShowSurveyPopup = () => {
+    const lastDeclined = localStorage.getItem("surveyPopupLastDeclined");
+    if (!lastDeclined) return true;
 
-  const cooldownTime = SURVEY_POPUP_COOLDOWN_MINUTES * 60 * 1000;
-  const timeSinceDecline = Date.now() - Number(lastDeclined);
+    const cooldownTime = SURVEY_POPUP_COOLDOWN_MINUTES * 60 * 1000;
+    const timeSinceDecline = Date.now() - Number(lastDeclined);
 
-  return timeSinceDecline > cooldownTime;
-};
+    return timeSinceDecline > cooldownTime;
+  };
   // Check token expiration
   const checkTokenExpiration = useCallback(() => {
     const token = localStorage.getItem("accessToken");
@@ -91,9 +91,9 @@ const shouldShowSurveyPopup = () => {
             import("sweetalert2").then(Swal => {
               Swal.default.fire({
                 title: t("survey_popup.title"),
-text: t("survey_popup.text"),
-confirmButtonText: t("survey_popup.confirm"),
-cancelButtonText: t("survey_popup.cancel"),
+                text: t("survey_popup.text"),
+                confirmButtonText: t("survey_popup.confirm"),
+                cancelButtonText: t("survey_popup.cancel"),
 
                 didOpen: () => {
                   const popup = document.querySelector('.swal2-popup');
@@ -122,7 +122,7 @@ cancelButtonText: t("survey_popup.cancel"),
             });
           }, 500);
         }
-        
+
       } catch (error) {
         if (error.response?.status === 401) {
           cleanupAuth();

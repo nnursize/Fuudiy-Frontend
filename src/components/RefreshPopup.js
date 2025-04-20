@@ -1,50 +1,51 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const RefreshPopup = ({ open, onStayLoggedIn, onLogout }) => {
-    const [timeLeft, setTimeLeft] = useState(60); // 60 seconds countdown
-    const navigate = useNavigate();
+  const [timeLeft, setTimeLeft] = useState(60); // 60 seconds countdown
+  const navigate = useNavigate();
+  const { t } = useTranslation("global");
+  const handleLogout = () => {
+    onLogout(); // Call the original logout function
+    navigate("/"); // Redirect to home page
+  };
 
-    const handleLogout = () => {
-        onLogout(); // Call the original logout function
-        navigate("/"); // Redirect to home page
-    };
+  useEffect(() => {
+    if (!open) return;
 
-    useEffect(() => {
-      if (!open) return;
-  
-      // Reset timer when popup opens
-      setTimeLeft(60);
-      
-      const timer = setInterval(() => {
-        setTimeLeft(prevTime => {
-          if (prevTime <= 1) {
-            clearInterval(timer);
-            handleLogout(); // Use our custom logout handler
-            return 0;
-          }
-          return prevTime - 1;
-        });
-      }, 1000);
-  
-      return () => clearInterval(timer);
-    }, [open, handleLogout]);
-  
-    if (!open) return null;
+    // Reset timer when popup opens
+    setTimeLeft(60);
 
-    return (
-        <Overlay>
-            <Popup>
-                <Message>Are you still there?</Message>
-                <Timer>Your session will expire in {timeLeft} seconds</Timer>
-                <Buttons>
-                    <Button onClick={onStayLoggedIn}>Yes, I'm here</Button>
-                    <Button onClick={handleLogout}>No, Log me out</Button>
-                </Buttons>
-            </Popup>
-        </Overlay>
-    );
+    const timer = setInterval(() => {
+      setTimeLeft(prevTime => {
+        if (prevTime <= 1) {
+          clearInterval(timer);
+          handleLogout(); // Use our custom logout handler
+          return 0;
+        }
+        return prevTime - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [open, handleLogout]);
+
+  if (!open) return null;
+
+  return (
+    <Overlay>
+      <Popup>
+        <Message>{t("refresh_popup.message")}</Message>
+        <Timer>{t("refresh_popup.timer", { timeLeft })}</Timer>
+        <Buttons>
+          <Button onClick={onStayLoggedIn}>{t("refresh_popup.stay_logged_in")}</Button>
+          <Button onClick={handleLogout}>{t("refresh_popup.logout")}</Button>
+        </Buttons>
+      </Popup>
+    </Overlay>
+  );
 };
 
 export default RefreshPopup;
