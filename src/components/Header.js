@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -30,6 +30,8 @@ const Header = () => {
   const [showRequestsPanel, setShowRequestsPanel] = useState(false);
   const [pendingRequests, setPendingRequests] = useState([]);
 
+  const heartRef = useRef(null);
+
   // Check token expiration
   const checkTokenExpiration = useCallback(() => {
     const token = localStorage.getItem("accessToken");
@@ -58,6 +60,28 @@ const Header = () => {
       return false;
     }
   };
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (
+        heartRef.current &&
+        !heartRef.current.contains(e.target)
+      ) {
+        setShowRequestsPanel(false);
+      }
+  
+      if (
+        !e.target.closest(".profile-dropdown") &&
+        !e.target.closest(".MuiAvatar-root")
+      ) {
+        setShowDropdown(false);
+      }
+    };
+  
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+  
 
   // Check login status and fetch user data
   useEffect(() => {
@@ -216,12 +240,18 @@ const Header = () => {
             width="35px"
             fontSize="0.8rem"
           />
-          <Badge badgeContent={pendingRequestCount} color="error">
-            <FavoriteIcon 
-              sx={{ cursor: "pointer", fontSize: 28 }} 
-              onClick={() => setShowRequestsPanel((prev) => !prev)}
-            />
-          </Badge>
+          <div ref={heartRef} style={{ position: "relative" }}>
+            <Badge badgeContent={pendingRequestCount} color="error">
+              <FavoriteIcon 
+                sx={{ cursor: "pointer", fontSize: 28, color: "#aaa" }} 
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setShowRequestsPanel((prev) => !prev);
+                  setShowDropdown(false);
+                }}
+              />
+            </Badge>
+          </div>
 
           {isLoggedIn ? (
             <ProfileContainer>
@@ -236,13 +266,9 @@ const Header = () => {
                 onClick={toggleDropdown}
               />
               {showDropdown && (
-                <DropdownMenu>
-                  <DropdownItem onClick={handleProfileClick}>
-                    {t("profile")}
-                  </DropdownItem>
-                  <DropdownItem onClick={() => setShowLogoutPopup(true)}>
-                    {t("logout")}
-                  </DropdownItem>
+                <DropdownMenu className="profile-dropdown">
+                  <DropdownItem onClick={handleProfileClick}>{t("profile")}</DropdownItem>
+                  <DropdownItem onClick={() => setShowLogoutPopup(true)}>{t("logout")}</DropdownItem>
                 </DropdownMenu>
               )}
             </ProfileContainer>
@@ -390,16 +416,37 @@ const DropdownItem = styled.div`
 
 const RequestsPanel = styled.div`
   position: absolute;
-  top: 60px;
-  right: 100px;
+  top: 50px; /* just below the heart icon */
+  right: 35px; /* shift slightly to the left */
   background-color: #fff;
   border: 1px solid #ddd;
   border-radius: 8px;
   padding: 12px;
-  width: 220px;
+  width: 240px;
   z-index: 999;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: -8px;
+    right: 35px; /* adjust to align with heart */
+    border-width: 0 8px 8px 8px;
+    border-style: solid;
+    border-color: transparent transparent #ddd transparent;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: -7px;
+    right: 35px;
+    border-width: 0 7px 7px 7px;
+    border-style: solid;
+    border-color: transparent transparent #fff transparent;
+  }
 `;
+
 
 const RequestItem = styled.div`
   display: flex;
