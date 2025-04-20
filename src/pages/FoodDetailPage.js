@@ -24,6 +24,8 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Comments from "../components/Comments";
 import { useTranslation } from "react-i18next";
+import Lottie from "lottie-react";
+import loadingAnimation from "../assets/loading_animation.json";
 import styled from "styled-components";
 
 
@@ -52,6 +54,9 @@ const FoodDetailPage = () => {
   const [isInList, setisInList] = useState(false);
   const [view, setView] = useState("ingredients");
   const [imageUrl, setImageUrl] = useState("");
+  const [currentUser, setCurrentUser] = useState(null);
+  const [hasCommented, setHasCommented] = useState(false);
+
 
   useEffect(() => {
     const fetchFoodDetails = async () => {
@@ -60,7 +65,6 @@ const FoodDetailPage = () => {
         const foodData = response.data;
         setFoodDetails(foodData);
   
-        // Fetch signed image URL if 'url_id' exists
         if (foodData.url_id) {
           const imageResponse = await axios.get(`${API_BASE_URL}/food/image/${foodData.url_id}`);
           setImageUrl(imageResponse.data.image_url);
@@ -72,9 +76,41 @@ const FoodDetailPage = () => {
         setLoading(false);
       }
     };
+  
+    const fetchCurrentUser = async () => {
+      try {
+        const response = await axios.get(`${API_BASE_URL}/auth/users/me`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        });
+        const user = response.data.data[0];
+        setCurrentUser(user);
+  
+        const [surveyRes, commentRes] = await Promise.all([
+          axios.get(`${API_BASE_URL}/survey/user/${user.username}`),
+          axios.get(`${API_BASE_URL}/comments/has-commented/${id}/${user.username}`)
+        ]);
+  
+        const wannaTryList = surveyRes.data.wannaTry || [];
+        if (wannaTryList.includes(id)) {
+          setisInList(true);
+        }
+  
+        if (commentRes.data.hasCommented) {
+          setHasCommented(true);
+        }
+  
+      } catch (err) {
+        console.error("Failed to fetch user data or comment info:", err);
+      }
+    };
+  
     fetchFoodDetails();
+    fetchCurrentUser();
   }, [id, t]);
-
+  
+  
   // Function to update the food rating from the Comments component
   const updateFoodRating = (newRating, votes) => {
     setFoodDetails(prev => ({
@@ -84,17 +120,36 @@ const FoodDetailPage = () => {
   };
 
   const handleListToggle = async () => {
-    setisInList(!isInList);
-    await axios.post(`${API_BASE_URL}/add_list`, {
-      foodId: id,
-      isInList: !isInList
-    });
-  };
+    if (!currentUser?.username) {
+      console.warn("No username found for the current user.");
+      return;
+    }
+  
+    try {
+      if (isInList) {
+        await axios.delete(
+          `${API_BASE_URL}/survey/remove-from-wanna-try/${currentUser.username}/${id}`
+        );
+        setisInList(false);
+      } else {
+        await axios.post(
+          `${API_BASE_URL}/survey/add-to-wanna-try/${currentUser.username}/${id}`
+        );
+        setisInList(true);
+      }
+    } catch (err) {
+      console.error("Failed to toggle wannaTry:", err);
+    }
+  }; 
 
   if (loading) {
     return (
-      <Box sx={{ display: "flex", justifyContent: "center", marginTop: "50px" }}>
-        <CircularProgress />
+      <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", minHeight: "60vh" }}>
+        <Lottie
+          animationData={loadingAnimation}
+          loop
+          style={{ height: 120, width: 120 }}
+        />
       </Box>
     );
   }
@@ -121,15 +176,17 @@ const FoodDetailPage = () => {
             </Card>
             <Box sx={{ flex: 1, textAlign: { xs: "center", md: "left" }, position: "relative", padding: "20px" }}>
               <Box sx={{ position: "absolute", top: 0, right: 0 }}>
-                <Tooltip title={isInList ? t("removeFromList") : t("addToList")}>
-                  <IconButton
-                    onClick={handleListToggle}
-                    color={isInList ? "error" : "default"}
-                    sx={{ fontSize: "1rem", padding: "4px" }}
-                  >
-                    {isInList ? <CloseIcon fontSize="small" /> : <AddIcon fontSize="small" />}
-                  </IconButton>
-                </Tooltip>
+                {currentUser && (
+                  <Tooltip title={isInList ? t("removeFromList") : t("addToList")}>
+                    <IconButton
+                      onClick={handleListToggle}
+                      color={isInList ? "error" : "default"}
+                      sx={{ fontSize: "1rem", padding: "4px" }}
+                    >
+                      {isInList ? <CloseIcon fontSize="small" /> : <AddIcon fontSize="small" />}
+                    </IconButton>
+                  </Tooltip>
+                )}
               </Box>
               <Typography variant="h3" fontWeight="bold" sx={{ marginBottom: "10px" }}>
                 {foodDetails.name}, { t(`country.${foodDetails.country}`)}
@@ -181,7 +238,7 @@ const FoodDetailPage = () => {
             </>
           ) : (
             // Pass the update function to Comments
-            <Comments onRatingUpdate={updateFoodRating} />
+            <Comments onRatingUpdate={updateFoodRating} hasCommented={hasCommented} />          
           )}
         </Paper>
       </Box>
