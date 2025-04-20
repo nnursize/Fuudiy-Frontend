@@ -260,15 +260,27 @@ const Header = () => {
           ) : (
             pendingRequests.map((req, index) => (
               <RequestItem key={index}>
-                <div>
-                  <span>{req.from_username || "Unknown"}</span><br />
-                  <RequestMeta>{new Date(req.created_at).toLocaleString()}</RequestMeta>
-                </div>
-                <RequestButtons>
-                  <button onClick={() => handleRequestResponse(req._id, "accepted")}>✓</button>
-                  <button onClick={() => handleRequestResponse(req._id, "rejected")}>✕</button>
-                </RequestButtons>
-              </RequestItem>
+  <div>
+    <span
+      style={{
+        color: "#000", // black text
+        cursor: "pointer",
+        fontWeight: 500,
+        textDecoration: "underline", // optional for indicating it's clickable
+      }}
+      onClick={() => navigate(`/profile/${req.from_username}`)}
+    >
+      {req.from_username || "Unknown"}
+    </span>
+    <br />
+    <RequestMeta>{new Date(req.created_at).toLocaleString()}</RequestMeta>
+  </div>
+  <RequestButtons>
+    <button onClick={() => handleRequestResponse(req._id, "accepted")}>✓</button>
+    <button onClick={() => handleRequestResponse(req._id, "rejected")}>✕</button>
+  </RequestButtons>
+</RequestItem>
+
             ))
           )}
         </RequestsPanel>

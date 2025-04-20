@@ -2,6 +2,7 @@
 import React from "react";
 import { Box, Modal, Typography, Stack, Chip, IconButton } from "@mui/material";
 import CloseIcon from '@mui/icons-material/Close';
+import { useNavigate } from "react-router-dom"; // ✅ Import useNavigate
 
 const modalStyle = {
   position: 'absolute',
@@ -17,6 +18,13 @@ const modalStyle = {
 };
 
 const ConnectionModal = ({ open, onClose, usernames }) => {
+  const navigate = useNavigate(); // ✅ Initialize navigation
+
+  const handleClick = (username) => {
+    navigate(`/profile/${username}`);
+    onClose(); // Optionally close the modal after navigation
+  };
+
   return (
     <Modal open={open} onClose={onClose}>
       <Box sx={modalStyle}>
@@ -29,7 +37,13 @@ const ConnectionModal = ({ open, onClose, usernames }) => {
         ) : (
           <Stack spacing={1}>
             {usernames.map((username, index) => (
-              <Chip key={index} label={username} variant="outlined" />
+              <Chip
+                key={index}
+                label={username}
+                variant="outlined"
+                onClick={() => handleClick(username)} // ✅ Clickable Chip
+                sx={{ cursor: "pointer" }}
+              />
             ))}
           </Stack>
         )}
