@@ -158,18 +158,22 @@ const Header = () => {
   const handleRequestResponse = async (connectionId, status) => {
     try {
       console.log("connection id: ", connectionId);
-
-      await axiosInstance.put(`/connections/update-status`, {
-        connection_id: connectionId,
-        status
-      });
+  
+      if (status === "rejected") {
+        await axiosInstance.delete(`/connections/remove-by-id/${connectionId}`);
+      } else {
+        await axiosInstance.put(`/connections/update-status`, {
+          connection_id: connectionId,
+          status
+        });
+      }
   
       setPendingRequests((prev) =>
         prev.filter((req) => req._id !== connectionId)
       );
       setPendingRequestCount((prev) => Math.max(prev - 1, 0));
     } catch (err) {
-      console.error("Failed to respond to request:", err);
+      console.error(`Failed to ${status} connection:`, err);
     }
   };  
 
@@ -212,14 +216,12 @@ const Header = () => {
             width="35px"
             fontSize="0.8rem"
           />
-          <Tooltip title={t("connectionRequests")}>
           <Badge badgeContent={pendingRequestCount} color="error">
             <FavoriteIcon 
               sx={{ cursor: "pointer", fontSize: 28 }} 
               onClick={() => setShowRequestsPanel((prev) => !prev)}
             />
           </Badge>
-          </Tooltip>
 
           {isLoggedIn ? (
             <ProfileContainer>
@@ -260,26 +262,26 @@ const Header = () => {
           ) : (
             pendingRequests.map((req, index) => (
               <RequestItem key={index}>
-  <div>
-    <span
-      style={{
-        color: "#000", // black text
-        cursor: "pointer",
-        fontWeight: 500,
-        textDecoration: "underline", // optional for indicating it's clickable
-      }}
-      onClick={() => navigate(`/profile/${req.from_username}`)}
-    >
-      {req.from_username || "Unknown"}
-    </span>
-    <br />
-    <RequestMeta>{new Date(req.created_at).toLocaleString()}</RequestMeta>
-  </div>
-  <RequestButtons>
-    <button onClick={() => handleRequestResponse(req._id, "accepted")}>✓</button>
-    <button onClick={() => handleRequestResponse(req._id, "rejected")}>✕</button>
-  </RequestButtons>
-</RequestItem>
+                <div>
+                  <span
+                    style={{
+                      color: "#000", // black text
+                      cursor: "pointer",
+                      fontWeight: 500,
+                      textDecoration: "underline", // optional for indicating it's clickable
+                    }}
+                    onClick={() => navigate(`/profile/${req.from_username}`)}
+                  >
+                    {req.from_username || t("Unknown")}
+                  </span>
+                  <br />
+                  <RequestMeta>{new Date(req.created_at).toLocaleString()}</RequestMeta>
+                </div>
+                <RequestButtons>
+                  <button onClick={() => handleRequestResponse(req._id, "accepted")}>✓</button>
+                  <button onClick={() => handleRequestResponse(req._id, "rejected")}>✕</button>
+                </RequestButtons>
+              </RequestItem>
 
             ))
           )}

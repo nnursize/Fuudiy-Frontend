@@ -43,6 +43,8 @@ const UserProfile = () => {
   const [connectionStatus, setConnectionStatus] = useState(null); // "accepted", "pending", or null
   const [connectedUsernames, setConnectedUsernames] = useState([]);
   const [showConnectionList, setShowConnectionList] = useState(false);
+  const [showAcceptRejectButtons, setShowAcceptRejectButtons] = useState(false);
+  const [pendingConnectionId, setPendingConnectionId] = useState(null);
 
   const { t, i18n } = useTranslation("global");
 
@@ -103,6 +105,24 @@ const UserProfile = () => {
         } catch (err) {
           console.warn("Couldn't fetch connection status:", err);
         }
+
+        // Check if this user has sent a request to me
+        try {
+          const res = await axiosInstance.get(`/connections/requests/details/${user.username}`);
+          const incoming = res.data?.incoming_requests || [];
+          
+          const matchedRequest = incoming.find((req) => req.from_username === profileUser.username);
+        
+          if (matchedRequest) {
+            setShowAcceptRejectButtons(true);
+            setPendingConnectionId(matchedRequest._id); // 💡 Store the connection _id
+          } else {
+            setShowAcceptRejectButtons(false);
+          }
+        } catch (err) {
+          console.warn("Failed to check incoming requests:", err);
+        }
+        
 
         const parsedDisliked = Array.isArray(profileUser?.disliked_ingredients)
           ? profileUser.disliked_ingredients
@@ -413,10 +433,49 @@ const UserProfile = () => {
   
                 {!isOwnProfile && (
                   connectionStatus === "pending" ? (
-                    <Chip
-                      label={t("requestPending")}
-                      sx={{ backgroundColor: "#fff3cd", color: "#856404" }}
-                    />
+                    showAcceptRejectButtons ? (
+                      <Box display="flex" gap={1}>
+                        <Chip
+                          clickable
+                          label={t("accept")}
+                          onClick={async () => {
+                            try {
+                              console.log("connection id: ", pendingConnectionId)
+                              await axiosInstance.put(`/connections/update-status`, {
+                                connection_id: pendingConnectionId,
+                                status: "accepted"
+                              });                              
+                              setConnectionStatus("accepted");
+                              setConnectionCount(prev => prev + 1);
+                              setShowAcceptRejectButtons(false);
+                            } catch (err) {
+                              console.error("Failed to accept connection:", err);
+                            }
+                          }}
+                          sx={{ backgroundColor: "#c8e6c9", fontWeight: "bold" }}
+                        />
+                        <Chip
+                          clickable
+                          label={t("reject")}
+                          onClick={async () => {
+                            try {
+                              await axiosInstance.delete(`/connections/remove-by-id/${pendingConnectionId}`);
+                              setConnectionStatus(null);
+                              setShowAcceptRejectButtons(false);
+                              setPendingConnectionId(null);
+                            } catch (err) {
+                              console.error("Failed to reject connection:", err);
+                            }
+                          }}
+                          sx={{ backgroundColor: "#ffcdd2", fontWeight: "bold" }}
+                        />
+                      </Box>
+                    ) : (
+                      <Chip
+                        label={t("requestPending")}
+                        sx={{ backgroundColor: "#fff3cd", color: "#856404" }}
+                      />
+                    )
                   ) : connectionStatus === "accepted" ? (
                     <Chip
                       clickable

@@ -2,7 +2,8 @@
 import React from "react";
 import { Box, Modal, Typography, Stack, Chip, IconButton } from "@mui/material";
 import CloseIcon from '@mui/icons-material/Close';
-import { useNavigate } from "react-router-dom"; // ✅ Import useNavigate
+import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next"; // ✅ Import useTranslation
 
 const modalStyle = {
   position: 'absolute',
@@ -18,22 +19,23 @@ const modalStyle = {
 };
 
 const ConnectionModal = ({ open, onClose, usernames }) => {
-  const navigate = useNavigate(); // ✅ Initialize navigation
+  const navigate = useNavigate();
+  const { t } = useTranslation("global"); // ✅ Hook into translation context
 
   const handleClick = (username) => {
     navigate(`/profile/${username}`);
-    onClose(); // Optionally close the modal after navigation
+    onClose();
   };
 
   return (
     <Modal open={open} onClose={onClose}>
       <Box sx={modalStyle}>
         <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
-          <Typography variant="h6">Connections</Typography>
+          <Typography variant="h6">{t("connectionsList")}</Typography> {/* ✅ Translated */}
           <IconButton onClick={onClose} size="small"><CloseIcon /></IconButton>
         </Box>
         {usernames.length === 0 ? (
-          <Typography variant="body2" color="textSecondary">No connections yet.</Typography>
+          <Typography variant="body2" color="textSecondary">{t("noConnectionsYet")}</Typography> // ✅ Translated
         ) : (
           <Stack spacing={1}>
             {usernames.map((username, index) => (
@@ -41,7 +43,7 @@ const ConnectionModal = ({ open, onClose, usernames }) => {
                 key={index}
                 label={username}
                 variant="outlined"
-                onClick={() => handleClick(username)} // ✅ Clickable Chip
+                onClick={() => handleClick(username)}
                 sx={{ cursor: "pointer" }}
               />
             ))}
