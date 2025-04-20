@@ -16,6 +16,7 @@ import axiosInstance from '../axiosInstance';  // Import the custom axios instan
 import { useParams } from 'react-router-dom';
 import Lottie from "lottie-react";
 import loadingAnimation from "../assets/loading_animation.json"; // adjust path if needed
+import ConnectionModal from "../components/ConnectionModal";
 
 const API_BASE_URL = 'http://localhost:8000'; 
 
@@ -38,6 +39,10 @@ const UserProfile = () => {
   const [showDislikedInput, setShowDislikedInput] = useState(false);
   const [wannaTryFoods, setWannaTryFoods] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [connectionCount, setConnectionCount] = useState(0);
+  const [connectionStatus, setConnectionStatus] = useState(null); // "accepted", "pending", or null
+  const [connectedUsernames, setConnectedUsernames] = useState([]);
+  const [showConnectionList, setShowConnectionList] = useState(false);
 
   const { t, i18n } = useTranslation("global");
 
@@ -48,6 +53,16 @@ const UserProfile = () => {
     return avatarId.includes('.png')
       ? `/avatars/${avatarId}`
       : `/avatars/${avatarId}.png`;
+  };
+
+  const fetchConnectionList = async () => {
+    try {
+      const res = await axios.get(`${API_BASE_URL}/connections/list/${userData.username}`);
+      setConnectedUsernames(res.data.connected_usernames || []);
+      setShowConnectionList(true);
+    } catch (err) {
+      console.error("Failed to fetch connected usernames:", err);
+    }
   };
 
   useEffect(() => {
@@ -71,7 +86,24 @@ const UserProfile = () => {
   
         setUserData(profileUser);
         setEditedBio(profileUser.bio || "");
-  
+
+        // Fetch connection count
+        try {
+          const countRes = await axios.get(`${API_BASE_URL}/connections/count/${profileUser.username}`);
+          setConnectionCount(countRes.data.count || 0);
+        } catch (err) {
+          console.warn("Couldn't fetch connection count:", err);
+        }
+
+        // Check connection status
+        try {
+          const statusRes = await axios.get(`${API_BASE_URL}/connections/status/${user.username}/${profileUser.username}`);
+          console.log("statusRes: ", statusRes)
+          setConnectionStatus(statusRes.data.status); // "accepted", "pending", or null
+        } catch (err) {
+          console.warn("Couldn't fetch connection status:", err);
+        }
+
         const parsedDisliked = Array.isArray(profileUser?.disliked_ingredients)
           ? profileUser.disliked_ingredients
           : [];
@@ -282,6 +314,37 @@ const UserProfile = () => {
       console.error("Failed to update comment:", err);
     }
   };  
+
+  const handleSendConnectionRequest = async () => {
+    try {
+      await axios.post(
+        `${API_BASE_URL}/connections/send-request/${currentUser.username}/${userData.username}`
+      );
+  
+      setConnectionStatus("pending"); // Update UI accordingly
+    } catch (error) {
+      console.error("Failed to send connection request: ", error);
+    }
+  };
+
+  const handleToggleConnections = async () => {
+    if (showConnectionList) {
+      setShowConnectionList(false);
+    } else {
+      await fetchConnectionList();
+    }
+  };
+  
+  const handleRemoveConnection = async () => {
+    try {
+      await axios.delete(`${API_BASE_URL}/connections/remove/${currentUser.username}/${userData.username}`);
+      setConnectionStatus(null); // switch UI to "Send Request"
+      setConnectionCount(prev => Math.max(prev - 1, 0));
+    } catch (err) {
+      console.error("Failed to remove connection:", err);
+    }
+  };
+  
   
   const getLocalizedIngredient = (enName) => {
     const found = ingredientsList.find((item) => item.en === enName);
@@ -312,7 +375,7 @@ const UserProfile = () => {
           <Box display="flex" alignItems="center" marginBottom={3} gap={2}>
             {isOwnProfile ? (
               <ProfilePictureSelector
-                currentAvatar={userData.avatarId || ''} // ensures an empty string is passed
+                currentAvatar={userData.avatarId || ''}
                 onSelect={(newAvatar) => {
                   axiosInstance.put(`/users/update-avatar-by-username/${userData.username}`, { avatarId: newAvatar })
                     .then(() => {
@@ -323,16 +386,55 @@ const UserProfile = () => {
               />
             ) : (
               <Box sx={{ width: 80, height: 80, borderRadius: '50%', overflow: 'hidden' }}>
-                <img 
-                  src={getAvatarSrc(userData.avatarId)} 
-                  alt="Profile" 
+                <img
+                  src={getAvatarSrc(userData.avatarId)}
+                  alt="Profile"
                   style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                 />
               </Box>
             )}
-            
-            <Box sx={{ paddingLeft: 1 }}>
-              <Typography variant="h5">{userData.username || 'Anonymous User'}</Typography>
+  
+            <Box sx={{ paddingLeft: 1, width: '100%' }}>
+              <Box display="flex" alignItems="center" justifyContent="space-between">
+                <Box display="flex" alignItems="center" gap={2}>
+                  <Typography variant="h5">{userData.username || 'Anonymous User'}</Typography>
+                  <Chip
+                    clickable
+                    label={`${connectionCount} ${t("connections")}`}
+                    onClick={() => fetchConnectionList()}
+                    sx={{ backgroundColor: "#e0f7fa", fontWeight: "bold" }}
+                  />
+                  <ConnectionModal
+                    open={showConnectionList}
+                    onClose={() => setShowConnectionList(false)}
+                    usernames={connectedUsernames}
+                  />
+                </Box>
+  
+                {!isOwnProfile && (
+                  connectionStatus === "pending" ? (
+                    <Chip
+                      label={t("requestPending")}
+                      sx={{ backgroundColor: "#fff3cd", color: "#856404" }}
+                    />
+                  ) : connectionStatus === "accepted" ? (
+                    <Chip
+                      clickable
+                      label={t("removeConnection")}
+                      onClick={handleRemoveConnection}
+                      sx={{ backgroundColor: "#ffcdd2", fontWeight: "bold" }}
+                    />
+                  ) : (
+                    <Chip
+                      clickable
+                      label={t("sendConnectionRequest")}
+                      onClick={handleSendConnectionRequest}
+                      sx={{ backgroundColor: "#c8e6c9", fontWeight: "bold" }}
+                    />
+                  )
+                )}
+              </Box>
+  
               <Typography variant="body2" color="textSecondary" gutterBottom>
                 {userData.email || 'No email available.'}
               </Typography>
@@ -605,3 +707,4 @@ const UserProfile = () => {
 };
 
 export default UserProfile;
+
