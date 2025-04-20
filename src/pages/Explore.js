@@ -1,308 +1,577 @@
+// src/pages/Explore.js
+
 import React, { useState, useEffect } from "react";
-import axios from "axios";
-import styled from "styled-components";
-import { useNavigate } from "react-router-dom"; // Added useNavigate
+import axiosInstance from "../axiosInstance";
+import axios from "axios"; // ← add this
+import {
+  Box,
+  Typography,
+  Grid2,
+  Button,
+  CircularProgress,
+  Alert,
+  Card,
+  CardHeader,
+  CardMedia,
+  CardContent,
+  CardActions,
+  Chip,
+  Skeleton,
+  Fade,
+} from "@mui/material";
+import { useTranslation } from "react-i18next";
+import PropTypes from "prop-types";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import Hero from "../components/Hero";
-import { useTranslation } from "react-i18next";
-import LoadingSpinner from "../components/ui/LoadingSpinner";
-import PropTypes from 'prop-types';
 
 const API_BASE_URL = "http://localhost:8000";
 
 const Explore = () => {
   const { t } = useTranslation("global");
+  const [user, setUser] = useState(null);
   const [recommendations, setRecommendations] = useState({
     personalized: [],
-    similar: []
+    similar: [],
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [selectedCountry, setSelectedCountry] = useState(null);
   const token = localStorage.getItem("accessToken");
-  const userId = "67df1962c2b93bd39ca7a7bf";
-  
-  // Error handling
-  const handleApiError = (error) => {
-    const status = error.response?.status;
-    const errorMessages = {
-      401: t("errors.auth"),
-      403: t("errors.auth"),
-      500: t("errors.server"),
-      default: t("errors.generic")
-    };
-    setError(errorMessages[status] || errorMessages.default);
-  };
 
-  const [availableCountries] = useState([
-    "Spanish", "Mexican", "Vietnamese", "Thai", "Turkish", "Korean", "Italian",
-    "Japanese", "French", "Chinese", "American", "Brazilian", "Indian", "Greek",
-    "German", "British"
-  ]);
+  const availableCountries = [
+    "Spanish",
+    "Mexican",
+    "Vietnamese",
+    "Thai",
+    "Turkish",
+    "Korean",
+    "Italian",
+    "Japanese",
+    "French",
+    "Chinese",
+    "American",
+    "Brazilian",
+    "Indian",
+    "Greek",
+    "German",
+    "British",
+  ];
 
-  // Fetch recommendations when country changes
+  const loadingMessageKeys = [
+    "explorePage.loading.finding",
+    "explorePage.loading.searching",
+    "explorePage.loading.cooking",
+    "explorePage.loading.gathering",
+    "explorePage.loading.exploring",
+    "explorePage.loading.preparing",
+  ];
+  const [loadingMessage, setLoadingMessage] = useState("");
+
+  // cycle through loading messages
   useEffect(() => {
-    if (!selectedCountry || !userId) return;
-    
-    const fetchRecommendations = async () => {
-      setLoading(true);
-      try {
-        const response = await axios.get(`${API_BASE_URL}/explore/recommend/`, {
-          params: { country: selectedCountry },
-          headers: { 
-            Authorization: `Bearer ${token}`,
-            "X-User-ID": userId
-          }
-        });
+    if (!loading) return;
+    const pick = () =>
+      t(
+        loadingMessageKeys[
+          Math.floor(Math.random() * loadingMessageKeys.length)
+        ]
+      );
+    setLoadingMessage(pick());
+    const iv = setInterval(() => setLoadingMessage(pick()), 2000);
+    return () => clearInterval(iv);
+  }, [loading, t]);
 
-        const transformFoodData = (foods) => 
-          foods.map(foodStr => {
-            const food = JSON.parse(foodStr);
-            console.log(food._id)
-            return {
-              id: food._id,
-              name: food.name,
-              country: food.country || selectedCountry,
-              ingredients: food.ingredients || [],
-              ...(food.score && { score: Math.round(food.score * 100) / 100 }),
-              ...(food.similar_user_count && { similarUsers: food.similar_user_count }),
-              ...(food.average_rating && { rating: food.average_rating })
-            };
-          });
+  // fetch current user
+  useEffect(() => {
+    axiosInstance
+      .get("/auth/users/me")
+      .then((res) => {
+        const u = res.data?.data?.[0];
+        if (u) setUser(u);
+      })
+      .catch(console.error);
+  }, []);
 
+  // Parse strings or objects into a uniform food shape
+  const transformFoodData = (arr) =>
+    (arr || []).map((item) => {
+      let f;
+      if (typeof item === "string") {
+        try {
+          f = JSON.parse(item);
+        } catch (e) {
+          console.error("Parse error on", item, e);
+          f = {};
+        }
+      } else {
+        f = item;
+      }
+      return {
+        id: f._id || f.id,
+        name: f.name,
+        country: f.country || selectedCountry,
+        ingredients: f.ingredients || [],
+        score:
+          typeof f.score === "number"
+            ? Math.round(f.score * 100) / 100
+            : undefined,
+        rating: f.average_rating,
+        similarUsers: f.similar_user_count,
+        similarity: f.similarity,
+        url_id: f.url_id,
+        imageUrl: null,
+      };
+    });
+
+  // fetch recommendations when country or user changes
+  useEffect(() => {
+    if (!selectedCountry || !user?._id) return;
+    setLoading(true);
+
+    axiosInstance
+      .get(`${API_BASE_URL}/explore/recommend/`, {
+        params: { country: selectedCountry },
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "X-User-ID": user._id,
+        },
+      })
+      .then((res) => {
         setRecommendations({
-          personalized: transformFoodData(response.data.personalized_recommendations),
-          similar: transformFoodData(response.data.similar_users_recommendations)
+          personalized: transformFoodData(
+            res.data.personalized_recommendations
+          ),
+          similar: transformFoodData(res.data.similar_users_recommendations),
         });
         setError(null);
-      } catch (error) {
-        console.error("Fetch error:", error);
-        handleApiError(error);
+      })
+      .catch((err) => {
+        console.error(err);
+        const code = err.response?.status;
+        const msgs = {
+          401: t("errors.auth"),
+          403: t("errors.auth"),
+          500: t("errors.server"),
+          default: t("errors.generic"),
+        };
+        setError(msgs[code] || msgs.default);
         setRecommendations({ personalized: [], similar: [] });
-      } finally {
-        setLoading(false);
-      }
-    };
+      })
+      .finally(() => setTimeout(() => setLoading(false), 800));
+  }, [selectedCountry, user, token, t]);
 
-    fetchRecommendations();
-  }, [selectedCountry, userId, token, t]);
-
+  // handle “similar” searches
   const handleSimilarSearch = async (foodId) => {
-    if (!selectedCountry || !foodId) return;
-    
+    if (!selectedCountry || !foodId || !user?._id) return;
     setLoading(true);
     try {
-      const response = await axios.get(
-        `${API_BASE_URL}/explore/similar/${foodId}`, 
+      const res = await axiosInstance.get(
+        `${API_BASE_URL}/explore/similar/${foodId}`,
         {
           params: { country: selectedCountry },
-          headers: { 
+          headers: {
             Authorization: `Bearer ${token}`,
-            "X-User-ID": userId
-          }
+            "X-User-ID": user._id,
+          },
         }
       );
-
-      const transformFoodData = (foods) => 
-        foods.map(foodStr => ({
-          id: JSON.parse(foodStr)._id,
-          name: JSON.parse(foodStr).name,
-          country: JSON.parse(foodStr).country || selectedCountry,
-          ingredients: JSON.parse(foodStr).ingredients || [],
-          similarity: JSON.parse(foodStr).similarity
-        }));
-
-      setRecommendations(prev => ({
+      setRecommendations((prev) => ({
         ...prev,
-        similar: transformFoodData(response.data.results)
+        similar: transformFoodData(res.data.results),
       }));
       setError(null);
-    } catch (error) {
-      handleApiError(error);
+    } catch (err) {
+      console.error(err);
+      const code = err.response?.status;
+      const msgs = {
+        401: t("errors.auth"),
+        403: t("errors.auth"),
+        500: t("errors.server"),
+        default: t("errors.generic"),
+      };
+      setError(msgs[code] || msgs.default);
     } finally {
-      setLoading(false);
+      setTimeout(() => setLoading(false), 800);
     }
   };
+
+  // —— inline FoodItemCard —— 
+  const FoodItemCard = ({ food, type, onSimilarSearch }) => {
+    const [imgUrl, setImgUrl] = useState(
+      food.imageUrl || `${process.env.PUBLIC_URL}/default-food.png`
+    );
+    const [imgLoading, setImgLoading] = useState(true);
+
+    useEffect(() => {
+      const fetchSignedImageUrl = async () => {
+        try {
+          if (food.url_id) {
+            const { data } = await axios.get(
+              `${API_BASE_URL}/food/image/${food.url_id}`
+            );
+            if (data.image_url) {
+              setImgUrl(data.image_url);
+            }
+          }
+        } catch (error) {
+          console.error("Error fetching signed image URL:", error);
+        } finally {
+          setImgLoading(false);
+        }
+      };
+
+      fetchSignedImageUrl();
+    }, [food.url_id]);
+
+    return (
+      <Card
+        onClick={() => window.open(`/food/${food.id}`, "_blank")}  // ← new tab
+        variant="outlined"
+        sx={{
+          cursor: "pointer",
+          width: "100%",
+          maxWidth: 300,
+          height: 500,
+          display: "flex",
+          flexDirection: "column",
+          overflow: "hidden",
+          boxShadow: 3,
+          borderRadius: 2,
+          transition: "transform 0.3s, box-shadow 0.3s",
+          "&:hover": { transform: "translateY(-8px)", boxShadow: 6 },
+        }}
+      >
+      <CardHeader
+        title={food.name}
+        subheader={
+          type === "personalized"
+            ? `${t("explorePage.score")}: ${food.score?.toFixed(2)}`
+            : `${t("explorePage.rating")}: ${
+                food.rating?.toFixed(1) ?? t("explorePage.not_available")
+              }`
+        }
+        action={<CountryFlag country={food.country} />}
+        sx={{ height: 80, overflow: "hidden" }}
+        titleTypographyProps={{
+            sx: {
+            fontSize: "0.95rem",
+            fontWeight: "bold",
+            maxWidth: "calc(100% - 40px)",
+          },
+        }}
+        subheaderTypographyProps={{
+          noWrap: true,
+          sx: {
+            fontSize: "0.8rem",
+            maxWidth: "calc(100% - 40px)",
+          },
+        }}
+      />
+        <Box sx={{ height: 220, position: "relative" }}>
+          {imgLoading ? (
+            <Skeleton
+              variant="rectangular"
+              width="100%"
+              height="100%"
+              animation="wave"
+            />
+          ) : (
+            <CardMedia
+              component="img"
+              height="200"
+              image={imgUrl}
+              alt={food.name}
+              onLoad={() => setImgLoading(false)}
+              sx={{
+                objectFit: "cover",
+                transition: "transform 0.4s",
+                "&:hover": { transform: "scale(1.08)" },
+              }}
+            />
+          )}
+        </Box>
+        <CardContent sx={{ flexGrow: 1, overflow: "auto" }}>
+          <Typography variant="subtitle2" gutterBottom>
+            {t("explorePage.key_ingredients")}:
+          </Typography>
+          <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
+            {food.ingredients.slice(0, 5).map((ing, i) => (
+              <Chip key={i} label={ing} size="small" />
+            ))}
+            {food.ingredients.length > 5 && (
+              <Chip
+                label={t("explorePage.more_ingredients", {
+                  count: food.ingredients.length - 5,
+                })}
+                size="small"
+              />
+            )}
+          </Box>
+        </CardContent>
+        <CardActions sx={{ height: 60, justifyContent: "space-between" }}>
+          {type === "similar" && (
+            <Button
+              size="small"
+              variant="contained"
+              onClick={(e) => {
+                e.stopPropagation();
+                onSimilarSearch(food.id);
+              }}
+              sx={{ borderRadius: 4, boxShadow: 2, "&:hover": { boxShadow: 4 } }}
+            >
+              {t("explorePage.similar_to_this")}
+            </Button>
+          )}
+          <Box>
+            {food.similarity != null && (
+              <Typography variant="body2" color="text.secondary">
+                {t("explorePage.match")}:{" "}
+                {(food.similarity * 100).toFixed(1)}%
+              </Typography>
+            )}
+            {type === "similar" && food.similarUsers != null && (
+              <Typography variant="body2" color="text.secondary">
+                {t("explorePage.users_liked", {
+                  count: food.similarUsers,
+                })}
+              </Typography>
+            )}
+          </Box>
+        </CardActions>
+      </Card>
+    );
+  };
+  FoodItemCard.propTypes = {
+    food: PropTypes.object.isRequired,
+    type: PropTypes.oneOf(["personalized", "similar"]),
+    onSimilarSearch: PropTypes.func,
+  };
+
+  // skeleton loader
+  const LoadingPlaceholders = () => (
+    <Grid2 container spacing={4} justifyContent="center" sx={{ px: 2 }}>
+      {Array.from({ length: 4 }).map((_, i) => (
+        <Grid2
+          key={i}
+          item
+          xs={6}
+          sm={6}
+          md={3}
+          lg={3}
+          sx={{ display: "flex", justifyContent: "center" }}
+        >
+          <Card
+            sx={{
+              width: 320,
+              height: 400,
+              boxShadow: 2,
+              borderRadius: 2,
+            }}
+          >
+            <Box sx={{ p: 2 }}>
+              <Skeleton height={40} width="80%" animation="wave" />
+              <Skeleton height={20} width="50%" animation="wave" />
+            </Box>
+            <Skeleton
+              variant="rectangular"
+              height={200}
+              animation="wave"
+            />
+            <Box sx={{ p: 2, flexGrow: 1 }}>
+              <Skeleton height={30} width="60%" animation="wave" />
+              <Box
+                sx={{
+                  display: "flex",
+                  flexWrap: "wrap",
+                  gap: 0.5,
+                  mt: 1,
+                }}
+              >
+                <Skeleton height={24} width="25%" animation="wave" />
+                <Skeleton height={24} width="30%" animation="wave" />
+                <Skeleton height={24} width="20%" animation="wave" />
+              </Box>
+            </Box>
+            <Box sx={{ p: 2, height: 60 }}>
+              <Skeleton height={36} width="40%" animation="wave" />
+            </Box>
+          </Card>
+        </Grid2>
+      ))}
+    </Grid2>
+  );
 
   return (
     <>
       <Header />
-      <Hero />
-      
-      <ExploreContainer>
-        <Title>
-          <h1>{t("explore.title")}</h1>
-          <p>{t("explore.subtitle")}</p>
-        </Title>
+      <Box sx={{ mt: 8, maxWidth: 1440, mx: "auto", p: 2 }}>
+        {/* Title */}
+        <Box textAlign="center" mb={4}>
+          <Typography variant="h3">{t("explore")} 🌍</Typography>
+          <Typography>{t("exploreWriting")}</Typography>
+        </Box>
 
-        <CountryFilter>
-          <h3>{t("explore.select_country")}</h3>
-          <CountryBar>
-            {availableCountries.map((country) => (
-              <CountryButton
-                key={country}
-                $active={selectedCountry === country}
-                onClick={() => {
-                  setSelectedCountry(country);
-                  setRecommendations({ personalized: [], similar: [] });
-                  setError(null);
-                }}
-              >
-                {country}
-              </CountryButton>
+        {/* Country picker */}
+        <Box textAlign="center" mb={4}>
+          <Grid2 container spacing={1} justifyContent="center">
+            {availableCountries.map((c) => (
+              <Grid2 key={c} item>
+                <Button
+                  onClick={() => {
+                    setSelectedCountry(c);
+                    setError(null);
+                    setRecommendations({ personalized: [], similar: [] });
+                  }}
+                  variant={selectedCountry === c ? "contained" : "outlined"}
+                  sx={{
+                    width: 80,
+                    height: 50,
+                    p: 2,
+                    borderRadius: 2,
+                    backgroundImage: `url('/countries/${c}.png')`,
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                    color: "white",
+                    textShadow: "0 0 4px rgba(0,0,0,0.8)",
+                    fontWeight: "bold",
+                    "&:hover": {
+                      opacity: 0.9,
+                      transform: "scale(1.05)",
+                    },
+                    transition: "transform 0.2s",
+                  }}
+                />
+              </Grid2>
             ))}
-          </CountryBar>
-        </CountryFilter>
+          </Grid2>
+        </Box>
 
-        <ContentArea>
-          {loading ? (
-            <LoadingWrapper>
-              <LoadingSpinner />
-              <p>{t("explore.loading")}</p>
-            </LoadingWrapper>
-          ) : error ? (
-            <ErrorMessage>{error}</ErrorMessage>
-          ) : (
+        {/* Main content */}
+        <Box minHeight={400} position="relative">
+          {loading && (
+            <Fade in>
+              <Box>
+                <Box textAlign="center" mb={4}>
+                  <CircularProgress size={60} />
+                  <Typography variant="h6" mt={2}>
+                    {loadingMessage}
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    color="text.secondary"
+                    mt={1}
+                  >
+                    {t("explorePage.loading.searching_cuisine", {
+                      country: selectedCountry || t("explorePage.global"),
+                    })}
+                  </Typography>
+                </Box>
+                <LoadingPlaceholders />
+              </Box>
+            </Fade>
+          )}
+
+          {!loading && error && (
+            <Alert
+              severity="error"
+              variant="filled"
+              sx={{ mx: "auto", maxWidth: 600, my: 2 }}
+            >
+              {error}
+            </Alert>
+          )}
+
+          {!loading && !error && (
             <>
-              {recommendations.personalized.length > 0 && (
-                <Section>
-                  <SectionTitle>Personalized Recommendations</SectionTitle>
-                  <FoodGrid>
-                    {recommendations.personalized.map((food) => (
-                      <FoodItemCard 
-                        key={food.id} 
-                        food={food}
-                        type="personalized"
-                      />
+              {/* Personalized */}
+              {recommendations.personalized.length > 0 ? (
+                <Box mb={4}>
+                  <Typography variant="h5" gutterBottom>
+                    {t("PersonalizedRecommendations")}
+                  </Typography>
+                  <Grid2
+                    container
+                    spacing={2}
+                    justifyContent="center"
+                    sx={{ px: 2 }}
+                  >
+                    {recommendations.personalized.map((f) => (
+                      <Grid2
+                        key={f.id}
+                        item
+                        xs={6}
+                        sm={6}
+                        md={3}
+                        lg={3}
+                        sx={{ display: "flex" }}
+                      >
+                        <FoodItemCard food={f} type="personalized" />
+                      </Grid2>
                     ))}
-                  </FoodGrid>
-                </Section>
+                  </Grid2>
+                </Box>
+              ) : (
+                selectedCountry && (
+                  <Typography
+                    textAlign="center"
+                    color="text.secondary"
+                    py={4}
+                  >
+                    {t("explorePage.no_foods", {
+                      country: selectedCountry,
+                    })}
+                  </Typography>
+                )
               )}
 
-              {!loading && recommendations.personalized.length === 0 && (
-                <EmptyState>
-                  <p>{t("explore.no_foods", { country: selectedCountry })}</p>
-                </EmptyState>
-              )}
-
+              {/* Similar */}
               {recommendations.similar.length > 0 && (
-                <Section>
-                  <SectionTitle>Foods You May Like</SectionTitle>
-                  <SimilarFoodsGrid>
-                    {recommendations.similar.map((food) => (
-                      <FoodItemCard 
-                        key={food.id}
-                        food={food}
-                        type="similar"
-                        onSimilarSearch={() => handleSimilarSearch(food.id)}
+                <Box mb={4}>
+                  <Typography variant="h5" gutterBottom>
+                    {t("FoodsYouMayLike")}
+                  </Typography>
+                  <Grid2
+                    container
+                    spacing={2}
+                    justifyContent="center"
+                    sx={{
+                      backgroundColor: "#f8f9fa",
+                      borderRadius: 2,
+                      p: 2,
+                      px: 2,
+                    }}
+                  >
+                    {recommendations.similar.map((f) => (
+                      <Grid2
+                        key={f.id}
+                        item
+                        xs={6}
+                        sm={6}
+                        md={3}
+                        lg={3}
+                        sx={{ display: "flex" }}
+                      >
+                        <FoodItemCard
+                          food={f}
+                          type="similar"
+                          onSimilarSearch={handleSimilarSearch}
                         />
+                      </Grid2>
                     ))}
-                  </SimilarFoodsGrid>
-                </Section>
+                  </Grid2>
+                </Box>
               )}
             </>
           )}
-        </ContentArea>
-
-      </ExploreContainer>
-
+        </Box>
+      </Box>
       <Footer />
     </>
   );
 };
 
-const FoodItemCard = ({ food, type, onSimilarSearch }) => {
-  const [imageUrl, setImageUrl] = useState(null);
-  const navigate = useNavigate(); // Added navigate hook
-
-  useEffect(() => {
-    let isMounted = true;
-    const fetchSignedImageUrl = async () => {
-      try {
-        if (food.url_id) {
-          const response = await axios.get(
-            `http://localhost:8000/food/image/${food.url_id}`
-          );
-          if (isMounted) setImageUrl(response.data.image_url);
-        }
-      } catch (error) {
-        if (isMounted) console.error("Error fetching signed image URL:", error);
-      }
-    };
-    fetchSignedImageUrl();
-    return () => { isMounted = false };
-  }, [food.url_id]);
-
-  const handleSimilarClick = (e) => {
-    e.stopPropagation();
-    onSimilarSearch(food.id);
-  };
-
-  return (
-    <FoodCard 
-      $type={type} 
-      onClick={() => navigate(`/food/${food.id}`)} // Added click handler
-      style={{ cursor: "pointer" }}
-    >
-      {imageUrl && (
-        <FoodImage>
-          <img src={imageUrl} alt={food.name} />
-        </FoodImage>
-      )}
-      <FoodHeader>
-        <div>
-          <h3>{food.name}</h3>
-          {type === 'personalized' && (
-            <Score>Relevance Score: {food.score?.toFixed(2)}</Score>
-          )}
-          {type === 'similar' && (
-            <SimilarityInfo>
-              <div>Recommended by {food.similarUsers} users</div>
-              <div>Average Rating: {food.rating?.toFixed(1)}</div>
-            </SimilarityInfo>
-          )}
-        </div>
-        <CountryFlag country={food.country} />
-      </FoodHeader>
-      
-      <Details>
-        <Ingredients>
-          <h4>Key Ingredients:</h4>
-          <IngredientList>
-            {food.ingredients.slice(0, 5).map((ingredient, index) => (
-              <IngredientPill key={index}>
-                {ingredient}
-              </IngredientPill>
-            ))}
-            {food.ingredients.length > 5 && (
-              <MoreIngredients>
-                +{food.ingredients.length - 5} more
-              </MoreIngredients>
-            )}
-          </IngredientList>
-        </Ingredients>
-
-        {/* Add Similar button and similarity score below ingredients */}
-        <ActionContainer>
-          {type === 'similar' && (
-            <ActionButton onClick={handleSimilarClick}>
-              🔍 Similar to This
-            </ActionButton>
-          )}
-          
-          {food.similarity && (
-            <SimilarityScore>
-              Match: {(food.similarity * 100).toFixed(1)}%
-            </SimilarityScore>
-          )}
-        </ActionContainer>
-      </Details>
-    </FoodCard>
-  );
-};
-// Update the CountryFlag component implementation
 const CountryFlag = ({ country }) => {
+  // Could be more robust, but these are examples
   const flagMap = {
     korean: "🇰🇷",
     mexican: "🇲🇽",
@@ -315,284 +584,25 @@ const CountryFlag = ({ country }) => {
     spanish: "🇪🇸",
     american: "🇺🇸",
     brazilian: "🇧🇷",
-    vietnamese: "🇻🇳"
+    vietnamese: "🇻🇳",
+    greek: "🇬🇷",
+    german: "🇩🇪",
+    british: "🇬🇧",
+    indian: "🇮🇳",
   };
-
+  const lower = String(country).toLowerCase();
+  const symbol = flagMap[lower] || "🌍";
   return (
-    <Flag>
-      {flagMap[country.toLowerCase()] || "🌍🍲"}
-      <span>{country}</span>
-    </Flag>
+    <Box sx={{ display: "flex", alignItems: "center", height: 24 }}>
+      <Typography variant="body2" fontSize="1.25rem">
+        {symbol}
+      </Typography>
+    </Box>
   );
 };
 
-// Styled Components
-
-FoodItemCard.propTypes = {
-  food: PropTypes.object.isRequired,
-  type: PropTypes.oneOf(['personalized', 'similar']),
-  onSimilarSearch: PropTypes.func
+CountryFlag.propTypes = {
+  country: PropTypes.string,
 };
-
-const ActionContainer = styled.div`
-  margin-top: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-`;
-
-const ActionButton = styled.button`
-  background: ${({ theme }) => theme?.colors?.primary || "#FF6B6B"};
-  color: white;
-  &:hover {
-    background: ${({ theme }) => theme?.colors?.primaryDark || "#EE5D5D"};
-  }
-`;
-
-const SimilarityScore = styled.div`
-  color: ${({ theme }) => theme?.colors?.secondary || "#4ECDC4"};
-`;
-const ExploreContainer = styled.div`
-  padding: 2rem;
-  max-width: 1440px;
-  margin: 0 auto;
-`;
-
-const Title = styled.div`
-  text-align: center;
-  margin-bottom: 3rem;
-  
-  h1 {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-    color: #2c3e50;
-  }
-  
-  p {
-    color: #7f8c8d;
-    font-size: 1.1rem;
-    max-width: 600px;
-    margin: 0 auto;
-  }
-`;
-
-const CountryFilter = styled.div`
-  margin-bottom: 3rem;
-  
-  h3 {
-    text-align: center;
-    margin-bottom: 1.5rem;
-    font-size: 1.2rem;
-    color: #34495e;
-  }
-`;
-
-const CountryBar = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  justify-content: center;
-  max-width: 1000px;
-  margin: 0 auto;
-`;
-
-const CountryButton = styled.button`
-  background: ${({ $active }) => $active ? "#3498db" : "#ecf0f1"};
-  border: 2px solid ${({ $active }) => $active ? "#2980b9" : "#bdc3c7"};
-  color: ${({ $active }) => $active ? "white" : "#2c3e50"};
-  padding: 0.8rem 1.5rem;
-  border-radius: 50px;
-  font-weight: 600;
-  transition: all 0.2s ease;
-  cursor: pointer;
-  
-  &:hover {
-    transform: scale(1.05);
-    background: ${({ $active }) => $active ? "#2980b9" : "#dfe6e9"};
-  }
-`;
-
-const ContentArea = styled.div`
-  min-height: 500px;
-  position: relative;
-`;
-
-const Section = styled.div`
-  margin-bottom: 3rem;
-`;
-
-const SectionTitle = styled.h2`
-  font-size: 1.5rem;
-  color: #2c3e50;
-  border-bottom: 2px solid #3498db;
-  padding-bottom: 0.5rem;
-  margin-bottom: 2rem;
-`;
-
-const FoodGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 2rem;
-  margin-bottom: 3rem;
-`;
-
-const SimilarFoodsGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1.5rem;
-  background: #f8f9fa;
-  padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-`;
-
-const FoodCard = styled.div`
-  background: white;
-  border-radius: 12px;
-  padding: 1.5rem;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-  transition: transform 0.2s ease;
-  
-  ${({ $type }) => $type === 'similar' && `
-    background: #fdfdfd;
-    border-left: 4px solid #3498db;
-  `}
-
-  &:hover {
-    transform: translateY(-3px);
-  }
-`;
-
-
-const FoodHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
-
-  h3 {
-    margin: 0;
-    font-size: 1.2rem;
-    color: #333;
-  }
-`;
-
-const Flag = styled.div`
-  font-size: 1.5rem;
-  span {
-    margin-left: 0.5rem;
-    font-size: 0.9rem;
-    color: #666;
-  }
-`;
-
-const Details = styled.div`
-  border-top: 1px solid #eee;
-  padding-top: 1rem;
-`;
-
-const Score = styled.div`
-  color: #4CAF50;
-  font-weight: bold;
-  margin-bottom: 0.5rem;
-`;
-
-const Ingredients = styled.div`
-  h4 {
-    margin: 0 0 0.5rem 0;
-    font-size: 0.9rem;
-    color: #666;
-  }
-
-  ul {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-  }
-
-  li {
-    background: #f5f5f5;
-    padding: 0.3rem 0.6rem;
-    border-radius: 15px;
-    font-size: 0.8rem;
-  }
-`;
-
-const IngredientList = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-`;
-
-const IngredientPill = styled.div`
-  background: #f0f0f0;
-  padding: 0.3rem 0.8rem;
-  border-radius: 15px;
-  font-size: 0.85rem;
-  color: #555;
-`;
-
-const MoreIngredients = styled(IngredientPill)`
-  background: #e0e0e0;
-  cursor: pointer;
-  &:hover {
-    background: #d0d0d0;
-  }
-`;
-const LoadingWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-`;
-
-const ErrorMessage = styled.div`
-  color: #dc3545;
-  text-align: center;
-  padding: 2rem;
-  background: #fff5f5;
-  border-radius: 8px;
-  margin: 2rem auto;
-  max-width: 600px;
-`;
-
-const EmptyState = styled.div`
-  text-align: center;
-  padding: 3rem;
-  color: #666;
-  font-size: 1.2rem;
-`;
-const SimilarityInfo = styled.div`
-  font-size: 0.9rem;
-  color: #7f8c8d;
-  div {
-    margin: 0.3rem 0;
-  }
-`;
-const FoodImage = styled.div`
-  height: 200px;
-  border-radius: 8px 8px 0 0;
-  overflow: hidden;
-  margin-bottom: 1rem;
-  
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-  }
-
-  &:hover img {
-    transform: scale(1.05);
-  }
-`;
-
 
 export default Explore;

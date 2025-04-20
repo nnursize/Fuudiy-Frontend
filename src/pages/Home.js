@@ -8,11 +8,18 @@ import styled from "styled-components";
 import "../index.css";
 import { useTranslation } from "react-i18next";
 
-const CategorySection = styled.section`
+const PageContainer = styled.div`
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  padding: 2rem;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+`;
+
+const MainContent = styled.div`
+  paddingTop: 10px;
+  flex: 1 0 auto;
+  paddingBottom: 0;
 `;
 
 const Title = styled.div`
@@ -32,18 +39,19 @@ const FoodSection = styled.section`
 `;
 
 const Home = () => {
-  const [foods, setFoods] = useState([]);
+  const [topFoods, setTopFoods] = useState([]);
+  const [topFoodsCountry, setTopFoodsCountry] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const { t } = useTranslation("global");
 
   useEffect(() => {
-    let isMounted = true; // Prevent memory leaks
+    let isMounted = true;
 
     const fetchFoods = async () => {
       try {
         setLoading(true);
-        const response = await axios.get("http://localhost:8000/food", {
+        const response = await axios.get("http://localhost:8000/food/top-5-foods", {
           headers: { "Cache-Control": "no-cache" },
         });
 
@@ -51,7 +59,19 @@ const Home = () => {
           if (response.data.length === 0) {
             setError("No food items found.");
           } else {
-            setFoods(response.data);
+            setTopFoods(response.data);
+          }
+        }
+
+        const response_by_country = await axios.get("http://localhost:8000/food/top-foods-by-country", {
+          headers: { "Cache-Control": "no-cache" },
+        });
+
+        if (isMounted) {
+          if (response_by_country.data.length === 0) {
+            setError("No food items found.");
+          } else {
+            setTopFoodsCountry(response_by_country.data);
           }
         }
       } catch (error) {
@@ -69,30 +89,47 @@ const Home = () => {
     fetchFoods();
 
     return () => {
-      isMounted = false; // Cleanup function
+      isMounted = false;
     };
   }, []);
 
   return (
-    <>
+    <PageContainer>
       <Header />
-      <Hero />
-      <Title>
-        <h2>{t("trendingFoods")}</h2>
+      {/* Main Content */}
+      <MainContent>
+        <Hero />
+        <Title>
+          <h2>{t("topFoods")}</h2>
+        </Title>
         <FoodSection>
           {loading ? (
             <p>Loading food items...</p>
           ) : error ? (
             <p style={{ color: "red" }}>{error}</p>
-          ) : foods.length > 0 ? (
-            foods.map((food) => <FoodItemCard key={food.id} food={food} />)
+          ) : topFoods.length > 0 ? (
+            topFoods.map((food) => <FoodItemCard key={food.id} food={food} />)
           ) : (
             <p>No food items available.</p>
           )}
         </FoodSection>
-      </Title>
+        <Title>
+          <h2>{t("topFoodsCountry")}</h2>
+        </Title>
+        <FoodSection>
+          {loading ? (
+            <p>Loading food items...</p>
+          ) : error ? (
+            <p style={{ color: "red" }}>{error}</p>
+          ) : topFoodsCountry.length > 0 ? (
+            topFoodsCountry.map((food) => <FoodItemCard key={food.id} food={food} />)
+          ) : (
+            <p>No food items available.</p>
+          )}
+        </FoodSection>
+      </MainContent>
       <Footer />
-    </>
+    </PageContainer>
   );
 };
 
