@@ -81,6 +81,7 @@
   "noConnectionsYet": "No connections yet.",
   "connectionRequests": "Connection Requests",
   "noRequests": "No connection requests.",
+  "requestPending": "Request Pending",
   "Unknown": "Unknown",
   "errors": {
     "invalid_email": "Please enter a valid email address",

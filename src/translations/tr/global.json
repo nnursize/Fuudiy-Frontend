@@ -82,6 +82,7 @@
   "noConnectionsYet": "Henüz bağlantı yok.",
   "connectionRequests": "Bağlantı İstekleri",
   "noRequests": "Bağlantı isteği yok.",
+  "requestPending": "İstek bekleniyor",
   "Unknown": "Bilinmiyor",
   "errors": {
   "invalid_email": "Lütfen geçerli bir e-posta adresi girin",
