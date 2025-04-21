@@ -94,15 +94,6 @@ const Footer = () => {
         >
           {t('aboutUs')}
         </Typography>
-
-        <Typography
-          variant="body2"
-          component="a"
-          href="#"
-          sx={{ color: "#333", textDecoration: "none", cursor: "pointer", marginLeft: "20px" }}
-        >
-          {t('siteMap')}
-        </Typography>
       </Box>
       
       {/* Footer Bottom */}

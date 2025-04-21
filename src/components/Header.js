@@ -1,4 +1,9 @@
-import React, { useState, useEffect, useCallback, useRef } from "react";
+import React, {
+  useState,
+  useEffect,
+  useCallback,
+  useRef
+} from "react";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -53,12 +58,12 @@ const Header = () => {
       const expiryTime = payload.exp * 1000;
       setTokenExpiryTime(expiryTime);
       return expiryTime < Date.now();
-    } catch (error) {
+    } catch {
       return true;
     }
   }, []);
 
-  // Refresh token function
+  // Refresh token
   const refreshToken = async () => {
     try {
       const token = localStorage.getItem("accessToken");
@@ -72,6 +77,7 @@ const Header = () => {
     }
   };
 
+  // Click‑outside handler
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (
@@ -80,7 +86,6 @@ const Header = () => {
       ) {
         setShowRequestsPanel(false);
       }
-  
       if (
         !e.target.closest(".profile-dropdown") &&
         !e.target.closest(".MuiAvatar-root")
@@ -88,13 +93,12 @@ const Header = () => {
         setShowDropdown(false);
       }
     };
-  
     document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    return () =>
+      document.removeEventListener("mousedown", handleClickOutside);
   }, []);
-  
 
-  // Check login status and fetch user data
+  // Fetch auth status & requests
   useEffect(() => {
     const checkAuthStatus = async () => {
       const token = localStorage.getItem("accessToken");
@@ -103,17 +107,12 @@ const Header = () => {
         cleanupAuth();
         return;
       }
-
       if (checkTokenExpiration()) {
-        // Token is expired, show refresh popup if not already shown
-        if (!showRefreshPopup) {
-          setShowRefreshPopup(true);
-        }
+        if (!showRefreshPopup) setShowRefreshPopup(true);
         return;
       }
-
       try {
-        const response = await axiosInstance.get("/auth/users/me");
+        const resp = await axiosInstance.get("/auth/users/me");
         setIsLoggedIn(true);
         setUserData(response.data.data[0]);
         try {
@@ -168,32 +167,28 @@ const Header = () => {
         if (error.response?.status === 401) {
           cleanupAuth();
           navigate("/login");
+        } else {
+          console.warn("Failed to fetch incoming requests:", err);
         }
       }
     };
 
     checkAuthStatus();
-
-    // Set up periodic check (every minute)
     const interval = setInterval(checkAuthStatus, 60 * 1000);
     return () => clearInterval(interval);
   }, [checkTokenExpiration, navigate, showRefreshPopup]);
 
-  // Set up timeout for token expiration warning
+  // Token‑expiry warning
   useEffect(() => {
     if (!tokenExpiryTime) return;
-
-    const timeUntilExpiry = tokenExpiryTime - Date.now();
-    const warningTime = 5 * 60 * 1000; // 5 minutes before expiry
-
-    if (timeUntilExpiry > warningTime) {
+    const timeUntil = tokenExpiryTime - Date.now();
+    const warning = 5 * 60 * 1000;
+    if (timeUntil > warning) {
       const timeout = setTimeout(() => {
         setShowRefreshPopup(true);
-      }, timeUntilExpiry - warningTime);
-
+      }, timeUntil - warning);
       return () => clearTimeout(timeout);
-    } else if (timeUntilExpiry > 0) {
-      // If we're already within warning period
+    } else if (timeUntil > 0) {
       setShowRefreshPopup(true);
     }
   }, [tokenExpiryTime]);
@@ -208,52 +203,47 @@ const Header = () => {
   };
 
   const handleStayLoggedIn = async () => {
-    const success = await refreshToken();
-    if (!success) {
+    const ok = await refreshToken();
+    if (!ok) {
       cleanupAuth();
       navigate("/login");
     }
     setShowRefreshPopup(false);
   };
-
   const handleForceLogout = () => {
     cleanupAuth();
     navigate("/login");
   };
 
-  const changeLanguage = (lng) => {
-    i18n.changeLanguage(lng).catch((err) =>
-      console.error("Language switch failed:", err)
-    );
-  };
+  const changeLanguage = (lng) =>
+    i18n.changeLanguage(lng).catch(console.error);
 
   const handleRequestResponse = async (connectionId, status) => {
     try {
-      console.log("connection id: ", connectionId);
-  
       if (status === "rejected") {
-        await axiosInstance.delete(`/connections/remove-by-id/${connectionId}`);
+        await axiosInstance.delete(
+          `/connections/remove-by-id/${connectionId}`
+        );
       } else {
         await axiosInstance.put(`/connections/update-status`, {
           connection_id: connectionId,
-          status
+          status,
         });
       }
-  
       setPendingRequests((prev) =>
-        prev.filter((req) => req._id !== connectionId)
+        prev.filter((r) => r._id !== connectionId)
       );
-      setPendingRequestCount((prev) => Math.max(prev - 1, 0));
+      setPendingRequestCount((c) => Math.max(c - 1, 0));
     } catch (err) {
       console.error(`Failed to ${status} connection:`, err);
     }
-  };  
+  };
 
   const handleLogout = async () => {
     try {
       await axiosInstance.post("/auth/logout");
-    } catch (error) {
-      console.error("Logout error:", error);
+    } catch (err) {
+      console.error("Logout error:", err);
     } finally {
       cleanupAuth();
     }
@@ -265,13 +255,8 @@ const Header = () => {
     }
   };
 
-  const toggleDropdown = () => {
-    setShowDropdown((prev) => !prev);
-  };
-
-  const handleLogoClick = () => {
-    navigate("/");
-  };
+  const toggleDropdown = () => setShowDropdown((d) => !d);
+  const handleLogoClick = () => navigate("/");
 
   return (
     <>
@@ -280,8 +265,9 @@ const Header = () => {
           <Logo onClick={handleLogoClick}>Fuudiy</Logo>
           <NavLinks>
             <Link to="/">{t("home")}</Link>
-            {/* Only show Explore link if user is logged in */}
-            {isLoggedIn && <Link to="/explore">{t("explore")}</Link>}
+            {isLoggedIn && (
+              <Link to="/explore">{t("explore")}</Link>
+            )}
           </NavLinks>
           <RightSection>
             <LanguageSwitcher
@@ -291,18 +277,104 @@ const Header = () => {
               fontSize="0.8rem"
             />
 
-<div ref={heartRef} style={{ position: "relative" }}>
-            <Badge badgeContent={pendingRequestCount} color="error">
-              <FavoriteIcon 
-                sx={{ cursor: "pointer", fontSize: 28, color: "#aaa" }} 
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setShowRequestsPanel((prev) => !prev);
-                  setShowDropdown(false);
-                }}
-              />
-            </Badge>
-          </div>
+            {isLoggedIn ? (
+              <>
+                <div
+                  ref={heartRef}
+                  style={{ position: "relative" }}
+                >
+                  <Badge
+                    badgeContent={pendingRequestCount}
+                    color="error"
+                  >
+                    <FavoriteIcon
+                      sx={{
+                        cursor: "pointer",
+                        fontSize: 28,
+                        color: "#aaa",
+                      }}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setShowRequestsPanel(
+                          (prev) => !prev
+                        );
+                        setShowDropdown(false);
+                      }}
+                    />
+                  </Badge>
+
+                  {showRequestsPanel && (
+                    <RequestsPanel>
+                      <strong>
+                        {t("connectionRequests")}
+                      </strong>
+                      {pendingRequests.length === 0 ? (
+                        <p
+                          style={{
+                            fontSize: "0.9rem",
+                            marginTop: 8,
+                          }}
+                        >
+                          {t("noRequests")}
+                        </p>
+                      ) : (
+                        pendingRequests.map(
+                          (req, i) => (
+                            <RequestItem key={i}>
+                              <div>
+                                <span
+                                  style={{
+                                    color: "#000",
+                                    cursor: "pointer",
+                                    fontWeight: 500,
+                                    textDecoration:
+                                      "underline",
+                                  }}
+                                  onClick={() =>
+                                    navigate(
+                                      `/profile/${req.from_username}`
+                                    )
+                                  }
+                                >
+                                  {req.from_username ||
+                                    t("Unknown")}
+                                </span>
+                                <br />
+                                <RequestMeta>
+                                  {new Date(
+                                    req.created_at
+                                  ).toLocaleString()}
+                                </RequestMeta>
+                              </div>
+                              <RequestButtons>
+                                <button
+                                  onClick={() =>
+                                    handleRequestResponse(
+                                      req._id,
+                                      "accepted"
+                                    )
+                                  }
+                                >
+                                  ✓
+                                </button>
+                                <button
+                                  onClick={() =>
+                                    handleRequestResponse(
+                                      req._id,
+                                      "rejected"
+                                    )
+                                  }
+                                >
+                                  ✕
+                                </button>
+                              </RequestButtons>
+                            </RequestItem>
+                          )
+                        )
+                      )}
+                    </RequestsPanel>
+                  )}
+                </div>
 
             {isLoggedIn ? (
               <ProfileContainer>
@@ -345,40 +417,6 @@ const Header = () => {
         </HeaderContainer>
       </HeaderWrapper>
 
-      {showRequestsPanel && (
-        <RequestsPanel>
-          <strong>{t("connectionRequests")}</strong>
-          {pendingRequests.length === 0 ? (
-            <p style={{ fontSize: "0.9rem", marginTop: 8 }}>{t("noRequests")}</p>
-          ) : (
-            pendingRequests.map((req, index) => (
-              <RequestItem key={index}>
-                <div>
-                  <span
-                    style={{
-                      color: "#000", // black text
-                      cursor: "pointer",
-                      fontWeight: 500,
-                      textDecoration: "underline", // optional for indicating it's clickable
-                    }}
-                    onClick={() => navigate(`/profile/${req.from_username}`)}
-                  >
-                    {req.from_username || t("Unknown")}
-                  </span>
-                  <br />
-                  <RequestMeta>{new Date(req.created_at).toLocaleString()}</RequestMeta>
-                </div>
-                <RequestButtons>
-                  <button onClick={() => handleRequestResponse(req._id, "accepted")}>✓</button>
-                  <button onClick={() => handleRequestResponse(req._id, "rejected")}>✕</button>
-                </RequestButtons>
-              </RequestItem>
-
-            ))
-          )}
-        </RequestsPanel>
-      )}
-      
       <LogoutPopup
         open={showLogoutPopup}
         onClose={() => setShowLogoutPopup(false)}
@@ -396,7 +434,6 @@ const Header = () => {
 
 export default Header;
 
-// Added a wrapper to handle the fixed positioning
 const HeaderWrapper = styled.div`
   position: fixed;
   top: 0;

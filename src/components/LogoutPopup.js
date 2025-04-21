@@ -9,10 +9,21 @@ import {
   Button,
   useTheme,
 } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 const LogoutPopup = ({ open, onClose, onLogout }) => {
+  const navigate = useNavigate();
   const theme = useTheme();
   const { t } = useTranslation("global");
+
+  const handleConfirmLogout = async () => {
+    // first perform whatever cleanup your onLogout prop does
+    await onLogout();
+    // then close the dialog
+    onClose();
+    // finally redirect to home
+    navigate("/");
+  };
 
   return (
     <Dialog
@@ -28,7 +39,10 @@ const LogoutPopup = ({ open, onClose, onLogout }) => {
         },
       }}
     >
-      <DialogTitle id="logout-dialog-title" sx={{ color: theme.palette.text.primary }}>
+      <DialogTitle
+        id="logout-dialog-title"
+        sx={{ color: theme.palette.text.primary }}
+      >
         {t("confirmLogout")}
       </DialogTitle>
       <DialogContent>
@@ -47,24 +61,25 @@ const LogoutPopup = ({ open, onClose, onLogout }) => {
             color: theme.palette.text.primary,
             '&:hover': {
               backgroundColor: theme.palette.action.selected,
-            }}}
-          >
-            {t("cancel")}
+            },
+          }}
+        >
+          {t("cancel")}
         </Button>
         <Button
-            onClick={onLogout}
-            sx={{
-              backgroundColor: theme.palette.error.light,
-              color: theme.palette.error.contrastText,
-              '&:hover': {
-                backgroundColor: theme.palette.error.main,
-              },
-            }}
-            variant="contained"
+          onClick={handleConfirmLogout}
+          variant="contained"
+          sx={{
+            backgroundColor: theme.palette.error.light,
+            color: theme.palette.error.contrastText,
+            '&:hover': {
+              backgroundColor: theme.palette.error.main,
+            },
+          }}
         >
-            {t("logout")}
+          {t("logout")}
         </Button>
-        </DialogActions>
+      </DialogActions>
     </Dialog>
   );
 };

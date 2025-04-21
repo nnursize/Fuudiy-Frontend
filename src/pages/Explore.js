@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import axiosInstance from "../axiosInstance";
-import axios from "axios"; // ← add this
+import axios from "axios";
 import {
   Box,
   Typography,
@@ -153,7 +153,6 @@ const Explore = () => {
       .get(`${API_BASE_URL}/explore/recommend/`, {
         params: { country: selectedCountry, diet: selectedDiet},
         headers: {
-          Authorization: `Bearer ${token}`,
           "X-User-ID": user._id,
         },
       })
@@ -190,11 +189,10 @@ const Explore = () => {
     setLoading(true);
     try {
       const res = await axiosInstance.get(
-        `${API_BASE_URL}/explore/similar/${foodId}`,
+        `/explore/similar/${foodId}`,  // Remove API_BASE_URL prefix
         {
           params: { country: selectedCountry, diet: selectedDiet },
           headers: {
-            Authorization: `Bearer ${token}`,
             "X-User-ID": user._id,
           },
         }
@@ -325,9 +323,13 @@ const Explore = () => {
             {t("explorePage.key_ingredients")}:
           </Typography>
           <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
-            {food.ingredients.slice(0, 5).map((ing, i) => (
-              <Chip key={i} label={ing} size="small" />
-            ))}
+            {food.ingredients.slice(0, 5).map((ing, i) => {
+              const normalizedIngredient = ing.toLowerCase().replace(/\s+/g, '');
+              
+              return (
+                <Chip key={i} label={t(`food_ingredients.${normalizedIngredient}`).toLowerCase()} size="small" />
+              );
+            })}
             {food.ingredients.length > 5 && (
               <Chip
                 label={t("explorePage.more_ingredients", {
