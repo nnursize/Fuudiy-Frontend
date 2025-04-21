@@ -7,7 +7,7 @@ import { Box, Button, Typography } from '@mui/material';
 import LanguageSwitcher from '../components/LanguageSwitcher';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from "react-router-dom";
-
+import axiosInstance from "../axiosInstance";
 const Survey = () => {
     const { t, i18n } = useTranslation("global");
     const [questions, setQuestions] = useState([]);
@@ -18,6 +18,19 @@ const Survey = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
+
+        const fetchUserData = async () => {
+            try {
+              const response = await axiosInstance.get("/auth/users/me");
+              if (response.data.data[0].survey_completed) {
+                navigate("/"); // redirect away if already completed
+              }
+            } catch (err) {
+              console.error("Could not verify user survey status", err);
+            }
+          };
+        
+          fetchUserData();
         const fetchQuestions = async () => {
             try {
                 const response = await fetch('/questions.json');

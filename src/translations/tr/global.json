@@ -7,9 +7,9 @@
   "remember_me": "Beni Hatırla",
   "forgot_password": "Şifreni mi unuttun?",
   "send_reset_link": "Sıfırlama linki gönder",
-  "reset_password":"Şifreyi değiştir",
-  "new_password":"Yeni şifre",
-  "confirm_password":"Şifreyi doğrula",
+  "reset_password": "Şifreyi değiştir",
+  "new_password": "Yeni şifre",
+  "confirm_password": "Şifreyi doğrula",
   "no_account": "Hesabım yok",
   "have_account": "Hesabım var",
   "agree_terms": "Şartları kabul ediyorum",
@@ -58,12 +58,11 @@
   "removeFromList": "Listenden Çıkar",
   "allergies": "Alerjiler",
   "noComments": "Bu yemek için daha yorum yapılmadı",
-  "loginRequired":{ 
+  "loginRequired": {
     "toComment": "Yorum eklemek için giriş yapmalısınız",
     "toView": "Kullanıcı profili görüntülemek için giriş yapmalısınız",
-    "default":"Bu özelliği kullanabilmek için giriş yapmalısınız"
+    "default": "Bu özelliği kullanabilmek için giriş yapmalısınız"
   },
-  
   "pleaseLoginTo": "Lütfen giriş yapın",
   "wannaTryFoods": "Denemek İstediklerim",
   "noWannaTryFoods": "Listede henüz hiç yemek yok.",
@@ -84,13 +83,13 @@
   "noRequests": "Bağlantı isteği yok.",
   "Unknown": "Bilinmiyor",
   "errors": {
-  "invalid_email": "Lütfen geçerli bir e-posta adresi girin",
-  "weak_password": "Şifre en az 8 karakter olmalıdır",
-  "invalid_username": "Kullanıcı adı 3-20 karakter arasında olmalıdır",
-  "validation_error": "Lütfen formdaki hataları düzeltin",
-  "network_error": "Ağ hatası. Lütfen tekrar deneyin.",
-  "google_not_registered": "Hesabınız bulunamadı. Lütfen önce kayıt olun...",
-  "google_already_registered": "Bu email ile zaten kayıtlısınız. Giriş sayfasına yönlendiriliyorsunuz..."
+    "invalid_email": "Lütfen geçerli bir e-posta adresi girin",
+    "weak_password": "Şifre en az 8 karakter olmalıdır",
+    "invalid_username": "Kullanıcı adı 3-20 karakter arasında olmalıdır",
+    "validation_error": "Lütfen formdaki hataları düzeltin",
+    "network_error": "Ağ hatası. Lütfen tekrar deneyin.",
+    "google_not_registered": "Hesabınız bulunamadı. Lütfen önce kayıt olun...",
+    "google_already_registered": "Bu email ile zaten kayıtlısınız. Giriş sayfasına yönlendiriliyorsunuz..."
   },
   "exploreWriting": "Merhaba sayın kullanıcı! Gelişmiş yemek önerilerimizi görmek için önce aşağıdaki ülkelerden istediğinizi seçiniz.",
   "PersonalizedRecommendations": "Kişiselleştirilmiş Öneriler",
@@ -119,22 +118,35 @@
   "searching": "Aranıyor..",
   "noResults": "Sonuç Bulunamadı",
   "typeToSearch": "Aramak için yazın",
-  "country":{
+  "country": {
     "Spanish": "İspanya",
-    "Mexican":"Meksika",
-    "Vietnamese":"Vietnam",
-    "Thai":"Tayland",
-    "Turkish":"Türkiye",
-    "Korean":"Kore",
-    "Italian":"İtalya",
-    "Japanese":"Japon",
-    "French":"Fransa",
-    "Chinese":"Çin",
-    "American":"Amerika",
-    "Brazilian":"Brezilya",
-    "Indian":"Hindistan",
-    "Greek":"Yunanistan",
-    "German":"Almanya",
-    "British":"İngiliz" 
-  }
+    "Mexican": "Meksika",
+    "Vietnamese": "Vietnam",
+    "Thai": "Tayland",
+    "Turkish": "Türkiye",
+    "Korean": "Kore",
+    "Italian": "İtalya",
+    "Japanese": "Japon",
+    "French": "Fransa",
+    "Chinese": "Çin",
+    "American": "Amerika",
+    "Brazilian": "Brezilya",
+    "Indian": "Hindistan",
+    "Greek": "Yunanistan",
+    "German": "Almanya",
+    "British": "İngiliz"
+  },
+  "survey_popup": {
+    "title": "📝 Anketinizi Tamamlayın",
+    "text": "Tercihlerinizi daha iyi anlamak istiyoruz. Tanıtım anketini doldurmak ister misiniz?",
+    "confirm": "Evet, tabii!",
+    "cancel": "Belki sonra"
+  },
+  "refresh_popup": {
+    "message": "Hâlâ orada mısınız?",
+    "timer": "Oturumunuz {{timeLeft}} saniye içinde sona erecek",
+    "stay_logged_in": "Evet, buradayım",
+    "logout": "Hayır, çıkış yap"
+  },
+  "google_login": "Google ile Giriş Yap"
 }
