@@ -19,6 +19,14 @@ import {
   Skeleton,
   Fade,
 } from "@mui/material";
+import {
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+} from "@mui/material";
+import Tooltip from "@mui/material/Tooltip";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { useTranslation } from "react-i18next";
 import PropTypes from "prop-types";
 import Header from "../components/Header";
@@ -38,6 +46,16 @@ const Explore = () => {
   const [selectedCountry, setSelectedCountry] = useState(null);
   const token = localStorage.getItem("accessToken");
 
+
+  const [selectedDiet, setSelectedDiet] = useState(null);
+  const dietaryOptions = [
+    { value: 'vegetarian', label: 'explorePage.diet.vegetarian' },
+    { value: 'vegan', label: 'explorePage.diet.vegan' },
+    { value: 'seafood', label: 'explorePage.diet.seafood' },
+    { value: 'halal', label: 'explorePage.diet.halal' },
+  ];
+  
+  
   const availableCountries = [
     "Spanish",
     "Mexican",
@@ -125,15 +143,19 @@ const Explore = () => {
 
   // fetch recommendations when country or user changes
   useEffect(() => {
-    if (!selectedCountry || !user?._id) return;
+    if (!selectedCountry || !user?._id) {
+      setRecommendations({ personalized: [], similar: [] });
+      return;
+    }
     setLoading(true);
 
-    axiosInstance.get(`/explore/recommend/`, {  // Remove API_BASE_URL prefix
-      params: { country: selectedCountry },
-      headers: {
-        "X-User-ID": user._id,
-      },
-    })
+    axiosInstance
+      .get(`${API_BASE_URL}/explore/recommend/`, {
+        params: { country: selectedCountry, diet: selectedDiet},
+        headers: {
+          "X-User-ID": user._id,
+        },
+      })
       .then((res) => {
         setRecommendations({
           personalized: transformFoodData(
@@ -156,17 +178,20 @@ const Explore = () => {
         setRecommendations({ personalized: [], similar: [] });
       })
       .finally(() => setTimeout(() => setLoading(false), 800));
-  }, [selectedCountry, user, token, t]);
+  }, [selectedCountry, selectedDiet, user, token, t]);
 
   // handle “similar” searches
   const handleSimilarSearch = async (foodId) => {
-    if (!selectedCountry || !foodId || !user?._id) return;
+    if (!selectedCountry || !foodId || !user?._id) {
+      setRecommendations(prev => ({...prev, similar: []}));
+      return;
+    }
     setLoading(true);
     try {
       const res = await axiosInstance.get(
         `/explore/similar/${foodId}`,  // Remove API_BASE_URL prefix
         {
-          params: { country: selectedCountry },
+          params: { country: selectedCountry, diet: selectedDiet },
           headers: {
             "X-User-ID": user._id,
           },
@@ -191,6 +216,12 @@ const Explore = () => {
       setTimeout(() => setLoading(false), 800);
     }
   };
+
+  useEffect(() => {
+    if (!selectedCountry) {
+      setSelectedDiet(null);
+    }
+  }, [selectedCountry]);
 
   // —— inline FoodItemCard —— 
   const FoodItemCard = ({ food, type, onSimilarSearch }) => {
@@ -412,41 +443,96 @@ const Explore = () => {
           <Typography>{t("exploreWriting")}</Typography>
         </Box>
 
-        {/* Country picker */}
-        <Box textAlign="center" mb={4}>
-          <Grid2 container spacing={1} justifyContent="center">
-            {availableCountries.map((c) => (
-              <Grid2 key={c} item>
-                <Button
-                  onClick={() => {
-                    setSelectedCountry(c);
-                    setError(null);
-                    setRecommendations({ personalized: [], similar: [] });
-                  }}
-                  variant={selectedCountry === c ? "contained" : "outlined"}
-                  sx={{
-                    width: 80,
-                    height: 50,
-                    p: 2,
-                    borderRadius: 2,
-                    backgroundImage: `url('/countries/${c}.png')`,
-                    backgroundSize: "cover",
-                    backgroundPosition: "center",
-                    color: "white",
-                    textShadow: "0 0 4px rgba(0,0,0,0.8)",
-                    fontWeight: "bold",
-                    "&:hover": {
-                      opacity: 0.9,
-                      transform: "scale(1.05)",
-                    },
-                    transition: "transform 0.2s",
-                  }}
-                />
-              </Grid2>
-            ))}
+        {/* Filters Section */}
+        <Box sx={{ mt: 4, mb: 4 }}>
+          <Grid2 container spacing={3} justifyContent="center" alignItems="center">
+            {/* Country Picker - Left Side */}
+            <Grid2 item xs={12} md={8}>
+              <Box textAlign="center">
+                <Typography variant="h6" gutterBottom>
+                  {t("explorePage.selectCuisine")}
+                </Typography>
+                <Grid2 container spacing={1} justifyContent="center">
+                  {availableCountries.map((c) => (
+                    <Grid2 key={c} item>
+                      <Button
+                        onClick={() => {
+                          setSelectedCountry(c);
+                          setError(null);
+                          setRecommendations({ personalized: [], similar: [] });
+                        }}
+                        variant={selectedCountry === c ? "contained" : "outlined"}
+                        sx={{
+                          width: 80,
+                          height: 50,
+                          p: 2,
+                          borderRadius: 2,
+                          backgroundImage: `url('/countries/${c}.png')`,
+                          backgroundSize: "cover",
+                          backgroundPosition: "center",
+                          color: "white",
+                          textShadow: "0 0 4px rgba(0,0,0,0.8)",
+                          fontWeight: "bold",
+                          "&:hover": {
+                            opacity: 0.9,
+                            transform: "scale(1.05)",
+                          },
+                          transition: "transform 0.2s",
+                        }}
+                      />
+                    </Grid2>
+                  ))}
+                </Grid2>
+              </Box>
+            </Grid2>
+
+            {/* Dietary Filter - Right Side */}
+            <Grid2 item xs={12} md={4}>
+              <Box textAlign="center">
+                <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1 }}>
+                  <Typography variant="h6" gutterBottom>
+                    {t("explorePage.dietaryPreferences")}
+                  </Typography>
+                  <Tooltip 
+                    title={t("explorePage.diet.warning")} 
+                    arrow
+                    placement="top"
+                  >
+                    <InfoOutlinedIcon 
+                      fontSize="small" 
+                      sx={{ 
+                        color: 'warning.main',
+                        cursor: 'pointer',
+                        '&:hover': { color: 'warning.dark' }
+                      }}
+                    />
+                  </Tooltip>
+                </Box>
+                <FormControl sx={{ minWidth: 200 }}>
+                  <InputLabel id="diet-filter-label">
+                    {t("explorePage.diet.filter")}
+                  </InputLabel>
+                  <Select
+                    labelId="diet-filter-label"
+                    value={selectedDiet || ""}
+                    onChange={(e) => setSelectedDiet(e.target.value || null)}
+                    label={t("explorePage.diet.filter")}
+                    variant="outlined"
+                  >
+                    <MenuItem value="">
+                      <em>{t("explorePage.diet.none")}</em>
+                    </MenuItem>
+                    {dietaryOptions.map((option) => (
+                      <MenuItem key={option.value} value={option.value}>
+                        {t(option.label)}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </Box>
+            </Grid2>
           </Grid2>
         </Box>
-
         {/* Main content */}
         <Box minHeight={400} position="relative">
           {loading && (
