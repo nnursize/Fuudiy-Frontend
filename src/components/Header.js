@@ -127,7 +127,7 @@ const Header = () => {
           console.warn("Failed to fetch incoming requests:", err);
         }        
         
-        if (!response.data.data[0].survey_completed && shouldShowSurveyPopup()) {
+        if (!response.data.data[0].has_completed_survey) {
           setTimeout(() => {
             import("sweetalert2").then(Swal => {
               Swal.default.fire({
