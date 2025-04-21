@@ -104,6 +104,17 @@
       "preparing": "Yemek maceran hazırlanıyor...",
       "searching_cuisine": "{{country}} mutfağı aranıyor..."
     },
+      "selectCuisine": "Mutfak Seçiniz",
+      "dietaryPreferences": "Diet Tercihleri",
+      "diet": {
+        "filter": "Filtrele",
+        "none": "Kısıt yok",
+        "vegetarian": "Vejeteryan",
+        "vegan": "Vegan",
+        "seafood": "Deniz Ürünü Yok",
+        "halal": "Helal",
+        "warning": "Bu filtre %100 güvenilir değildir. Lütfen yine de malzemeleri kontrol ediniz :)"
+    },
     "score": "Skor",
     "rating": "Puan",
     "not_available": "N/A",
