@@ -1,7 +1,10 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { GoogleOAuthProvider } from '@react-oauth/google'; // <-- add this
+import { GoogleOAuthProvider } from '@react-oauth/google';
+import { ThemeProvider } from 'styled-components'; // 🟢 Add this
+import theme from './styles/theme'; // 🟢 Import your theme file
 
+// Pages
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Home from './pages/Home';
@@ -12,28 +15,27 @@ import UserProfile from './pages/UserProfile';
 import ForgotPassword from './pages/ForgotPassword';
 import ResetPassword from './pages/ResetPassword';
 
-
-
-
 const App = () => {
   const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
-  return (
-    <GoogleOAuthProvider clientId={clientId}> {/* Replace this */}
-      <Router>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/explore" element={<Explore />} />
-          <Route path="/food/:id" element={<FoodDetailPage />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/profile/:USERNAME" element={<UserProfile />} />
-          <Route path="/survey" element={<Survey />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/reset-password" element={<ResetPassword />} />
-          <Route path="*" element={<Navigate to="/" />} />
 
-        </Routes>
-      </Router>
+  return (
+    <GoogleOAuthProvider clientId={clientId}>
+      <ThemeProvider theme={theme}> {/* 🟢 Wrap with ThemeProvider */}
+        <Router>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/explore" element={<Explore />} />
+            <Route path="/food/:id" element={<FoodDetailPage />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/profile/:USERNAME" element={<UserProfile />} />
+            <Route path="/survey" element={<Survey />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
+            <Route path="*" element={<Navigate to="/" />} />
+          </Routes>
+        </Router>
+      </ThemeProvider>
     </GoogleOAuthProvider>
   );
 };

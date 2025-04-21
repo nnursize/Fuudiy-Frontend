@@ -10,7 +10,7 @@ import axiosInstance from "../axiosInstance";
 import Tooltip from "@mui/material/Tooltip";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import Badge from '@mui/material/Badge';
-
+import { useTheme } from '@mui/material/styles';
 const getAvatarSrc = (avatarId) => {
   return avatarId && avatarId.includes(".png")
     ? `/avatars/${avatarId}`
@@ -31,7 +31,18 @@ const Header = () => {
   const [pendingRequests, setPendingRequests] = useState([]);
 
   const heartRef = useRef(null);
+  const theme = useTheme();
+  const SURVEY_POPUP_COOLDOWN_MINUTES = 1;
 
+  const shouldShowSurveyPopup = () => {
+    const lastDeclined = localStorage.getItem("surveyPopupLastDeclined");
+    if (!lastDeclined) return true;
+
+    const cooldownTime = SURVEY_POPUP_COOLDOWN_MINUTES * 60 * 1000;
+    const timeSinceDecline = Date.now() - Number(lastDeclined);
+
+    return timeSinceDecline > cooldownTime;
+  };
   // Check token expiration
   const checkTokenExpiration = useCallback(() => {
     const token = localStorage.getItem("accessToken");
@@ -87,7 +98,7 @@ const Header = () => {
   useEffect(() => {
     const checkAuthStatus = async () => {
       const token = localStorage.getItem("accessToken");
-      
+
       if (!token) {
         cleanupAuth();
         return;
@@ -116,6 +127,43 @@ const Header = () => {
           console.warn("Failed to fetch incoming requests:", err);
         }        
         
+        if (!response.data.data[0].survey_completed && shouldShowSurveyPopup()) {
+          setTimeout(() => {
+            import("sweetalert2").then(Swal => {
+              Swal.default.fire({
+                title: t("survey_popup.title"),
+                text: t("survey_popup.text"),
+                confirmButtonText: t("survey_popup.confirm"),
+                cancelButtonText: t("survey_popup.cancel"),
+                showCancelButton: true,
+                didOpen: () => {
+                  const popup = document.querySelector('.swal2-popup');
+                  if (popup) popup.style.borderRadius = '20px';
+                  const confirmButton = document.querySelector('.swal2-confirm');
+                  if (confirmButton) {
+                    confirmButton.style.backgroundColor = '#FFD699';
+                    confirmButton.style.color = theme.palette.text.primary;
+                    confirmButton.style.borderRadius = '20px';
+                  }
+                  const cancelButton = document.querySelector('.swal2-cancel');
+                  if (cancelButton) {
+                    cancelButton.style.backgroundColor = theme.palette.action.hover;
+                    cancelButton.style.color = theme.palette.text.primary;
+                    cancelButton.style.borderRadius = '20px';
+                  }
+                }
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  navigate("/survey");
+                } else {
+                  // Set cooldown timestamp
+                  localStorage.setItem("surveyPopupLastDeclined", Date.now().toString());
+                }
+              });
+            });
+          }, 500);
+        }
+
       } catch (error) {
         if (error.response?.status === 401) {
           cleanupAuth();
@@ -336,7 +384,7 @@ const Header = () => {
         onClose={() => setShowLogoutPopup(false)}
         onLogout={handleLogout}
       />
-      
+
       <RefreshPopup
         open={showRefreshPopup}
         onStayLoggedIn={handleStayLoggedIn}
