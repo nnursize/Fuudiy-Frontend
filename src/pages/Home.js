@@ -126,7 +126,13 @@ const Home = () => {
         </Title>
         <FoodSection>
           {loading ? (
-            <p>Loading food items...</p>
+            <div style={{ textAlign: "center", padding: "2rem" }}>
+            <Lottie
+              animationData={loadingAnimation}
+              loop={true}
+              style={{ height: 120, width: 120, margin: "0 auto" }} // 👈 Smaller size here
+            />
+          </div>
           ) : error ? (
             <p style={{ color: "red" }}>{error}</p>
           ) : topFoodsCountry.length > 0 ? (
