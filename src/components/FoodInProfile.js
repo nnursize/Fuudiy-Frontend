@@ -114,12 +114,15 @@ const FoodInProfile = ({
         </Box>
 
         <Typography variant="body2" color="textSecondary">
-          {food.country}
+          {t(`country.${food.country}`)}
         </Typography>
         <Typography variant="body2" color="textSecondary" marginTop={1}>
           {t("ingredients")}: {
             food.ingredients
-              ? food.ingredients.map(getLocalizedIngredient).join(", ")
+              ? food.ingredients.map(ingredient => {
+                  const normalizedIngredient = ingredient.toLowerCase().replace(/\s+/g, '');
+                  return t(`food_ingredients.${normalizedIngredient}`).toLowerCase();
+                }).join(", ")
               : t("unknown")
           }
         </Typography>
