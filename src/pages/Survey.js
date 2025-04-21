@@ -22,7 +22,7 @@ const Survey = () => {
         const fetchUserData = async () => {
             try {
               const response = await axiosInstance.get("/auth/users/me");
-              if (response.data.data[0].survey_completed) {
+              if (response.data.data[0].has_completed_survey) {
                 navigate("/"); // redirect away if already completed
               }
             } catch (err) {

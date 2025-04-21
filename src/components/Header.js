@@ -16,6 +16,7 @@ import Tooltip from "@mui/material/Tooltip";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import Badge from '@mui/material/Badge';
 import { useTheme } from '@mui/material/styles';
+
 const getAvatarSrc = (avatarId) => {
   return avatarId && avatarId.includes(".png")
     ? `/avatars/${avatarId}`
@@ -48,7 +49,7 @@ const Header = () => {
 
     return timeSinceDecline > cooldownTime;
   };
-  // Check token expiration
+
   const checkTokenExpiration = useCallback(() => {
     const token = localStorage.getItem("accessToken");
     if (!token) return false;
@@ -63,7 +64,6 @@ const Header = () => {
     }
   }, []);
 
-  // Refresh token
   const refreshToken = async () => {
     try {
       const token = localStorage.getItem("accessToken");
@@ -77,13 +77,9 @@ const Header = () => {
     }
   };
 
-  // Click‑outside handler
   useEffect(() => {
     const handleClickOutside = (e) => {
-      if (
-        heartRef.current &&
-        !heartRef.current.contains(e.target)
-      ) {
+      if (heartRef.current && !heartRef.current.contains(e.target)) {
         setShowRequestsPanel(false);
       }
       if (
@@ -94,11 +90,9 @@ const Header = () => {
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
-    return () =>
-      document.removeEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // Fetch auth status & requests
   useEffect(() => {
     const checkAuthStatus = async () => {
       const token = localStorage.getItem("accessToken");
@@ -112,7 +106,7 @@ const Header = () => {
         return;
       }
       try {
-        const resp = await axiosInstance.get("/auth/users/me");
+        const response = await axiosInstance.get("/auth/users/me");
         setIsLoggedIn(true);
         setUserData(response.data.data[0]);
         try {
@@ -122,8 +116,8 @@ const Header = () => {
           const pending = res.data?.incoming_requests || [];
           setPendingRequests(pending);
           setPendingRequestCount(pending.length);
-        } catch (err) {
-          console.warn("Failed to fetch incoming requests:", err);
+        } catch (error) {
+          console.warn("Failed to fetch incoming requests:", error);
         }        
         
         if (!response.data.data[0].has_completed_survey) {
@@ -155,20 +149,18 @@ const Header = () => {
                 if (result.isConfirmed) {
                   navigate("/survey");
                 } else {
-                  // Set cooldown timestamp
                   localStorage.setItem("surveyPopupLastDeclined", Date.now().toString());
                 }
               });
             });
           }, 500);
         }
-
       } catch (error) {
         if (error.response?.status === 401) {
           cleanupAuth();
           navigate("/login");
         } else {
-          console.warn("Failed to fetch incoming requests:", err);
+          console.warn("Failed to fetch user data:", error);
         }
       }
     };
@@ -176,9 +168,8 @@ const Header = () => {
     checkAuthStatus();
     const interval = setInterval(checkAuthStatus, 60 * 1000);
     return () => clearInterval(interval);
-  }, [checkTokenExpiration, navigate, showRefreshPopup]);
+  }, [checkTokenExpiration, navigate, showRefreshPopup, t, theme]);
 
-  // Token‑expiry warning
   useEffect(() => {
     if (!tokenExpiryTime) return;
     const timeUntil = tokenExpiryTime - Date.now();
@@ -210,6 +201,7 @@ const Header = () => {
     }
     setShowRefreshPopup(false);
   };
+
   const handleForceLogout = () => {
     cleanupAuth();
     navigate("/login");
@@ -221,9 +213,7 @@ const Header = () => {
   const handleRequestResponse = async (connectionId, status) => {
     try {
       if (status === "rejected") {
-        await axiosInstance.delete(
-          `/connections/remove-by-id/${connectionId}`
-        );
+        await axiosInstance.delete(`/connections/remove-by-id/${connectionId}`);
       } else {
         await axiosInstance.put(`/connections/update-status`, {
           connection_id: connectionId,
@@ -234,16 +224,16 @@ const Header = () => {
         prev.filter((r) => r._id !== connectionId)
       );
       setPendingRequestCount((c) => Math.max(c - 1, 0));
-    } catch (err) {
-      console.error(`Failed to ${status} connection:`, err);
+    } catch (error) {
+      console.error(`Failed to ${status} connection:`, error);
     }
   };
 
   const handleLogout = async () => {
     try {
       await axiosInstance.post("/auth/logout");
-    } catch (err) {
-      console.error("Logout error:", err);
+    } catch (error) {
+      console.error("Logout error:", error);
     } finally {
       cleanupAuth();
     }
@@ -265,9 +255,7 @@ const Header = () => {
           <Logo onClick={handleLogoClick}>Fuudiy</Logo>
           <NavLinks>
             <Link to="/">{t("home")}</Link>
-            {isLoggedIn && (
-              <Link to="/explore">{t("explore")}</Link>
-            )}
+            {isLoggedIn && <Link to="/explore">{t("explore")}</Link>}
           </NavLinks>
           <RightSection>
             <LanguageSwitcher
@@ -277,16 +265,10 @@ const Header = () => {
               fontSize="0.8rem"
             />
 
-            {isLoggedIn ? (
+            {isLoggedIn && (
               <>
-                <div
-                  ref={heartRef}
-                  style={{ position: "relative" }}
-                >
-                  <Badge
-                    badgeContent={pendingRequestCount}
-                    color="error"
-                  >
+                <div ref={heartRef} style={{ position: "relative" }}>
+                  <Badge badgeContent={pendingRequestCount} color="error">
                     <FavoriteIcon
                       sx={{
                         cursor: "pointer",
@@ -295,9 +277,7 @@ const Header = () => {
                       }}
                       onClick={(e) => {
                         e.stopPropagation();
-                        setShowRequestsPanel(
-                          (prev) => !prev
-                        );
+                        setShowRequestsPanel((prev) => !prev);
                         setShowDropdown(false);
                       }}
                     />
@@ -305,110 +285,89 @@ const Header = () => {
 
                   {showRequestsPanel && (
                     <RequestsPanel>
-                      <strong>
-                        {t("connectionRequests")}
-                      </strong>
+                      <strong>{t("connectionRequests")}</strong>
                       {pendingRequests.length === 0 ? (
-                        <p
-                          style={{
-                            fontSize: "0.9rem",
-                            marginTop: 8,
-                          }}
-                        >
+                        <p style={{ fontSize: "0.9rem", marginTop: 8 }}>
                           {t("noRequests")}
                         </p>
                       ) : (
-                        pendingRequests.map(
-                          (req, i) => (
-                            <RequestItem key={i}>
-                              <div>
-                                <span
-                                  style={{
-                                    color: "#000",
-                                    cursor: "pointer",
-                                    fontWeight: 500,
-                                    textDecoration:
-                                      "underline",
-                                  }}
-                                  onClick={() =>
-                                    navigate(
-                                      `/profile/${req.from_username}`
-                                    )
-                                  }
-                                >
-                                  {req.from_username ||
-                                    t("Unknown")}
-                                </span>
-                                <br />
-                                <RequestMeta>
-                                  {new Date(
-                                    req.created_at
-                                  ).toLocaleString()}
-                                </RequestMeta>
-                              </div>
-                              <RequestButtons>
-                                <button
-                                  onClick={() =>
-                                    handleRequestResponse(
-                                      req._id,
-                                      "accepted"
-                                    )
-                                  }
-                                >
-                                  ✓
-                                </button>
-                                <button
-                                  onClick={() =>
-                                    handleRequestResponse(
-                                      req._id,
-                                      "rejected"
-                                    )
-                                  }
-                                >
-                                  ✕
-                                </button>
-                              </RequestButtons>
-                            </RequestItem>
-                          )
-                        )
+                        pendingRequests.map((req, i) => (
+                          <RequestItem key={i}>
+                            <div>
+                              <span
+                                style={{
+                                  color: "#000",
+                                  cursor: "pointer",
+                                  fontWeight: 500,
+                                  textDecoration: "underline",
+                                }}
+                                onClick={() => navigate(`/profile/${req.from_username}`)}
+                              >
+                                {req.from_username || t("Unknown")}
+                              </span>
+                              <br />
+                              <RequestMeta>
+                                {new Date(req.created_at).toLocaleString()}
+                              </RequestMeta>
+                            </div>
+                            <RequestButtons>
+                              <button
+                                onClick={() =>
+                                  handleRequestResponse(req._id, "accepted")
+                                }
+                              >
+                                ✓
+                              </button>
+                              <button
+                                onClick={() =>
+                                  handleRequestResponse(req._id, "rejected")
+                                }
+                              >
+                                ✕
+                              </button>
+                            </RequestButtons>
+                          </RequestItem>
+                        ))
                       )}
                     </RequestsPanel>
                   )}
                 </div>
 
-            {isLoggedIn ? (
-              <ProfileContainer>
-                <Avatar
-                  src={
-                    userData?.avatarId
-                      ? getAvatarSrc(userData.avatarId)
-                      : "/avatars/default_avatar.png"
-                  }
-                  alt="User Avatar"
-                  sx={{
-                    width: 24,
-                    height: 24,
-                    cursor: "pointer",
-                    overflow: "hidden",
-                    "& img": {
-                      transform: "scale(1.8)", // zoom in
-                      transformOrigin: "50% 30%", // zoom from center
-                    },
-                  }}
-                  onClick={toggleDropdown}
-                />
-                {showDropdown && (
-                  <DropdownMenu className="profile-dropdown">
-                    <DropdownItem onClick={handleProfileClick}>
-                      {t("profile")}
-                    </DropdownItem>
-                    <DropdownItem onClick={() => setShowLogoutPopup(true)}>
-                      {t("logout")}
-                    </DropdownItem>
-                  </DropdownMenu>
-                )}
-              </ProfileContainer>
-            ) : (
+                <ProfileContainer>
+                  <Avatar
+                    src={
+                      userData?.avatarId
+                        ? getAvatarSrc(userData.avatarId)
+                        : "/avatars/default_avatar.png"
+                    }
+                    alt="User Avatar"
+                    sx={{
+                      width: 24,
+                      height: 24,
+                      cursor: "pointer",
+                      overflow: "hidden",
+                      "& img": {
+                        transform: "scale(1.8)",
+                        transformOrigin: "50% 30%",
+                      },
+                    }}
+                    onClick={toggleDropdown}
+                  />
+                  {showDropdown && (
+                    <DropdownMenu className="profile-dropdown">
+                      <DropdownItem onClick={handleProfileClick}>
+                        {t("profile")}
+                      </DropdownItem>
+                      <DropdownItem onClick={() => setShowLogoutPopup(true)}>
+                        {t("logout")}
+                      </DropdownItem>
+                    </DropdownMenu>
+                  )}
+                </ProfileContainer>
+              </>
+            )}
+
+            {!isLoggedIn && (
               <LoginContainer>
                 <Link to="/login">{t("login")}</Link>
               </LoginContainer>
@@ -432,6 +391,7 @@ const Header = () => {
   );
 };
 
+// ... (styled components remain the same)
 export default Header;
 
 const HeaderWrapper = styled.div`
