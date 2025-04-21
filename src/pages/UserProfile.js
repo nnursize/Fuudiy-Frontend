@@ -18,7 +18,6 @@ import Lottie from "lottie-react";
 import loadingAnimation from "../assets/loading_animation.json"; // adjust path if needed
 import ConnectionModal from "../components/ConnectionModal";
 
-
 // Add these styled components to match the Home component's structure
 const PageContainer = styled.div`
   display: flex;
@@ -66,7 +65,7 @@ const UserProfile = () => {
 
   const getAvatarSrc = (avatarId) => {
     if (typeof avatarId !== 'string' || avatarId.trim() === '') {
-      return '/avatars/default-profile.jpeg';
+      return `/avatars/default-profile.jpeg`;
     }
     return avatarId.includes('.png')
       ? `/avatars/${avatarId}`
@@ -86,7 +85,7 @@ const UserProfile = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axiosInstance.get('/auth/users/me');
+        const response = await axiosInstance.get(`/auth/users/me`);
         const user = response.data.data[0];
         setCurrentUser(user);
   
@@ -238,7 +237,7 @@ const UserProfile = () => {
       });
       
     } catch (error) {
-      console.error('Error updating rating or popularity:', error);
+      console.error(`Error updating rating or popularity:`, error);
       // Revert UI changes on error
       setRatedFoodDetails(prev => prev.map(food =>
         food.foodId === foodId
@@ -278,8 +277,14 @@ const UserProfile = () => {
     setEditingDisliked(false);
   };
 
-  const displayedDislikedIngredients = editingDisliked ? editedDislikedIngredients : dislikedIngredients;
+  const displayedDislikedIngredients = isOwnProfile
+    ? (editingDisliked ? editedDislikedIngredients : dislikedIngredients)
+    : (Array.isArray(userData?.disliked_ingredients) ? userData.disliked_ingredients : []);
+  
+  console.log("userData: ", userData);
+  console.log("userData: ", userData);
 
+    
   const handleSaveEditedBio = () => {
     if (!isOwnProfile) return;
     
@@ -328,7 +333,7 @@ const UserProfile = () => {
   const token = localStorage.getItem("accessToken");
   const handleCommentUpdate = async (foodId, newComment) => {
     try {
-      const commentRes = await axios.get(`${API_BASE_URL}/comments/me`, {
+      const commentRes = await axios.get('${API_BASE_URL}/comments/me', {
         headers: { Authorization: `Bearer ${token}` }
       });
   
@@ -521,18 +526,6 @@ const UserProfile = () => {
                     </Typography>
                     {isOwnProfile && editingBio ? (
                       <>
-                        <input
-                          type="text"
-                          value={editedBio}
-                          onChange={(e) => setEditedBio(e.target.value)}
-                          style={{
-                            flex: 1,
-                            padding: "4px 8px",
-                            fontSize: "1rem",
-                            border: "1px solid #ccc",
-                            borderRadius: "4px"
-                          }}
-                        />
                         <Box display="flex" gap={0.5}>
                           <IconButton
                             onClick={handleSaveEditedBio}
@@ -588,84 +581,86 @@ const UserProfile = () => {
               </Box>
             </Box>
 
-            <Box sx={{ mt: 2 }}>
-              <Box display="flex" alignItems="center" justifyContent="space-between" sx={{ mb: 1 }}>
-                <Typography variant="body1" sx={{ fontWeight: "bold", color: "gray" }}>
-                  {t("dislikedIngredients")}
-                </Typography>
-                {isOwnProfile && (
-                  editingDisliked ? (
-                    <Box>
-                      <IconButton onClick={handleSaveEditedIngredients} size="small" sx={{ p: 0.25, width: 20, height: 20 }}>
-                        <CheckIcon fontSize="small" />
+            {isOwnProfile && (
+              <Box sx={{ mt: 2 }}>
+                <Box display="flex" alignItems="center" justifyContent="space-between" sx={{ mb: 1 }}>
+                  <Typography variant="body1" sx={{ fontWeight: "bold", color: "gray" }}>
+                    {t("dislikedIngredients")}
+                  </Typography>
+                  {isOwnProfile && (
+                    editingDisliked ? (
+                      <Box>
+                        <IconButton onClick={handleSaveEditedIngredients} size="small" sx={{ p: 0.25, width: 20, height: 20 }}>
+                          <CheckIcon fontSize="small" />
+                        </IconButton>
+                        <IconButton onClick={handleCancelEditedIngredients} size="small" sx={{ p: 0.25, width: 20, height: 20 }}>
+                          <CancelIcon fontSize="small" />
+                        </IconButton>
+                      </Box>
+                    ) : (
+                      <IconButton
+                        onClick={() => {
+                          setEditedDislikedIngredients(dislikedIngredients);
+                          setTimeout(() => setEditingDisliked(true), 0);
+                        }}
+                        size="small"
+                        sx={{ p: 0.25, width: 20, height: 20 }}
+                      >
+                        <EditIcon fontSize="small" />
                       </IconButton>
-                      <IconButton onClick={handleCancelEditedIngredients} size="small" sx={{ p: 0.25, width: 20, height: 20 }}>
-                        <CancelIcon fontSize="small" />
-                      </IconButton>
-                    </Box>
-                  ) : (
-                    <IconButton
-                      onClick={() => {
-                        setEditedDislikedIngredients(dislikedIngredients);
-                        setTimeout(() => setEditingDisliked(true), 0);
-                      }}
-                      size="small"
-                      sx={{ p: 0.25, width: 20, height: 20 }}
-                    >
-                      <EditIcon fontSize="small" />
-                    </IconButton>
-                  )
+                    )
+                  )}
+                </Box>
+
+                {!editingDisliked && displayedDislikedIngredients.length === 0 && (
+                  <Typography variant="body2" sx={{ color: 'grey.600' }}>
+                    {t("noDislikedIngredients")}
+                  </Typography>
                 )}
-              </Box>
 
-              {!editingDisliked && displayedDislikedIngredients.length === 0 && (
-                <Typography variant="body2" sx={{ color: 'grey.600' }}>
-                  {t("noDislikedIngredients")}
-                </Typography>
-              )}
-
-              <Stack direction="row" spacing={1} alignItems="center" flexWrap="wrap">
-                {displayedDislikedIngredients.map((ingredient, index) => (
-                  <Chip
-                    key={index}
-                    label={getLocalizedIngredient(ingredient)}
-                    {...(editingDisliked ? { onDelete: () => handleRemoveIngredient(ingredient) } : {})}
-                    sx={{ backgroundColor: "#f1f1f1", fontWeight: "bold", fontSize: "14px", py: 0.5, px: 1 }}
-                  />
-                ))}
-
-                {editingDisliked && showDislikedInput && (
-                  <Box display="flex" alignItems="center" gap={1} mt={1}>
-                    <AddIngredientAutocomplete
-                      onAdd={(newIngredient) => {
-                        if (!editedDislikedIngredients.includes(newIngredient)) {
-                          setEditedDislikedIngredients((prev) => [...prev, newIngredient].flat());
-                          setShowDislikedInput(false);
-                        }
-                      }}
+                <Stack direction="row" spacing={1} alignItems="center" flexWrap="wrap">
+                  {displayedDislikedIngredients.map((ingredient, index) => (
+                    <Chip
+                      key={index}
+                      label={getLocalizedIngredient(ingredient)}
+                      {...(editingDisliked ? { onDelete: () => handleRemoveIngredient(ingredient) } : {})}
+                      sx={{ backgroundColor: "#f1f1f1", fontWeight: "bold", fontSize: "14px", py: 0.5, px: 1 }}
                     />
-                  </Box>
-                )}
+                  ))}
 
-                {editingDisliked && !showDislikedInput && (
-                  <IconButton
-                    onClick={() => setShowDislikedInput(true)}
-                    size="small"
-                    sx={{
-                      p: 0.25,
-                      minWidth: 0,
-                      width: "24px",
-                      height: "24px",
-                      border: "1px dashed #ccc",
-                      ml: 0.5,
-                      alignSelf: "center"
-                    }}
-                  >
-                    <AddIcon fontSize="small" />
-                  </IconButton>
-                )}
-              </Stack>
-            </Box>
+                  {editingDisliked && showDislikedInput && (
+                    <Box display="flex" alignItems="center" gap={1} mt={1}>
+                      <AddIngredientAutocomplete
+                        onAdd={(newIngredient) => {
+                          if (!editedDislikedIngredients.includes(newIngredient)) {
+                            setEditedDislikedIngredients((prev) => [...prev, newIngredient].flat());
+                            setShowDislikedInput(false);
+                          }
+                        }}
+                      />
+                    </Box>
+                  )}
+
+                  {editingDisliked && !showDislikedInput && (
+                    <IconButton
+                      onClick={() => setShowDislikedInput(true)}
+                      size="small"
+                      sx={{
+                        p: 0.25,
+                        minWidth: 0,
+                        width: "24px",
+                        height: "24px",
+                        border: "1px dashed #ccc",
+                        ml: 0.5,
+                        alignSelf: "center"
+                      }}
+                    >
+                      <AddIcon fontSize="small" />
+                    </IconButton>
+                  )}
+                </Stack>
+              </Box>
+            )}
 
 
             {isOwnProfile && (
@@ -806,4 +801,3 @@ const UserProfile = () => {
 };
 
 export default UserProfile;
-
