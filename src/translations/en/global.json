@@ -7,9 +7,9 @@
   "remember_me": "Remember Me",
   "forgot_password": "Forgot Password?",
   "send_reset_link": "Send Reset Link",
-  "reset_password":"Reset password",
-  "new_password":"New password",
-  "confirm_password":"Confirm password",
+  "reset_password": "Reset password",
+  "new_password": "New password",
+  "confirm_password": "Confirm password",
   "no_account": "Don't have an account?",
   "have_account": "Already have an account?",
   "agree_terms": "I agree to the terms",
@@ -58,10 +58,10 @@
   "removeFromList": "Remove From List",
   "allergies": "Allergies",
   "noComments": "No comment submitted to this food",
-  "loginRequired":{ 
+  "loginRequired": {
     "toComment": "You need to login to submit comment",
     "toView": "You need to login to view user's profile",
-    "default":"You need to login to use this feature"
+    "default": "You need to login to use this feature"
   },
   "pleaseLoginTo": "Please Login",
   "wannaTryFoods": "Wanna Try Foods",
@@ -129,22 +129,35 @@
   "searching": "Searching..",
   "noResults": "No Results Found",
   "typeToSearch": "Type to search",
-  "country":{
+  "country": {
     "Spanish": "Spanish",
-    "Mexican":"Mexican",
-    "Vietnamese":"Vietnamese",
-    "Thai":"Thai",
-    "Turkish":"Turkish",
-    "Korean":"Korean",
-    "Italian":"Italian",
-    "Japanese":"Japanese",
-    "French":"French",
-    "Chinese":"Chinese",
-    "American":"American",
-    "Brazilian":"Brazilian",
-    "Indian":"Indian",
-    "Greek":"Greek",
-    "German":"German",
-    "British":"British" 
-  }
+    "Mexican": "Mexican",
+    "Vietnamese": "Vietnamese",
+    "Thai": "Thai",
+    "Turkish": "Turkish",
+    "Korean": "Korean",
+    "Italian": "Italian",
+    "Japanese": "Japanese",
+    "French": "French",
+    "Chinese": "Chinese",
+    "American": "American",
+    "Brazilian": "Brazilian",
+    "Indian": "Indian",
+    "Greek": "Greek",
+    "German": "German",
+    "British": "British"
+  },
+  "survey_popup": {
+    "title": "📝 Complete Your Survey",
+    "text": "We’d love to learn more about your preferences. Would you like to complete the onboarding survey?",
+    "confirm": "Yes, sure!",
+    "cancel": "Maybe later"
+  },
+  "refresh_popup": {
+    "message": "Are you still there?",
+    "timer": "Your session will expire in {{timeLeft}} seconds",
+    "stay_logged_in": "Yes, I'm here",
+    "logout": "No, Log me out"
+  },
+   "google_login": "Sign in with Google"
 }
