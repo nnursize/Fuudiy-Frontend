@@ -265,7 +265,16 @@ const Header = () => {
                       : "/avatars/default_avatar.png"
                   }
                   alt="User Avatar"
-                  sx={{ width: 24, height: 24, cursor: "pointer" }}
+                  sx={{
+                    width: 24,
+                    height: 24,
+                    cursor: "pointer",
+                    overflow: "hidden",
+                    "& img": {
+                      transform: "scale(1.8)", // zoom in
+                      transformOrigin: "50% 30%", // zoom from center
+                    },
+                  }}
                   onClick={toggleDropdown}
                 />
                 {showDropdown && (
