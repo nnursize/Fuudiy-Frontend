@@ -131,20 +131,48 @@ const Footer = ({
       <Typography variant="body1" gutterBottom>
         <strong>Email:</strong> humanGenerated.TOBB@gmail.com
       </Typography>
-      {/* ... rest of default contact content ... */}
+      <Typography variant="body1" gutterBottom>
+        .....
+      </Typography>
+      <Typography variant="body1" gutterBottom>
+        • Su Eda YILDIZ - su.yildiz.030609@gmail.com 
+      </Typography>
+      <Typography variant="body1" gutterBottom>
+        • Nursize TURAN - 1nursizeturan@gmail.com
+      </Typography>
+      <Typography variant="body1" gutterBottom>
+        • Tuba Sultan BALCI - tubalci33@gmail.com
+      </Typography>
+      <Typography variant="body1" gutterBottom>
+        • Berfin OZCUBUK - katanisi15@gmail.com
+      </Typography>
+      <Typography variant="body1" gutterBottom>
+        • Beyza AKDENIZ - hivayede@gmail.com
+      </Typography>
+      <Typography variant="body1" gutterBottom>
+        .....
+      </Typography>
     </>
   );
-
+  
   const defaultAboutContent = (
     <>
       <Typography variant="body1" gutterBottom>
         <strong>-- EN --</strong> <br />
         Hello dear visitor! <br />
-        We are a team of passionate senior students...
-        {/* ... rest of default about content ... */}
+        We are a team of passionate senior students in computer science driven by a common vision of using big data to find solutions to the problems that affect the real world.
+        <br />With diverse skills in data science, machine learning, software development, and user experience, we work as a team to create innovative solutions that make data-driven insights accessible and impactful.
+        <br />The current project involves the use of advanced big data technologies to provide intelligent and efficient recommendations, showing our capabilities of combining technical skills with creativity in solving practical challenges.
+        <br /><br />
+        <strong>-- TR --</strong>
+        <br />Merhaba değerli ziyaretçi!
+        <br />Gerçek dünyayı etkileyen sorunlara çözüm bulmak için büyük veriyi kullanma ortak vizyonuyla hareket eden tutkulu bilgisayar bilimleri son sınıf öğrencilerinden oluşan bir ekibiz.
+        <br />Veri bilimi, makine öğrenimi, yazılım geliştirme ve kullanıcı deneyimi alanlarındaki farklı becerilerimizle, veriye dayalı içgörüleri erişilebilir ve etkili hale getiren yenilikçi çözümler oluşturmak için bir ekip olarak çalışıyoruz.
+        <br />Mevcut proje, akıllı ve verimli öneriler sunmak için gelişmiş büyük veri teknolojilerinin kullanılmasını içeriyor ve pratik zorlukları çözmede teknik becerileri yaratıcılıkla birleştirme yeteneklerimizi gösteriyor.
       </Typography>
     </>
   );
+  
 
   return (
     <Box
