@@ -15,11 +15,11 @@ import {
 } from "react-icons/fa";
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
-import Frame from '../components/Frame';
+import Footer from '../components/Footer';
 import LanguageSwitcher from '../components/LanguageSwitcher';
 import { GoogleLogin } from '@react-oauth/google';
 import { jwtDecode } from 'jwt-decode';
-
+import Frame from '../components/Frame';
 const API_BASE_URL = "http://localhost:8000";
 const Login = () => {
   const { t, i18n } = useTranslation("global");
@@ -72,6 +72,7 @@ const Login = () => {
   };
 
   return (
+    <Box>
     <Frame title={t('login')} onSubmit={handleLoginSubmit}>
       <Box sx={{ position: 'absolute', top: '35px', right: '35px' }}>
         <LanguageSwitcher
@@ -238,8 +239,10 @@ const Login = () => {
 
       </Box>
 
-
+       
     </Frame>
+    <Footer />
+    </Box>
   );
 };
 

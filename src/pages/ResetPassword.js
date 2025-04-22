@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Box, Button, TextField, Typography } from '@mui/material';
 import Frame from '../components/Frame';
+import Footer from '../components/Footer';
+
 import { useTranslation } from 'react-i18next';
 import LanguageSwitcher from '../components/LanguageSwitcher';
 
@@ -55,103 +57,106 @@ const ResetPassword = () => {
     };
 
     return (
-        <Frame
-            title={t('reset_password')}
-            onSubmit={handleReset}
-            sx={{
-                minHeight: '300px',
-                padding: '40px',
-            }}
-        >
-            {/* Language Switcher */}
-            <Box sx={{ position: 'absolute', top: '25px', right: '25px' }}>
-                <LanguageSwitcher
-                    changeLanguage={changeLanguage}
-                    size="large"
-                    height="35px"
-                    width="35px"
-                    fontSize="0.8rem"
-                    color="white"
-                />
-            </Box>
-
-            {/* Error or Success Message */}
-            {error && (
-                <Typography color="error" sx={{ mb: 2 }}>
-                    {error}
-                </Typography>
-            )}
-
-            {message && (
-                <Typography color="success.main" sx={{ mb: 2 }}>
-                    {message}
-                </Typography>
-            )}
-
-            {/* New Password Input Field */}
-
-            <TextField
-                type="password"
-                label={t('new_password')}
-                value={newPassword}
-                onChange={(e) => setNewPassword(e.target.value)}
-                fullWidth
-                required
-                variant="outlined"
+        <Box>
+            <Frame
+                title={t('reset_password')}
+                onSubmit={handleReset}
                 sx={{
-
-                    marginBottom: 2,
-                    '& .MuiInputLabel-root': {
-                        color: 'primary.main', // Change the label color (e.g., primary theme color)
-                    },
-                    '& .MuiInputLabel-root.Mui-focused': {
-                        color: 'primary.main', // Change the label color when the field is focused
-                    },
-                    '& .MuiOutlinedInput-root': {
-                        borderRadius: '256px', // Adjust border-radius
-                    },
-                }}
-            />
-
-            <TextField
-                type="password"
-                label={t('confirm_password')}
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                fullWidth
-                required
-                variant="outlined"
-                sx={{
-                    marginBottom: 2,
-                    '& .MuiInputLabel-root': {
-                        color: 'primary.main', // Change the label color (e.g., primary theme color)
-                    },
-                    '& .MuiInputLabel-root.Mui-focused': {
-                        color: 'primary.main', // Change the label color when the field is focused
-                    },
-                    '& .MuiOutlinedInput-root': {
-                        borderRadius: '25px', // Adjust border-radius
-                    },
-                }}
-            />
-
-
-            {/* Submit Button */}
-            <Button
-                fullWidth
-                variant="contained"
-                type="submit"
-                sx={{
-                    height: '50px',
-                    borderRadius: '10px',
-                    fontSize: '1rem',
-                    fontWeight: 600,
-                    textTransform: 'none', // Disable all caps
+                    minHeight: '300px',
+                    padding: '40px',
                 }}
             >
-                {t('reset_password')}
-            </Button>
-        </Frame>
+                {/* Language Switcher */}
+                <Box sx={{ position: 'absolute', top: '25px', right: '25px' }}>
+                    <LanguageSwitcher
+                        changeLanguage={changeLanguage}
+                        size="large"
+                        height="35px"
+                        width="35px"
+                        fontSize="0.8rem"
+                        color="white"
+                    />
+                </Box>
+
+                {/* Error or Success Message */}
+                {error && (
+                    <Typography color="error" sx={{ mb: 2 }}>
+                        {error}
+                    </Typography>
+                )}
+
+                {message && (
+                    <Typography color="success.main" sx={{ mb: 2 }}>
+                        {message}
+                    </Typography>
+                )}
+
+                {/* New Password Input Field */}
+
+                <TextField
+                    type="password"
+                    label={t('new_password')}
+                    value={newPassword}
+                    onChange={(e) => setNewPassword(e.target.value)}
+                    fullWidth
+                    required
+                    variant="outlined"
+                    sx={{
+
+                        marginBottom: 2,
+                        '& .MuiInputLabel-root': {
+                            color: 'primary.main', // Change the label color (e.g., primary theme color)
+                        },
+                        '& .MuiInputLabel-root.Mui-focused': {
+                            color: 'primary.main', // Change the label color when the field is focused
+                        },
+                        '& .MuiOutlinedInput-root': {
+                            borderRadius: '256px', // Adjust border-radius
+                        },
+                    }}
+                />
+
+                <TextField
+                    type="password"
+                    label={t('confirm_password')}
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    fullWidth
+                    required
+                    variant="outlined"
+                    sx={{
+                        marginBottom: 2,
+                        '& .MuiInputLabel-root': {
+                            color: 'primary.main', // Change the label color (e.g., primary theme color)
+                        },
+                        '& .MuiInputLabel-root.Mui-focused': {
+                            color: 'primary.main', // Change the label color when the field is focused
+                        },
+                        '& .MuiOutlinedInput-root': {
+                            borderRadius: '25px', // Adjust border-radius
+                        },
+                    }}
+                />
+
+
+                {/* Submit Button */}
+                <Button
+                    fullWidth
+                    variant="contained"
+                    type="submit"
+                    sx={{
+                        height: '50px',
+                        borderRadius: '10px',
+                        fontSize: '1rem',
+                        fontWeight: 600,
+                        textTransform: 'none', // Disable all caps
+                    }}
+                >
+                    {t('reset_password')}
+                </Button>
+            </Frame>
+            <Footer />
+        </Box>
     );
 };
 

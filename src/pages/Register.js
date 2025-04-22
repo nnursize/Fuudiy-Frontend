@@ -20,6 +20,8 @@ import { MdEmail as EmailIcon } from "react-icons/md";
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
 import Frame from '../components/Frame';
+import Footer from '../components/Footer';
+
 import LanguageSwitcher from '../components/LanguageSwitcher';
 import { GoogleLogin } from '@react-oauth/google';
 import { jwtDecode } from 'jwt-decode';
@@ -161,6 +163,7 @@ const Register = () => {
   };
 
   return (
+    <Box >
     <Frame title={t('register')} onSubmit={handleRegisterSubmit}>
       <Box sx={{ position: 'absolute', top: '35px', right: '35px' }}>
         <LanguageSwitcher 
@@ -338,6 +341,8 @@ const Register = () => {
         </Typography>
       </Box>
     </Frame>
+     <Footer />
+    </Box>
   );
 };
 

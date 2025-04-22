@@ -6,6 +6,8 @@ import {
     Typography,
 } from '@mui/material';
 import Frame from '../components/Frame';
+import Footer from '../components/Footer';
+
 import { useTranslation } from 'react-i18next';
 import LanguageSwitcher from '../components/LanguageSwitcher';
 
@@ -61,6 +63,7 @@ const ForgotPassword = () => {
     };
 
     return (
+        <Box>
         <Frame
             title={t('forgot_password')}
             onSubmit={handleSubmit}
@@ -134,6 +137,8 @@ const ForgotPassword = () => {
                 {t('send_reset_link')}
             </Button>
         </Frame>
+        <Footer/>
+        </Box>
     );
 };
 
