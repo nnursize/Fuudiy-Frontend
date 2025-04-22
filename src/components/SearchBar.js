@@ -87,7 +87,7 @@ export default function SearchBar({ isLoggedIn }) {
       return;
     }
 
-    if(option.type == undefined){
+    if(option.type === undefined){
       return;
     }
     
