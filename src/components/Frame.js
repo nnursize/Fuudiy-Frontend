@@ -61,6 +61,7 @@ const Frame = ({ title, onSubmit, children, sx = {} }) => {
             sx={{ 
               textAlign: 'center',
               color: theme.palette.primary.main,
+              mt:2,mb:2
             }}
           >
             {title}
