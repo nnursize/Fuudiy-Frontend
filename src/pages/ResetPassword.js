@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { Box, Button, TextField, Typography } from '@mui/material';
+import { Box, Button, TextField, Typography, useTheme } from '@mui/material';
 import Frame from '../components/Frame';
 import Footer from '../components/Footer';
 
@@ -13,7 +13,7 @@ const ResetPassword = () => {
     const { t, i18n } = useTranslation("global");
     const [searchParams] = useSearchParams();
     const token = searchParams.get('token');
-
+    const theme = useTheme();
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [message, setMessage] = useState('');
@@ -155,7 +155,9 @@ const ResetPassword = () => {
                     {t('reset_password')}
                 </Button>
             </Frame>
-            <Footer />
+            <Footer
+                sx={{ backgroundColor: theme.palette.background.main }}
+                bottomSx={{ backgroundColor: "primary.main" }} />
         </Box>
     );
 };

@@ -4,6 +4,7 @@ import {
     Button,
     TextField,
     Typography,
+    useTheme
 } from '@mui/material';
 import Frame from '../components/Frame';
 import Footer from '../components/Footer';
@@ -18,7 +19,7 @@ const ForgotPassword = () => {
     const [email, setEmail] = useState('');
     const [message, setMessage] = useState('');
     const [errorMsg, setErrorMsg] = useState('');
-
+    const theme = useTheme();
     const handleSubmit = async (e) => {
         e.preventDefault();
         setMessage('');
@@ -64,80 +65,82 @@ const ForgotPassword = () => {
 
     return (
         <Box>
-        <Frame
-            title={t('forgot_password')}
-            onSubmit={handleSubmit}
-            sx={{
-                minHeight: '300px',
-                padding: '40px',
-            }}
-        >
-            {/* Language Switcher */}
-            <Box sx={{ position: 'absolute', top: '25px', right: '25px' }}>
-                <LanguageSwitcher
-                    changeLanguage={changeLanguage}
-                    size="large"
-                    height="35px"
-                    width="35px"
-                    fontSize="0.8rem"
-                    color="white"
-                />
-            </Box>
-
-            {/* Error or Success Message */}
-            {errorMsg && (
-                <Typography color="error" sx={{ mb: 2 }}>
-                    {typeof errorMsg === 'string' ? errorMsg : JSON.stringify(errorMsg)}
-                </Typography>
-            )}
-
-            {message && (
-                <Typography color="success.main" sx={{ mb: 2 }}>
-                    {message}
-                </Typography>
-            )}
-
-
-            {/* Email Input Field */}
-            <TextField
-                required
-                fullWidth
-                variant="outlined"
-                label={t('email')}
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+            <Frame
+                title={t('forgot_password')}
+                onSubmit={handleSubmit}
                 sx={{
-                    marginBottom: 2,
-                    '& .MuiInputLabel-root': {
-                        color: 'primary.main', // Change the label color
-                    },
-                    '& .MuiInputLabel-root.Mui-focused': {
-                        color: 'primary.main', // Change the label color when the field is focused
-                    },
-                    '& .MuiOutlinedInput-root': {
-                        borderRadius: '25px', // Adjust the border radius here
-                    },
-                }}
-            />
-
-            {/* Submit Button */}
-            <Button
-                fullWidth
-                variant="contained"
-                type="submit"
-                sx={{
-                    height: '50px',
-                    borderRadius: '10px',
-                    fontSize: '1rem',
-                    fontWeight: 600,
-                    textTransform: 'none', // Disable all caps
+                    minHeight: '300px',
+                    padding: '40px',
                 }}
             >
-                {t('send_reset_link')}
-            </Button>
-        </Frame>
-        <Footer/>
+                {/* Language Switcher */}
+                <Box sx={{ position: 'absolute', top: '25px', right: '25px' }}>
+                    <LanguageSwitcher
+                        changeLanguage={changeLanguage}
+                        size="large"
+                        height="35px"
+                        width="35px"
+                        fontSize="0.8rem"
+                        color="white"
+                    />
+                </Box>
+
+                {/* Error or Success Message */}
+                {errorMsg && (
+                    <Typography color="error" sx={{ mb: 2 }}>
+                        {typeof errorMsg === 'string' ? errorMsg : JSON.stringify(errorMsg)}
+                    </Typography>
+                )}
+
+                {message && (
+                    <Typography color="success.main" sx={{ mb: 2 }}>
+                        {message}
+                    </Typography>
+                )}
+
+
+                {/* Email Input Field */}
+                <TextField
+                    required
+                    fullWidth
+                    variant="outlined"
+                    label={t('email')}
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    sx={{
+                        marginBottom: 2,
+                        '& .MuiInputLabel-root': {
+                            color: 'primary.main', // Change the label color
+                        },
+                        '& .MuiInputLabel-root.Mui-focused': {
+                            color: 'primary.main', // Change the label color when the field is focused
+                        },
+                        '& .MuiOutlinedInput-root': {
+                            borderRadius: '25px', // Adjust the border radius here
+                        },
+                    }}
+                />
+
+                {/* Submit Button */}
+                <Button
+                    fullWidth
+                    variant="contained"
+                    type="submit"
+                    sx={{
+                        height: '50px',
+                        borderRadius: '10px',
+                        fontSize: '1rem',
+                        fontWeight: 600,
+                        textTransform: 'none', // Disable all caps
+                    }}
+                >
+                    {t('send_reset_link')}
+                </Button>
+            </Frame>
+            <Footer
+                sx={{ backgroundColor: theme.palette.background.main }}
+                bottomSx={{ backgroundColor: "primary.main" }} />
         </Box>
     );
 };
