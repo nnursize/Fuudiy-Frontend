@@ -63,6 +63,7 @@
     "toView": "You need to login to view user's profile",
     "default": "You need to login to use this feature"
   },
+  "or": "or",
   "pleaseLoginTo": "Please Login",
   "wannaTryFoods": "Wanna Try Foods",
   "noWannaTryFoods": "No foods in your list yet.",

@@ -63,6 +63,7 @@
     "toView": "Kullanıcı profili görüntülemek için giriş yapmalısınız",
     "default": "Bu özelliği kullanabilmek için giriş yapmalısınız"
   },
+  "or": "ya da",
   "pleaseLoginTo": "Lütfen giriş yapın",
   "wannaTryFoods": "Denemek İstediklerim",
   "noWannaTryFoods": "Listede henüz hiç yemek yok.",
