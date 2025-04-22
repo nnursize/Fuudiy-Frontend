@@ -488,8 +488,9 @@ const DropdownItem = styled.div`
 
 const RequestsPanel = styled.div`
   position: absolute;
-  top: 50px; /* just below the heart icon */
-  right: 35px; /* shift slightly to the left */
+  top: 40px; /* Adjust as needed for spacing below the icon */
+  left: 50%;
+  transform: translateX(-50%);
   background-color: #fff;
   border: 1px solid #ddd;
   border-radius: 8px;
@@ -502,7 +503,8 @@ const RequestsPanel = styled.div`
     content: "";
     position: absolute;
     top: -8px;
-    right: 35px; /* adjust to align with heart */
+    left: 50%;
+    transform: translateX(-50%);
     border-width: 0 8px 8px 8px;
     border-style: solid;
     border-color: transparent transparent #ddd transparent;
@@ -512,12 +514,14 @@ const RequestsPanel = styled.div`
     content: "";
     position: absolute;
     top: -7px;
-    right: 35px;
+    left: 50%;
+    transform: translateX(-50%);
     border-width: 0 7px 7px 7px;
     border-style: solid;
     border-color: transparent transparent #fff transparent;
   }
 `;
+
 
 
 const RequestItem = styled.div`
