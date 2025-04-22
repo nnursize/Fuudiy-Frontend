@@ -171,7 +171,7 @@ const Login = () => {
 
         <Divider sx={{ my: 3 }}>
           <Typography variant="body2" sx={{ textTransform: 'uppercase', color: 'gray', fontWeight: 500 }}>
-            or
+          {t('or')}
           </Typography>
         </Divider>
 
