@@ -171,11 +171,11 @@ const Login = () => {
 
         <Box sx={{ textAlign: 'center' }}>
 
-          <Divider sx={{ my: 3 }}>
-            <Typography variant="body2" sx={{ textTransform: 'uppercase', color: 'gray', fontWeight: 500 }}>
-              or
-            </Typography>
-          </Divider>
+        <Divider sx={{ my: 3 }}>
+          <Typography variant="body2" sx={{ textTransform: 'uppercase', color: 'gray', fontWeight: 500 }}>
+          {t('or')}
+          </Typography>
+        </Divider>
 
 
           <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
