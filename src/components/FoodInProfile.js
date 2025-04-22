@@ -79,14 +79,17 @@ const FoodInProfile = ({
 
       <Box flex={1}>
         <Box display="flex" alignItems="center" justifyContent="space-between">
-          <Typography
-            variant="h6"
-            noWrap
-            sx={{ cursor: "pointer" }}
-            onClick={() => navigate(`/food/${food.foodId}`)}
-          >
-            {food.name}
-          </Typography>
+        <Typography
+          variant="h6"
+          sx={{
+            cursor: "pointer",
+            whiteSpace: "normal", // allows wrapping
+            wordBreak: "break-word" // handles long words without spaces
+          }}
+          onClick={() => navigate(`/food/${food.foodId}`)}
+        >
+          {food.name}
+        </Typography>
 
           {isWannaTry ? (
             <IconButton
