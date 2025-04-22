@@ -61,7 +61,8 @@
   "loginRequired": {
     "toComment": "Yorum eklemek için giriş yapmalısınız",
     "toView": "Kullanıcı profili görüntülemek için giriş yapmalısınız",
-    "default": "Bu özelliği kullanabilmek için giriş yapmalısınız"
+    "default": "Bu özelliği kullanabilmek için giriş yapmalısınız",
+    "accessProfile": "Bir profili görüntülemek için giriş yapmalısınız."
   },
   "or": "ya da",
   "pleaseLoginTo": "Lütfen giriş yapın",
@@ -106,16 +107,16 @@
       "preparing": "Yemek maceran hazırlanıyor...",
       "searching_cuisine": "{{country}} mutfağı aranıyor..."
     },
-      "selectCuisine": "Mutfak Seçiniz",
-      "dietaryPreferences": "Diet Tercihleri",
-      "diet": {
-        "filter": "Filtrele",
-        "none": "Kısıt yok",
-        "vegetarian": "Vejeteryan",
-        "vegan": "Vegan",
-        "seafood": "Deniz Ürünü Yok",
-        "halal": "Helal",
-        "warning": "Bu filtre %100 güvenilir değildir. Lütfen yine de malzemeleri kontrol ediniz :)"
+    "selectCuisine": "Mutfak Seçiniz",
+    "dietaryPreferences": "Diet Tercihleri",
+    "diet": {
+      "filter": "Filtrele",
+      "none": "Kısıt yok",
+      "vegetarian": "Vejeteryan",
+      "vegan": "Vegan",
+      "seafood": "Deniz Ürünü Yok",
+      "halal": "Helal",
+      "warning": "Bu filtre %100 güvenilir değildir. Lütfen yine de malzemeleri kontrol ediniz :)"
     },
     "score": "Skor",
     "rating": "Puan",
@@ -133,21 +134,21 @@
   "typeToSearch": "Aramak için yazın",
   "country": {
     "Spanish": "İspanya",
-    "Mexican":"Meksika",
-    "Vietnamese":"Vietnam",
-    "Thai":"Tayland",
-    "Turkish":"Türkiye",
-    "Korean":"Kore",
-    "Italian":"İtalya",
-    "Japanese":"Japon",
-    "French":"Fransa",
-    "Chinese":"Çin",
-    "American":"Amerika",
-    "Brazilian":"Brezilya",
-    "Indian":"Hindistan",
-    "Greek":"Yunanistan",
-    "German":"Almanya",
-    "British":"İngiliz" 
+    "Mexican": "Meksika",
+    "Vietnamese": "Vietnam",
+    "Thai": "Tayland",
+    "Turkish": "Türkiye",
+    "Korean": "Kore",
+    "Italian": "İtalya",
+    "Japanese": "Japon",
+    "French": "Fransa",
+    "Chinese": "Çin",
+    "American": "Amerika",
+    "Brazilian": "Brezilya",
+    "Indian": "Hindistan",
+    "Greek": "Yunanistan",
+    "German": "Almanya",
+    "British": "İngiliz"
   },
   "food_ingredients":{
     "absolutvodka":"Absolut Votka",
@@ -2869,5 +2870,7 @@
     "stay_logged_in": "Evet, buradayım",
     "logout": "Hayır, çıkış yap"
   },
-  "google_login": "Google ile Giriş Yap"
+  "google_login": "Google ile Giriş Yap",
+  "pleaseLoginTo": "Devam etmek için lütfen giriş yapın."
+ 
 }

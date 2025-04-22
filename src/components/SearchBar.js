@@ -76,9 +76,6 @@ export default function SearchBar({ isLoggedIn }) {
   const handleSelect = (_, option) => {
     if (!option) return;
     if (option.type === 'user' && !isLoggedIn) {
-      // Store the selected option for after login
-      setPendingOption(option);
-      
       // Close the autocomplete dropdown
       setOpen(false);
       
