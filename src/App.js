@@ -1,8 +1,10 @@
+// App.js
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { GoogleOAuthProvider } from '@react-oauth/google';
-import { ThemeProvider } from 'styled-components'; // 🟢 Add this
-import theme from './styles/theme'; // 🟢 Import your theme file
+import { ThemeProvider } from 'styled-components';
+import theme from './styles/theme';
+import ScrollToTop from './utils/ScrollToTop'; // 🆕 Import ScrollToTop
 
 // Pages
 import Login from './pages/Login';
@@ -20,8 +22,9 @@ const App = () => {
 
   return (
     <GoogleOAuthProvider clientId={clientId}>
-      <ThemeProvider theme={theme}> {/* 🟢 Wrap with ThemeProvider */}
+      <ThemeProvider theme={theme}>
         <Router>
+          <ScrollToTop /> {/* 🆕 Add this line to reset scroll on route change */}
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/explore" element={<Explore />} />
