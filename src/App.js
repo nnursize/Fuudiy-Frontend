@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { ThemeProvider } from 'styled-components';
 import theme from './styles/theme';
-import ScrollToTop from './utils/ScrollToTop'; // 🆕 Import ScrollToTop
+import ScrollToTop from './components/ScrollToTop'; // 🆕 Import ScrollToTop
 
 // Pages
 import Login from './pages/Login';
