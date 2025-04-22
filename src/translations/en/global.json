@@ -111,7 +111,7 @@
         "none": "No restrictions",
         "vegetarian": "Vegetarian",
         "vegan": "Vegan",
-        "seafood": "Seafood Only",
+        "seafood": "No Seafood",
         "halal": "Halal",
         "warning": "This filtering is not 100% reliable. Please double-check the ingredients anyhow :)"
     },
