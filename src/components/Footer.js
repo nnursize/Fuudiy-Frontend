@@ -9,24 +9,24 @@ import {
   DialogContent,
 } from "@mui/material";
 import { useTranslation } from "react-i18next";
-
+import { Link } from "react-router-dom";
 const Footer = ({
   // Style overrides
   sx = {},
   mainContentSx = {},
   bottomSx = {},
-  
+
   // Content overrides
   logo = null,
   tagline = null,
   statistics = null,
   links = null,
   copyright = null,
-  
+
   // Dialog content overrides
   contactContent = null,
   aboutContent = null,
-  
+
   // Dialog handlers
   onContactOpen,
   onContactClose,
@@ -67,7 +67,14 @@ const Footer = ({
         alt="Fuudiy Logo"
         style={{ width: "50px", height: "50px" }}
       />
-      <Typography variant="h4" component="div" sx={{ fontWeight: "bold" }}>
+      <Typography variant="h4" component={Link} // Change component to Link
+        to="/" // Route to home page
+        sx={{
+          fontWeight:"bold",
+          textDecoration: "none",
+          color: "inherit",
+          cursor: "pointer", // Show pointer cursor on hover
+        }}>
         Fuudiy
       </Typography>
     </Box>
@@ -140,10 +147,10 @@ const Footer = ({
   );
 
   return (
-    <Box 
-      sx={{ 
-        backgroundColor: "#f9f9f9", 
-        color: "#333", 
+    <Box
+      sx={{
+        backgroundColor: "#f9f9f9",
+        color: "#333",
         padding: "0",
         width: "100%",
         bottom: 0,
@@ -153,10 +160,10 @@ const Footer = ({
       }}
     >
       {/* Main Footer Content */}
-      <Box sx={{ 
-        maxWidth: "1200px", 
-        margin: "0 auto", 
-        textAlign: "center", 
+      <Box sx={{
+        maxWidth: "1200px",
+        margin: "0 auto",
+        textAlign: "center",
         padding: "20px",
         ...mainContentSx, // Merge with passed mainContentSx
       }}>
@@ -165,12 +172,12 @@ const Footer = ({
         <Divider sx={{ margin: "20px 0" }} />
         {links || defaultLinks}
       </Box>
-      
+
       {/* Footer Bottom */}
-      <Box sx={{ 
-        backgroundColor: "#333", 
-        color: "#fff", 
-        padding: "10px", 
+      <Box sx={{
+        backgroundColor: "#333",
+        color: "#fff",
+        padding: "10px",
         textAlign: "center",
         ...bottomSx, // Merge with passed bottomSx
       }}>
@@ -180,8 +187,8 @@ const Footer = ({
       {/* Dialogs */}
       <Dialog open={openContact} onClose={handleContactClose}>
         <Box sx={{ textAlign: "right", border: "none" }}>
-          <Button onClick={handleContactClose} sx={{ /* ... */ }}> 
-            X 
+          <Button onClick={handleContactClose} sx={{ /* ... */ }}>
+            X
           </Button>
         </Box>
         <DialogContent>
@@ -192,8 +199,8 @@ const Footer = ({
       <Dialog open={openAbout} onClose={handleAboutClose}>
         <DialogContent>
           <Box sx={{ textAlign: "right", border: "none" }}>
-            <Button onClick={handleAboutClose} sx={{ /* ... */ }}> 
-              X 
+            <Button onClick={handleAboutClose} sx={{ /* ... */ }}>
+              X
             </Button>
           </Box>
           {aboutContent || defaultAboutContent}
