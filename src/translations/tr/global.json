@@ -64,6 +64,7 @@
     "default": "Bu özelliği kullanabilmek için giriş yapmalısınız",
     "accessProfile": "Bir profili görüntülemek için giriş yapmalısınız."
   },
+  "or": "ya da",
   "pleaseLoginTo": "Lütfen giriş yapın",
   "wannaTryFoods": "Denemek İstediklerim",
   "noWannaTryFoods": "Listede henüz hiç yemek yok.",
@@ -1808,7 +1809,7 @@
     "olakesbutter":"o Göller Tereyağı",
     "oatmeal":"yulaf ezmesi",
     "obrienpotatoes":"Obrien patates",
-    "of mint":"nane",
+    "ofmint":"nane",
     "okra":"bamya",
     "oldelpasotomatoes&chilies":"Eski El Paso Domates ve Biber",
     "oleo":"margarin",
