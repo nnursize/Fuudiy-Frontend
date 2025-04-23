@@ -116,6 +116,8 @@
       "vegan": "Vegan",
       "seafood": "Deniz Ürünü Yok",
       "halal": "Helal",
+      "diary": "Süt Ürünleri Yok",
+      "nuts": "Yemiş Yok",
       "warning": "Bu filtre %100 güvenilir değildir. Lütfen yine de malzemeleri kontrol ediniz :)"
     },
     "score": "Skor",
