@@ -32,11 +32,9 @@
     "options": [
       { "value": "peanuts", "tr": "Yer fıstığı", "en": "Peanuts" },
       { "value": "nuts", "tr": "Çerez (ör. badem, ceviz)", "en": "Nuts (e.g., almonds, walnuts)" },
-      { "value": "shellfish", "tr": "Kabuklu deniz ürünleri", "en": "Shellfish" },
-      { "value": "fish", "tr": "Balık ve balık ürünleri", "en": "Fish and fish products" },
+      { "value": "seafoods", "tr": "Deniz ürünleri", "en": "Seafoods" },
       { "value": "dairy", "tr": "Süt ürünleri", "en": "Dairy products" },
       { "value": "eggs", "tr": "Yumurta", "en": "Eggs" },
-      { "value": "gluten", "tr": "Glüten", "en": "Gluten" },
       { "value": "soy", "tr": "Soya", "en": "Soy" },
       { "value": "wheat", "tr": "Buğday", "en": "Wheat" },
       { "value": "sesame", "tr": "Susam", "en": "Sesame" }

@@ -57,19 +57,21 @@ const Explore = () => {
     "Indian", "Greek", "German", "British",
   ];
 
-  const loadingMessageKeys = [
-    "explorePage.loading.finding",
-    "explorePage.loading.searching",
-    "explorePage.loading.cooking",
-    "explorePage.loading.gathering",
-    "explorePage.loading.exploring",
-    "explorePage.loading.preparing",
-  ];
 
   const [loadingMessage, setLoadingMessage] = useState("");
 
   // Cycle through loading messages
   useEffect(() => {
+    
+    const loadingMessageKeys = [
+      "explorePage.loading.finding",
+      "explorePage.loading.searching",
+      "explorePage.loading.cooking",
+      "explorePage.loading.gathering",
+      "explorePage.loading.exploring",
+      "explorePage.loading.preparing",
+    ];
+
     if (!loading) return;
     const pick = () =>
       t(
@@ -325,7 +327,7 @@ const Explore = () => {
           ) : (
             <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
               {ingredients.slice(0, 5).map((ing, i) => (
-                <Chip key={i} label={ing} size="small" />
+                  <Chip key={i} label={t(`food_ingredients.${ing.toLowerCase().replace(/\s+/g, '')}`).toLowerCase()} size="small" />
               ))}
               {ingredients.length > 5 && (
                 <Chip
