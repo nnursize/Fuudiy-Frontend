@@ -367,14 +367,6 @@ const UserProfile = () => {
       console.error("Failed to send connection request: ", error);
     }
   };
-
-  const handleToggleConnections = async () => {
-    if (showConnectionList) {
-      setShowConnectionList(false);
-    } else {
-      await fetchConnectionList();
-    }
-  };
   
   const handleRemoveConnection = async () => {
     try {
