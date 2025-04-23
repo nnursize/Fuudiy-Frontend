@@ -9,12 +9,11 @@ import {
   Link as MuiLink,
   Alert,
   Divider,
-  Stack, useTheme
+  useTheme
 } from '@mui/material';
 import {
   FaUser as UserIcon,
-  FaLock as LockIcon,
-  FaGoogle
+  FaLock as LockIcon
 } from "react-icons/fa";
 import { MdEmail as EmailIcon } from "react-icons/md";
 import { useTranslation } from 'react-i18next';

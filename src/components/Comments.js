@@ -17,8 +17,6 @@ import {
   CardContent,
   Tooltip,
   Rating,
-  Dialog,
-  useTheme,
 } from "@mui/material";
 import { useParams, useNavigate } from "react-router-dom";
 import StarIcon from "@mui/icons-material/Star";

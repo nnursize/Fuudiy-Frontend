@@ -12,7 +12,6 @@ import { Avatar } from "@mui/material";
 import LogoutPopup from "../components/LogoutPopup";
 import RefreshPopup from "../components/RefreshPopup";
 import axiosInstance from "../axiosInstance";
-import Tooltip from "@mui/material/Tooltip";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import Badge from '@mui/material/Badge';
 import { useTheme } from '@mui/material/styles';

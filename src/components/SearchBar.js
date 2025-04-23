@@ -33,7 +33,7 @@ export default function SearchBar({ isLoggedIn }) {
   const [open, setOpen] = useState(false);
 
   // Add state to remember selected option when login is required
-  const [pendingOption, setPendingOption] = useState(null);
+  const [setPendingOption] = useState(null);
   const [loginPopupOpen, setLoginPopupOpen] = useState(false);
 
   // fetch suggestions
