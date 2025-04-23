@@ -2855,7 +2855,10 @@
     "zinf":"zinf",
     "zitipasta":"Ziti makarna",
     "zitirigati":"Ziti Rigati",
-    "zucchini":"kabak"
+    "zucchini":"kabak",
+  "walnut": "Ceviz",
+  "cashew": "Kaju",
+  "hazelnut": "Kestane"
   },
   "survey_popup": {
     "title": "📝 Anketinizi Tamamlayın",
@@ -2871,12 +2874,6 @@
   },
   "google_login": "Google ile Giriş Yap",
   "pleaseLoginTo": "Devam etmek için lütfen giriş yapın.",
-  "noRatedFoods": "Henüz oy verdiğiniz bir yemek yok.",
-  "almond": "Badem",
-  "walnut": "Ceviz",
-  "cashew": "Kaju",
-  "coconut": "Hindistan cevizi",
-  "hazelnut": "Kestane",
-  "pistachio": "Antep fıstığı"
+  "noRatedFoods": "Henüz oy verdiğiniz bir yemek yok."
 
 }

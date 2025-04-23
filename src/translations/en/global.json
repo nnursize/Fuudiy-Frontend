@@ -2852,7 +2852,10 @@
     "zinf":"zinf",
     "zitipasta":"ziti pasta",
     "zitirigati":"ziti rigati",
-    "zucchini":"zucchini"
+    "zucchini":"zucchini",
+  "walnut": "Walnuts",
+  "cashew": "Kashew",
+  "hazelnut": "Hazelnuts"
   },
   "survey_popup": {
     "title": "📝 Complete Your Survey",
@@ -2868,11 +2871,5 @@
   },
   "google_login": "Sign in with Google",
   "pleaseLoginTo": "Please log in to continue.",
-  "noRatedFoods": "There are no rated foods yet.",
-  "almond": "Almonds",
-  "walnut": "Walnuts",
-  "cashew": "Kashew",
-  "coconut": "Coconuts",
-  "hazelnut": "Hazelnuts",
-  "pistachio": "Pistachio"
+  "noRatedFoods": "There are no rated foods yet."
 }

@@ -5,6 +5,30 @@
   { "en": "soy", "tr": "Soya"},
   { "en": "wheat", "tr": "Buğday"},
   {
+    "en": "almonds",
+    "tr": "badem"
+  },
+  {
+    "en": "walnuts",
+    "tr": "ceviz"
+  },
+  {
+    "en": "cashews",
+    "tr": "kaju"
+  },
+  {
+    "en": "coconuts",
+    "tr": "hindistan cevizi"
+  },
+  {
+    "en": "hazelnuts",
+    "tr": "Kestane"
+  },
+  {
+    "en": "pistachio",
+    "tr": "Antep fıstığı"
+  },
+  {
     "en": "absolut vodka",
     "tr": "Absolut Votka"
   },
