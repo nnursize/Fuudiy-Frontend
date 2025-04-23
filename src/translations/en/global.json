@@ -104,16 +104,16 @@
       "preparing": "Preparing your food adventure...",
       "searching_cuisine": "Searching {{country}} cuisine..."
     },
-    "selectCuisine": "Select Cuisine",
-    "dietaryPreferences": "Dietary Preferences",
-    "diet": {
-      "filter": "Dietary Restrictions",
-      "none": "No restrictions",
-      "vegetarian": "Vegetarian",
-      "vegan": "Vegan",
-      "seafood": "Seafood Only",
-      "halal": "Halal",
-      "warning": "This filtering is not 100% reliable. Please double-check the ingredients anyhow :)"
+      "selectCuisine": "Select Cuisine",
+      "dietaryPreferences": "Dietary Preferences",
+      "diet": {
+        "filter": "Dietary Restrictions",
+        "none": "No restrictions",
+        "vegetarian": "Vegetarian",
+        "vegan": "Vegan",
+        "seafood": "No Seafood",
+        "halal": "Halal",
+        "warning": "This filtering is not 100% reliable. Please double-check the ingredients anyhow :)"
     },
     "score": "Score",
     "rating": "Rating",
@@ -2868,6 +2868,7 @@
   },
   "google_login": "Sign in with Google",
   "pleaseLoginTo": "Please log in to continue.",
+  "noRatedFoods": "There are no rated foods yet.",
   "almond": "Almonds",
   "walnut": "Walnuts",
   "cashew": "Kashew",
