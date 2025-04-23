@@ -12,7 +12,7 @@ import Footer from '../components/Footer';
 import { useTranslation } from 'react-i18next';
 import LanguageSwitcher from '../components/LanguageSwitcher';
 
-const API_BASE_URL = "http://localhost:8000";
+const API_BASE_URL = process.env.REACT_APP_API_URL;
 
 const ForgotPassword = () => {
     const { t, i18n } = useTranslation("global");

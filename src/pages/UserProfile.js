@@ -33,7 +33,7 @@ const MainContent = styled.div`
   padding-top: 35px;
 `;
 
-const API_BASE_URL = 'http://localhost:8000'; 
+const API_BASE_URL = process.env.REACT_APP_API_URL;
 
 const UserProfile = () => {
   const { USERNAME } = useParams();

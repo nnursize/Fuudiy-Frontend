@@ -36,7 +36,7 @@ const FoodInProfile = ({
     const fetchSignedImageUrl = async () => {
       try {
         if (food.url_id) {
-          const response = await axios.get(`http://localhost:8000/food/image/${food.url_id}`);
+          const response = await axios.get(`${process.env.REACT_APP_API_URL}/food/image/${food.url_id}`);
           setImageUrl(response.data.image_url);
         }
       } catch (error) {
@@ -56,7 +56,8 @@ const FoodInProfile = ({
     if (!food.comment || translatedComment) return;
     try {
       setIsTranslating(true);
-      const response = await axios.post("http://localhost:8000/translation/", {
+      const response = await axios.post(
+        `${process.env.REACT_APP_API_URL}/translation/`, {
         text: food.comment,
         target_lang: i18n.language,
       });

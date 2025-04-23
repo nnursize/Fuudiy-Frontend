@@ -29,7 +29,7 @@ import PropTypes from "prop-types";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 
-const API_BASE_URL = "http://localhost:8000";
+const API_BASE_URL = process.env.REACT_APP_API_URL;
 
 const Explore = () => {
   const { t } = useTranslation("global");

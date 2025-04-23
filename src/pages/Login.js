@@ -21,7 +21,7 @@ import LanguageSwitcher from '../components/LanguageSwitcher';
 import { GoogleLogin } from '@react-oauth/google';
 import { jwtDecode } from 'jwt-decode';
 import Frame from '../components/Frame';
-const API_BASE_URL = "http://localhost:8000";
+const API_BASE_URL = process.env.REACT_APP_API_URL;
 const Login = () => {
   const { t, i18n } = useTranslation("global");
   const navigate = useNavigate();
