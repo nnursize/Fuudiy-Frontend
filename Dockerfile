@@ -1,17 +1,11 @@
-# Use Node.js for development
-FROM node:20-alpine
-
+FROM node:20-alpine AS build
 WORKDIR /app
-
-# Install dependencies
-COPY package*.json ./
-RUN npm install
-
-# Copy the rest of the application files
 COPY . .
+RUN npm install && npm run build
 
-# Expose the development port
+FROM node:20-alpine
+RUN npm install -g serve
+WORKDIR /app
+COPY --from=build /app/build .
 EXPOSE 3000
-
-# Start the development server
-CMD ["npm", "start"]
+CMD ["serve", "-s", ".", "-l", "3000"]
