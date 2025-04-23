@@ -2860,7 +2860,10 @@
     "zinf":"zinf",
     "zitipasta":"ziti pasta",
     "zitirigati":"ziti rigati",
-    "zucchini":"zucchini"
+    "zucchini":"zucchini",
+  "walnut": "Walnuts",
+  "cashew": "Kashew",
+  "hazelnut": "Hazelnuts"
   },
   "survey_popup": {
     "title": "📝 Complete Your Survey",
