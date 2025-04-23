@@ -49,6 +49,8 @@ const Explore = () => {
     { value: 'vegan', label: 'explorePage.diet.vegan' },
     { value: 'seafood', label: 'explorePage.diet.seafood' },
     { value: 'halal', label: 'explorePage.diet.halal' },
+    { value: 'diary', label: 'explorePage.diet.diary' },
+    { value: 'nuts', label: 'explorePage.diet.nuts' },
   ];
 
   const availableCountries = [
@@ -514,9 +516,9 @@ const Explore = () => {
                   </Typography>
                   <Typography variant="body2" color="text.secondary" mt={1}>
                     {t("explorePage.loading.searching_cuisine", {
-                      country: selectedCountry || t("explorePage.global"),
+                      country: t(`country.${selectedCountry}`) || t("explorePage.global"),
                     })}
-                  </Typography>
+                  </Typography>
                 </Box>
                 <LoadingPlaceholders />
               </Box>

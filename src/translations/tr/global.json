@@ -116,6 +116,8 @@
       "vegan": "Vegan",
       "seafood": "Deniz Ürünü Yok",
       "halal": "Helal",
+      "diary": "Süt Ürünleri Yok",
+      "nuts": "Yemiş Yok",
       "warning": "Bu filtre %100 güvenilir değildir. Lütfen yine de malzemeleri kontrol ediniz :)"
     },
     "score": "Skor",
@@ -2861,7 +2863,10 @@
     "zinf":"zinf",
     "zitipasta":"Ziti makarna",
     "zitirigati":"Ziti Rigati",
-    "zucchini":"kabak"
+    "zucchini":"kabak",
+  "walnut": "Ceviz",
+  "cashew": "Kaju",
+  "hazelnut": "Kestane"
   },
   "survey_popup": {
     "title": "📝 Anketinizi Tamamlayın",
@@ -2878,4 +2883,5 @@
   "google_login": "Google ile Giriş Yap",
   "pleaseLoginTo": "Devam etmek için lütfen giriş yapın.",
   "noRatedFoods": "Henüz oy verdiğiniz bir yemek yok."
+
 }

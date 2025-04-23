@@ -114,6 +114,8 @@
         "vegan": "Vegan",
         "seafood": "No Seafood",
         "halal": "Halal",
+        "diary": "No Diary",
+        "nuts": "No Nuts",
         "warning": "This filtering is not 100% reliable. Please double-check the ingredients anyhow :)"
     },
     "score": "Score",
@@ -2858,7 +2860,10 @@
     "zinf":"zinf",
     "zitipasta":"ziti pasta",
     "zitirigati":"ziti rigati",
-    "zucchini":"zucchini"
+    "zucchini":"zucchini",
+  "walnut": "Walnuts",
+  "cashew": "Kashew",
+  "hazelnut": "Hazelnuts"
   },
   "survey_popup": {
     "title": "📝 Complete Your Survey",
