@@ -31,7 +31,12 @@
     },
     "options": [
       { "value": "peanuts", "tr": "Yer fıstığı", "en": "Peanuts" },
-      { "value": "nuts", "tr": "Çerez (ör. badem, ceviz)", "en": "Nuts (e.g., almonds, walnuts)" },
+      { "value": "almond", "tr": "Badem", "en": "Almonds" },
+      { "value": "walnut", "tr": "Ceviz", "en": "Walnuts" },
+      { "value": "cashew", "tr": "Kaju", "en": "Cashew" },
+      { "value": "coconut", "tr": "Hindistan cevizi", "en": "Coconuts" },
+      { "value": "hazelnut", "tr": "Kestane", "en": "Hazelnuts" },
+      { "value": "pistachio", "tr": "Antep fıstığı", "en": "Pistachio" },
       { "value": "shellfish", "tr": "Kabuklu deniz ürünleri", "en": "Shellfish" },
       { "value": "fish", "tr": "Balık ve balık ürünleri", "en": "Fish and fish products" },
       { "value": "dairy", "tr": "Süt ürünleri", "en": "Dairy products" },

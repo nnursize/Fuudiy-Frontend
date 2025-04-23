@@ -65,7 +65,6 @@
     "accessProfile": "You need to log in to view a profile."
   },
   "or": "or",
-  "pleaseLoginTo": "Please Login",
   "wannaTryFoods": "Wanna Try Foods",
   "noWannaTryFoods": "No foods in your list yet.",
   "alreadyCommentedMessage": "You’ve already commented on this food.",
@@ -2868,5 +2867,11 @@
     "logout": "No, Log me out"
   },
   "google_login": "Sign in with Google",
-  "pleaseLoginTo": "Please log in to continue."
+  "pleaseLoginTo": "Please log in to continue.",
+  "almond": "Almonds",
+  "walnut": "Walnuts",
+  "cashew": "Kashew",
+  "coconut": "Coconuts",
+  "hazelnut": "Hazelnuts",
+  "pistachio": "Pistachio"
 }

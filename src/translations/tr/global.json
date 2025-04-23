@@ -65,7 +65,6 @@
     "accessProfile": "Bir profili görüntülemek için giriş yapmalısınız."
   },
   "or": "ya da",
-  "pleaseLoginTo": "Lütfen giriş yapın",
   "wannaTryFoods": "Denemek İstediklerim",
   "noWannaTryFoods": "Listede henüz hiç yemek yok.",
   "alreadyCommentedMessage": "Bu yemeğe daha önce zaten yorum yazdınız.",
@@ -2871,6 +2870,12 @@
     "logout": "Hayır, çıkış yap"
   },
   "google_login": "Google ile Giriş Yap",
-  "pleaseLoginTo": "Devam etmek için lütfen giriş yapın."
+  "pleaseLoginTo": "Devam etmek için lütfen giriş yapın.",
+  "almond": "Badem",
+  "walnut": "Ceviz",
+  "cashew": "Kaju",
+  "coconut": "Hindistan cevizi",
+  "hazelnut": "Kestane",
+  "pistachio": "Antep fıstığı"
  
 }
