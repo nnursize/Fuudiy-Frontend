@@ -39,7 +39,7 @@
       { "value": "pistachio", "tr": "Antep fıstığı", "en": "Pistachio" },
       { "value": "shellfish", "tr": "Kabuklu deniz ürünleri", "en": "Shellfish" },
       { "value": "fish", "tr": "Balık ve balık ürünleri", "en": "Fish and fish products" },
-      { "value": "dairy", "tr": "Süt ürünleri", "en": "Dairy products" },
+      { "value": "milk", "tr": "Süt", "en": "Milk" },
       { "value": "eggs", "tr": "Yumurta", "en": "Eggs" },
       { "value": "gluten", "tr": "Glüten", "en": "Gluten" },
       { "value": "soy", "tr": "Soya", "en": "Soy" },
