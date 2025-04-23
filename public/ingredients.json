@@ -1,4 +1,9 @@
 [
+  { "en": "nuts (e.g., almonds, walnuts)", "tr": "çerez (ör. badem, ceviz)"},
+  { "en": "dairy", "tr": "süt ürünleri"},
+  { "en": "eggs", "tr": "Yumurta"},
+  { "en": "soy", "tr": "Soya"},
+  { "en": "wheat", "tr": "Buğday"},
   {
     "en": "absolut vodka",
     "tr": "Absolut Votka"
