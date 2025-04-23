@@ -161,6 +161,49 @@ const Explore = () => {
       .finally(() => setTimeout(() => setLoading(false), 800));
   }, [selectedCountry, selectedDiet, user, token, t]);
 
+  // handle “similar” searches
+  const handleSimilarSearch = async (foodId) => {
+    if (!selectedCountry || !foodId || !user?._id) {
+      setRecommendations(prev => ({...prev, similar: []}));
+      return;
+    }
+    setLoading(true);
+    try {
+      const res = await axiosInstance.get(
+        `/explore/similar/${foodId}`,  // Remove API_BASE_URL prefix
+        {
+          params: { country: selectedCountry, diet: selectedDiet },
+          headers: {
+            "X-User-ID": user._id,
+          },
+        }
+      );
+      setRecommendations((prev) => ({
+        ...prev,
+        similar: transformFoodData(res.data.results),
+      }));
+      setError(null);
+    } catch (err) {
+      console.error(err);
+      const code = err.response?.status;
+      const msgs = {
+        401: t("errors.auth"),
+        403: t("errors.auth"),
+        500: t("errors.server"),
+        default: t("errors.generic"),
+      };
+      setError(msgs[code] || msgs.default);
+    } finally {
+      setTimeout(() => setLoading(false), 800);
+    }
+  };
+
+  useEffect(() => {
+    if (!selectedCountry) {
+      setSelectedDiet(null);
+    }
+  }, [selectedCountry]);
+
   const FoodItemCard = ({ food, type, onSimilarSearch }) => {
     const [imgUrl, setImgUrl] = useState(food.imageUrl || `${process.env.PUBLIC_URL}/default-food.png`);
     const [imgLoading, setImgLoading] = useState(true);
@@ -561,7 +604,7 @@ const Explore = () => {
                         <FoodItemCard
                           food={f}
                           type="similar"
-                          onSimilarSearch={() => {}}
+                          onSimilarSearch={handleSimilarSearch}
                         />
                       </Grid2>
                     ))}

@@ -61,7 +61,8 @@
   "loginRequired": {
     "toComment": "You need to login to submit comment",
     "toView": "You need to login to view user's profile",
-    "default": "You need to login to use this feature"
+    "default": "You need to login to use this feature",
+    "accessProfile": "You need to log in to view a profile."
   },
   "or": "or",
   "pleaseLoginTo": "Please Login",
@@ -111,7 +112,7 @@
         "none": "No restrictions",
         "vegetarian": "Vegetarian",
         "vegan": "Vegan",
-        "seafood": "Seafood Only",
+        "seafood": "No Seafood",
         "halal": "Halal",
         "warning": "This filtering is not 100% reliable. Please double-check the ingredients anyhow :)"
     },
@@ -133,21 +134,21 @@
   "typeToSearch": "Type to search",
   "country": {
     "Spanish": "Spanish",
-    "Mexican":"Mexican",
-    "Vietnamese":"Vietnamese",
-    "Thai":"Thai",
-    "Turkish":"Turkish",
-    "Korean":"Korean",
-    "Italian":"Italian",
-    "Japanese":"Japanese",
-    "French":"French",
-    "Chinese":"Chinese",
-    "American":"American",
-    "Brazilian":"Brazilian",
-    "Indian":"Indian",
-    "Greek":"Greek",
-    "German":"German",
-    "British":"British" 
+    "Mexican": "Mexican",
+    "Vietnamese": "Vietnamese",
+    "Thai": "Thai",
+    "Turkish": "Turkish",
+    "Korean": "Korean",
+    "Italian": "Italian",
+    "Japanese": "Japanese",
+    "French": "French",
+    "Chinese": "Chinese",
+    "American": "American",
+    "Brazilian": "Brazilian",
+    "Indian": "Indian",
+    "Greek": "Greek",
+    "German": "German",
+    "British": "British"
   },
   "food_ingredients":{
     "absolutvodka":"absolut vodka",
@@ -2866,5 +2867,6 @@
     "stay_logged_in": "Yes, I'm here",
     "logout": "No, Log me out"
   },
-   "google_login": "Sign in with Google"
+  "google_login": "Sign in with Google",
+  "pleaseLoginTo": "Please log in to continue."
 }
