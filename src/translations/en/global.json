@@ -2868,5 +2868,6 @@
     "logout": "No, Log me out"
   },
   "google_login": "Sign in with Google",
-  "pleaseLoginTo": "Please log in to continue."
+  "pleaseLoginTo": "Please log in to continue.",
+  "noRatedFoods": "There are no rated foods yet."
 }

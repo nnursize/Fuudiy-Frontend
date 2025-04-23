@@ -2871,6 +2871,6 @@
     "logout": "Hayır, çıkış yap"
   },
   "google_login": "Google ile Giriş Yap",
-  "pleaseLoginTo": "Devam etmek için lütfen giriş yapın."
- 
+  "pleaseLoginTo": "Devam etmek için lütfen giriş yapın.",
+  "noRatedFoods": "Henüz oy verdiğiniz bir yemek yok."
 }
