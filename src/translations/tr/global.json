@@ -26,6 +26,7 @@
   "logout": "Çıkış Yap",
   "title": "Eşsiz Lezzetleri Keşfedin",
   "subtitle": "Dünya mutfağını ve yemeklerini keşfedin",
+  "addIngredient": "İçerik ekleyin",
   "searchPlaceholder": "Yemekleri veya kullanıcıları arayın...",
   "topFoods": "Popüler Yemekler",
   "topFoodsCountry": "Ülkelere Göre Popüler Yemekler",
@@ -65,7 +66,6 @@
     "accessProfile": "Bir profili görüntülemek için giriş yapmalısınız."
   },
   "or": "ya da",
-  "pleaseLoginTo": "Lütfen giriş yapın",
   "wannaTryFoods": "Denemek İstediklerim",
   "noWannaTryFoods": "Listede henüz hiç yemek yok.",
   "alreadyCommentedMessage": "Bu yemeğe daha önce zaten yorum yazdınız.",
